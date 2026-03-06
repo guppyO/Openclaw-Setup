@@ -1,10 +1,11 @@
 import { emitLog } from "../../services/common/logger.js";
 import { resolveRepoPath, writeJsonFile, writeTextFile } from "../../services/common/fs.js";
-import { refreshOfficialSources, writeRuntimeDocs } from "../../services/update-steward/index.js";
+import { deriveRuntimeVerification, refreshOfficialSources, writeRuntimeDocs } from "../../services/update-steward/index.js";
 
 async function main(): Promise<void> {
   const result = await refreshOfficialSources();
-  await writeRuntimeDocs();
+  const anchors = deriveRuntimeVerification(result.snapshots);
+  await writeRuntimeDocs({ anchors, snapshots: result.snapshots });
   const deltaPath = resolveRepoPath(
     "docs",
     "changelog-deltas",
@@ -19,13 +20,14 @@ async function main(): Promise<void> {
     "## Changed sources",
     "",
     ...result.changedSources.map(
-      (source) => `- ${source.id}: status ${source.httpStatus}, title "${source.title}", ok=${source.ok}`,
+      (source) => `- ${source.id}: status ${source.httpStatus}, method ${source.method}, title "${source.title}", ok=${source.ok}`,
     ),
   ];
 
   await writeTextFile(deltaPath, lines.join("\n"));
   await writeJsonFile(resolveRepoPath("data", "exports", "source-refresh-last.json"), {
     changedSources: result.changedSources.map((source) => source.id),
+    methods: Object.fromEntries(result.snapshots.map((source) => [source.id, source.method])),
     checkedAt: new Date().toISOString(),
   });
   await emitLog({

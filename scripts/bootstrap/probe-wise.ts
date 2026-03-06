@@ -16,7 +16,9 @@ async function main(): Promise<void> {
     success: true,
     evidencePaths: ["data/exports/treasury.json", "docs/treasury/capabilities.md"],
   });
-  console.log(`Wise capability probe complete. Mode: ${snapshot.mode}; balance read: ${snapshot.capabilities.balanceRead}`);
+  console.log(
+    `Wise capability probe complete. Mode: ${snapshot.mode}; balance read: ${snapshot.capabilities.balanceRead}; ledger: ${snapshot.ledgerStatus}`,
+  );
 }
 
 main().catch((error) => {

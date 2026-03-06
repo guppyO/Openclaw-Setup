@@ -1,9 +1,9 @@
-import { buildSkillIntakeMarkdown, seedSkillCandidates } from "../../services/skill-intake/index.js";
+import { buildSkillIntakeMarkdown, discoverSkillCandidates } from "../../services/skill-intake/index.js";
 import { emitLog } from "../../services/common/logger.js";
 import { resolveRepoPath, writeJsonFile, writeTextFile } from "../../services/common/fs.js";
 
 async function main(): Promise<void> {
-  const candidates = seedSkillCandidates();
+  const candidates = await discoverSkillCandidates();
   await writeJsonFile(resolveRepoPath("data", "exports", "skill-candidates.json"), candidates);
   await writeTextFile(resolveRepoPath("docs", "skills", "skill-intake.md"), buildSkillIntakeMarkdown(candidates));
   await writeTextFile(resolveRepoPath("skills", "reports", "seed-skill-report.md"), buildSkillIntakeMarkdown(candidates));

@@ -95,14 +95,38 @@ export function defaultBrowserProfiles(): BrowserProfileClass[] {
 export async function browserCapabilities(): Promise<BrowserBrokerState["capabilities"]> {
   await loadLocalRuntimeEnv();
 
-  const steelBaseUrl = process.env.STEEL_BASE_URL ?? "https://api.steel.dev";
+  const configuredBaseUrl = process.env.STEEL_BASE_URL;
+  const inferredSteelMode =
+    process.env.STEEL_MODE === "cloud" || process.env.STEEL_MODE === "self-hosted"
+      ? process.env.STEEL_MODE
+      : configuredBaseUrl
+        ? configuredBaseUrl.includes("api.steel.dev")
+          ? "cloud"
+          : "self-hosted"
+        : process.env.STEEL_API_KEY
+          ? "cloud"
+          : "none";
+  const steelBaseUrl = configuredBaseUrl ?? (inferredSteelMode === "cloud" ? "https://api.steel.dev" : "");
   const steelApiConfigured = Boolean(process.env.STEEL_API_KEY);
+  const steelAuthConfigured =
+    inferredSteelMode === "cloud"
+      ? steelApiConfigured
+      : inferredSteelMode === "self-hosted"
+        ? Boolean(process.env.STEEL_SELF_HOSTED_TOKEN || process.env.STEEL_API_KEY)
+        : false;
+  const gatewayTokenConfigured = Boolean(process.env.OPENCLAW_GATEWAY_TOKEN);
+  const attachedChromePaired = process.env.OPENCLAW_CHROME_RELAY_STATUS === "paired";
 
   return {
     managedBrowser: true,
-    attachedChrome: process.env.OPENCLAW_CHROME_RELAY_STATUS === "paired",
-    steel: Boolean(process.env.STEEL_BASE_URL || process.env.STEEL_API_KEY),
+    attachedChrome: attachedChromePaired && gatewayTokenConfigured,
+    attachedChromePaired,
+    gatewayTokenConfigured,
+    steel: inferredSteelMode !== "none",
+    steelMode: inferredSteelMode,
+    steelReady: inferredSteelMode !== "none" && steelAuthConfigured && Boolean(steelBaseUrl),
     steelBaseUrl,
+    steelAuthConfigured,
     steelApiConfigured,
   };
 }
@@ -137,11 +161,47 @@ export function routeBrowserTask(
     }
   }
 
+  if (request.authLevel === "treasury" || request.authLevel === "infrastructure") {
+    if (request.operatorVisible && capabilities.attachedChrome) {
+      return {
+        taskId: request.id,
+        lane: "attached-chrome",
+        profileId: "chrome_company",
+        headless: false,
+        reasons: [
+          "This high-trust account task is explicitly operator-visible, so the attached Chrome lane takes precedence.",
+        ],
+      };
+    }
+
+    if (capabilities.steelReady) {
+      return {
+        taskId: request.id,
+        lane: "steel",
+        profileId: defaultProfileForRequest(request),
+        headless: false,
+        reasons: [
+          "Treasury and infrastructure flows prefer a persistent Steel namespace unless attached Chrome is explicitly required.",
+        ],
+      };
+    }
+
+    if (capabilities.attachedChrome && request.antiBotSensitivity >= 9) {
+      return {
+        taskId: request.id,
+        lane: "attached-chrome",
+        profileId: "chrome_company",
+        headless: false,
+        reasons: [
+          "Steel is unavailable and the task is highly sensitive, so attached Chrome becomes the fallback high-trust lane.",
+        ],
+      };
+    }
+  }
+
   if (
     capabilities.attachedChrome &&
-    (request.operatorVisible ||
-      request.authLevel === "company" ||
-      request.antiBotSensitivity >= 8)
+    (request.operatorVisible || (request.authLevel === "company" && request.antiBotSensitivity >= 8))
   ) {
     return {
       taskId: request.id,
@@ -155,11 +215,10 @@ export function routeBrowserTask(
   }
 
   if (
-    capabilities.steel &&
+    capabilities.steelReady &&
     (request.parallelism > 1 ||
       request.requiresPersistentSession ||
-      request.authLevel === "treasury" ||
-      request.authLevel === "infrastructure")
+      request.authLevel === "company")
   ) {
     const profileId = defaultProfileForRequest(request);
     return {
@@ -179,14 +238,36 @@ export function routeBrowserTask(
     profileId: "openclaw_research",
     headless: request.authLevel === "public",
     reasons: [
-      "OpenClaw managed browser is the default typed lane for commodity browser work.",
+      "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready.",
     ],
   };
 }
 
-function authHeaders(): HeadersInit {
-  return {
+function authHeaders(mode: BrowserBrokerState["capabilities"]["steelMode"]): HeadersInit {
+  const headers: HeadersInit = {
     "content-type": "application/json",
+  };
+
+  if (mode === "self-hosted") {
+    if (process.env.STEEL_SELF_HOSTED_TOKEN) {
+      return {
+        ...headers,
+        authorization: `Bearer ${process.env.STEEL_SELF_HOSTED_TOKEN}`,
+      };
+    }
+
+    if (process.env.STEEL_API_KEY) {
+      return {
+        ...headers,
+        "steel-api-key": process.env.STEEL_API_KEY,
+      };
+    }
+
+    return headers;
+  }
+
+  return {
+    ...headers,
     "steel-api-key": process.env.STEEL_API_KEY ?? "",
   };
 }
@@ -194,18 +275,18 @@ function authHeaders(): HeadersInit {
 export async function createSteelSession(request: SteelSessionRequest): Promise<SteelSessionResult> {
   await loadLocalRuntimeEnv();
 
-  const baseUrl = process.env.STEEL_BASE_URL ?? "https://api.steel.dev";
-  const apiKey = process.env.STEEL_API_KEY;
-  if (!apiKey) {
+  const capabilities = await browserCapabilities();
+  const baseUrl = capabilities.steelBaseUrl;
+  if (!capabilities.steelReady || !baseUrl) {
     return {
       ok: false,
-      error: "STEEL_API_KEY is not configured.",
+      error: "Steel is not fully configured for the active cloud or self-hosted mode.",
     };
   }
 
   const response = await fetch(`${baseUrl}/v1/sessions`, {
     method: "POST",
-    headers: authHeaders(),
+    headers: authHeaders(capabilities.steelMode),
     body: JSON.stringify({
       sessionId: request.sessionId,
       namespace: request.profileId,
@@ -237,18 +318,18 @@ export async function createSteelSession(request: SteelSessionRequest): Promise<
 export async function releaseSteelSession(sessionId: string): Promise<SteelSessionResult> {
   await loadLocalRuntimeEnv();
 
-  const baseUrl = process.env.STEEL_BASE_URL ?? "https://api.steel.dev";
-  const apiKey = process.env.STEEL_API_KEY;
-  if (!apiKey) {
+  const capabilities = await browserCapabilities();
+  const baseUrl = capabilities.steelBaseUrl;
+  if (!capabilities.steelReady || !baseUrl) {
     return {
       ok: false,
-      error: "STEEL_API_KEY is not configured.",
+      error: "Steel is not fully configured for the active cloud or self-hosted mode.",
     };
   }
 
   const response = await fetch(`${baseUrl}/v1/sessions/${sessionId}`, {
     method: "DELETE",
-    headers: authHeaders(),
+    headers: authHeaders(capabilities.steelMode),
   });
 
   if (!response.ok) {

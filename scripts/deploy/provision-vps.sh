@@ -11,10 +11,12 @@ if ! command -v openclaw >/dev/null 2>&1; then
   npm install -g @openclaw/cli
 fi
 
-if [[ ! -d "${HOME}/revenue-os" ]]; then
-  echo "Clone or sync the repo to ${HOME}/revenue-os before continuing."
+ROOT_DIR="${REVENUE_OS_ROOT_DIR:-/opt/revenue-os}"
+
+if [[ ! -d "${ROOT_DIR}" ]]; then
+  echo "Clone or sync the repo to ${ROOT_DIR} before continuing."
   exit 1
 fi
 
-cd "${HOME}/revenue-os"
+cd "${ROOT_DIR}"
 bash scripts/bootstrap/bootstrap-openclaw.sh "${REVENUE_OS_ENVIRONMENT:-stage}"

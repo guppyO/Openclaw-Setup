@@ -1,6 +1,7 @@
 {
-  "detectedAt": "2026-03-06T20:02:34.312Z",
+  "detectedAt": "2026-03-06T23:07:37.880Z",
   "probeMode": "passive",
+  "provisional": false,
   "codexCliInstalled": true,
   "openclawInstalled": false,
   "strategicTarget": "gpt-5.4",
@@ -14,7 +15,7 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Default strategic alias for research, coding, and operating decisions."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
     },
     {
       "alias": "model.frontier_browser",
@@ -23,7 +24,7 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Browser-heavy work should stay on GPT-5.4 unless the runtime blocks it."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
     },
     {
       "alias": "model.frontier_research",
@@ -32,7 +33,7 @@
       "reasoning": "xhigh",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Use the highest-reasoning GPT-5.4 route for multi-source synthesis and policy-sensitive research."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
     },
     {
       "alias": "model.frontier_build",
@@ -41,7 +42,7 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Builder defaults remain GPT-5.4-first to preserve coding quality."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
     },
     {
       "alias": "openclaw.model.primary_frontier",

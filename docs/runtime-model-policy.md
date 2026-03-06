@@ -1,10 +1,11 @@
 # Runtime Model Policy
 
-Generated on 2026-03-06T20:02:34.312Z.
+Generated on 2026-03-06T23:07:37.880Z.
 
 ## Strategic defaults
 
 - Company-level target: `gpt-5.4`
+- Provisional artifact: no
 - Codex CLI installed: yes
 - OpenClaw installed on this host: no
 - Probe mode: passive

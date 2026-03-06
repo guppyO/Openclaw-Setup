@@ -13,11 +13,18 @@ Run the local bootstrap in this order:
 9. `npm run verify:smoke`
 10. `npm run dashboard`
 
-Use [docs/deployment/live-bootstrap.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/deployment/live-bootstrap.md) for the Hetzner bring-up path. The local secret flow is documented in [docs/secrets-handling.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/secrets-handling.md), the browser fabric in [docs/browser-topology.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/browser-topology.md), and the scheduler model in [docs/continuous-dispatch.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/continuous-dispatch.md).
+Use [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md) for the authoritative live bring-up flow after the local bootstrap passes.
+
+Key follow-through docs:
+
+- Secrets and generated gateway tokens: [docs/secrets-handling.md](./docs/secrets-handling.md)
+- Browser routing and pairing: [docs/browser-topology.md](./docs/browser-topology.md)
+- Dispatch, recovery, and wake-now flow: [docs/continuous-dispatch.md](./docs/continuous-dispatch.md)
+- Current runtime truth: [CURRENT-STATE.md](./CURRENT-STATE.md)
 
 The minimum unavoidable interactive steps are:
 
-- complete `openclaw models auth login --provider openai-codex` on the VPS,
-- pair the attached Chrome relay once on Windows,
-- add Steel API or self-hosted details if you want the Steel lane active,
+- complete `openclaw models auth login --provider openai-codex` on the VPS as the runtime user,
+- pair the attached Chrome relay once on Windows using the generated gateway token,
+- add Steel cloud or self-hosted auth details if you want the Steel lane live,
 - verify the Wise lane you want to use beyond browser-only reconciliation.

@@ -109,7 +109,7 @@ export function rankOpportunities(opportunities: Opportunity[]): Opportunity[] {
 export function defaultOpportunities(): Opportunity[] {
   const now = new Date().toISOString();
 
-  return [
+  const opportunities: Opportunity[] = [
     {
       id: "ops-audit-packs",
       title: "Operational audit packs for SMB service businesses",
@@ -303,12 +303,26 @@ export function defaultOpportunities(): Opportunity[] {
       liveKpis: ["subscriber conversion", "renewal rate", "gross margin", "dataset reuse"],
     },
   ];
+
+  return opportunities.map((opportunity) => ({
+    ...opportunity,
+    origin: "seeded" as const,
+    sourceEvidence: [
+      {
+        sourceId: "seed-catalog",
+        capturedAt: now,
+        note: "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+        method: "seeded" as const,
+      },
+    ],
+  }));
 }
 
 export function buildPortfolioMarkdown(opportunities: Opportunity[]): string {
   const ranked = rankOpportunities(opportunities);
   const rows = ranked.slice(0, 6).map((opportunity) => [
     opportunity.title,
+    opportunity.origin ?? "seeded",
     opportunity.laneFamily,
     String(opportunity.score?.rankedScore ?? 0),
     opportunity.currentStatus,
@@ -324,7 +338,7 @@ Maintain a diversified revenue lane graph, rank opportunities by durable risk-ad
 
 ## Top lanes
 
-${renderTable(["Opportunity", "Family", "Score", "Status", "Time to revenue", "Capital"], rows)}
+${renderTable(["Opportunity", "Origin", "Family", "Score", "Status", "Time to revenue", "Capital"], rows)}
 
 ## Scoring notes
 

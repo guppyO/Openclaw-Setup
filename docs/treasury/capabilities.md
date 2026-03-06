@@ -4,6 +4,9 @@
 
 - Snapshot mode: browser-only
 - FX source: missing (stale or missing)
+- Cash truth: unknown
+- Ledger status: unavailable
+- Coverage note: No append-only ledger entries are available yet. Treasury can report live balances only when the active lane exposes them.
 
 ## Auth mode
 

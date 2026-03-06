@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { chmod, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -277,6 +277,12 @@ async function writeImportedSecretFiles(
     }
   }
 
+  if (!combinedEntries.OPENCLAW_GATEWAY_TOKEN) {
+    combinedEntries.OPENCLAW_GATEWAY_TOKEN = randomBytes(24).toString("hex");
+  }
+  if (!combinedEntries.OPENCLAW_HOOK_TOKEN) {
+    combinedEntries.OPENCLAW_HOOK_TOKEN = randomBytes(24).toString("hex");
+  }
   combinedEntries.REVENUE_OS_SECRET_BOOTSTRAP = "complete";
   await writeSecretFile(
     fromRoot(rootDir, ".secrets", "revenue-os.local.env"),
@@ -390,7 +396,24 @@ export async function importBootstrapSecretsFromText(
 
   const warnings = buildWarnings(sections);
   const importedFiles = await writeImportedSecretFiles(sections, rootDir);
-  const inventory = buildInventory(sections, importedFiles, warnings, sourceFile, rootDir);
+  const inventory = [
+    ...buildInventory(sections, importedFiles, warnings, sourceFile, rootDir),
+    {
+      id: "secret-openclaw-runtime",
+      provider: "openclaw-runtime",
+      purpose: "Gateway token and hook token for attached Chrome relay and immediate wake hooks",
+      scope: "control-plane",
+      lastVerified: new Date().toISOString(),
+      rotationNeeded: false,
+      storageRef: ".secrets/revenue-os.local.env",
+      importSource: "generated-during-bootstrap",
+      secretKeys: ["OPENCLAW_GATEWAY_TOKEN", "OPENCLAW_HOOK_TOKEN"],
+      notes: [
+        "Generated locally if missing during secret bootstrap.",
+        "Required for the OpenClaw gateway auth path and wake-now hook flow.",
+      ],
+    },
+  ];
   const sourceHash = hashSecretSource(raw);
   const previousState = await readJsonFile<SecretBootstrapState | null>(
     fromRoot(rootDir, "data", "exports", "secret-inventory.json"),

@@ -1,30 +1,13 @@
-# Bringup
+# Bring-up
 
-## Minimal first deployment sequence
+The authoritative live bring-up flow now lives in [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md).
 
-1. Local machine
-   - `npm install`
-   - `npm run bootstrap:secrets`
-   - `npm run bootstrap:runtime`
-   - `npm run bootstrap:control-plane`
-   - `npm run bootstrap:state`
+Use that document for:
 
-2. Hetzner sync
-   - export `LIVE_VPS_HOST`
-   - optional `BOOTSTRAP_ENVIRONMENT=stage`
-   - run `bash scripts/bootstrap/bootstrap-hetzner-live.sh`
-
-3. VPS interactive step
-   - `openclaw models auth login --provider openai-codex`
-
-4. Start services
-   - `systemctl --user start revenue-os-stage.service`
-   - `systemctl --user start revenue-os-stage-scheduler.timer`
-   - `systemctl --user start revenue-os-stage-source-refresh.timer`
-   - `systemctl --user start revenue-os-stage-backup.timer`
-
-5. Browser and treasury completion
-   - pair attached Chrome on Windows
-   - add Steel config if required
-   - rerun `npm run bootstrap:wise`
-   - rerun `npm run verify:smoke`
+- the local bootstrap order,
+- stage-first Hetzner deployment,
+- the OpenClaw OAuth step on the VPS,
+- attached Chrome gateway-token pairing,
+- Steel activation,
+- Wise browser-only versus token or OAuth follow-through,
+- and the final smoke plus backup sequence.

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="${HOME}/revenue-os"
+ROOT_DIR="${REVENUE_OS_ROOT_DIR:-/opt/revenue-os}"
 CONFIG="${ROOT_DIR}/openclaw/lab/openclaw.json"
 
 cd "${ROOT_DIR}"
@@ -19,4 +19,4 @@ openclaw doctor
 openclaw models auth login --provider openai-codex
 
 echo "Prepared lab gateway config at ${CONFIG}"
-echo "Next: install openclaw/lab/systemd/revenue-os-lab.service"
+echo "Next: install systemd units from openclaw/lab/systemd into /etc/systemd/system and start revenue-os-lab.service"

@@ -20,8 +20,10 @@ async function main(): Promise<void> {
     JSON.stringify(
       {
         generatedAt: state.generatedAt,
-        steel: state.capabilities.steel,
+        steelMode: state.capabilities.steelMode,
+        steelReady: state.capabilities.steelReady,
         attachedChrome: state.capabilities.attachedChrome,
+        attachedChromePaired: state.capabilities.attachedChromePaired,
         sampleRoutes: state.sampleRoutes.length,
       },
       null,

@@ -1,5 +1,5 @@
 import { buildDashboardState } from "../../services/analytics/index.js";
-import { fileExists, resolveRepoPath } from "../../services/common/fs.js";
+import { fileExists, readTextFile, resolveRepoPath } from "../../services/common/fs.js";
 import { emitLog } from "../../services/common/logger.js";
 
 async function main(): Promise<void> {
@@ -13,6 +13,8 @@ async function main(): Promise<void> {
     "data/exports/autonomy-queue.json",
     "data/exports/dispatch-state.json",
     "data/exports/browser-broker.json",
+    "data/exports/model-capabilities.json",
+    "data/exports/treasury.json",
   ];
 
   for (const relativePath of required) {
@@ -28,6 +30,23 @@ async function main(): Promise<void> {
   }
   if (dashboardState.queue.length === 0) {
     throw new Error("Autonomy queue is empty.");
+  }
+  if (dashboardState.browser.capabilities.attachedChromePaired && !dashboardState.browser.capabilities.gatewayTokenConfigured) {
+    throw new Error("Attached Chrome is marked paired but OPENCLAW_GATEWAY_TOKEN is missing.");
+  }
+  if (!dashboardState.topOpportunities.some((opportunity) => opportunity.origin === "discovered")) {
+    throw new Error("Opportunity ingest did not produce any discovered opportunities.");
+  }
+  if (!dashboardState.skillCandidates.some((candidate) => candidate.stage === "quarantine" || candidate.sourceType === "workspace")) {
+    throw new Error("Skill discovery did not produce any quarantined or workspace-backed candidates.");
+  }
+  const stageUnit = await readTextFile(resolveRepoPath("openclaw", "stage", "systemd", "revenue-os-stage.service"), "");
+  if (!stageUnit.includes("User=revenueos") || !stageUnit.includes("WantedBy=multi-user.target")) {
+    throw new Error("Stage systemd unit is not configured for the dedicated revenueos runtime user.");
+  }
+  const stageConfig = await readTextFile(resolveRepoPath("openclaw", "stage", "openclaw.json"), "");
+  if (!stageConfig.includes("\"hooks\"") || !stageConfig.includes("\"heartbeat\"")) {
+    throw new Error("Stage OpenClaw config is missing the explicit hook or heartbeat configuration.");
   }
 
   await emitLog({
@@ -45,6 +64,7 @@ async function main(): Promise<void> {
         ok: true,
         topOpportunity: dashboardState.topOpportunities[0]!.id,
         queueDepth: dashboardState.queue.length,
+        treasuryLedgerStatus: dashboardState.treasury.ledgerStatus,
       },
       null,
       2,

@@ -9,7 +9,7 @@ Launch one niche-specific landing page, outbound-compatible intake flow, and pai
 - Opportunity: Operational audit packs for SMB service businesses
 - Lane family: productized-service
 - Budget cap: $250
-- Review date: 2026-03-13
+- Review date: 2026-03-15
 
 ## Launch checklist
 

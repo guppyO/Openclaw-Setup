@@ -6,14 +6,14 @@ Maintain a diversified revenue lane graph, rank opportunities by durable risk-ad
 
 ## Top lanes
 
-| Opportunity | Family | Score | Status | Time to revenue | Capital |
-| --- | --- | --- | --- | --- | --- |
-| Operational audit packs for SMB service businesses | productized-service | 78.8 | researched | 14d | $200 |
-| Automation packs sold through compliant marketplaces | digital-products | 77.8 | scored | 18d | $120 |
-| Repurposing engine for expert-led content portfolios | service-plus-software | 76.6 | approved | 16d | $180 |
-| Niche lead-gen sites with qualified buyer routing | owned-media | 76.3 | researched | 30d | $320 |
-| Licensed data briefs for recurring market niches | data-product | 71 | discovered | 28d | $280 |
-| Micro-SaaS connectors externalized from internal tooling | software | 67.5 | discovered | 35d | $650 |
+| Opportunity | Origin | Family | Score | Status | Time to revenue | Capital |
+| --- | --- | --- | --- | --- | --- | --- |
+| Externalize internal workflow assets as paid automation packs | discovered | digital-products | 79.7 | discovered | 12d | $110 |
+| Operational audit packs for SMB service businesses | seeded | productized-service | 78.8 | researched | 14d | $200 |
+| Automation packs sold through compliant marketplaces | seeded | digital-products | 77.8 | scored | 18d | $120 |
+| Repurposing engine for expert-led content portfolios | seeded | service-plus-software | 76.6 | approved | 16d | $180 |
+| Niche lead-gen sites with qualified buyer routing | seeded | owned-media | 76.3 | researched | 30d | $320 |
+| Licensed data briefs for recurring market niches | seeded | data-product | 71 | discovered | 28d | $280 |
 
 ## Scoring notes
 

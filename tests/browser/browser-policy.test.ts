@@ -16,8 +16,13 @@ describe("browser policy", () => {
       {
         managedBrowser: true,
         attachedChrome: false,
+        attachedChromePaired: false,
+        gatewayTokenConfigured: false,
         steel: true,
+        steelMode: "cloud",
+        steelReady: true,
         steelBaseUrl: "https://api.steel.dev",
+        steelAuthConfigured: true,
         steelApiConfigured: true,
       },
     );
@@ -41,8 +46,13 @@ describe("browser policy", () => {
       {
         managedBrowser: true,
         attachedChrome: true,
+        attachedChromePaired: true,
+        gatewayTokenConfigured: true,
         steel: true,
+        steelMode: "cloud",
+        steelReady: true,
         steelBaseUrl: "https://api.steel.dev",
+        steelAuthConfigured: true,
         steelApiConfigured: true,
       },
     );
@@ -66,13 +76,48 @@ describe("browser policy", () => {
       {
         managedBrowser: true,
         attachedChrome: false,
+        attachedChromePaired: false,
+        gatewayTokenConfigured: false,
         steel: true,
+        steelMode: "cloud",
+        steelReady: true,
         steelBaseUrl: "https://api.steel.dev",
+        steelAuthConfigured: true,
         steelApiConfigured: true,
       },
     );
 
     expect(decision.lane).toBe("steel");
     expect(decision.profileId).toBe("company_signup_identity");
+  });
+
+  test("routes treasury tasks to Steel before attached Chrome unless operator-visible", () => {
+    const decision = routeBrowserTask(
+      {
+        id: "wise-reconcile",
+        title: "Treasury review",
+        initiativeId: "treasury",
+        authLevel: "treasury",
+        antiBotSensitivity: 9,
+        parallelism: 1,
+        operatorVisible: false,
+        requiresPersistentSession: true,
+      },
+      {
+        managedBrowser: true,
+        attachedChrome: true,
+        attachedChromePaired: true,
+        gatewayTokenConfigured: true,
+        steel: true,
+        steelMode: "self-hosted",
+        steelReady: true,
+        steelBaseUrl: "https://steel.internal",
+        steelAuthConfigured: true,
+        steelApiConfigured: false,
+      },
+    );
+
+    expect(decision.lane).toBe("steel");
+    expect(decision.profileId).toBe("wise_primary");
   });
 });

@@ -16,6 +16,7 @@
     "bootstrap:runtime": "tsx scripts/bootstrap/probe-runtime.ts",
     "runtime:probe-models": "tsx scripts/runtime/probe-model-capabilities.ts",
     "runtime:scheduler": "tsx scripts/runtime/usage-aware-scheduler.ts",
+    "runtime:complete-task": "tsx scripts/runtime/complete-task.ts",
     "runtime:browser-broker": "tsx scripts/runtime/snapshot-browser-broker.ts",
     "bootstrap:state": "tsx scripts/bootstrap/init-state.ts",
     "bootstrap:control-plane": "tsx scripts/bootstrap/generate-control-plane-files.ts",

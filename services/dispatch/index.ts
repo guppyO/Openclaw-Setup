@@ -1,4 +1,4 @@
-import type { DispatchState, Experiment, Opportunity, QueueItem } from "../common/types.js";
+import type { DispatchState, Experiment, ModelCapabilityProbe, Opportunity, QueueItem } from "../common/types.js";
 import { buildDefaultModelProbe } from "../runtime-model/index.js";
 
 const RECOVERY_SWEEP_MINUTES = 3;
@@ -172,6 +172,7 @@ export function buildDispatchState(options: {
   previousState?: DispatchState | null;
   completedTaskId?: string;
   blockedInitiativeIds?: string[];
+  modelProbe?: ModelCapabilityProbe;
 }): DispatchState {
   const completedTaskIds = new Set(options.previousState?.completedTaskIds ?? []);
   let queue = dedupeQueue(options.queue);
@@ -215,7 +216,7 @@ export function buildDispatchState(options: {
     }
   }
 
-  const modelProbe = buildDefaultModelProbe();
+  const modelProbe = options.modelProbe ?? buildDefaultModelProbe();
   const nextTask =
     ready[0] ??
     queue.find((task) => activeLocks.some((lock) => lock.taskId === task.id)) ??

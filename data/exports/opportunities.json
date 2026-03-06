@@ -1,5 +1,107 @@
 [
   {
+    "id": "discovered-internal-skill-packs",
+    "title": "Externalize internal workflow assets as paid automation packs",
+    "thesis": "The repo already contains reusable internal skills (browser-login-runbook, changelog-delta-summarizer, initiative-bootstrapper, landing-page-launcher). Package the most repeatable workflow into a sellable automation pack or implementation offer.",
+    "laneFamily": "digital-products",
+    "monetizationRoute": "Paid workflow packs plus setup assistance",
+    "demandSignals": [
+      {
+        "source": "internal-asset-reuse",
+        "description": "Detected 8 internal skill assets suitable for external packaging.",
+        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "strength": 8.5
+      }
+    ],
+    "requiredAssets": [
+      "product-package",
+      "screenshots",
+      "offer-page",
+      "support-docs"
+    ],
+    "requiredAccounts": [
+      "Wise",
+      "Company Gmail",
+      "Marketplace account"
+    ],
+    "timeToLaunchDays": 5,
+    "timeToRevenueDays": 12,
+    "expectedMarginPct": 84,
+    "capitalRequiredUsd": 110,
+    "automationFit": 9.1,
+    "defensibility": 6.7,
+    "distributionFit": 7.4,
+    "complianceFriction": 2.1,
+    "payoutFriction": 1.8,
+    "buildComplexity": 4.3,
+    "maintenanceBurden": 3.9,
+    "platformRisk": 4.6,
+    "compoundingPotential": 8.6,
+    "confidence": 7.4,
+    "synergy": 9,
+    "payoutReadiness": 8.1,
+    "currentStatus": "discovered",
+    "experimentPlan": "Convert the highest-reuse internal skill into a documented, supportable automation pack and validate it on one marketplace plus one owned landing page.",
+    "liveKpis": [
+      "views",
+      "sales",
+      "refunds",
+      "support time"
+    ],
+    "origin": "discovered",
+    "sourceEvidence": [
+      {
+        "sourceId": "internal-skill-reuse",
+        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "url": "skills/internal/browser-login-runbook/SKILL.md",
+        "note": "Internal skill detected at browser-login-runbook.",
+        "method": "internal"
+      },
+      {
+        "sourceId": "internal-skill-reuse",
+        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "url": "skills/internal/changelog-delta-summarizer/SKILL.md",
+        "note": "Internal skill detected at changelog-delta-summarizer.",
+        "method": "internal"
+      },
+      {
+        "sourceId": "internal-skill-reuse",
+        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "url": "skills/internal/initiative-bootstrapper/SKILL.md",
+        "note": "Internal skill detected at initiative-bootstrapper.",
+        "method": "internal"
+      },
+      {
+        "sourceId": "internal-skill-reuse",
+        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "url": "skills/internal/landing-page-launcher/SKILL.md",
+        "note": "Internal skill detected at landing-page-launcher.",
+        "method": "internal"
+      }
+    ],
+    "score": {
+      "total": 7.97,
+      "rankedScore": 79.7,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 8.13,
+        "confidence": 7.4,
+        "speedToLaunch": 9.29,
+        "speedToRevenue": 8.8,
+        "capitalEfficiency": 9.56,
+        "platformRisk": 4.6,
+        "distributionEfficiency": 7.4,
+        "buildComplexity": 4.3,
+        "maintenanceBurden": 3.9,
+        "compoundingPotential": 8.6,
+        "automationSuitability": 9.1,
+        "synergyWithExistingAssets": 9,
+        "payoutReadiness": 8.15,
+        "complianceFriction": 2.1
+      }
+    }
+  },
+  {
     "id": "ops-audit-packs",
     "title": "Operational audit packs for SMB service businesses",
     "thesis": "Package agent-assisted audits, fix plans, and tracked automation setup into a repeatable paid offer with strong margin and fast proof-of-value.",
@@ -9,13 +111,13 @@
       {
         "source": "service-business pain",
         "description": "Manual ops and quoting friction remain common in local businesses.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 7.8
       },
       {
         "source": "AI adoption",
         "description": "Businesses want AI help but need bounded and accountable delivery.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 8.2
       }
     ],
@@ -55,6 +157,15 @@
       "gross margin",
       "implementation cycle time"
     ],
+    "origin": "seeded",
+    "sourceEvidence": [
+      {
+        "sourceId": "seed-catalog",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+        "method": "seeded"
+      }
+    ],
     "score": {
       "total": 7.88,
       "rankedScore": 78.8,
@@ -87,13 +198,13 @@
       {
         "source": "creator economy",
         "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 7.4
       },
       {
         "source": "distribution leverage",
         "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 7.1
       }
     ],
@@ -131,6 +242,15 @@
       "refund rate",
       "upsell attach rate"
     ],
+    "origin": "seeded",
+    "sourceEvidence": [
+      {
+        "sourceId": "seed-catalog",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+        "method": "seeded"
+      }
+    ],
     "score": {
       "total": 7.78,
       "rankedScore": 77.8,
@@ -163,13 +283,13 @@
       {
         "source": "content fatigue",
         "description": "Expert creators want output without running full content teams.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 7.6
       },
       {
         "source": "agent fit",
         "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 8.5
       }
     ],
@@ -208,6 +328,15 @@
       "retention",
       "hours per account"
     ],
+    "origin": "seeded",
+    "sourceEvidence": [
+      {
+        "sourceId": "seed-catalog",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+        "method": "seeded"
+      }
+    ],
     "score": {
       "total": 7.66,
       "rankedScore": 76.6,
@@ -240,13 +369,13 @@
       {
         "source": "search intent",
         "description": "High-intent long-tail queries still reward specialized content and useful tools.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 8.4
       },
       {
         "source": "buyer routing",
         "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 7.8
       }
     ],
@@ -285,6 +414,15 @@
       "lead qualification rate",
       "revenue per page"
     ],
+    "origin": "seeded",
+    "sourceEvidence": [
+      {
+        "sourceId": "seed-catalog",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+        "method": "seeded"
+      }
+    ],
     "score": {
       "total": 7.63,
       "rankedScore": 76.3,
@@ -317,13 +455,13 @@
       {
         "source": "time scarcity",
         "description": "Operators pay for faster access to compiled data in markets they already understand.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 6.8
       },
       {
         "source": "repeatable research",
         "description": "Automated collection and summarization can lower production cost substantially.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 7.5
       }
     ],
@@ -362,6 +500,15 @@
       "gross margin",
       "dataset reuse"
     ],
+    "origin": "seeded",
+    "sourceEvidence": [
+      {
+        "sourceId": "seed-catalog",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+        "method": "seeded"
+      }
+    ],
     "score": {
       "total": 7.1,
       "rankedScore": 71,
@@ -394,13 +541,13 @@
       {
         "source": "workflow fragmentation",
         "description": "Small teams still pay for narrow automation wins if setup is simple.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 7.3
       },
       {
         "source": "internal leverage",
         "description": "Existing internal tooling shortens build time and raises product authenticity.",
-        "capturedAt": "2026-03-06T20:02:35.801Z",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
         "strength": 8
       }
     ],
@@ -438,6 +585,15 @@
       "activation",
       "MRR",
       "support load"
+    ],
+    "origin": "seeded",
+    "sourceEvidence": [
+      {
+        "sourceId": "seed-catalog",
+        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+        "method": "seeded"
+      }
     ],
     "score": {
       "total": 6.75,

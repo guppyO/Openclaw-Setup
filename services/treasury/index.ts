@@ -1,5 +1,6 @@
 import { loadLocalRuntimeEnv } from "../common/env-loader.js";
-import { loadFxSnapshot } from "./fx.js";
+import { readJsonFile, resolveRepoPath } from "../common/fs.js";
+import { convertToUsd, loadFxSnapshot } from "./fx.js";
 import type {
   BudgetEnvelope,
   LedgerEntry,
@@ -80,11 +81,25 @@ export function sampleBalances(): TreasuryBalance[] {
   ];
 }
 
-export function calculateRecurringMonthlyUsd(ledger: LedgerEntry[]): number {
+const DEFAULT_FX_SNAPSHOT: TreasurySnapshot["fx"] = {
+  base: "USD",
+  asOf: null,
+  rates: {},
+  source: "missing",
+  stale: true,
+};
+
+export function calculateRecurringMonthlyUsd(
+  ledger: LedgerEntry[],
+  fx: TreasurySnapshot["fx"] = DEFAULT_FX_SNAPSHOT,
+): number {
   return Number(
     ledger
       .filter((entry) => entry.recurring && entry.amount < 0)
-      .reduce((total, entry) => total + Math.abs(entry.amount), 0)
+      .reduce((total, entry) => {
+        const amountUsd = convertToUsd(Math.abs(entry.amount), entry.currency, fx);
+        return total + (amountUsd ?? 0);
+      }, 0)
       .toFixed(2),
   );
 }
@@ -165,6 +180,68 @@ export function detectTreasuryMode(capabilities: TreasuryCapabilityFlags): Treas
   return "sample";
 }
 
+export function rollingWiseStatementWindow(now = new Date()): {
+  intervalStart: string;
+  intervalEnd: string;
+} {
+  const intervalEnd = new Date(now);
+  const intervalStart = new Date(now);
+  intervalStart.setUTCDate(intervalStart.getUTCDate() - 30);
+
+  return {
+    intervalStart: intervalStart.toISOString(),
+    intervalEnd: intervalEnd.toISOString(),
+  };
+}
+
+async function loadAppendOnlyLedgerImport(): Promise<LedgerEntry[]> {
+  return readJsonFile<LedgerEntry[]>(
+    resolveRepoPath("data", "imports", "wise-ledger-import.json"),
+    [],
+  );
+}
+
+function deriveLedgerTruth(
+  mode: TreasurySnapshot["mode"],
+  capabilities: TreasuryCapabilityFlags,
+  balances: TreasuryBalance[],
+  ledger: LedgerEntry[],
+): Pick<TreasurySnapshot, "cashTruth" | "ledgerStatus" | "ledgerCoverageNote"> {
+  if (mode === "sample") {
+    return {
+      cashTruth: "sample",
+      ledgerStatus: "sample",
+      ledgerCoverageNote: "Sample balances and sample ledger are active because no live Wise lane is verified yet.",
+    };
+  }
+
+  const cashTruth = balances.length > 0 ? "live-known" : "unknown";
+  if (ledger.length === 0) {
+    return {
+      cashTruth,
+      ledgerStatus: "unavailable",
+      ledgerCoverageNote:
+        "No append-only ledger entries are available yet. Treasury can report live balances only when the active lane exposes them.",
+    };
+  }
+
+  if (capabilities.statementRead || capabilities.cardTransactionRead) {
+    return {
+      cashTruth,
+      ledgerStatus: "complete",
+      ledgerCoverageNote:
+        "Ledger entries exist and the current Wise capability probe can read transactional history, so reconciliation can be treated as materially complete.",
+    };
+  }
+
+  return {
+    cashTruth,
+    ledgerStatus: "partial",
+    ledgerCoverageNote:
+      "Balances or receipts exist, but the current Wise lane cannot guarantee complete statement coverage yet. Treat burn and ROI as partial.",
+  };
+}
+
 export function buildTreasurySnapshot(
   capabilities = DEFAULT_TREASURY_CAPABILITIES,
   options: {
@@ -185,7 +262,7 @@ export function buildTreasurySnapshot(
     source: "missing",
     stale: true,
   };
-  const recurringMonthlyUsd = calculateRecurringMonthlyUsd(ledger);
+  const recurringMonthlyUsd = calculateRecurringMonthlyUsd(ledger, fx);
   const totalUsdApprox = balances.reduce((total, balance) => {
     if (balance.currency === "USD") {
       return total + balance.amount;
@@ -198,6 +275,7 @@ export function buildTreasurySnapshot(
 
     return total + balance.amount * rate;
   }, 0);
+  const truth = deriveLedgerTruth(mode, capabilities, balances, ledger);
 
   return {
     asOf: new Date().toISOString(),
@@ -206,6 +284,9 @@ export function buildTreasurySnapshot(
     capabilities,
     balances,
     ledger,
+    cashTruth: truth.cashTruth,
+    ledgerStatus: truth.ledgerStatus,
+    ledgerCoverageNote: truth.ledgerCoverageNote,
     recurringMonthlyUsd,
     runwayMonths: calculateRunwayMonths(totalUsdApprox, recurringMonthlyUsd),
     suspiciousSpendCount: ledger.filter((entry) => entry.amount < -250 && entry.category !== "hosting").length,
@@ -240,6 +321,7 @@ export async function probeWiseCapabilities(): Promise<TreasuryCapabilityFlags> 
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
+  const interval = rollingWiseStatementWindow();
 
   async function check(apiPath: string): Promise<boolean> {
     try {
@@ -253,7 +335,7 @@ export async function probeWiseCapabilities(): Promise<TreasuryCapabilityFlags> 
   const balanceRead = await check(`/v4/profiles/${profileId}/balances?types=STANDARD`);
   const profilesReadable = await check("/v1/profiles");
   const statementRead = await check(
-    `/v1/profiles/${profileId}/balance-statements?currency=GBP&intervalStart=2026-03-01T00:00:00Z&intervalEnd=2026-03-06T00:00:00Z&type=COMPACT`,
+    `/v1/profiles/${profileId}/balance-statements?currency=GBP&intervalStart=${encodeURIComponent(interval.intervalStart)}&intervalEnd=${encodeURIComponent(interval.intervalEnd)}&type=COMPACT`,
   );
 
   return {
@@ -316,7 +398,8 @@ export async function buildRuntimeTreasurySnapshot(): Promise<TreasurySnapshot> 
   const fx = await loadFxSnapshot();
   const mode = detectTreasuryMode(capabilities);
   const balances = capabilities.balanceRead ? await ingestWiseBalances() : mode === "sample" ? sampleBalances() : [];
-  const ledger = mode === "sample" ? sampleLedger() : [];
+  const importedLedger = await loadAppendOnlyLedgerImport();
+  const ledger = mode === "sample" ? sampleLedger() : importedLedger;
 
   return buildTreasurySnapshot(capabilities, {
     balances,
@@ -345,6 +428,9 @@ export function buildTreasuryMarkdown(snapshot: TreasurySnapshot): string {
 
 - Snapshot mode: ${snapshot.mode}
 - FX source: ${snapshot.fx.source}${snapshot.fx.stale ? " (stale or missing)" : ""}
+- Cash truth: ${snapshot.cashTruth}
+- Ledger status: ${snapshot.ledgerStatus}
+- Coverage note: ${snapshot.ledgerCoverageNote}
 
 ## Auth mode
 

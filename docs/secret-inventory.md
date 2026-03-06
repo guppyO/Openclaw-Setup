@@ -17,6 +17,7 @@ Bootstrap metadata only. Raw secret values are intentionally excluded.
 | wise | Treasury source account and money movement control | treasury | yes | .secrets/providers/wise.env |
 | hetzner | Primary infrastructure provider for VPS control plane | infrastructure | yes | .secrets/providers/hetzner.env |
 | gmail | Primary company mailbox and signup identity | company-identity | yes | .secrets/providers/gmail.env |
+| openclaw-runtime | Gateway token and hook token for attached Chrome relay and immediate wake hooks | control-plane | no | .secrets/revenue-os.local.env |
 
 ## Warnings
 

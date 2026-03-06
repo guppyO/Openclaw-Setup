@@ -2,60 +2,173 @@
   "gateway": {
     "bind": "loopback",
     "port": 4101,
-    "controlUi": false
+    "controlUi": false,
+    "auth": {
+      "token": {
+        "$secretRef": "OPENCLAW_GATEWAY_TOKEN"
+      }
+    }
   },
   "model": {
     "primary": "openai-codex/gpt-5.3-codex",
     "fallback": "openai-codex/gpt-5-codex"
   },
+  "hooks": {
+    "enabled": true,
+    "path": "/hooks",
+    "token": {
+      "$secretRef": "OPENCLAW_HOOK_TOKEN"
+    },
+    "defaultSessionKey": "hook:lab:dispatch",
+    "allowRequestSessionKey": false,
+    "allowedSessionKeyPrefixes": [
+      "hook:lab:"
+    ],
+    "allowedAgentIds": [
+      "ceo",
+      "ops"
+    ],
+    "mappings": [
+      {
+        "name": "dispatch-immediate",
+        "match": {
+          "path": "dispatch"
+        },
+        "action": "agent",
+        "agentId": "ceo",
+        "wakeMode": "now",
+        "sessionKey": "hook:lab:dispatch:ceo",
+        "deliver": false,
+        "model": "openai-codex/gpt-5.3-codex",
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue the next ready task immediately. Completed task: {{completedTaskId}}. Next task: {{nextTaskId}}."
+      }
+    ]
+  },
   "agents": {
     "defaults": {
-      "workspace": "~/.openclaw/revenue-os/lab/workspace",
+      "workspace": "/opt/revenue-os/runtime/lab/workspace",
       "userTimezone": "Europe/London",
       "timeFormat": "en-GB"
     },
     "list": [
       {
         "name": "ceo",
-        "workspace": "~/.openclaw/revenue-os/lab/workspace/ceo",
-        "agentDir": "~/revenue-os/agents/ceo",
-        "model": "openai-codex/gpt-5.3-codex"
+        "workspace": "/opt/revenue-os/runtime/lab/workspace/ceo",
+        "agentDir": "/opt/revenue-os/agents/ceo",
+        "model": "openai-codex/gpt-5.3-codex",
+        "heartbeat": {
+          "every": "12m",
+          "model": "openai-codex/gpt-5.3-codex",
+          "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+          "session": "main",
+          "includeReasoning": false,
+          "directPolicy": "block",
+          "target": "none",
+          "ackMaxChars": 180,
+          "suppressToolErrorWarnings": true
+        }
       },
       {
         "name": "research",
-        "workspace": "~/.openclaw/revenue-os/lab/workspace/research",
-        "agentDir": "~/revenue-os/agents/research",
-        "model": "openai-codex/gpt-5.3-codex"
+        "workspace": "/opt/revenue-os/runtime/lab/workspace/research",
+        "agentDir": "/opt/revenue-os/agents/research",
+        "model": "openai-codex/gpt-5.3-codex",
+        "heartbeat": {
+          "every": "15m",
+          "model": "openai-codex/gpt-5.3-codex",
+          "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+          "session": "main",
+          "includeReasoning": false,
+          "directPolicy": "block",
+          "target": "none",
+          "ackMaxChars": 180,
+          "suppressToolErrorWarnings": true
+        }
       },
       {
         "name": "builder",
-        "workspace": "~/.openclaw/revenue-os/lab/workspace/builder",
-        "agentDir": "~/revenue-os/agents/builder",
-        "model": "openai-codex/gpt-5.3-codex"
+        "workspace": "/opt/revenue-os/runtime/lab/workspace/builder",
+        "agentDir": "/opt/revenue-os/agents/builder",
+        "model": "openai-codex/gpt-5.3-codex",
+        "heartbeat": {
+          "every": "12m",
+          "model": "openai-codex/gpt-5.3-codex",
+          "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+          "session": "main",
+          "includeReasoning": false,
+          "directPolicy": "block",
+          "target": "none",
+          "ackMaxChars": 180,
+          "suppressToolErrorWarnings": true
+        }
       },
       {
         "name": "distribution",
-        "workspace": "~/.openclaw/revenue-os/lab/workspace/distribution",
-        "agentDir": "~/revenue-os/agents/distribution",
-        "model": "openai-codex/gpt-5.3-codex"
+        "workspace": "/opt/revenue-os/runtime/lab/workspace/distribution",
+        "agentDir": "/opt/revenue-os/agents/distribution",
+        "model": "openai-codex/gpt-5.3-codex",
+        "heartbeat": {
+          "every": "20m",
+          "model": "openai-codex/gpt-5.3-codex",
+          "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+          "session": "main",
+          "includeReasoning": false,
+          "directPolicy": "block",
+          "target": "none",
+          "ackMaxChars": 180,
+          "suppressToolErrorWarnings": true
+        }
       },
       {
         "name": "treasury",
-        "workspace": "~/.openclaw/revenue-os/lab/workspace/treasury",
-        "agentDir": "~/revenue-os/agents/treasury",
-        "model": "openai-codex/gpt-5.3-codex"
+        "workspace": "/opt/revenue-os/runtime/lab/workspace/treasury",
+        "agentDir": "/opt/revenue-os/agents/treasury",
+        "model": "openai-codex/gpt-5.3-codex",
+        "heartbeat": {
+          "every": "30m",
+          "model": "openai-codex/gpt-5.3-codex",
+          "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+          "session": "main",
+          "includeReasoning": false,
+          "directPolicy": "block",
+          "target": "none",
+          "ackMaxChars": 180,
+          "suppressToolErrorWarnings": true
+        }
       },
       {
         "name": "skillsmith",
-        "workspace": "~/.openclaw/revenue-os/lab/workspace/skillsmith",
-        "agentDir": "~/revenue-os/agents/skillsmith",
-        "model": "openai-codex/gpt-5.3-codex"
+        "workspace": "/opt/revenue-os/runtime/lab/workspace/skillsmith",
+        "agentDir": "/opt/revenue-os/agents/skillsmith",
+        "model": "openai-codex/gpt-5.3-codex",
+        "heartbeat": {
+          "every": "25m",
+          "model": "openai-codex/gpt-5.3-codex",
+          "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+          "session": "main",
+          "includeReasoning": false,
+          "directPolicy": "block",
+          "target": "none",
+          "ackMaxChars": 180,
+          "suppressToolErrorWarnings": true
+        }
       },
       {
         "name": "ops",
-        "workspace": "~/.openclaw/revenue-os/lab/workspace/ops",
-        "agentDir": "~/revenue-os/agents/ops",
-        "model": "openai-codex/gpt-5.3-codex"
+        "workspace": "/opt/revenue-os/runtime/lab/workspace/ops",
+        "agentDir": "/opt/revenue-os/agents/ops",
+        "model": "openai-codex/gpt-5.3-codex",
+        "heartbeat": {
+          "every": "12m",
+          "model": "openai-codex/gpt-5.3-codex",
+          "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+          "session": "main",
+          "includeReasoning": false,
+          "directPolicy": "block",
+          "target": "none",
+          "ackMaxChars": 180,
+          "suppressToolErrorWarnings": true
+        }
       }
     ]
   },
@@ -72,5 +185,10 @@
   },
   "cron": {
     "enabled": true
+  },
+  "heartbeat": {
+    "enabled": true,
+    "policy": "strategic-sweep-only",
+    "notes": "Heartbeat stays lightweight because immediate continuation flows through runtime:complete-task plus the wake hook."
   }
 }

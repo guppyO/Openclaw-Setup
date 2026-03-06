@@ -10,8 +10,18 @@ if [[ -f "$ROOT_DIR/.secrets/revenue-os.local.env" ]]; then
   set +a
 fi
 
-if [[ -z "${STEEL_BASE_URL:-}" && -z "${STEEL_API_KEY:-}" ]]; then
-  echo "Steel is not configured yet. Add STEEL_BASE_URL and STEEL_API_KEY (or your self-hosted base URL) to .secrets/revenue-os.local.env first."
+if [[ "${STEEL_MODE:-}" == "cloud" ]]; then
+  if [[ -z "${STEEL_API_KEY:-}" ]]; then
+    echo "Steel cloud mode requires STEEL_API_KEY."
+    exit 1
+  fi
+elif [[ "${STEEL_MODE:-}" == "self-hosted" ]]; then
+  if [[ -z "${STEEL_BASE_URL:-}" || ( -z "${STEEL_SELF_HOSTED_TOKEN:-}" && -z "${STEEL_API_KEY:-}" ) ]]; then
+    echo "Steel self-hosted mode requires STEEL_BASE_URL plus STEEL_SELF_HOSTED_TOKEN or STEEL_API_KEY."
+    exit 1
+  fi
+elif [[ -z "${STEEL_BASE_URL:-}" && -z "${STEEL_API_KEY:-}" ]]; then
+  echo "Steel is not configured yet. Set STEEL_MODE plus the matching auth variables in .secrets/revenue-os.local.env first."
   exit 1
 fi
 

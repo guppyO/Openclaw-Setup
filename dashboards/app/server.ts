@@ -85,6 +85,7 @@ function renderPage() {
             <li><strong>Runway:</strong> ${state.treasury.runwayMonths ?? "n/a"} months</li>
             <li><strong>Suspicious spend:</strong> ${state.treasury.suspiciousSpendCount}</li>
             <li><strong>Treasury mode:</strong> ${state.treasury.mode}</li>
+            <li><strong>Ledger status:</strong> ${state.treasury.ledgerStatus}</li>
             <li><strong>Model drift anchors:</strong> ${summary.driftedAnchorCount}</li>
           </ul>
         </article>
@@ -136,9 +137,11 @@ function renderPage() {
           <h2>Browser fabric</h2>
           <ul class="tight">
             <li><strong>Managed browser:</strong> ${state.browser.capabilities.managedBrowser ? "ready" : "missing"}</li>
-            <li><strong>Attached Chrome:</strong> ${state.browser.capabilities.attachedChrome ? "paired" : "not paired"}</li>
-            <li><strong>Steel:</strong> ${state.browser.capabilities.steel ? "configured" : "not configured"}</li>
-            <li><strong>Steel API key:</strong> ${state.browser.capabilities.steelApiConfigured ? "present" : "missing"}</li>
+            <li><strong>Attached Chrome:</strong> ${state.browser.capabilities.attachedChrome ? "ready" : state.browser.capabilities.attachedChromePaired ? "paired but token-missing" : "not paired"}</li>
+            <li><strong>Gateway token:</strong> ${state.browser.capabilities.gatewayTokenConfigured ? "present" : "missing"}</li>
+            <li><strong>Steel mode:</strong> ${state.browser.capabilities.steelMode}</li>
+            <li><strong>Steel auth:</strong> ${state.browser.capabilities.steelAuthConfigured ? "present" : "missing"}</li>
+            <li><strong>Steel lane:</strong> ${state.browser.capabilities.steelReady ? "ready" : "not ready"}</li>
           </ul>
           ${state.browser.sampleRoutes.map((route) => `
             <div class="status-row">
@@ -173,6 +176,7 @@ function renderPage() {
             <li><strong>OpenClaw primary:</strong> ${state.modelPolicy.openClawPrimary}</li>
             <li><strong>OpenClaw fallback:</strong> ${state.modelPolicy.openClawFallback}</li>
             <li><strong>Probe mode:</strong> ${state.modelPolicy.probeMode}</li>
+            <li><strong>Provisional:</strong> ${state.modelPolicy.provisional ? "yes" : "no"}</li>
           </ul>
         </article>
       </section>

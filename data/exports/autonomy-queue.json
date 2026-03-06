@@ -1,32 +1,32 @@
 [
   {
-    "id": "ops-audit-packs-offer",
-    "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+    "id": "discovered-internal-skill-packs-offer",
+    "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
     "owner": "ceo",
-    "initiativeId": "ops-audit-packs",
+    "initiativeId": "discovered-internal-skill-packs",
     "reason": "highest-ev-open-experiment",
     "priority": 100,
-    "dueAt": "2026-03-06T20:02:37.826Z",
+    "dueAt": "2026-03-06T23:07:55.405Z",
     "notes": "[idle-prevention] [idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
   },
   {
-    "id": "ops-audit-packs-distribution",
-    "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+    "id": "discovered-internal-skill-packs-distribution",
+    "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
     "owner": "distribution",
-    "initiativeId": "ops-audit-packs",
+    "initiativeId": "discovered-internal-skill-packs",
     "reason": "distribution-bottleneck",
     "priority": 88,
-    "dueAt": "2026-03-07T08:02:35.803Z",
+    "dueAt": "2026-03-07T11:07:51.888Z",
     "notes": "Set the initial channel mix and evidence capture for first traffic."
   },
   {
-    "id": "ops-audit-packs-research",
-    "title": "Expand demand proof and adjacent niches for Operational audit packs for SMB service businesses",
+    "id": "discovered-internal-skill-packs-research",
+    "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
     "owner": "research",
-    "initiativeId": "ops-audit-packs",
+    "initiativeId": "discovered-internal-skill-packs",
     "reason": "new-opportunity-research",
     "priority": 84,
-    "dueAt": "2026-03-07T14:02:35.803Z",
+    "dueAt": "2026-03-07T17:07:51.888Z",
     "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
   },
   {
@@ -36,7 +36,7 @@
     "initiativeId": "skill-pipeline",
     "reason": "skill-gap-reduction",
     "priority": 74,
-    "dueAt": "2026-03-07T16:02:35.803Z",
+    "dueAt": "2026-03-07T19:07:51.888Z",
     "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
   },
   {
@@ -46,7 +46,7 @@
     "initiativeId": "update-steward",
     "reason": "changelog-adaptation",
     "priority": 68,
-    "dueAt": "2026-03-07T20:02:35.803Z",
+    "dueAt": "2026-03-07T23:07:51.888Z",
     "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
   },
   {
@@ -56,7 +56,7 @@
     "initiativeId": "memory-maintenance",
     "reason": "documentation-and-memory",
     "priority": 52,
-    "dueAt": "2026-03-08T02:02:35.803Z",
+    "dueAt": "2026-03-08T05:07:51.888Z",
     "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
   },
   {
@@ -66,7 +66,7 @@
     "initiativeId": "resilience",
     "reason": "resilience-work",
     "priority": 48,
-    "dueAt": "2026-03-08T08:02:35.803Z",
+    "dueAt": "2026-03-08T11:07:51.888Z",
     "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
   }
 ]

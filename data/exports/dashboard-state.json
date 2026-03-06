@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-03-06T20:02:35.826Z",
+  "generatedAt": "2026-03-06T23:07:53.179Z",
   "treasury": {
-    "asOf": "2026-03-06T20:02:35.803Z",
-    "mode": "sample",
-    "authMode": "none",
+    "asOf": "2026-03-06T23:07:51.892Z",
+    "mode": "browser-only",
+    "authMode": "browser-only",
     "capabilities": {
       "balanceRead": false,
       "statementRead": false,
@@ -14,73 +14,18 @@
       "spendLimits": false,
       "webhooks": false,
       "psd2LimitedActions": true,
-      "browserLaneAvailable": false,
+      "browserLaneAvailable": true,
       "personalTokenConfigured": false,
       "oauthAppConfigured": false,
-      "emailReceiptIngest": false
+      "emailReceiptIngest": true
     },
-    "balances": [
-      {
-        "currency": "USD",
-        "amount": 2500
-      },
-      {
-        "currency": "GBP",
-        "amount": 400
-      }
-    ],
-    "ledger": [
-      {
-        "id": "ledger-hetzner",
-        "bookedAt": "2026-03-03T20:02:35.803Z",
-        "merchant": "Hetzner",
-        "amount": -14.92,
-        "currency": "USD",
-        "category": "hosting",
-        "initiativeId": "control-plane",
-        "recurring": true,
-        "notes": "Baseline control-plane VPS assumption.",
-        "budgetTag": "ops:hosting",
-        "source": "sample",
-        "evidencePaths": [
-          "docs/treasury/capabilities.md"
-        ]
-      },
-      {
-        "id": "ledger-domain",
-        "bookedAt": "2026-02-24T20:02:35.803Z",
-        "merchant": "Cloudflare Registrar",
-        "amount": -12,
-        "currency": "USD",
-        "category": "domains",
-        "initiativeId": "distribution-foundation",
-        "recurring": false,
-        "notes": "Initial launch-domain purchase.",
-        "budgetTag": "growth:domains",
-        "source": "sample",
-        "evidencePaths": [
-          "docs/portfolio/lane-catalog.md"
-        ]
-      },
-      {
-        "id": "ledger-revenue",
-        "bookedAt": "2026-03-05T20:02:35.803Z",
-        "merchant": "Pilot customer",
-        "amount": 450,
-        "currency": "USD",
-        "category": "revenue",
-        "initiativeId": "ops-audit-packs",
-        "recurring": false,
-        "notes": "Sample pilot revenue for dashboard and ROI wiring.",
-        "budgetTag": "revenue:services",
-        "source": "sample",
-        "evidencePaths": [
-          "docs/experiments/exp-ops-audit-packs.md"
-        ]
-      }
-    ],
-    "recurringMonthlyUsd": 14.92,
-    "runwayMonths": 167.6,
+    "balances": [],
+    "ledger": [],
+    "cashTruth": "unknown",
+    "ledgerStatus": "unavailable",
+    "ledgerCoverageNote": "No append-only ledger entries are available yet. Treasury can report live balances only when the active lane exposes them.",
+    "recurringMonthlyUsd": 0,
+    "runwayMonths": null,
     "suspiciousSpendCount": 0,
     "budgetEnvelopes": [
       {
@@ -130,6 +75,108 @@
   },
   "topOpportunities": [
     {
+      "id": "discovered-internal-skill-packs",
+      "title": "Externalize internal workflow assets as paid automation packs",
+      "thesis": "The repo already contains reusable internal skills (browser-login-runbook, changelog-delta-summarizer, initiative-bootstrapper, landing-page-launcher). Package the most repeatable workflow into a sellable automation pack or implementation offer.",
+      "laneFamily": "digital-products",
+      "monetizationRoute": "Paid workflow packs plus setup assistance",
+      "demandSignals": [
+        {
+          "source": "internal-asset-reuse",
+          "description": "Detected 8 internal skill assets suitable for external packaging.",
+          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "strength": 8.5
+        }
+      ],
+      "requiredAssets": [
+        "product-package",
+        "screenshots",
+        "offer-page",
+        "support-docs"
+      ],
+      "requiredAccounts": [
+        "Wise",
+        "Company Gmail",
+        "Marketplace account"
+      ],
+      "timeToLaunchDays": 5,
+      "timeToRevenueDays": 12,
+      "expectedMarginPct": 84,
+      "capitalRequiredUsd": 110,
+      "automationFit": 9.1,
+      "defensibility": 6.7,
+      "distributionFit": 7.4,
+      "complianceFriction": 2.1,
+      "payoutFriction": 1.8,
+      "buildComplexity": 4.3,
+      "maintenanceBurden": 3.9,
+      "platformRisk": 4.6,
+      "compoundingPotential": 8.6,
+      "confidence": 7.4,
+      "synergy": 9,
+      "payoutReadiness": 8.1,
+      "currentStatus": "discovered",
+      "experimentPlan": "Convert the highest-reuse internal skill into a documented, supportable automation pack and validate it on one marketplace plus one owned landing page.",
+      "liveKpis": [
+        "views",
+        "sales",
+        "refunds",
+        "support time"
+      ],
+      "origin": "discovered",
+      "sourceEvidence": [
+        {
+          "sourceId": "internal-skill-reuse",
+          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "url": "skills/internal/browser-login-runbook/SKILL.md",
+          "note": "Internal skill detected at browser-login-runbook.",
+          "method": "internal"
+        },
+        {
+          "sourceId": "internal-skill-reuse",
+          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "url": "skills/internal/changelog-delta-summarizer/SKILL.md",
+          "note": "Internal skill detected at changelog-delta-summarizer.",
+          "method": "internal"
+        },
+        {
+          "sourceId": "internal-skill-reuse",
+          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "url": "skills/internal/initiative-bootstrapper/SKILL.md",
+          "note": "Internal skill detected at initiative-bootstrapper.",
+          "method": "internal"
+        },
+        {
+          "sourceId": "internal-skill-reuse",
+          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "url": "skills/internal/landing-page-launcher/SKILL.md",
+          "note": "Internal skill detected at landing-page-launcher.",
+          "method": "internal"
+        }
+      ],
+      "score": {
+        "total": 7.97,
+        "rankedScore": 79.7,
+        "weightVersion": "2026-03-06.a",
+        "dimensionScores": {
+          "expectedValue": 8.13,
+          "confidence": 7.4,
+          "speedToLaunch": 9.29,
+          "speedToRevenue": 8.8,
+          "capitalEfficiency": 9.56,
+          "platformRisk": 4.6,
+          "distributionEfficiency": 7.4,
+          "buildComplexity": 4.3,
+          "maintenanceBurden": 3.9,
+          "compoundingPotential": 8.6,
+          "automationSuitability": 9.1,
+          "synergyWithExistingAssets": 9,
+          "payoutReadiness": 8.15,
+          "complianceFriction": 2.1
+        }
+      }
+    },
+    {
       "id": "ops-audit-packs",
       "title": "Operational audit packs for SMB service businesses",
       "thesis": "Package agent-assisted audits, fix plans, and tracked automation setup into a repeatable paid offer with strong margin and fast proof-of-value.",
@@ -139,13 +186,13 @@
         {
           "source": "service-business pain",
           "description": "Manual ops and quoting friction remain common in local businesses.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 7.8
         },
         {
           "source": "AI adoption",
           "description": "Businesses want AI help but need bounded and accountable delivery.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 8.2
         }
       ],
@@ -185,6 +232,15 @@
         "gross margin",
         "implementation cycle time"
       ],
+      "origin": "seeded",
+      "sourceEvidence": [
+        {
+          "sourceId": "seed-catalog",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+          "method": "seeded"
+        }
+      ],
       "score": {
         "total": 7.88,
         "rankedScore": 78.8,
@@ -217,13 +273,13 @@
         {
           "source": "creator economy",
           "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 7.4
         },
         {
           "source": "distribution leverage",
           "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 7.1
         }
       ],
@@ -261,6 +317,15 @@
         "refund rate",
         "upsell attach rate"
       ],
+      "origin": "seeded",
+      "sourceEvidence": [
+        {
+          "sourceId": "seed-catalog",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+          "method": "seeded"
+        }
+      ],
       "score": {
         "total": 7.78,
         "rankedScore": 77.8,
@@ -293,13 +358,13 @@
         {
           "source": "content fatigue",
           "description": "Expert creators want output without running full content teams.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 7.6
         },
         {
           "source": "agent fit",
           "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 8.5
         }
       ],
@@ -338,6 +403,15 @@
         "retention",
         "hours per account"
       ],
+      "origin": "seeded",
+      "sourceEvidence": [
+        {
+          "sourceId": "seed-catalog",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+          "method": "seeded"
+        }
+      ],
       "score": {
         "total": 7.66,
         "rankedScore": 76.6,
@@ -370,13 +444,13 @@
         {
           "source": "search intent",
           "description": "High-intent long-tail queries still reward specialized content and useful tools.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 8.4
         },
         {
           "source": "buyer routing",
           "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
           "strength": 7.8
         }
       ],
@@ -415,6 +489,15 @@
         "lead qualification rate",
         "revenue per page"
       ],
+      "origin": "seeded",
+      "sourceEvidence": [
+        {
+          "sourceId": "seed-catalog",
+          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
+          "method": "seeded"
+        }
+      ],
       "score": {
         "total": 7.63,
         "rankedScore": 76.3,
@@ -436,151 +519,15 @@
           "complianceFriction": 3.2
         }
       }
-    },
-    {
-      "id": "licensed-data-briefs",
-      "title": "Licensed data briefs for recurring market niches",
-      "thesis": "Package curated market and operational data into paid briefings and datasets for niche buyers who value speed over building their own intelligence stack.",
-      "laneFamily": "data-product",
-      "monetizationRoute": "Subscriptions, one-off briefs, and enterprise licensing",
-      "demandSignals": [
-        {
-          "source": "time scarcity",
-          "description": "Operators pay for faster access to compiled data in markets they already understand.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
-          "strength": 6.8
-        },
-        {
-          "source": "repeatable research",
-          "description": "Automated collection and summarization can lower production cost substantially.",
-          "capturedAt": "2026-03-06T20:02:35.801Z",
-          "strength": 7.5
-        }
-      ],
-      "requiredAssets": [
-        "data-pipeline",
-        "brief-template",
-        "subscriber-page",
-        "archive"
-      ],
-      "requiredAccounts": [
-        "Data providers",
-        "Hosting",
-        "Wise"
-      ],
-      "timeToLaunchDays": 15,
-      "timeToRevenueDays": 28,
-      "expectedMarginPct": 79,
-      "capitalRequiredUsd": 280,
-      "automationFit": 8.9,
-      "defensibility": 7.7,
-      "distributionFit": 6.4,
-      "complianceFriction": 4.9,
-      "payoutFriction": 1.8,
-      "buildComplexity": 6.1,
-      "maintenanceBurden": 6.5,
-      "platformRisk": 2.6,
-      "compoundingPotential": 8.6,
-      "confidence": 6.6,
-      "synergy": 7.2,
-      "payoutReadiness": 8.4,
-      "currentStatus": "discovered",
-      "experimentPlan": "Ship one premium niche brief with a fixed format, limited founding cohort, and clear refresh cadence before broadening coverage.",
-      "liveKpis": [
-        "subscriber conversion",
-        "renewal rate",
-        "gross margin",
-        "dataset reuse"
-      ],
-      "score": {
-        "total": 7.1,
-        "rankedScore": 71,
-        "weightVersion": "2026-03-06.a",
-        "dimensionScores": {
-          "expectedValue": 7.63,
-          "confidence": 6.6,
-          "speedToLaunch": 7.86,
-          "speedToRevenue": 7.2,
-          "capitalEfficiency": 8.88,
-          "platformRisk": 2.6,
-          "distributionEfficiency": 6.4,
-          "buildComplexity": 6.1,
-          "maintenanceBurden": 6.5,
-          "compoundingPotential": 8.6,
-          "automationSuitability": 8.9,
-          "synergyWithExistingAssets": 7.2,
-          "payoutReadiness": 8.3,
-          "complianceFriction": 4.9
-        }
-      }
     }
   ],
   "activeExperiments": [
     {
-      "id": "exp-ops-audit-packs",
-      "opportunityId": "ops-audit-packs",
-      "title": "Experiment: Operational audit packs for SMB service businesses",
-      "thesis": "Launch one niche-specific landing page, outbound-compatible intake flow, and paid diagnostic offer capped at low acquisition spend.",
+      "id": "exp-discovered-internal-skill-packs",
+      "opportunityId": "discovered-internal-skill-packs",
+      "title": "Experiment: Externalize internal workflow assets as paid automation packs",
+      "thesis": "Convert the highest-reuse internal skill into a documented, supportable automation pack and validate it on one marketplace plus one owned landing page.",
       "status": "building",
-      "successMetrics": [
-        "Positive contribution margin within budget envelope",
-        "Evidence of repeatable acquisition channel",
-        "Operator-independent runbook drafted"
-      ],
-      "budgetCapUsd": 250,
-      "launchChecklist": [
-        "Define asset package and offer page",
-        "Attach analytics and evidence capture",
-        "Confirm treasury category and spend tags",
-        "Create kill and compound review dates"
-      ],
-      "measurementPlan": [
-        "Capture spend, attributable revenue, and response rate daily",
-        "Review conversion and payback time every 24 hours during launch week",
-        "Update portfolio score after each milestone or anomaly"
-      ],
-      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
-      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-13T20:02:35.803Z",
-      "nextActions": [
-        {
-          "id": "ops-audit-packs-offer",
-          "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
-          "owner": "ceo",
-          "initiativeId": "ops-audit-packs",
-          "reason": "highest-ev-open-experiment",
-          "priority": 100,
-          "dueAt": "2026-03-06T22:02:35.803Z",
-          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
-        },
-        {
-          "id": "ops-audit-packs-asset",
-          "title": "Build launch assets for Operational audit packs for SMB service businesses",
-          "owner": "builder",
-          "initiativeId": "ops-audit-packs",
-          "reason": "highest-priority-product-backlog",
-          "priority": 92,
-          "dueAt": "2026-03-07T02:02:35.803Z",
-          "notes": "Ship a landing page, support docs, and measurement hooks."
-        },
-        {
-          "id": "ops-audit-packs-distribution",
-          "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
-          "owner": "distribution",
-          "initiativeId": "ops-audit-packs",
-          "reason": "distribution-bottleneck",
-          "priority": 88,
-          "dueAt": "2026-03-07T08:02:35.803Z",
-          "notes": "Set the initial channel mix and evidence capture for first traffic."
-        }
-      ]
-    },
-    {
-      "id": "exp-marketplace-automation-packs",
-      "opportunityId": "marketplace-automation-packs",
-      "title": "Experiment: Automation packs sold through compliant marketplaces",
-      "thesis": "Package two internal workflow assets into a starter bundle and A/B test listings across one primary marketplace and one owned landing page.",
-      "status": "approved",
       "successMetrics": [
         "Positive contribution margin within budget envelope",
         "Evidence of repeatable acquisition channel",
@@ -600,7 +547,125 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-15T20:02:35.803Z",
+      "reviewDate": "2026-03-13T23:07:51.888Z",
+      "nextActions": [
+        {
+          "id": "discovered-internal-skill-packs-offer",
+          "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
+          "owner": "ceo",
+          "initiativeId": "discovered-internal-skill-packs",
+          "reason": "highest-ev-open-experiment",
+          "priority": 100,
+          "dueAt": "2026-03-07T01:07:51.888Z",
+          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        },
+        {
+          "id": "discovered-internal-skill-packs-asset",
+          "title": "Build launch assets for Externalize internal workflow assets as paid automation packs",
+          "owner": "builder",
+          "initiativeId": "discovered-internal-skill-packs",
+          "reason": "highest-priority-product-backlog",
+          "priority": 92,
+          "dueAt": "2026-03-07T05:07:51.888Z",
+          "notes": "Ship a landing page, support docs, and measurement hooks."
+        },
+        {
+          "id": "discovered-internal-skill-packs-distribution",
+          "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
+          "owner": "distribution",
+          "initiativeId": "discovered-internal-skill-packs",
+          "reason": "distribution-bottleneck",
+          "priority": 88,
+          "dueAt": "2026-03-07T11:07:51.888Z",
+          "notes": "Set the initial channel mix and evidence capture for first traffic."
+        }
+      ]
+    },
+    {
+      "id": "exp-ops-audit-packs",
+      "opportunityId": "ops-audit-packs",
+      "title": "Experiment: Operational audit packs for SMB service businesses",
+      "thesis": "Launch one niche-specific landing page, outbound-compatible intake flow, and paid diagnostic offer capped at low acquisition spend.",
+      "status": "approved",
+      "successMetrics": [
+        "Positive contribution margin within budget envelope",
+        "Evidence of repeatable acquisition channel",
+        "Operator-independent runbook drafted"
+      ],
+      "budgetCapUsd": 250,
+      "launchChecklist": [
+        "Define asset package and offer page",
+        "Attach analytics and evidence capture",
+        "Confirm treasury category and spend tags",
+        "Create kill and compound review dates"
+      ],
+      "measurementPlan": [
+        "Capture spend, attributable revenue, and response rate daily",
+        "Review conversion and payback time every 24 hours during launch week",
+        "Update portfolio score after each milestone or anomaly"
+      ],
+      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+      "reviewDate": "2026-03-15T23:07:51.888Z",
+      "nextActions": [
+        {
+          "id": "ops-audit-packs-offer",
+          "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+          "owner": "ceo",
+          "initiativeId": "ops-audit-packs",
+          "reason": "highest-ev-open-experiment",
+          "priority": 99,
+          "dueAt": "2026-03-07T01:07:51.888Z",
+          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        },
+        {
+          "id": "ops-audit-packs-asset",
+          "title": "Build launch assets for Operational audit packs for SMB service businesses",
+          "owner": "builder",
+          "initiativeId": "ops-audit-packs",
+          "reason": "highest-priority-product-backlog",
+          "priority": 91,
+          "dueAt": "2026-03-07T05:07:51.888Z",
+          "notes": "Ship a landing page, support docs, and measurement hooks."
+        },
+        {
+          "id": "ops-audit-packs-distribution",
+          "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+          "owner": "distribution",
+          "initiativeId": "ops-audit-packs",
+          "reason": "distribution-bottleneck",
+          "priority": 87,
+          "dueAt": "2026-03-07T11:07:51.888Z",
+          "notes": "Set the initial channel mix and evidence capture for first traffic."
+        }
+      ]
+    },
+    {
+      "id": "exp-marketplace-automation-packs",
+      "opportunityId": "marketplace-automation-packs",
+      "title": "Experiment: Automation packs sold through compliant marketplaces",
+      "thesis": "Package two internal workflow assets into a starter bundle and A/B test listings across one primary marketplace and one owned landing page.",
+      "status": "planned",
+      "successMetrics": [
+        "Positive contribution margin within budget envelope",
+        "Evidence of repeatable acquisition channel",
+        "Operator-independent runbook drafted"
+      ],
+      "budgetCapUsd": 150,
+      "launchChecklist": [
+        "Define asset package and offer page",
+        "Attach analytics and evidence capture",
+        "Confirm treasury category and spend tags",
+        "Create kill and compound review dates"
+      ],
+      "measurementPlan": [
+        "Capture spend, attributable revenue, and response rate daily",
+        "Review conversion and payback time every 24 hours during launch week",
+        "Update portfolio score after each milestone or anomaly"
+      ],
+      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+      "reviewDate": "2026-03-17T23:07:51.888Z",
       "nextActions": [
         {
           "id": "marketplace-automation-packs-offer",
@@ -608,8 +673,8 @@
           "owner": "ceo",
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-ev-open-experiment",
-          "priority": 99,
-          "dueAt": "2026-03-06T22:02:35.803Z",
+          "priority": 98,
+          "dueAt": "2026-03-07T01:07:51.888Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -618,8 +683,8 @@
           "owner": "builder",
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-priority-product-backlog",
-          "priority": 91,
-          "dueAt": "2026-03-07T02:02:35.803Z",
+          "priority": 90,
+          "dueAt": "2026-03-07T05:07:51.888Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -628,8 +693,8 @@
           "owner": "distribution",
           "initiativeId": "marketplace-automation-packs",
           "reason": "distribution-bottleneck",
-          "priority": 87,
-          "dueAt": "2026-03-07T08:02:35.803Z",
+          "priority": 86,
+          "dueAt": "2026-03-07T11:07:51.888Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -659,7 +724,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-17T20:02:35.803Z",
+      "reviewDate": "2026-03-19T23:07:51.888Z",
       "nextActions": [
         {
           "id": "ai-content-repurposer-offer",
@@ -667,8 +732,8 @@
           "owner": "ceo",
           "initiativeId": "ai-content-repurposer",
           "reason": "highest-ev-open-experiment",
-          "priority": 98,
-          "dueAt": "2026-03-06T22:02:35.803Z",
+          "priority": 97,
+          "dueAt": "2026-03-07T01:07:51.888Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -677,8 +742,8 @@
           "owner": "builder",
           "initiativeId": "ai-content-repurposer",
           "reason": "highest-priority-product-backlog",
-          "priority": 90,
-          "dueAt": "2026-03-07T02:02:35.803Z",
+          "priority": 89,
+          "dueAt": "2026-03-07T05:07:51.888Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -687,67 +752,8 @@
           "owner": "distribution",
           "initiativeId": "ai-content-repurposer",
           "reason": "distribution-bottleneck",
-          "priority": 86,
-          "dueAt": "2026-03-07T08:02:35.803Z",
-          "notes": "Set the initial channel mix and evidence capture for first traffic."
-        }
-      ]
-    },
-    {
-      "id": "exp-niche-lead-gen-sites",
-      "opportunityId": "niche-lead-gen-sites",
-      "title": "Experiment: Niche lead-gen sites with qualified buyer routing",
-      "thesis": "Pick one underserved niche, launch a comparison page and lead magnet, then route qualified traffic to a disclosed partner or owned offer.",
-      "status": "planned",
-      "successMetrics": [
-        "Positive contribution margin within budget envelope",
-        "Evidence of repeatable acquisition channel",
-        "Operator-independent runbook drafted"
-      ],
-      "budgetCapUsd": 400,
-      "launchChecklist": [
-        "Define asset package and offer page",
-        "Attach analytics and evidence capture",
-        "Confirm treasury category and spend tags",
-        "Create kill and compound review dates"
-      ],
-      "measurementPlan": [
-        "Capture spend, attributable revenue, and response rate daily",
-        "Review conversion and payback time every 24 hours during launch week",
-        "Update portfolio score after each milestone or anomaly"
-      ],
-      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
-      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-19T20:02:35.803Z",
-      "nextActions": [
-        {
-          "id": "niche-lead-gen-sites-offer",
-          "title": "Define the first bounded offer for Niche lead-gen sites with qualified buyer routing",
-          "owner": "ceo",
-          "initiativeId": "niche-lead-gen-sites",
-          "reason": "highest-ev-open-experiment",
-          "priority": 97,
-          "dueAt": "2026-03-06T22:02:35.803Z",
-          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
-        },
-        {
-          "id": "niche-lead-gen-sites-asset",
-          "title": "Build launch assets for Niche lead-gen sites with qualified buyer routing",
-          "owner": "builder",
-          "initiativeId": "niche-lead-gen-sites",
-          "reason": "highest-priority-product-backlog",
-          "priority": 89,
-          "dueAt": "2026-03-07T02:02:35.803Z",
-          "notes": "Ship a landing page, support docs, and measurement hooks."
-        },
-        {
-          "id": "niche-lead-gen-sites-distribution",
-          "title": "Remove the first distribution bottleneck for Niche lead-gen sites with qualified buyer routing",
-          "owner": "distribution",
-          "initiativeId": "niche-lead-gen-sites",
-          "reason": "distribution-bottleneck",
           "priority": 85,
-          "dueAt": "2026-03-07T08:02:35.803Z",
+          "dueAt": "2026-03-07T11:07:51.888Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -755,33 +761,33 @@
   ],
   "queue": [
     {
-      "id": "ops-audit-packs-offer",
-      "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+      "id": "discovered-internal-skill-packs-offer",
+      "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
       "owner": "ceo",
-      "initiativeId": "ops-audit-packs",
+      "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T20:02:35.803Z",
+      "dueAt": "2026-03-06T23:07:51.890Z",
       "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
-      "id": "ops-audit-packs-distribution",
-      "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+      "id": "discovered-internal-skill-packs-distribution",
+      "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
       "owner": "distribution",
-      "initiativeId": "ops-audit-packs",
+      "initiativeId": "discovered-internal-skill-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-07T08:02:35.803Z",
+      "dueAt": "2026-03-07T11:07:51.888Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
-      "id": "ops-audit-packs-research",
-      "title": "Expand demand proof and adjacent niches for Operational audit packs for SMB service businesses",
+      "id": "discovered-internal-skill-packs-research",
+      "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
       "owner": "research",
-      "initiativeId": "ops-audit-packs",
+      "initiativeId": "discovered-internal-skill-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T14:02:35.803Z",
+      "dueAt": "2026-03-07T17:07:51.888Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -791,7 +797,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-07T16:02:35.803Z",
+      "dueAt": "2026-03-07T19:07:51.888Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -801,7 +807,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-07T20:02:35.803Z",
+      "dueAt": "2026-03-07T23:07:51.888Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     },
     {
@@ -811,7 +817,7 @@
       "initiativeId": "memory-maintenance",
       "reason": "documentation-and-memory",
       "priority": 52,
-      "dueAt": "2026-03-08T02:02:35.803Z",
+      "dueAt": "2026-03-08T05:07:51.888Z",
       "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
     },
     {
@@ -821,41 +827,41 @@
       "initiativeId": "resilience",
       "reason": "resilience-work",
       "priority": 48,
-      "dueAt": "2026-03-08T08:02:35.803Z",
+      "dueAt": "2026-03-08T11:07:51.888Z",
       "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
     }
   ],
   "dispatch": {
-    "generatedAt": "2026-03-06T20:02:35.803Z",
+    "generatedAt": "2026-03-06T23:07:51.890Z",
     "queue": [
       {
-        "id": "ops-audit-packs-offer",
-        "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+        "id": "discovered-internal-skill-packs-offer",
+        "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
         "owner": "ceo",
-        "initiativeId": "ops-audit-packs",
+        "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-06T20:02:35.803Z",
+        "dueAt": "2026-03-06T23:07:51.890Z",
         "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
-        "id": "ops-audit-packs-distribution",
-        "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+        "id": "discovered-internal-skill-packs-distribution",
+        "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
         "owner": "distribution",
-        "initiativeId": "ops-audit-packs",
+        "initiativeId": "discovered-internal-skill-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-07T08:02:35.803Z",
+        "dueAt": "2026-03-07T11:07:51.888Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       },
       {
-        "id": "ops-audit-packs-research",
-        "title": "Expand demand proof and adjacent niches for Operational audit packs for SMB service businesses",
+        "id": "discovered-internal-skill-packs-research",
+        "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
         "owner": "research",
-        "initiativeId": "ops-audit-packs",
+        "initiativeId": "discovered-internal-skill-packs",
         "reason": "new-opportunity-research",
         "priority": 84,
-        "dueAt": "2026-03-07T14:02:35.803Z",
+        "dueAt": "2026-03-07T17:07:51.888Z",
         "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
       },
       {
@@ -865,7 +871,7 @@
         "initiativeId": "skill-pipeline",
         "reason": "skill-gap-reduction",
         "priority": 74,
-        "dueAt": "2026-03-07T16:02:35.803Z",
+        "dueAt": "2026-03-07T19:07:51.888Z",
         "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
       },
       {
@@ -875,7 +881,7 @@
         "initiativeId": "update-steward",
         "reason": "changelog-adaptation",
         "priority": 68,
-        "dueAt": "2026-03-07T20:02:35.803Z",
+        "dueAt": "2026-03-07T23:07:51.888Z",
         "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
       },
       {
@@ -885,7 +891,7 @@
         "initiativeId": "memory-maintenance",
         "reason": "documentation-and-memory",
         "priority": 52,
-        "dueAt": "2026-03-08T02:02:35.803Z",
+        "dueAt": "2026-03-08T05:07:51.888Z",
         "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
       },
       {
@@ -895,30 +901,30 @@
         "initiativeId": "resilience",
         "reason": "resilience-work",
         "priority": 48,
-        "dueAt": "2026-03-08T08:02:35.803Z",
+        "dueAt": "2026-03-08T11:07:51.888Z",
         "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
       }
     ],
     "readyQueue": [
       {
-        "id": "ops-audit-packs-offer",
-        "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+        "id": "discovered-internal-skill-packs-offer",
+        "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
         "owner": "ceo",
-        "initiativeId": "ops-audit-packs",
+        "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-06T20:02:35.803Z",
+        "dueAt": "2026-03-06T23:07:51.890Z",
         "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       }
     ],
     "nextTask": {
-      "id": "ops-audit-packs-offer",
-      "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+      "id": "discovered-internal-skill-packs-offer",
+      "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
       "owner": "ceo",
-      "initiativeId": "ops-audit-packs",
+      "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T20:02:35.803Z",
+      "dueAt": "2026-03-06T23:07:51.890Z",
       "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     "immediateContinuations": [],
@@ -926,10 +932,10 @@
     "blockedInitiativeIds": [],
     "locks": [
       {
-        "taskId": "ops-audit-packs-offer",
+        "taskId": "discovered-internal-skill-packs-offer",
         "owner": "ceo",
-        "acquiredAt": "2026-03-06T20:02:35.803Z",
-        "expiresAt": "2026-03-06T20:17:35.803Z"
+        "acquiredAt": "2026-03-06T23:07:51.890Z",
+        "expiresAt": "2026-03-06T23:22:51.890Z"
       }
     ],
     "agentConcurrencyLimits": {
@@ -954,12 +960,17 @@
     }
   },
   "browser": {
-    "generatedAt": "2026-03-06T20:02:35.805Z",
+    "generatedAt": "2026-03-06T23:07:53.147Z",
     "capabilities": {
       "managedBrowser": true,
       "attachedChrome": false,
+      "attachedChromePaired": false,
+      "gatewayTokenConfigured": true,
       "steel": false,
-      "steelBaseUrl": "https://api.steel.dev",
+      "steelMode": "none",
+      "steelReady": false,
+      "steelBaseUrl": "",
+      "steelAuthConfigured": false,
       "steelApiConfigured": false
     },
     "profiles": [
@@ -1035,7 +1046,7 @@
         "profileId": "openclaw_research",
         "headless": true,
         "reasons": [
-          "OpenClaw managed browser is the default typed lane for commodity browser work."
+          "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
         ]
       },
       {
@@ -1044,7 +1055,7 @@
         "profileId": "openclaw_research",
         "headless": false,
         "reasons": [
-          "OpenClaw managed browser is the default typed lane for commodity browser work."
+          "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
         ]
       },
       {
@@ -1053,15 +1064,16 @@
         "profileId": "openclaw_research",
         "headless": false,
         "reasons": [
-          "OpenClaw managed browser is the default typed lane for commodity browser work."
+          "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
         ]
       }
     ],
     "activeSessions": 0
   },
   "modelPolicy": {
-    "detectedAt": "2026-03-06T20:02:34.312Z",
+    "detectedAt": "2026-03-06T23:07:37.880Z",
     "probeMode": "passive",
+    "provisional": false,
     "codexCliInstalled": true,
     "openclawInstalled": false,
     "strategicTarget": "gpt-5.4",
@@ -1075,7 +1087,7 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Default strategic alias for research, coding, and operating decisions."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
       },
       {
         "alias": "model.frontier_browser",
@@ -1084,7 +1096,7 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Browser-heavy work should stay on GPT-5.4 unless the runtime blocks it."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
       },
       {
         "alias": "model.frontier_research",
@@ -1093,7 +1105,7 @@
         "reasoning": "xhigh",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Use the highest-reasoning GPT-5.4 route for multi-source synthesis and policy-sensitive research."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
       },
       {
         "alias": "model.frontier_build",
@@ -1102,7 +1114,7 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Builder defaults remain GPT-5.4-first to preserve coding quality."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
       },
       {
         "alias": "openclaw.model.primary_frontier",
@@ -1122,72 +1134,137 @@
     {
       "id": "skill-find-skills",
       "slug": "find-skills",
-      "source": "ClawHub candidate search required",
+      "source": "ClawHub",
       "sourceType": "clawhub",
-      "stage": "seeded",
+      "stage": "quarantine",
+      "discoveredAt": "2026-03-06T23:07:51.892Z",
+      "discoveryMode": "clawhub",
+      "sourceUrl": "https://clawhub.ai/search?q=find-skills",
       "rationale": "Explicit operator request and likely leverage for discovery loops.",
-      "provenance": "Seeded from build prompt.",
-      "versionPin": "pending-source-resolution",
+      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
+      "versionPin": "sha256:9fd7a2bd5c53",
       "maintenanceSignal": 6.5,
       "overlapScore": 8.7,
       "riskScore": 10,
-      "notes": "Locate canonical source before any promotion."
+      "notes": "Resolve the live ClawHub or GitHub source before promotion. Candidate resolved to https://clawhub.ai/search?q=find-skills."
     },
     {
       "id": "skill-clawddocs",
       "slug": "clawddocs",
-      "source": "ClawHub candidate search required",
+      "source": "ClawHub",
       "sourceType": "clawhub",
-      "stage": "seeded",
+      "stage": "quarantine",
+      "discoveredAt": "2026-03-06T23:07:52.196Z",
+      "discoveryMode": "clawhub",
+      "sourceUrl": "https://clawhub.ai/search?q=clawddocs",
       "rationale": "Could improve documentation retrieval and OpenClaw adaptation speed.",
-      "provenance": "Seeded from build prompt.",
-      "versionPin": "pending-source-resolution",
+      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
+      "versionPin": "sha256:0569f1b8e346",
       "maintenanceSignal": 6.2,
       "overlapScore": 8.3,
       "riskScore": 10,
-      "notes": "Verify source availability and compatibility with current OpenClaw release."
+      "notes": "Verify source availability and compatibility with current OpenClaw releases before promotion. Candidate resolved to https://clawhub.ai/search?q=clawddocs."
     },
     {
       "id": "skill-skill-creator",
       "slug": "skill-creator",
-      "source": "Preinstalled Codex system skill",
+      "source": "Local Codex system skill",
       "sourceType": "built-in",
       "stage": "prod",
+      "discoveredAt": "2026-03-06T23:07:52.490Z",
+      "discoveryMode": "workspace",
       "rationale": "Required for internal skill creation workflow.",
       "provenance": "Local Codex system skill present in this session.",
       "versionPin": "system-preinstalled",
       "maintenanceSignal": 9,
       "overlapScore": 9.2,
       "riskScore": 0.2,
-      "notes": "Use for internal skills; treat as trusted within the Codex boundary."
+      "notes": "Built-in system skill; trusted inside the local Codex boundary."
     },
     {
       "id": "skill-proactive-agent",
       "slug": "proactive-agent",
-      "source": "ClawHub or GitHub lookup required",
+      "source": "ClawHub",
       "sourceType": "clawhub",
-      "stage": "seeded",
+      "stage": "quarantine",
+      "discoveredAt": "2026-03-06T23:07:52.490Z",
+      "discoveryMode": "clawhub",
+      "sourceUrl": "https://clawhub.ai/search?q=proactive-agent",
       "rationale": "Maps directly to always-on autonomy patterns but must be supply-chain vetted.",
-      "provenance": "Seeded from build prompt.",
-      "versionPin": "pending-source-resolution",
+      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
+      "versionPin": "sha256:9048806b74a8",
       "maintenanceSignal": 5.5,
       "overlapScore": 8.8,
       "riskScore": 10,
-      "notes": "Potentially high leverage; high trust review required."
+      "notes": "Potentially high leverage; require provenance, pinning, and evals before stage. Candidate resolved to https://clawhub.ai/search?q=proactive-agent."
     },
     {
       "id": "skill-self-improving-agent",
       "slug": "self-improving-agent",
-      "source": "ClawHub or GitHub lookup required",
+      "source": "ClawHub",
       "sourceType": "clawhub",
-      "stage": "seeded",
-      "rationale": "Maps directly to continuous self-improvement objective.",
-      "provenance": "Seeded from build prompt.",
-      "versionPin": "pending-source-resolution",
+      "stage": "quarantine",
+      "discoveredAt": "2026-03-06T23:07:52.703Z",
+      "discoveryMode": "clawhub",
+      "sourceUrl": "https://clawhub.ai/search?q=self-improving-agent",
+      "rationale": "Maps directly to the self-improvement objective.",
+      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
+      "versionPin": "sha256:4ef3844ee635",
       "maintenanceSignal": 5.8,
       "overlapScore": 9.1,
       "riskScore": 10,
-      "notes": "Do not promote without deterministic evals and mutation boundaries."
+      "notes": "Do not promote without deterministic evals and mutation boundaries. Candidate resolved to https://clawhub.ai/search?q=self-improving-agent."
+    },
+    {
+      "id": "workspace-browser-login-runbook",
+      "slug": "browser-login-runbook",
+      "source": "Workspace internal skill",
+      "sourceType": "workspace",
+      "stage": "prod",
+      "discoveredAt": "2026-03-06T23:07:53.147Z",
+      "discoveryMode": "workspace",
+      "sourceUrl": "C:\\Users\\beres\\Desktop\\openclaw setup\\skills\\internal\\browser-login-runbook\\SKILL.md",
+      "rationale": "Internal skill already present in the workspace and available for reuse.",
+      "provenance": "Discovered by scanning skills/internal.",
+      "versionPin": "workspace:browser-login-runbook",
+      "maintenanceSignal": 8.2,
+      "overlapScore": 8.8,
+      "riskScore": 2.3,
+      "notes": "Internal workspace skill available for packaging or reuse."
+    },
+    {
+      "id": "workspace-changelog-delta-summarizer",
+      "slug": "changelog-delta-summarizer",
+      "source": "Workspace internal skill",
+      "sourceType": "workspace",
+      "stage": "prod",
+      "discoveredAt": "2026-03-06T23:07:53.147Z",
+      "discoveryMode": "workspace",
+      "sourceUrl": "C:\\Users\\beres\\Desktop\\openclaw setup\\skills\\internal\\changelog-delta-summarizer\\SKILL.md",
+      "rationale": "Internal skill already present in the workspace and available for reuse.",
+      "provenance": "Discovered by scanning skills/internal.",
+      "versionPin": "workspace:changelog-delta-summarizer",
+      "maintenanceSignal": 8.2,
+      "overlapScore": 8.8,
+      "riskScore": 2.3,
+      "notes": "Internal workspace skill available for packaging or reuse."
+    },
+    {
+      "id": "workspace-initiative-bootstrapper",
+      "slug": "initiative-bootstrapper",
+      "source": "Workspace internal skill",
+      "sourceType": "workspace",
+      "stage": "prod",
+      "discoveredAt": "2026-03-06T23:07:53.147Z",
+      "discoveryMode": "workspace",
+      "sourceUrl": "C:\\Users\\beres\\Desktop\\openclaw setup\\skills\\internal\\initiative-bootstrapper\\SKILL.md",
+      "rationale": "Internal skill already present in the workspace and available for reuse.",
+      "provenance": "Discovered by scanning skills/internal.",
+      "versionPin": "workspace:initiative-bootstrapper",
+      "maintenanceSignal": 8.2,
+      "overlapScore": 8.8,
+      "riskScore": 2.3,
+      "notes": "Internal workspace skill available for packaging or reuse."
     }
   ],
   "anchors": [
@@ -1195,8 +1272,8 @@
       "id": "anchor-1",
       "anchor": "ChatGPT Pro and Business unlimited GPT-5 access in ChatGPT is guardrail-based rather than truly uncapped.",
       "status": "verified",
-      "note": "Official Help Center docs confirm unlimited or virtually unlimited GPT-5 access with abuse guardrails.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "Official plan docs still frame GPT-5 access in ChatGPT as unlimited or effectively unlimited subject to abuse guardrails. Methods: openai-pro-plan:browser-capture, openai-business-limits:browser-capture.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openai-pro-plan",
         "openai-business-limits"
@@ -1205,9 +1282,9 @@
     {
       "id": "anchor-2",
       "anchor": "GPT-5.4 is the current frontier model for professional work with a 1,050,000 token context window.",
-      "status": "verified",
-      "note": "The OpenAI API model page explicitly labels GPT-5.4 as the frontier model and documents the 1.05M context window.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "status": "drifted",
+      "note": "The latest GPT-5.4 model page no longer exposes the earlier frontier or 1.05M context wording clearly enough to keep the old anchor unchanged. Methods: openai-gpt-5.4-model:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openai-gpt-5.4-model"
       ]
@@ -1216,8 +1293,8 @@
       "id": "anchor-3",
       "anchor": "GPT-5.4 is available everywhere you use Codex.",
       "status": "drifted",
-      "note": "Current official Codex docs still center GPT-5-Codex and GPT-5.3-Codex on Codex surfaces. GPT-5.4 is documented in ChatGPT/API, but not as the universal Codex default.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "Codex-facing docs still emphasize GPT-5-Codex or GPT-5.3-Codex rather than proving GPT-5.4 as the universal Codex default. Methods: openai-codex-upgrades:browser-capture, openai-gpt-5.3-codex:browser-capture, openai-gpt-5.4-model:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openai-codex-upgrades",
         "openai-gpt-5.3-codex",
@@ -1228,8 +1305,8 @@
       "id": "anchor-4",
       "anchor": "Codex-native frontier work currently rides on GPT-5.3-Codex or GPT-5-Codex rather than a public GPT-5.4 Codex release.",
       "status": "verified",
-      "note": "The strongest current Codex-native model publicly documented by OpenAI is GPT-5.3-Codex, with GPT-5.4 documented separately for ChatGPT/API reasoning work.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "Current Codex-native docs still center GPT-5.3-Codex or GPT-5-Codex on the Codex surface. Methods: openai-gpt-5.3-codex:browser-capture, openai-gpt-5.4-model:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openai-gpt-5.3-codex",
         "openai-gpt-5.4-model"
@@ -1239,8 +1316,8 @@
       "id": "anchor-5",
       "anchor": "Codex supports ChatGPT sign-in and is included with ChatGPT plans.",
       "status": "verified",
-      "note": "OpenAI Help and blog docs explicitly describe signing in with ChatGPT and included plan access.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "Current Codex docs still support ChatGPT sign-in and plan-based access. Methods: openai-codex-plan:browser-capture, openai-codex-upgrades:browser-capture.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openai-codex-plan",
         "openai-codex-upgrades"
@@ -1249,9 +1326,9 @@
     {
       "id": "anchor-6",
       "anchor": "Current Codex Pro local usage windows are higher than the prompt's 223-1120 estimate.",
-      "status": "drifted",
-      "note": "The current official plan article documents roughly 300-1,500 local Pro messages per 5 hours, with task-size variance and a shared weekly limit.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "status": "pending-runtime-check",
+      "note": "The current Codex plan article could not be parsed cleanly enough to restate the present local-window numbers automatically. Methods: openai-codex-plan:browser-capture.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openai-codex-plan"
       ]
@@ -1260,8 +1337,8 @@
       "id": "anchor-7",
       "anchor": "OpenClaw officially supports Codex OAuth / ChatGPT sign-in.",
       "status": "verified",
-      "note": "OpenClaw model provider docs explicitly support `openai-codex` OAuth for external tools and workflows.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "OpenClaw provider docs still explicitly document OpenAI Codex OAuth support. Methods: openclaw-model-providers:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-model-providers"
       ]
@@ -1269,9 +1346,9 @@
     {
       "id": "anchor-8",
       "anchor": "OpenClaw recommends Node runtime for stable gateways and does not recommend Bun for gateway installs.",
-      "status": "verified",
-      "note": "The CLI reference says gateway install defaults to Node runtime and specifically notes Bun is not recommended.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "status": "pending-runtime-check",
+      "note": "The current CLI docs could not be parsed cleanly enough to restate the Node-versus-Bun guidance automatically. Methods: openclaw-cli:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-cli"
       ]
@@ -1279,9 +1356,9 @@
     {
       "id": "anchor-9",
       "anchor": "The strongest always-on OpenClaw pattern is one primary gateway with remote nodes and clients.",
-      "status": "verified",
-      "note": "Multiple-gateway docs recommend one gateway for most setups, while FAQ/docs describe remote nodes and tailnet access for distributed control.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "status": "pending-runtime-check",
+      "note": "The single-gateway guidance needs a human check because the latest pages did not expose the wording clearly enough. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-faq:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-multiple-gateways",
         "openclaw-faq"
@@ -1291,8 +1368,8 @@
       "id": "anchor-10",
       "anchor": "Cron and heartbeat serve different purposes and should be combined.",
       "status": "verified",
-      "note": "OpenClaw's Cron vs Heartbeat guide explicitly recommends using both together.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "The latest automation docs still distinguish cron from heartbeat and recommend using both together. Methods: openclaw-cron-vs-heartbeat:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-cron-vs-heartbeat"
       ]
@@ -1301,8 +1378,8 @@
       "id": "anchor-11",
       "anchor": "OpenClaw memory is Markdown-first, and Codex OAuth does not satisfy embeddings for memory search.",
       "status": "verified",
-      "note": "The memory docs explicitly say Markdown files are the source of truth and Codex OAuth does not cover embeddings.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "The latest memory docs still show Markdown-first memory and separate embedding requirements. Methods: openclaw-memory:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-memory"
       ]
@@ -1311,8 +1388,8 @@
       "id": "anchor-12",
       "anchor": "OpenClaw supports QMD and local memory-search backends.",
       "status": "verified",
-      "note": "The memory docs explicitly document the experimental QMD backend and local embedding mode.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "The memory docs still advertise local-first memory search options such as QMD or local embeddings. Methods: openclaw-memory:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-memory"
       ]
@@ -1321,8 +1398,8 @@
       "id": "anchor-13",
       "anchor": "OpenClaw skills, plugins, and skill folders are supply-chain risk and must be treated as trusted or untrusted code accordingly.",
       "status": "verified",
-      "note": "OpenClaw security and skills docs explicitly warn that plugins are trusted code and third-party skills should be treated as untrusted code.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "OpenClaw security guidance still treats skills and plugins as trusted-code or supply-chain risk surfaces. Methods: openclaw-security:direct-fetch, openclaw-secrets:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-security",
         "openclaw-secrets"
@@ -1332,8 +1409,8 @@
       "id": "anchor-14",
       "anchor": "OpenClaw current docs expose strict config validation, additive SecretRefs, and a first-class PDF tool.",
       "status": "verified",
-      "note": "Current configuration, secrets, and PDF docs confirm all three. The exact command in docs is `openclaw doctor`, not a documented `openclaw config validate --json` entry.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "Current OpenClaw docs still expose config validation or doctor-style checks, broader secret coverage, and PDF tooling. Methods: openclaw-configuration:direct-fetch, openclaw-secrets:direct-fetch, openclaw-pdf:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-configuration",
         "openclaw-secrets",
@@ -1344,8 +1421,8 @@
       "id": "anchor-15",
       "anchor": "OpenClaw can use a managed browser or an attached Chrome relay, and headless mode is more likely to trigger anti-bot checks.",
       "status": "verified",
-      "note": "Browser docs cover the managed browser and extension relay; FAQ documents headless mode and anti-bot risk.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "The browser docs still cover managed browsing, attached Chrome, and headless tradeoffs. Methods: openclaw-browser:direct-fetch, openclaw-faq:direct-fetch, openclaw-browser-login:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-browser",
         "openclaw-faq",
@@ -1355,9 +1432,9 @@
     {
       "id": "anchor-16",
       "anchor": "Automated self-update is possible but not the primary recommended operating pattern.",
-      "status": "verified",
-      "note": "The FAQ explicitly says asking OpenClaw to update itself is possible but not recommended.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "status": "pending-runtime-check",
+      "note": "The latest FAQ needs a human confirmation of the self-update guidance. Methods: openclaw-faq:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openclaw-faq"
       ]
@@ -1366,8 +1443,8 @@
       "id": "anchor-17",
       "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU/UK PSD2 constrains personal-token actions.",
       "status": "verified",
-      "note": "Wise docs explicitly distinguish small-business personal tokens from partner OAuth 2.0 and call out EU/UK PSD2 limits.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "note": "Current Wise docs still separate personal-token and OAuth realities and preserve PSD2 constraints. Methods: wise-security-access:direct-fetch, wise-personal-tokens:direct-fetch, wise-getting-started:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "wise-security-access",
         "wise-personal-tokens",
@@ -1377,9 +1454,9 @@
     {
       "id": "anchor-18",
       "anchor": "GPT-4.5-preview assumptions are stale and deprecated.",
-      "status": "verified",
-      "note": "OpenAI model docs and retirement notes show GPT-4.5 preview is deprecated while GPT-5.4 is current.",
-      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "status": "pending-runtime-check",
+      "note": "The latest release notes need a human review before restating the GPT-4.5 deprecation claim. Methods: openai-model-release-notes:browser-capture, openai-gpt-5.4-model:direct-fetch.",
+      "checkedAt": "2026-03-06T23:07:53.178Z",
       "sourceIds": [
         "openai-model-release-notes",
         "openai-gpt-5.4-model"
@@ -1392,14 +1469,14 @@
       "heartbeatCadence": "15m",
       "lastHeartbeatAt": null,
       "backlogCount": 1,
-      "activeInitiative": "ops-audit-packs"
+      "activeInitiative": "discovered-internal-skill-packs"
     },
     {
       "agentId": "research",
       "heartbeatCadence": "30m",
       "lastHeartbeatAt": null,
       "backlogCount": 1,
-      "activeInitiative": "ops-audit-packs"
+      "activeInitiative": "discovered-internal-skill-packs"
     },
     {
       "agentId": "builder",
@@ -1413,7 +1490,7 @@
       "heartbeatCadence": "60m",
       "lastHeartbeatAt": null,
       "backlogCount": 1,
-      "activeInitiative": "ops-audit-packs"
+      "activeInitiative": "discovered-internal-skill-packs"
     },
     {
       "agentId": "treasury",
@@ -1440,11 +1517,11 @@
   "notes": [
     "Use prod only after stage smoke, source refresh, treasury probe, and browser broker checks all pass.",
     "Keep GPT-5.4 as the default strategy model where supported, while OpenClaw stays on the strongest verified provider string until runtime proves a GPT-5.4 provider path.",
-    "The dispatcher should continue work immediately after task completion instead of waiting for the next heartbeat sweep."
+    "The dispatcher should continue work immediately after task completion instead of waiting for the next heartbeat sweep.",
+    "Treasury truth is unknown cash with unavailable ledger coverage."
   ],
   "blockers": [
     "Attached Chrome relay is not yet paired on the Windows browser host.",
-    "Steel API or self-hosted base URL is not yet configured for session automation.",
-    "Wise automation is still limited to sample state until a token or browser lane is verified."
+    "Steel is not fully configured for session automation yet."
   ]
 }

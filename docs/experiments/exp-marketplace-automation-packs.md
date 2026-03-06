@@ -9,7 +9,7 @@ Package two internal workflow assets into a starter bundle and A/B test listings
 - Opportunity: Automation packs sold through compliant marketplaces
 - Lane family: digital-products
 - Budget cap: $150
-- Review date: 2026-03-15
+- Review date: 2026-03-17
 
 ## Launch checklist
 

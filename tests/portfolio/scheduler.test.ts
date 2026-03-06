@@ -83,4 +83,34 @@ describe("autonomy queue", () => {
     expect(dispatch.readyQueue.every((item) => item.initiativeId !== "ops-audit-packs")).toBe(true);
     expect(dispatch.recoveryActions.some((item) => item.includes("blocked"))).toBe(true);
   });
+
+  test("promotes the next task immediately when a task completes", () => {
+    const opportunities = rankOpportunities(defaultOpportunities());
+    const experiments = createExperiments(opportunities);
+    const queue = buildAutonomyQueue(opportunities, experiments);
+    const completedTaskId = queue[0]!.id;
+
+    const dispatch = buildDispatchState({
+      opportunities,
+      experiments,
+      queue,
+      completedTaskId,
+      modelProbe: {
+        detectedAt: new Date().toISOString(),
+        probeMode: "passive",
+        provisional: false,
+        codexCliInstalled: true,
+        openclawInstalled: true,
+        strategicTarget: "gpt-5.4",
+        openClawPrimary: "openai-codex/gpt-5.3-codex",
+        openClawFallback: "openai-codex/gpt-5-codex",
+        aliases: [],
+        drift: [],
+      },
+    });
+
+    expect(dispatch.completedTaskIds).toContain(completedTaskId);
+    expect(dispatch.nextTask?.id).not.toBe(completedTaskId);
+    expect(dispatch.usagePolicy.strategicModel).toBe("gpt-5.4");
+  });
 });

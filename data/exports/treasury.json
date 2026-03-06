@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-03-06T20:02:36.479Z",
+  "asOf": "2026-03-06T23:07:53.995Z",
   "mode": "browser-only",
   "authMode": "browser-only",
   "capabilities": {
@@ -19,6 +19,9 @@
   },
   "balances": [],
   "ledger": [],
+  "cashTruth": "unknown",
+  "ledgerStatus": "unavailable",
+  "ledgerCoverageNote": "No append-only ledger entries are available yet. Treasury can report live balances only when the active lane exposes them.",
   "recurringMonthlyUsd": 0,
   "runwayMonths": null,
   "suspiciousSpendCount": 0,

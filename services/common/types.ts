@@ -59,6 +59,14 @@ export interface OpportunitySignal {
   url?: string;
 }
 
+export interface OpportunityEvidence {
+  sourceId: string;
+  capturedAt: string;
+  url?: string;
+  note: string;
+  method: "seeded" | "feed" | "browser" | "search" | "internal" | "operator";
+}
+
 export interface OpportunityMetrics {
   expectedValue: number;
   confidence: number;
@@ -111,6 +119,8 @@ export interface Opportunity {
   currentStatus: OpportunityStatus;
   experimentPlan: string;
   liveKpis: string[];
+  origin?: "seeded" | "discovered" | "pinned";
+  sourceEvidence?: OpportunityEvidence[];
   score?: ScoreBreakdown;
 }
 
@@ -211,6 +221,9 @@ export interface TreasurySnapshot {
   capabilities: TreasuryCapabilityFlags;
   balances: TreasuryBalance[];
   ledger: LedgerEntry[];
+  cashTruth: "sample" | "live-known" | "unknown";
+  ledgerStatus: "sample" | "complete" | "partial" | "unavailable";
+  ledgerCoverageNote: string;
   recurringMonthlyUsd: number;
   runwayMonths: number | null;
   suspiciousSpendCount: number;
@@ -232,6 +245,9 @@ export interface SkillCandidate {
   source: string;
   sourceType: "clawhub" | "github" | "workspace" | "built-in";
   stage: SkillPromotionStage;
+  discoveredAt?: string;
+  discoveryMode?: "seeded" | "clawhub" | "github" | "workspace";
+  sourceUrl?: string;
   rationale: string;
   provenance: string;
   versionPin: string;
@@ -328,7 +344,7 @@ export interface ModelAliasState {
   strategicTarget: string;
   resolvedModel: string;
   reasoning: "high" | "xhigh";
-  surface: "codex-cli" | "openclaw" | "source-fallback" | "env-override";
+  surface: "codex-cli" | "openclaw" | "source-fallback" | "env-override" | "provisional";
   status: "preferred" | "fallback" | "candidate" | "unavailable" | "docs-only";
   note: string;
 }
@@ -336,6 +352,7 @@ export interface ModelAliasState {
 export interface ModelCapabilityProbe {
   detectedAt: string;
   probeMode: RuntimeProbeMode;
+  provisional: boolean;
   codexCliInstalled: boolean;
   openclawInstalled: boolean;
   strategicTarget: string;
@@ -409,8 +426,13 @@ export interface BrowserBrokerState {
   capabilities: {
     managedBrowser: boolean;
     attachedChrome: boolean;
+    attachedChromePaired: boolean;
+    gatewayTokenConfigured: boolean;
     steel: boolean;
+    steelMode: "none" | "cloud" | "self-hosted";
+    steelReady: boolean;
     steelBaseUrl: string;
+    steelAuthConfigured: boolean;
     steelApiConfigured: boolean;
   };
   profiles: BrowserProfileClass[];

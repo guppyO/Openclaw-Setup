@@ -201,6 +201,30 @@ interface EnvironmentConfig {
   modelFallback: string;
 }
 
+const VPS_ROOT_DIR = "/opt/revenue-os";
+const VPS_RUNTIME_USER = "revenueos";
+
+function heartbeatEvery(agentId: AgentTemplate["id"]): string {
+  switch (agentId) {
+    case "research":
+      return "15m";
+    case "distribution":
+      return "20m";
+    case "treasury":
+      return "30m";
+    case "skillsmith":
+      return "25m";
+    default:
+      return "12m";
+  }
+}
+
+function secretRef(key: string): { $secretRef: string } {
+  return {
+    $secretRef: key,
+  };
+}
+
 function renderOpenClawConfig(config: EnvironmentConfig): string {
   return `${JSON.stringify(
     {
@@ -208,22 +232,62 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
         bind: config.bind,
         port: config.port,
         controlUi: false,
+        auth: {
+          token: secretRef("OPENCLAW_GATEWAY_TOKEN"),
+        },
       },
       model: {
         primary: config.modelPrimary,
         fallback: config.modelFallback,
       },
+      hooks: {
+        enabled: true,
+        path: "/hooks",
+        token: secretRef("OPENCLAW_HOOK_TOKEN"),
+        defaultSessionKey: `hook:${config.name}:dispatch`,
+        allowRequestSessionKey: false,
+        allowedSessionKeyPrefixes: [`hook:${config.name}:`],
+        allowedAgentIds: ["ceo", "ops"],
+        mappings: [
+          {
+            name: "dispatch-immediate",
+            match: {
+              path: "dispatch",
+            },
+            action: "agent",
+            agentId: "ceo",
+            wakeMode: "now",
+            sessionKey: `hook:${config.name}:dispatch:ceo`,
+            deliver: false,
+            model: config.modelPrimary,
+            messageTemplate:
+              "Dispatch continuation requested. Review dispatch-state.json and continue the next ready task immediately. Completed task: {{completedTaskId}}. Next task: {{nextTaskId}}.",
+          },
+        ],
+      },
       agents: {
         defaults: {
-          workspace: `~/.openclaw/revenue-os/${config.name}/workspace`,
+          workspace: `${VPS_ROOT_DIR}/runtime/${config.name}/workspace`,
           userTimezone: "Europe/London",
           timeFormat: "en-GB",
         },
         list: AGENTS.map((agent) => ({
           name: agent.id,
-          workspace: `~/.openclaw/revenue-os/${config.name}/workspace/${agent.id}`,
-          agentDir: `~/revenue-os/agents/${agent.id}`,
+          workspace: `${VPS_ROOT_DIR}/runtime/${config.name}/workspace/${agent.id}`,
+          agentDir: `${VPS_ROOT_DIR}/agents/${agent.id}`,
           model: config.modelPrimary,
+          heartbeat: {
+            every: heartbeatEvery(agent.id),
+            model: config.modelPrimary,
+            prompt:
+              "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
+            session: "main",
+            includeReasoning: false,
+            directPolicy: "block",
+            target: "none",
+            ackMaxChars: 180,
+            suppressToolErrorWarnings: true,
+          },
         })),
       },
       browser: {
@@ -240,6 +304,11 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
       cron: {
         enabled: true,
       },
+      heartbeat: {
+        enabled: true,
+        policy: "strategic-sweep-only",
+        notes: "Heartbeat stays lightweight because immediate continuation flows through runtime:complete-task plus the wake hook.",
+      },
     },
     null,
     2,
@@ -254,18 +323,20 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=%h/revenue-os
+User=${VPS_RUNTIME_USER}
+Group=${VPS_RUNTIME_USER}
+WorkingDirectory=${VPS_ROOT_DIR}
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
-EnvironmentFile=-%h/revenue-os/.secrets/revenue-os.local.env
-ExecStartPre=/usr/bin/env bash -lc 'cd %h/revenue-os && npm run runtime:probe-models && npm run bootstrap:control-plane'
-ExecStartPre=/usr/bin/env bash -lc 'cd %h/revenue-os && openclaw doctor'
-ExecStart=/usr/bin/env openclaw gateway --config %h/revenue-os/openclaw/${environment.name}/openclaw.json
+EnvironmentFile=-${VPS_ROOT_DIR}/.secrets/revenue-os.local.env
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:probe-models && npm run bootstrap:control-plane'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && openclaw doctor'
+ExecStart=/usr/bin/env openclaw gateway --config ${VPS_ROOT_DIR}/openclaw/${environment.name}/openclaw.json
 Restart=always
 RestartSec=5
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 `;
 }
 
@@ -282,11 +353,13 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=%h/revenue-os
+User=${VPS_RUNTIME_USER}
+Group=${VPS_RUNTIME_USER}
+WorkingDirectory=${VPS_ROOT_DIR}
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
-EnvironmentFile=-%h/revenue-os/.secrets/revenue-os.local.env
-ExecStart=/usr/bin/env bash -lc 'cd %h/revenue-os && ${commandMap[id]}'
+EnvironmentFile=-${VPS_ROOT_DIR}/.secrets/revenue-os.local.env
+ExecStart=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && ${commandMap[id]}'
 `;
 }
 
@@ -316,7 +389,7 @@ function renderBootstrapScript(environment: EnvironmentConfig): string {
   return `#!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="${"$"}{HOME}/revenue-os"
+ROOT_DIR="${"$"}{REVENUE_OS_ROOT_DIR:-${VPS_ROOT_DIR}}"
 CONFIG="${"$"}{ROOT_DIR}/openclaw/${environment.name}/openclaw.json"
 
 cd "${"$"}{ROOT_DIR}"
@@ -334,7 +407,7 @@ openclaw doctor
 openclaw models auth login --provider openai-codex
 
 echo "Prepared ${environment.name} gateway config at ${"$"}{CONFIG}"
-echo "Next: install openclaw/${environment.name}/systemd/revenue-os-${environment.name}.service"
+echo "Next: install systemd units from openclaw/${environment.name}/systemd into /etc/systemd/system and start revenue-os-${environment.name}.service"
 `;
 }
 

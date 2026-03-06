@@ -2,6 +2,7 @@ import { emitLog } from "../../services/common/logger.js";
 import { readJsonFile, resolveRepoPath, writeJsonFile } from "../../services/common/fs.js";
 import type { DispatchState, Experiment, Opportunity, QueueItem } from "../../services/common/types.js";
 import { buildDispatchState } from "../../services/dispatch/index.js";
+import { readModelCapabilityProbe } from "../../services/runtime-model/index.js";
 
 function parseCompletedTaskId(): string | undefined {
   const flagIndex = process.argv.findIndex((argument) => argument === "--complete");
@@ -24,6 +25,7 @@ async function main(): Promise<void> {
     resolveRepoPath("data", "exports", "dispatch-state.json"),
     null,
   );
+  const modelProbe = await readModelCapabilityProbe();
 
   const completedTaskId = parseCompletedTaskId();
   const dispatchState = buildDispatchState({
@@ -33,6 +35,7 @@ async function main(): Promise<void> {
     previousState,
     completedTaskId,
     blockedInitiativeIds,
+    modelProbe,
   });
 
   await writeJsonFile(resolveRepoPath("data", "exports", "dispatch-state.json"), dispatchState);

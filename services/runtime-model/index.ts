@@ -2,7 +2,7 @@ import { exec, execFile } from "node:child_process";
 import { promisify } from "node:util";
 
 import { renderTable } from "../common/markdown.js";
-import { readJsonFile, resolveRepoPath, writeJsonFile, writeTextFile } from "../common/fs.js";
+import { fileExists, readJsonFile, resolveRepoPath, writeJsonFile, writeTextFile } from "../common/fs.js";
 import { loadLocalRuntimeEnv } from "../common/env-loader.js";
 import type { ModelAliasState, ModelCapabilityProbe, RuntimeProbeMode } from "../common/types.js";
 
@@ -84,6 +84,9 @@ async function detectOpenClawPrimary(): Promise<string | null> {
 
 function buildAliases(probe: {
   codexModel: string;
+  codexSurface: ModelAliasState["surface"];
+  codexStatus: ModelAliasState["status"];
+  codexNote: string;
   openClawPrimary: string;
   openClawSurface: ModelAliasState["surface"];
   openClawStatus: ModelAliasState["status"];
@@ -95,36 +98,36 @@ function buildAliases(probe: {
       strategicTarget: "gpt-5.4",
       resolvedModel: probe.codexModel,
       reasoning: "high",
-      surface: "codex-cli",
-      status: "preferred",
-      note: "Default strategic alias for research, coding, and operating decisions.",
+      surface: probe.codexSurface,
+      status: probe.codexStatus,
+      note: probe.codexNote,
     },
     {
       alias: "model.frontier_browser",
       strategicTarget: "gpt-5.4",
       resolvedModel: probe.codexModel,
       reasoning: "high",
-      surface: "codex-cli",
-      status: "preferred",
-      note: "Browser-heavy work should stay on GPT-5.4 unless the runtime blocks it.",
+      surface: probe.codexSurface,
+      status: probe.codexStatus,
+      note: probe.codexNote,
     },
     {
       alias: "model.frontier_research",
       strategicTarget: "gpt-5.4",
       resolvedModel: probe.codexModel,
       reasoning: "xhigh",
-      surface: "codex-cli",
-      status: "preferred",
-      note: "Use the highest-reasoning GPT-5.4 route for multi-source synthesis and policy-sensitive research.",
+      surface: probe.codexSurface,
+      status: probe.codexStatus,
+      note: probe.codexNote,
     },
     {
       alias: "model.frontier_build",
       strategicTarget: "gpt-5.4",
       resolvedModel: probe.codexModel,
       reasoning: "high",
-      surface: "codex-cli",
-      status: "preferred",
-      note: "Builder defaults remain GPT-5.4-first to preserve coding quality.",
+      surface: probe.codexSurface,
+      status: probe.codexStatus,
+      note: probe.codexNote,
     },
     {
       alias: "openclaw.model.primary_frontier",
@@ -142,13 +145,18 @@ export function buildDefaultModelProbe(): ModelCapabilityProbe {
   return {
     detectedAt: new Date().toISOString(),
     probeMode: "passive",
-    codexCliInstalled: true,
+    provisional: true,
+    codexCliInstalled: false,
     openclawInstalled: false,
     strategicTarget: "gpt-5.4",
     openClawPrimary: "openai-codex/gpt-5.3-codex",
     openClawFallback: "openai-codex/gpt-5-codex",
     aliases: buildAliases({
       codexModel: "gpt-5.4",
+      codexSurface: "provisional",
+      codexStatus: "candidate",
+      codexNote:
+        "No live model-capabilities artifact was available, so GPT-5.4 remains the strategic target under a provisional alias until a passive or active probe confirms the route on this host.",
       openClawPrimary: "openai-codex/gpt-5.3-codex",
       openClawSurface: "source-fallback",
       openClawStatus: "docs-only",
@@ -219,6 +227,7 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
   return {
     detectedAt: new Date().toISOString(),
     probeMode,
+    provisional: false,
     codexCliInstalled,
     openclawInstalled,
     strategicTarget,
@@ -226,6 +235,11 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
     openClawFallback,
     aliases: buildAliases({
       codexModel,
+      codexSurface: codexCliInstalled ? "codex-cli" : "provisional",
+      codexStatus: codexCliInstalled ? "preferred" : "candidate",
+      codexNote: codexCliInstalled
+        ? "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+        : "Codex CLI is not installed on this host, so GPT-5.4 remains a strategic target rather than a locally verified CLI route.",
       openClawPrimary,
       openClawSurface,
       openClawStatus,
@@ -243,6 +257,7 @@ Generated on ${probe.detectedAt}.
 ## Strategic defaults
 
 - Company-level target: \`${probe.strategicTarget}\`
+- Provisional artifact: ${probe.provisional ? "yes" : "no"}
 - Codex CLI installed: ${probe.codexCliInstalled ? "yes" : "no"}
 - OpenClaw installed on this host: ${probe.openclawInstalled ? "yes" : "no"}
 - Probe mode: ${probe.probeMode}
@@ -285,8 +300,14 @@ export async function writeModelCapabilityArtifacts(
 }
 
 export async function readModelCapabilityProbe(): Promise<ModelCapabilityProbe> {
-  return readJsonFile<ModelCapabilityProbe>(
-    resolveRepoPath("data", "exports", "model-capabilities.json"),
-    buildDefaultModelProbe(),
-  );
+  const filePath = resolveRepoPath("data", "exports", "model-capabilities.json");
+  if (await fileExists(filePath)) {
+    return readJsonFile<ModelCapabilityProbe>(filePath, buildDefaultModelProbe());
+  }
+
+  try {
+    return await probeModelCapabilities("passive");
+  } catch {
+    return buildDefaultModelProbe();
+  }
 }

@@ -3,14 +3,11 @@ set -euo pipefail
 
 LIVE_VPS_HOST="${LIVE_VPS_HOST:-}"
 LIVE_VPS_USER="${LIVE_VPS_USER:-root}"
+LIVE_VPS_RUNTIME_USER="${LIVE_VPS_RUNTIME_USER:-revenueos}"
 BOOTSTRAP_ENVIRONMENT="${BOOTSTRAP_ENVIRONMENT:-prod}"
 
 if [[ -z "${REMOTE_REPO_DIR:-}" ]]; then
-  if [[ "$LIVE_VPS_USER" == "root" ]]; then
-    REMOTE_REPO_DIR="/root/revenue-os"
-  else
-    REMOTE_REPO_DIR="/home/$LIVE_VPS_USER/revenue-os"
-  fi
+  REMOTE_REPO_DIR="/opt/revenue-os"
 fi
 
 if [[ -z "$LIVE_VPS_HOST" ]]; then
@@ -35,4 +32,4 @@ if [[ -f "$ROOT_DIR/.secrets/revenue-os.local.env" ]]; then
   scp "$ROOT_DIR/.secrets/revenue-os.local.env" "$LIVE_VPS_USER@$LIVE_VPS_HOST:$REMOTE_REPO_DIR/.secrets/revenue-os.local.env"
 fi
 
-ssh "$LIVE_VPS_USER@$LIVE_VPS_HOST" "cd '$REMOTE_REPO_DIR' && REVENUE_OS_ROOT_DIR='$REMOTE_REPO_DIR' REVENUE_OS_ENVIRONMENT='$BOOTSTRAP_ENVIRONMENT' bash scripts/bootstrap/bootstrap-openclaw.sh '$BOOTSTRAP_ENVIRONMENT'"
+ssh "$LIVE_VPS_USER@$LIVE_VPS_HOST" "cd '$REMOTE_REPO_DIR' && LIVE_VPS_RUNTIME_USER='$LIVE_VPS_RUNTIME_USER' REVENUE_OS_ROOT_DIR='$REMOTE_REPO_DIR' REVENUE_OS_ENVIRONMENT='$BOOTSTRAP_ENVIRONMENT' bash scripts/bootstrap/bootstrap-openclaw.sh '$BOOTSTRAP_ENVIRONMENT'"

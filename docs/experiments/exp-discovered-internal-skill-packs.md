@@ -1,15 +1,15 @@
-# Experiment: Repurposing engine for expert-led content portfolios
+# Experiment: Externalize internal workflow assets as paid automation packs
 
 ## Thesis
 
-Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.
+Convert the highest-reuse internal skill into a documented, supportable automation pack and validate it on one marketplace plus one owned landing page.
 
 ## Opportunity
 
-- Opportunity: Repurposing engine for expert-led content portfolios
-- Lane family: service-plus-software
-- Budget cap: $225
-- Review date: 2026-03-19
+- Opportunity: Externalize internal workflow assets as paid automation packs
+- Lane family: digital-products
+- Budget cap: $150
+- Review date: 2026-03-13
 
 ## Launch checklist
 

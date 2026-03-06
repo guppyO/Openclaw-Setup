@@ -5,15 +5,17 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=%h/revenue-os
+User=revenueos
+Group=revenueos
+WorkingDirectory=/opt/revenue-os
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=prod
-EnvironmentFile=-%h/revenue-os/.secrets/revenue-os.local.env
-ExecStartPre=/usr/bin/env bash -lc 'cd %h/revenue-os && npm run runtime:probe-models && npm run bootstrap:control-plane'
-ExecStartPre=/usr/bin/env bash -lc 'cd %h/revenue-os && openclaw doctor'
-ExecStart=/usr/bin/env openclaw gateway --config %h/revenue-os/openclaw/prod/openclaw.json
+EnvironmentFile=-/opt/revenue-os/.secrets/revenue-os.local.env
+ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && npm run runtime:probe-models && npm run bootstrap:control-plane'
+ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && openclaw doctor'
+ExecStart=/usr/bin/env openclaw gateway --config /opt/revenue-os/openclaw/prod/openclaw.json
 Restart=always
 RestartSec=5
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target

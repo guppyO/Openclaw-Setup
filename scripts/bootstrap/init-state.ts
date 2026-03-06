@@ -4,12 +4,14 @@ import { buildBrowserBrokerState } from "../../services/browser-broker/index.js"
 import { buildDispatchState } from "../../services/dispatch/index.js";
 import { buildAutonomyQueue, buildExperimentMarkdown, createExperiments } from "../../services/experiment-runner/index.js";
 import { writeRuntimeDocs } from "../../services/update-steward/index.js";
-import { defaultOpportunities, buildPortfolioMarkdown, rankOpportunities } from "../../services/opportunity-engine/index.js";
+import { buildPortfolioMarkdown } from "../../services/opportunity-engine/index.js";
+import { buildOpportunityIngestReport, discoverOpportunities } from "../../services/opportunity-ingest/index.js";
 import { publishLandingPagePackage } from "../../services/publishing/index.js";
-import { buildSkillIntakeMarkdown, seedSkillCandidates } from "../../services/skill-intake/index.js";
-import { buildTreasuryMarkdown, buildTreasurySnapshot } from "../../services/treasury/index.js";
+import { buildSkillIntakeMarkdown, discoverSkillCandidates } from "../../services/skill-intake/index.js";
+import { buildRuntimeTreasurySnapshot, buildTreasuryMarkdown } from "../../services/treasury/index.js";
 import { emitLog } from "../../services/common/logger.js";
 import { readJsonFile, resolveRepoPath, writeJsonFile, writeTextFile } from "../../services/common/fs.js";
+import { readModelCapabilityProbe } from "../../services/runtime-model/index.js";
 import type { SecretBootstrapState } from "../../services/common/types.js";
 
 function slugify(value: string): string {
@@ -18,12 +20,13 @@ function slugify(value: string): string {
 
 async function main(): Promise<void> {
   const opportunitiesOnly = process.argv.includes("--opportunities-only");
-  const opportunities = rankOpportunities(defaultOpportunities());
+  const opportunities = await discoverOpportunities();
   const experiments = createExperiments(opportunities);
   const queue = buildAutonomyQueue(opportunities, experiments);
-  const dispatch = buildDispatchState({ opportunities, experiments, queue });
-  const treasury = buildTreasurySnapshot();
-  const skills = seedSkillCandidates();
+  const modelProbe = await readModelCapabilityProbe();
+  const dispatch = buildDispatchState({ opportunities, experiments, queue, modelProbe });
+  const treasury = await buildRuntimeTreasurySnapshot();
+  const skills = await discoverSkillCandidates();
   const browserBroker = await buildBrowserBrokerState();
   const secretState = await readJsonFile<SecretBootstrapState | null>(
     resolveRepoPath("data", "exports", "secret-inventory.json"),
@@ -33,6 +36,7 @@ async function main(): Promise<void> {
 
   await writeJsonFile(resolveRepoPath("data", "exports", "opportunities.json"), opportunities);
   await writeTextFile(resolveRepoPath("docs", "portfolio", "lane-catalog.md"), buildPortfolioMarkdown(opportunities));
+  await writeTextFile(resolveRepoPath("docs", "portfolio", "opportunity-ingest.md"), await buildOpportunityIngestReport(opportunities));
 
   if (opportunitiesOnly) {
     console.log("Opportunity state refreshed.");

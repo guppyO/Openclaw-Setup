@@ -1,10 +1,15 @@
 {
-  "generatedAt": "2026-03-06T20:02:37.140Z",
+  "generatedAt": "2026-03-06T23:07:54.685Z",
   "capabilities": {
     "managedBrowser": true,
     "attachedChrome": false,
+    "attachedChromePaired": false,
+    "gatewayTokenConfigured": true,
     "steel": false,
-    "steelBaseUrl": "https://api.steel.dev",
+    "steelMode": "none",
+    "steelReady": false,
+    "steelBaseUrl": "",
+    "steelAuthConfigured": false,
     "steelApiConfigured": false
   },
   "profiles": [
@@ -80,7 +85,7 @@
       "profileId": "openclaw_research",
       "headless": true,
       "reasons": [
-        "OpenClaw managed browser is the default typed lane for commodity browser work."
+        "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
       ]
     },
     {
@@ -89,7 +94,7 @@
       "profileId": "openclaw_research",
       "headless": false,
       "reasons": [
-        "OpenClaw managed browser is the default typed lane for commodity browser work."
+        "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
       ]
     },
     {
@@ -98,7 +103,7 @@
       "profileId": "openclaw_research",
       "headless": false,
       "reasons": [
-        "OpenClaw managed browser is the default typed lane for commodity browser work."
+        "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
       ]
     }
   ],
