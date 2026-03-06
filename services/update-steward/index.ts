@@ -94,7 +94,7 @@ export async function refreshOfficialSources(): Promise<{
 export function buildRuntimeVerificationMarkdown(anchors: AnchorVerification[] = DEFAULT_ANCHOR_VERIFICATIONS): string {
   return `# Runtime Verification
 
-Generated against official OpenAI, OpenClaw, and Wise sources on ${new Date().toISOString().slice(0, 10)}.
+Generated against official OpenAI, OpenClaw, Wise, and Steel sources on ${new Date().toISOString().slice(0, 10)}.
 
 ## Summary
 
@@ -116,6 +116,7 @@ ${renderTable(
 - Treat Codex usage ceilings as moving operational constraints and batch context aggressively.
 - Use QMD or another local-first memory backend because Codex OAuth does not cover embeddings.
 - Probe Wise capabilities before automating any treasury action beyond read-only ingest.
+- Keep Steel routing configurable because session pool, credentials, and self-hosting posture can change independently of OpenClaw.
 - Some OpenAI help and blog pages currently return a bot-wall 403 to plain HTTP fetches; keep browser-backed or search-backed verification available for those sources.
 `;
 }

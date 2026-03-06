@@ -5,7 +5,9 @@ export interface DashboardSummary {
   topOpportunityTitle: string;
   activeExperimentCount: number;
   queueDepth: number;
+  readyQueueDepth: number;
   driftedAnchorCount: number;
+  blockerCount: number;
 }
 
 export function summarizeDashboard(state: DashboardState): DashboardSummary {
@@ -19,6 +21,8 @@ export function summarizeDashboard(state: DashboardState): DashboardSummary {
     topOpportunityTitle: state.topOpportunities[0]?.title ?? "None yet",
     activeExperimentCount: state.activeExperiments.length,
     queueDepth: state.queue.length,
+    readyQueueDepth: state.dispatch.readyQueue.length,
     driftedAnchorCount: state.anchors.filter((anchor) => anchor.status === "drifted").length,
+    blockerCount: state.blockers.length,
   };
 }

@@ -1,4 +1,4 @@
 # treasury User Contract
 
-- Output concise treasury decisions with balance, burn, and runway context.
-- Prefer precise capability flags over generic claims about available rails.
+- Output precise capability flags, balances, and budget decisions.
+- Prefer concrete data over generic treasury claims.

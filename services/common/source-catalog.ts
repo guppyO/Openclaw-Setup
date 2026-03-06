@@ -176,6 +176,41 @@ export const OFFICIAL_SOURCES: SourceRecord[] = [
     url: "https://docs.wise.com/guides/developer",
     purpose: "Verify partner-credential expectations and auth guidance.",
   },
+  {
+    id: "steel-sessions-overview",
+    label: "Steel docs: Sessions API overview",
+    domain: "steel",
+    url: "https://docs.steel.dev/overview/sessions-api",
+    purpose: "Verify Steel session lifecycle, persistence, and fleet-management capabilities.",
+  },
+  {
+    id: "steel-quickstart",
+    label: "Steel docs: Quickstart",
+    domain: "steel",
+    url: "https://docs.steel.dev/overview/sessions-api/quickstart",
+    purpose: "Verify Steel session create/release flow and API key requirements.",
+  },
+  {
+    id: "steel-local-browser",
+    label: "Steel docs: Local Browser",
+    domain: "steel",
+    url: "https://docs.steel.dev/overview/local-browser",
+    purpose: "Verify local or self-hosted browser deployment realities.",
+  },
+  {
+    id: "steel-credentials",
+    label: "Steel docs: Credentials API",
+    domain: "steel",
+    url: "https://docs.steel.dev/overview/credentials-api",
+    purpose: "Verify Steel credential storage and injection boundaries for authenticated browsing.",
+  },
+  {
+    id: "steel-changelog",
+    label: "Steel docs: Changelog",
+    domain: "steel",
+    url: "https://docs.steel.dev/changelog/changelog",
+    purpose: "Verify recent session, proxy, and playback changes that may affect browser operations.",
+  },
 ];
 
 export const DEFAULT_ANCHOR_VERIFICATIONS: AnchorVerification[] = [

@@ -1,5 +1,5 @@
 # research Heartbeat
 
-- Refresh the highest-value research gap or adjacent niche test.
-- Update demand signals, partner options, and compliance friction.
-- Hand off sharply defined work packages to builder or distribution.
+- Refresh the highest-EV research gap first.
+- Expand adjacent niches only when the current opportunity already has a credible path to launch.
+- Feed crisp work packages to builder and growth.

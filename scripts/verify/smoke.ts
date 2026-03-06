@@ -6,10 +6,13 @@ async function main(): Promise<void> {
   const required = [
     "package.json",
     "docs/runtime-verification.md",
+    "docs/runtime-model-policy.md",
     "docs/source-anchors.md",
     "data/exports/opportunities.json",
     "data/exports/experiments.json",
     "data/exports/autonomy-queue.json",
+    "data/exports/dispatch-state.json",
+    "data/exports/browser-broker.json",
   ];
 
   for (const relativePath of required) {

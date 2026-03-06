@@ -45,8 +45,12 @@ function renderPage() {
           <div class="metric-label">Autonomy queue depth</div>
         </article>
         <article class="panel">
-          <div class="metric-value">${summary.driftedAnchorCount}</div>
-          <div class="metric-label">Runtime anchors currently drifted</div>
+          <div class="metric-value">${summary.readyQueueDepth}</div>
+          <div class="metric-label">Ready tasks for immediate dispatch</div>
+        </article>
+        <article class="panel">
+          <div class="metric-value">${summary.blockerCount}</div>
+          <div class="metric-label">Real blockers needing operator attention</div>
         </article>
       </section>
 
@@ -80,6 +84,7 @@ function renderPage() {
             <li><strong>Recurring burn:</strong> $${state.treasury.recurringMonthlyUsd.toFixed(2)} / month</li>
             <li><strong>Runway:</strong> ${state.treasury.runwayMonths ?? "n/a"} months</li>
             <li><strong>Suspicious spend:</strong> ${state.treasury.suspiciousSpendCount}</li>
+            <li><strong>Model drift anchors:</strong> ${summary.driftedAnchorCount}</li>
           </ul>
         </article>
       </section>
@@ -117,6 +122,36 @@ function renderPage() {
 
       <section class="grid columns">
         <article class="panel">
+          <h2>Dispatch</h2>
+          <ul class="tight">
+            <li><strong>Next task:</strong> ${state.dispatch.nextTask?.title ?? "none"}</li>
+            <li><strong>Immediate continuation:</strong> ${state.dispatch.cadence.immediateContinuation ? "enabled" : "disabled"}</li>
+            <li><strong>Recovery sweep:</strong> every ${state.dispatch.cadence.recoverySweepMinutes} minutes</li>
+            <li><strong>Heartbeat:</strong> every ${state.dispatch.cadence.heartbeatMinutes} minutes</li>
+          </ul>
+          ${state.dispatch.recoveryActions.map((action) => `<div class="status-row"><div>${action}</div></div>`).join("")}
+        </article>
+        <article class="panel">
+          <h2>Browser fabric</h2>
+          <ul class="tight">
+            <li><strong>Managed browser:</strong> ${state.browser.capabilities.managedBrowser ? "ready" : "missing"}</li>
+            <li><strong>Attached Chrome:</strong> ${state.browser.capabilities.attachedChrome ? "paired" : "not paired"}</li>
+            <li><strong>Steel:</strong> ${state.browser.capabilities.steel ? "configured" : "not configured"}</li>
+            <li><strong>Steel API key:</strong> ${state.browser.capabilities.steelApiConfigured ? "present" : "missing"}</li>
+          </ul>
+          ${state.browser.sampleRoutes.map((route) => `
+            <div class="status-row">
+              <div>
+                <strong>${route.taskId}</strong><br />
+                <span class="mono">${route.lane} / ${route.profileId}</span>
+              </div>
+              <div class="metric-label">${route.headless ? "headless" : "visible"}</div>
+            </div>`).join("")}
+        </article>
+      </section>
+
+      <section class="grid columns">
+        <article class="panel">
           <h2>Skill pipeline</h2>
           ${state.skillCandidates.map((candidate) => `
             <div class="status-row">
@@ -131,6 +166,18 @@ function renderPage() {
             </div>`).join("")}
         </article>
         <article class="panel">
+          <h2>Runtime model policy</h2>
+          <ul class="tight">
+            <li><strong>Strategic target:</strong> ${state.modelPolicy.strategicTarget}</li>
+            <li><strong>OpenClaw primary:</strong> ${state.modelPolicy.openClawPrimary}</li>
+            <li><strong>OpenClaw fallback:</strong> ${state.modelPolicy.openClawFallback}</li>
+            <li><strong>Probe mode:</strong> ${state.modelPolicy.probeMode}</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid columns">
+        <article class="panel">
           <h2>Runtime anchors</h2>
           ${state.anchors.map((anchor) => `
             <div class="status-row">
@@ -141,8 +188,15 @@ function renderPage() {
               <div>
                 <span class="status-pill ${anchor.status}">${anchor.status}</span>
               </div>
-            </div>`).join("")}
+          </div>`).join("")}
         </article>
+      </section>
+
+      <section class="panel">
+        <h2>Blockers</h2>
+        <ul class="tight">
+          ${state.blockers.map((blocker) => `<li>${blocker}</li>`).join("")}
+        </ul>
       </section>
 
       <section class="panel">

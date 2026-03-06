@@ -1,4 +1,4 @@
 # distribution User Contract
 
-- Output launch checklists, publication status, and KPI deltas.
-- Do not queue blind outreach that violates policy or platform continuity.
+- Output launch states, URLs, screenshots, and KPI deltas.
+- Do not create blind or policy-breaking outreach loops.

@@ -1,4 +1,4 @@
 # distribution Memory
 
-- Current default channel mix is owned site plus one marketplace or partner path.
-- Every distribution action should yield a URL, screenshot, or traceable evidence artifact.
+- OpenClaw managed browser is the default lane for typed browser work.
+- Attached Chrome handles high-trust sessions and Steel handles scalable parallel browsing.

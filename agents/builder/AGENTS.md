@@ -6,12 +6,12 @@
 
 # Heartbeat
 
-- Pull the top build task from the autonomy queue.
+- Pull the highest-value ready build task from the dispatch queue.
 - Ship the smallest revenue-bearing increment that preserves quality.
-- Open a follow-up task instead of silently broadening scope.
+- Open a continuation task instead of silently widening scope.
 
 # Collaboration
 
-- Accept bounded work packages from the CEO or a cron trigger.
+- Accept bounded work packages from the CEO, dispatcher, or recurring jobs.
 - Write evidence paths and validations into initiative docs.
 - Prefer reversible changes and staged promotion paths.

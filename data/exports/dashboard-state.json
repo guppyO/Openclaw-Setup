@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-03-06T04:46:27.941Z",
+  "generatedAt": "2026-03-06T07:05:48.329Z",
   "treasury": {
-    "asOf": "2026-03-06T04:46:27.925Z",
+    "asOf": "2026-03-06T07:05:48.314Z",
+    "authMode": "none",
     "capabilities": {
       "balanceRead": false,
       "statementRead": false,
@@ -11,7 +12,11 @@
       "spendControls": false,
       "spendLimits": false,
       "webhooks": false,
-      "psd2LimitedActions": true
+      "psd2LimitedActions": true,
+      "browserLaneAvailable": false,
+      "personalTokenConfigured": false,
+      "oauthAppConfigured": false,
+      "emailReceiptIngest": false
     },
     "balances": [
       {
@@ -26,41 +31,94 @@
     "ledger": [
       {
         "id": "ledger-hetzner",
-        "bookedAt": "2026-03-03T04:46:27.924Z",
+        "bookedAt": "2026-03-03T07:05:48.314Z",
         "merchant": "Hetzner",
         "amount": -14.92,
         "currency": "USD",
         "category": "hosting",
         "initiativeId": "control-plane",
         "recurring": true,
-        "notes": "Baseline control-plane VPS assumption."
+        "notes": "Baseline control-plane VPS assumption.",
+        "budgetTag": "ops:hosting",
+        "source": "sample",
+        "evidencePaths": [
+          "docs/treasury/capabilities.md"
+        ]
       },
       {
         "id": "ledger-domain",
-        "bookedAt": "2026-02-24T04:46:27.925Z",
+        "bookedAt": "2026-02-24T07:05:48.314Z",
         "merchant": "Cloudflare Registrar",
         "amount": -12,
         "currency": "USD",
         "category": "domains",
         "initiativeId": "distribution-foundation",
         "recurring": false,
-        "notes": "Initial launch-domain purchase."
+        "notes": "Initial launch-domain purchase.",
+        "budgetTag": "growth:domains",
+        "source": "sample",
+        "evidencePaths": [
+          "docs/portfolio/lane-catalog.md"
+        ]
       },
       {
         "id": "ledger-revenue",
-        "bookedAt": "2026-03-05T04:46:27.925Z",
+        "bookedAt": "2026-03-05T07:05:48.314Z",
         "merchant": "Pilot customer",
         "amount": 450,
         "currency": "USD",
         "category": "revenue",
         "initiativeId": "ops-audit-packs",
         "recurring": false,
-        "notes": "Sample pilot revenue for dashboard and ROI wiring."
+        "notes": "Sample pilot revenue for dashboard and ROI wiring.",
+        "budgetTag": "revenue:services",
+        "source": "sample",
+        "evidencePaths": [
+          "docs/experiments/exp-ops-audit-packs.md"
+        ]
       }
     ],
     "recurringMonthlyUsd": 14.92,
     "runwayMonths": 201.6,
-    "suspiciousSpendCount": 0
+    "suspiciousSpendCount": 0,
+    "budgetEnvelopes": [
+      {
+        "category": "hosting",
+        "dailyUsd": 10,
+        "weeklyUsd": 40,
+        "monthlyUsd": 120,
+        "requiresExperimentTag": false
+      },
+      {
+        "category": "domains",
+        "dailyUsd": 20,
+        "weeklyUsd": 60,
+        "monthlyUsd": 120,
+        "requiresExperimentTag": true
+      },
+      {
+        "category": "marketplace-fees",
+        "dailyUsd": 20,
+        "weeklyUsd": 100,
+        "monthlyUsd": 250,
+        "requiresExperimentTag": true
+      },
+      {
+        "category": "paid-acquisition",
+        "dailyUsd": 25,
+        "weeklyUsd": 125,
+        "monthlyUsd": 300,
+        "requiresExperimentTag": true
+      },
+      {
+        "category": "tools-and-data",
+        "dailyUsd": 15,
+        "weeklyUsd": 75,
+        "monthlyUsd": 200,
+        "requiresExperimentTag": true
+      }
+    ],
+    "pendingReconciliations": 0
   },
   "topOpportunities": [
     {
@@ -73,13 +131,13 @@
         {
           "source": "service-business pain",
           "description": "Manual ops and quoting friction remain common in local businesses.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 7.8
         },
         {
           "source": "AI adoption",
           "description": "Businesses want AI help but need bounded and accountable delivery.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 8.2
         }
       ],
@@ -151,13 +209,13 @@
         {
           "source": "creator economy",
           "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 7.4
         },
         {
           "source": "distribution leverage",
           "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 7.1
         }
       ],
@@ -227,13 +285,13 @@
         {
           "source": "content fatigue",
           "description": "Expert creators want output without running full content teams.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 7.6
         },
         {
           "source": "agent fit",
           "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 8.5
         }
       ],
@@ -304,13 +362,13 @@
         {
           "source": "search intent",
           "description": "High-intent long-tail queries still reward specialized content and useful tools.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 8.4
         },
         {
           "source": "buyer routing",
           "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 7.8
         }
       ],
@@ -381,13 +439,13 @@
         {
           "source": "time scarcity",
           "description": "Operators pay for faster access to compiled data in markets they already understand.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 6.8
         },
         {
           "source": "repeatable research",
           "description": "Automated collection and summarization can lower production cost substantially.",
-          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "capturedAt": "2026-03-06T07:05:48.313Z",
           "strength": 7.5
         }
       ],
@@ -475,7 +533,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-13T04:46:27.914Z",
+      "reviewDate": "2026-03-13T07:05:48.314Z",
       "nextActions": [
         {
           "id": "ops-audit-packs-offer",
@@ -484,7 +542,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 100,
-          "dueAt": "2026-03-06T06:46:27.914Z",
+          "dueAt": "2026-03-06T09:05:48.314Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -494,7 +552,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 92,
-          "dueAt": "2026-03-06T10:46:27.914Z",
+          "dueAt": "2026-03-06T13:05:48.314Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -504,7 +562,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "distribution-bottleneck",
           "priority": 88,
-          "dueAt": "2026-03-06T16:46:27.914Z",
+          "dueAt": "2026-03-06T19:05:48.314Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -534,7 +592,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-15T04:46:27.914Z",
+      "reviewDate": "2026-03-15T07:05:48.314Z",
       "nextActions": [
         {
           "id": "marketplace-automation-packs-offer",
@@ -543,7 +601,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 99,
-          "dueAt": "2026-03-06T06:46:27.914Z",
+          "dueAt": "2026-03-06T09:05:48.314Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -553,7 +611,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 91,
-          "dueAt": "2026-03-06T10:46:27.914Z",
+          "dueAt": "2026-03-06T13:05:48.314Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -563,7 +621,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "distribution-bottleneck",
           "priority": 87,
-          "dueAt": "2026-03-06T16:46:27.914Z",
+          "dueAt": "2026-03-06T19:05:48.314Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -593,7 +651,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-17T04:46:27.914Z",
+      "reviewDate": "2026-03-17T07:05:48.314Z",
       "nextActions": [
         {
           "id": "ai-content-repurposer-offer",
@@ -602,7 +660,7 @@
           "initiativeId": "ai-content-repurposer",
           "reason": "highest-ev-open-experiment",
           "priority": 98,
-          "dueAt": "2026-03-06T06:46:27.914Z",
+          "dueAt": "2026-03-06T09:05:48.314Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -612,7 +670,7 @@
           "initiativeId": "ai-content-repurposer",
           "reason": "highest-priority-product-backlog",
           "priority": 90,
-          "dueAt": "2026-03-06T10:46:27.914Z",
+          "dueAt": "2026-03-06T13:05:48.314Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -622,7 +680,7 @@
           "initiativeId": "ai-content-repurposer",
           "reason": "distribution-bottleneck",
           "priority": 86,
-          "dueAt": "2026-03-06T16:46:27.914Z",
+          "dueAt": "2026-03-06T19:05:48.314Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -652,7 +710,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-19T04:46:27.914Z",
+      "reviewDate": "2026-03-19T07:05:48.314Z",
       "nextActions": [
         {
           "id": "niche-lead-gen-sites-offer",
@@ -661,7 +719,7 @@
           "initiativeId": "niche-lead-gen-sites",
           "reason": "highest-ev-open-experiment",
           "priority": 97,
-          "dueAt": "2026-03-06T06:46:27.914Z",
+          "dueAt": "2026-03-06T09:05:48.314Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -671,7 +729,7 @@
           "initiativeId": "niche-lead-gen-sites",
           "reason": "highest-priority-product-backlog",
           "priority": 89,
-          "dueAt": "2026-03-06T10:46:27.914Z",
+          "dueAt": "2026-03-06T13:05:48.314Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -681,7 +739,7 @@
           "initiativeId": "niche-lead-gen-sites",
           "reason": "distribution-bottleneck",
           "priority": 85,
-          "dueAt": "2026-03-06T16:46:27.914Z",
+          "dueAt": "2026-03-06T19:05:48.314Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -695,8 +753,8 @@
       "initiativeId": "ops-audit-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T06:46:27.914Z",
-      "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      "dueAt": "2026-03-06T07:05:48.314Z",
+      "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
       "id": "ops-audit-packs-distribution",
@@ -705,7 +763,7 @@
       "initiativeId": "ops-audit-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-06T16:46:27.914Z",
+      "dueAt": "2026-03-06T19:05:48.314Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -715,7 +773,7 @@
       "initiativeId": "ops-audit-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-06T22:46:27.914Z",
+      "dueAt": "2026-03-07T01:05:48.314Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -725,7 +783,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-07T00:46:27.914Z",
+      "dueAt": "2026-03-07T03:05:48.314Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -735,7 +793,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-07T04:46:27.914Z",
+      "dueAt": "2026-03-07T07:05:48.314Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     },
     {
@@ -745,7 +803,7 @@
       "initiativeId": "memory-maintenance",
       "reason": "documentation-and-memory",
       "priority": 52,
-      "dueAt": "2026-03-07T10:46:27.914Z",
+      "dueAt": "2026-03-07T13:05:48.314Z",
       "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
     },
     {
@@ -755,10 +813,285 @@
       "initiativeId": "resilience",
       "reason": "resilience-work",
       "priority": 48,
-      "dueAt": "2026-03-07T16:46:27.914Z",
+      "dueAt": "2026-03-07T19:05:48.314Z",
       "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
     }
   ],
+  "dispatch": {
+    "generatedAt": "2026-03-06T07:05:48.314Z",
+    "queue": [
+      {
+        "id": "ops-audit-packs-offer",
+        "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+        "owner": "ceo",
+        "initiativeId": "ops-audit-packs",
+        "reason": "highest-ev-open-experiment",
+        "priority": 100,
+        "dueAt": "2026-03-06T07:05:48.314Z",
+        "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      },
+      {
+        "id": "ops-audit-packs-distribution",
+        "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+        "owner": "distribution",
+        "initiativeId": "ops-audit-packs",
+        "reason": "distribution-bottleneck",
+        "priority": 88,
+        "dueAt": "2026-03-06T19:05:48.314Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      },
+      {
+        "id": "ops-audit-packs-research",
+        "title": "Expand demand proof and adjacent niches for Operational audit packs for SMB service businesses",
+        "owner": "research",
+        "initiativeId": "ops-audit-packs",
+        "reason": "new-opportunity-research",
+        "priority": 84,
+        "dueAt": "2026-03-07T01:05:48.314Z",
+        "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
+      },
+      {
+        "id": "skill-gap-reduction",
+        "title": "Promote the highest-leverage internal skill candidate",
+        "owner": "skillsmith",
+        "initiativeId": "skill-pipeline",
+        "reason": "skill-gap-reduction",
+        "priority": 74,
+        "dueAt": "2026-03-07T03:05:48.314Z",
+        "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
+      },
+      {
+        "id": "changelog-adaptation",
+        "title": "Refresh official-source deltas and compare stage vs prod assumptions",
+        "owner": "ops",
+        "initiativeId": "update-steward",
+        "reason": "changelog-adaptation",
+        "priority": 68,
+        "dueAt": "2026-03-07T07:05:48.314Z",
+        "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
+      },
+      {
+        "id": "memory-cleanup",
+        "title": "Compact initiative memory into durable docs",
+        "owner": "ops",
+        "initiativeId": "memory-maintenance",
+        "reason": "documentation-and-memory",
+        "priority": 52,
+        "dueAt": "2026-03-07T13:05:48.314Z",
+        "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
+      },
+      {
+        "id": "resilience-check",
+        "title": "Run backup and smoke verification",
+        "owner": "ops",
+        "initiativeId": "resilience",
+        "reason": "resilience-work",
+        "priority": 48,
+        "dueAt": "2026-03-07T19:05:48.314Z",
+        "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
+      }
+    ],
+    "readyQueue": [
+      {
+        "id": "ops-audit-packs-offer",
+        "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+        "owner": "ceo",
+        "initiativeId": "ops-audit-packs",
+        "reason": "highest-ev-open-experiment",
+        "priority": 100,
+        "dueAt": "2026-03-06T07:05:48.314Z",
+        "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      }
+    ],
+    "nextTask": {
+      "id": "ops-audit-packs-offer",
+      "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+      "owner": "ceo",
+      "initiativeId": "ops-audit-packs",
+      "reason": "highest-ev-open-experiment",
+      "priority": 100,
+      "dueAt": "2026-03-06T07:05:48.314Z",
+      "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+    },
+    "immediateContinuations": [],
+    "completedTaskIds": [],
+    "recoveryActions": [],
+    "cadence": {
+      "recoverySweepMinutes": 3,
+      "heartbeatMinutes": 12,
+      "immediateContinuation": true
+    },
+    "usagePolicy": {
+      "strategicModel": "gpt-5.4",
+      "openClawModel": "openai-codex/gpt-5.3-codex",
+      "compactionRequired": true
+    }
+  },
+  "browser": {
+    "generatedAt": "2026-03-06T07:05:48.316Z",
+    "capabilities": {
+      "managedBrowser": true,
+      "attachedChrome": false,
+      "steel": false,
+      "steelBaseUrl": "https://api.steel.dev",
+      "steelApiConfigured": false
+    },
+    "profiles": [
+      {
+        "id": "openclaw_research",
+        "lane": "openclaw-managed",
+        "namespace": "openclaw_research",
+        "purpose": "Default managed-browser lane for research and low-trust site work.",
+        "riskBoundary": "public-web",
+        "persistent": false
+      },
+      {
+        "id": "chrome_company",
+        "lane": "attached-chrome",
+        "namespace": "chrome_company",
+        "purpose": "Attached local Chrome for company-authenticated sessions and operator-visible debugging.",
+        "riskBoundary": "company-auth",
+        "persistent": true
+      },
+      {
+        "id": "clean_research",
+        "lane": "steel",
+        "namespace": "clean_research",
+        "purpose": "Parallel Steel research sessions with isolated, low-trust state.",
+        "riskBoundary": "public-web",
+        "persistent": true
+      },
+      {
+        "id": "company_signup_identity",
+        "lane": "steel",
+        "namespace": "company_signup_identity",
+        "purpose": "Steel namespace for new company signups and verification flows.",
+        "riskBoundary": "company-auth",
+        "persistent": true
+      },
+      {
+        "id": "gmail_primary",
+        "lane": "steel",
+        "namespace": "gmail_primary",
+        "purpose": "Steel namespace for the company Gmail inbox and email-confirmation flows.",
+        "riskBoundary": "root-identity",
+        "persistent": true
+      },
+      {
+        "id": "wise_primary",
+        "lane": "steel",
+        "namespace": "wise_primary",
+        "purpose": "Steel namespace for Wise browser fallback tasks when token APIs are insufficient.",
+        "riskBoundary": "treasury",
+        "persistent": true
+      },
+      {
+        "id": "hetzner_primary",
+        "lane": "steel",
+        "namespace": "hetzner_primary",
+        "purpose": "Steel namespace for Hetzner console and infrastructure tasks.",
+        "riskBoundary": "infrastructure",
+        "persistent": true
+      },
+      {
+        "id": "marketplace_generic",
+        "lane": "steel",
+        "namespace": "marketplace_generic",
+        "purpose": "Steel namespace for scalable marketplace listing operations.",
+        "riskBoundary": "company-auth",
+        "persistent": true
+      }
+    ],
+    "sampleRoutes": [
+      {
+        "taskId": "market-research",
+        "lane": "openclaw-managed",
+        "profileId": "openclaw_research",
+        "headless": true,
+        "reasons": [
+          "OpenClaw managed browser is the default typed lane for commodity browser work."
+        ]
+      },
+      {
+        "taskId": "wise-reconcile",
+        "lane": "openclaw-managed",
+        "profileId": "openclaw_research",
+        "headless": false,
+        "reasons": [
+          "OpenClaw managed browser is the default typed lane for commodity browser work."
+        ]
+      },
+      {
+        "taskId": "signup-run",
+        "lane": "openclaw-managed",
+        "profileId": "openclaw_research",
+        "headless": false,
+        "reasons": [
+          "OpenClaw managed browser is the default typed lane for commodity browser work."
+        ]
+      }
+    ],
+    "activeSessions": 0
+  },
+  "modelPolicy": {
+    "detectedAt": "2026-03-06T07:05:41.654Z",
+    "probeMode": "passive",
+    "codexCliInstalled": true,
+    "openclawInstalled": false,
+    "strategicTarget": "gpt-5.4",
+    "openClawPrimary": "openai-codex/gpt-5.3-codex",
+    "openClawFallback": "openai-codex/gpt-5-codex",
+    "aliases": [
+      {
+        "alias": "model.primary_frontier",
+        "strategicTarget": "gpt-5.4",
+        "resolvedModel": "gpt-5.4",
+        "reasoning": "high",
+        "surface": "codex-cli",
+        "status": "preferred",
+        "note": "Default strategic alias for research, coding, and operating decisions."
+      },
+      {
+        "alias": "model.frontier_browser",
+        "strategicTarget": "gpt-5.4",
+        "resolvedModel": "gpt-5.4",
+        "reasoning": "high",
+        "surface": "codex-cli",
+        "status": "preferred",
+        "note": "Browser-heavy work should stay on GPT-5.4 unless the runtime blocks it."
+      },
+      {
+        "alias": "model.frontier_research",
+        "strategicTarget": "gpt-5.4",
+        "resolvedModel": "gpt-5.4",
+        "reasoning": "xhigh",
+        "surface": "codex-cli",
+        "status": "preferred",
+        "note": "Use the highest-reasoning GPT-5.4 route for multi-source synthesis and policy-sensitive research."
+      },
+      {
+        "alias": "model.frontier_build",
+        "strategicTarget": "gpt-5.4",
+        "resolvedModel": "gpt-5.4",
+        "reasoning": "high",
+        "surface": "codex-cli",
+        "status": "preferred",
+        "note": "Builder defaults remain GPT-5.4-first to preserve coding quality."
+      },
+      {
+        "alias": "openclaw.model.primary_frontier",
+        "strategicTarget": "gpt-5.4",
+        "resolvedModel": "openai-codex/gpt-5.3-codex",
+        "reasoning": "high",
+        "surface": "source-fallback",
+        "status": "fallback",
+        "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
+      }
+    ],
+    "drift": [
+      "OpenClaw is not installed on this host, so provider-model support is inferred from official docs instead of a live gateway probe."
+    ]
+  },
   "skillCandidates": [
     {
       "id": "skill-find-skills",
@@ -1079,8 +1412,13 @@
     }
   ],
   "notes": [
-    "Use prod only after stage smoke, source refresh, and treasury capability probe all pass.",
-    "Keep GPT-5.4 as the default strategy model where supported, but allow provider-level overrides where Codex/OpenClaw currently expose only GPT-5-Codex variants.",
-    "The dashboard is file-driven; every recurring run should refresh JSON exports and the docs alongside them."
+    "Use prod only after stage smoke, source refresh, treasury probe, and browser broker checks all pass.",
+    "Keep GPT-5.4 as the default strategy model where supported, while OpenClaw stays on the strongest verified provider string until runtime proves a GPT-5.4 provider path.",
+    "The dispatcher should continue work immediately after task completion instead of waiting for the next heartbeat sweep."
+  ],
+  "blockers": [
+    "Attached Chrome relay is not yet paired on the Windows browser host.",
+    "Steel API or self-hosted base URL is not yet configured for session automation.",
+    "Wise automation is still limited to sample state until a token or browser lane is verified."
   ]
 }

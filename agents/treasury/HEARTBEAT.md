@@ -1,5 +1,5 @@
 # treasury Heartbeat
 
-- Refresh balances, recurring costs, and experiment attribution.
+- Refresh balances, receipts, and experiment attribution.
 - Release or deny budget based on policy and live performance.
-- Write anomalies to docs and logs with evidence paths.
+- Write anomalies with evidence paths, not vague warnings.

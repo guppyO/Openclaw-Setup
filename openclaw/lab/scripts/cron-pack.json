@@ -1,8 +1,13 @@
 [
   {
+    "id": "dispatch-recovery",
+    "cadence": "*/3 * * * *",
+    "purpose": "Recover stuck work and refill the ready queue"
+  },
+  {
     "id": "queue-refresh",
     "cadence": "*/15 * * * *",
-    "purpose": "Queue refresh and urgent blocker scan"
+    "purpose": "Strategic queue refresh and urgent blocker scan"
   },
   {
     "id": "opportunity-ingest",
@@ -22,7 +27,7 @@
   {
     "id": "source-refresh",
     "cadence": "0 */6 * * *",
-    "purpose": "OpenClaw, Codex, model, and Wise source refresh"
+    "purpose": "OpenClaw, Codex, model, Wise, and Steel source refresh"
   },
   {
     "id": "portfolio-review",

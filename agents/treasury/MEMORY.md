@@ -1,4 +1,4 @@
 # treasury Memory
 
-- Autonomous spend is only allowed for approved categories and tagged initiatives.
-- Missing Wise credentials must not block the rest of the company.
+- Wise must be treated as a multi-lane system: API where possible, browser lane where necessary, append-only ledger always.
+- Missing spend rails should cause replanning, not stalling.

@@ -29,3 +29,8 @@ Official pages used to verify runtime assumptions.
 | wise-security-access | wise | [Wise docs: Security & Access](https://docs.wise.com/api-docs/features/authentication-access/personal-tokens) | Verify personal-token and OAuth 2.0 auth split plus PSD2 limitations. |
 | wise-personal-tokens | wise | [Wise docs: Personal Tokens](https://docs.wise.com/api-docs/guides/personal-tokens) | Verify personal-token restrictions for EU/UK users. |
 | wise-getting-started | wise | [Wise docs: Getting started](https://docs.wise.com/guides/developer) | Verify partner-credential expectations and auth guidance. |
+| steel-sessions-overview | steel | [Steel docs: Sessions API overview](https://docs.steel.dev/overview/sessions-api) | Verify Steel session lifecycle, persistence, and fleet-management capabilities. |
+| steel-quickstart | steel | [Steel docs: Quickstart](https://docs.steel.dev/overview/sessions-api/quickstart) | Verify Steel session create/release flow and API key requirements. |
+| steel-local-browser | steel | [Steel docs: Local Browser](https://docs.steel.dev/overview/local-browser) | Verify local or self-hosted browser deployment realities. |
+| steel-credentials | steel | [Steel docs: Credentials API](https://docs.steel.dev/overview/credentials-api) | Verify Steel credential storage and injection boundaries for authenticated browsing. |
+| steel-changelog | steel | [Steel docs: Changelog](https://docs.steel.dev/changelog/changelog) | Verify recent session, proxy, and playback changes that may affect browser operations. |

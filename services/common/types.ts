@@ -160,6 +160,10 @@ export interface TreasuryCapabilityFlags {
   spendLimits: boolean;
   webhooks: boolean;
   psd2LimitedActions: boolean;
+  browserLaneAvailable: boolean;
+  personalTokenConfigured: boolean;
+  oauthAppConfigured: boolean;
+  emailReceiptIngest: boolean;
 }
 
 export interface TreasuryBalance {
@@ -177,16 +181,32 @@ export interface LedgerEntry {
   initiativeId?: string;
   recurring: boolean;
   notes?: string;
+  budgetTag?: string;
+  source?: "sample" | "wise-api" | "browser" | "email";
+  evidencePaths?: string[];
+}
+
+export type TreasuryAuthMode = "none" | "browser-only" | "personal-token" | "partner-oauth" | "hybrid";
+
+export interface BudgetEnvelope {
+  category: string;
+  dailyUsd: number;
+  weeklyUsd: number;
+  monthlyUsd: number;
+  requiresExperimentTag: boolean;
 }
 
 export interface TreasurySnapshot {
   asOf: string;
+  authMode: TreasuryAuthMode;
   capabilities: TreasuryCapabilityFlags;
   balances: TreasuryBalance[];
   ledger: LedgerEntry[];
   recurringMonthlyUsd: number;
   runwayMonths: number | null;
   suspiciousSpendCount: number;
+  budgetEnvelopes: BudgetEnvelope[];
+  pendingReconciliations: number;
 }
 
 export type SkillPromotionStage =
@@ -216,7 +236,7 @@ export type AnchorStatus = "verified" | "drifted" | "unsupported" | "pending-run
 export interface SourceRecord {
   id: string;
   label: string;
-  domain: "openai" | "openclaw" | "wise";
+  domain: "openai" | "openclaw" | "wise" | "steel";
   url: string;
   purpose: string;
 }
@@ -244,10 +264,14 @@ export interface DashboardState {
   topOpportunities: Opportunity[];
   activeExperiments: Experiment[];
   queue: QueueItem[];
+  dispatch: DispatchState;
+  browser: BrowserBrokerState;
+  modelPolicy: ModelCapabilityProbe;
   skillCandidates: SkillCandidate[];
   anchors: AnchorVerification[];
   agents: AgentStatus[];
   notes: string[];
+  blockers: string[];
 }
 
 export interface ActionLog {
@@ -262,4 +286,115 @@ export interface ActionLog {
   followUp?: string;
   evidencePaths?: string[];
   details?: Record<string, unknown>;
+}
+
+export interface SecretInventoryEntry {
+  id: string;
+  provider: string;
+  purpose: string;
+  scope: string;
+  lastVerified: string;
+  rotationNeeded: boolean;
+  storageRef: string;
+  importSource: string;
+  secretKeys: string[];
+  notes: string[];
+}
+
+export interface SecretBootstrapState {
+  importedAt: string;
+  sourceFile: string;
+  providers: string[];
+  warnings: string[];
+  secretFileRefs: string[];
+  inventory: SecretInventoryEntry[];
+}
+
+export type RuntimeProbeMode = "passive" | "active";
+
+export interface ModelAliasState {
+  alias: string;
+  strategicTarget: string;
+  resolvedModel: string;
+  reasoning: "high" | "xhigh";
+  surface: "codex-cli" | "openclaw" | "source-fallback" | "env-override";
+  status: "preferred" | "fallback" | "candidate";
+  note: string;
+}
+
+export interface ModelCapabilityProbe {
+  detectedAt: string;
+  probeMode: RuntimeProbeMode;
+  codexCliInstalled: boolean;
+  openclawInstalled: boolean;
+  strategicTarget: string;
+  openClawPrimary: string;
+  openClawFallback: string;
+  aliases: ModelAliasState[];
+  drift: string[];
+}
+
+export interface DispatchState {
+  generatedAt: string;
+  queue: QueueItem[];
+  readyQueue: QueueItem[];
+  nextTask: QueueItem | null;
+  immediateContinuations: QueueItem[];
+  completedTaskIds: string[];
+  recoveryActions: string[];
+  cadence: {
+    recoverySweepMinutes: number;
+    heartbeatMinutes: number;
+    immediateContinuation: boolean;
+  };
+  usagePolicy: {
+    strategicModel: string;
+    openClawModel: string;
+    compactionRequired: boolean;
+  };
+}
+
+export type BrowserLaneId = "openclaw-managed" | "attached-chrome" | "steel";
+
+export interface BrowserTaskRequest {
+  id: string;
+  title: string;
+  initiativeId: string;
+  authLevel: "public" | "company" | "treasury" | "infrastructure";
+  antiBotSensitivity: number;
+  parallelism: number;
+  operatorVisible: boolean;
+  requiresPersistentSession: boolean;
+  preferredProfileId?: string;
+}
+
+export interface BrowserRouteDecision {
+  taskId: string;
+  lane: BrowserLaneId;
+  profileId: string;
+  headless: boolean;
+  reasons: string[];
+}
+
+export interface BrowserProfileClass {
+  id: string;
+  lane: BrowserLaneId;
+  namespace: string;
+  purpose: string;
+  riskBoundary: string;
+  persistent: boolean;
+}
+
+export interface BrowserBrokerState {
+  generatedAt: string;
+  capabilities: {
+    managedBrowser: boolean;
+    attachedChrome: boolean;
+    steel: boolean;
+    steelBaseUrl: string;
+    steelApiConfigured: boolean;
+  };
+  profiles: BrowserProfileClass[];
+  sampleRoutes: BrowserRouteDecision[];
+  activeSessions: number;
 }

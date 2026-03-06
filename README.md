@@ -1,27 +1,17 @@
-# Openclaw-Setup
+# revenue-os
 
-Revenue OS is a file-backed autonomous revenue operating system built around OpenClaw, Codex, and ChatGPT sign-in workflows. The repo ships a portfolio engine, experiment runner, treasury subsystem, source-delta watcher, dashboard, internal skill pipeline, agent identity files, and staged OpenClaw configs for `lab`, `stage`, and `prod`.
+A live-upgraded autonomous revenue operating system built around OpenClaw, Codex, ChatGPT sign-in, a Hetzner control-plane host, a Windows attached-browser node, and a three-lane browser fabric.
 
-## What runs now
+## What is in the repo
 
-- official-source verification and source snapshots,
-- opportunity scoring and autonomy queue generation,
-- experiment docs and a sample landing-page asset package,
-- treasury state with Wise capability probing,
-- skill intake seeding plus validated internal skills,
-- dashboard server backed by generated JSON exports,
-- backup, restore, and smoke verification scripts.
+- GPT-5.4-first runtime policy with a stable alias map and a documented OpenClaw provider fallback when the public provider surface still centers `openai-codex/gpt-5.3-codex`.
+- A continuous dispatch layer that promotes immediate next work instead of waiting for slow heartbeat loops.
+- A browser broker that routes across OpenClaw managed browsing, attached Chrome, and Steel namespaces.
+- A treasury subsystem that distinguishes Wise API, browser, and append-only ledger lanes.
+- Staged OpenClaw configs, systemd units, Hetzner bootstrap scripts, dashboard state, source watchers, skills, tests, and backups.
 
-## Main commands
+## Start
 
-- `npm run bootstrap:runtime`
-- `npm run bootstrap:state`
-- `npm run bootstrap:skills`
-- `npm run bootstrap:wise`
-- `npm run dashboard`
-- `npm run verify:smoke`
-- `npm run test`
-
-## Important constraint
-
-GPT-5.4 is treated as the strategic default in the docs and operating model, but current official OpenClaw provider docs still expose `openai-codex/gpt-5.3-codex` and `openai-codex/gpt-5.2` examples rather than a public GPT-5.4 Codex provider string. The OpenClaw configs are therefore conservative by default and the drift is recorded in `docs/runtime-verification.md`.
+- [START-HERE.md](/C:/Users/beres/Desktop/openclaw%20setup/START-HERE.md)
+- [CURRENT-STATE.md](/C:/Users/beres/Desktop/openclaw%20setup/CURRENT-STATE.md)
+- [docs/deployment/live-bootstrap.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/deployment/live-bootstrap.md)

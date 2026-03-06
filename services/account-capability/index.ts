@@ -1,4 +1,5 @@
 import { renderTable } from "../common/markdown.js";
+import type { SecretBootstrapState } from "../common/types.js";
 
 export interface AccountRegistryEntry {
   id: string;
@@ -9,10 +10,37 @@ export interface AccountRegistryEntry {
   status: "active" | "bootstrap-required" | "pending";
   allowedAutomations: string[];
   linkedInitiatives: string[];
+  credentialRef?: string;
+  browserProfile?: string;
+  rotationNeeded?: boolean;
 }
 
-export function defaultAccountRegistry(): AccountRegistryEntry[] {
+function secretEntry(
+  secretState: SecretBootstrapState | null,
+  provider: string,
+): SecretBootstrapState["inventory"][number] | undefined {
+  return secretState?.inventory.find((entry) => entry.provider === provider);
+}
+
+export function defaultAccountRegistry(secretState: SecretBootstrapState | null = null): AccountRegistryEntry[] {
+  const gmail = secretEntry(secretState, "gmail");
+  const wise = secretEntry(secretState, "wise");
+  const hetzner = secretEntry(secretState, "hetzner");
+
   return [
+    {
+      id: "account-company-gmail",
+      owner: "ops",
+      purpose: "Primary company mailbox and signup identity",
+      authMechanism: "Email/password with passkey or browser login confirmation",
+      renewalRequirement: "Rotate reused bootstrap passwords and keep recovery options current",
+      status: gmail ? "active" : "bootstrap-required",
+      allowedAutomations: ["Verification inbox monitoring", "Signup confirmations", "Receipt ingest"],
+      linkedInitiatives: ["identity", "growth", "treasury"],
+      credentialRef: gmail?.storageRef,
+      browserProfile: "gmail_primary",
+      rotationNeeded: gmail?.rotationNeeded,
+    },
     {
       id: "account-chatgpt-pro",
       owner: "operator",
@@ -22,6 +50,7 @@ export function defaultAccountRegistry(): AccountRegistryEntry[] {
       status: "active",
       allowedAutomations: ["Codex local runs", "Codex Cloud tasking", "OpenClaw openai-codex OAuth"],
       linkedInitiatives: ["control-plane", "builder", "research"],
+      browserProfile: "chrome_company",
     },
     {
       id: "account-openclaw-prod",
@@ -37,11 +66,27 @@ export function defaultAccountRegistry(): AccountRegistryEntry[] {
       id: "account-wise",
       owner: "treasury",
       purpose: "Treasury source of truth",
-      authMechanism: "Wise personal token or OAuth 2.0 app",
+      authMechanism: "Wise personal token, partner OAuth, or browser lane fallback",
       renewalRequirement: "Capability probe after token rotation or account change",
-      status: "bootstrap-required",
-      allowedAutomations: ["Balance read", "ledger ingest", "budget tagging"],
+      status: wise ? "active" : "bootstrap-required",
+      allowedAutomations: ["Balance read", "ledger ingest", "budget tagging", "Browser fallback reconciliation"],
       linkedInitiatives: ["treasury"],
+      credentialRef: wise?.storageRef,
+      browserProfile: "wise_primary",
+      rotationNeeded: wise?.rotationNeeded,
+    },
+    {
+      id: "account-hetzner",
+      owner: "ops",
+      purpose: "Primary production VPS and infrastructure account",
+      authMechanism: "Hetzner account login plus VPS SSH or console access",
+      renewalRequirement: "Use unique host-level credentials and keep SSH access distinct from the account password",
+      status: hetzner ? "active" : "bootstrap-required",
+      allowedAutomations: ["VPS bootstrap", "Systemd deploys", "Backups", "Scale recommendations"],
+      linkedInitiatives: ["control-plane", "ops"],
+      credentialRef: hetzner?.storageRef,
+      browserProfile: "hetzner_primary",
+      rotationNeeded: hetzner?.rotationNeeded,
     },
     {
       id: "account-browser-relay",
@@ -52,6 +97,17 @@ export function defaultAccountRegistry(): AccountRegistryEntry[] {
       status: "bootstrap-required",
       allowedAutomations: ["Attached-session browsing", "manual takeover fallback"],
       linkedInitiatives: ["distribution", "ops"],
+      browserProfile: "chrome_company",
+    },
+    {
+      id: "account-steel",
+      owner: "ops",
+      purpose: "Scalable browser session pool for parallel web work",
+      authMechanism: "Steel API key with namespace-isolated session routing",
+      renewalRequirement: "Refresh API key and self-hosted health probes during quarterly review",
+      status: "bootstrap-required",
+      allowedAutomations: ["Parallel research", "Company signups", "Marketplace runs", "Browser fallback"],
+      linkedInitiatives: ["distribution", "ops", "research"],
     },
   ];
 }
@@ -60,8 +116,15 @@ export function buildAccountRegistryMarkdown(registry: AccountRegistryEntry[]): 
   return `# Account Registry
 
 ${renderTable(
-  ["Account", "Purpose", "Auth", "Status"],
-  registry.map((entry) => [entry.id, entry.purpose, entry.authMechanism, entry.status]),
+  ["Account", "Purpose", "Auth", "Status", "Browser profile", "Rotation"],
+  registry.map((entry) => [
+    entry.id,
+    entry.purpose,
+    entry.authMechanism,
+    entry.status,
+    entry.browserProfile ?? "n/a",
+    entry.rotationNeeded ? "required" : "no",
+  ]),
 )}
 `;
 }

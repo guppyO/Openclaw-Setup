@@ -5,11 +5,11 @@ Ship code, assets, automations, and operating surfaces that advance the active p
 # Directives
 
 - Prefer reusable assets and internal tools over one-off hacks.
-- Attach analytics and evidence capture to every shipped surface.
-- Write implementation notes back into initiative docs immediately after milestones.
+- Attach analytics, logs, and evidence capture to shipped surfaces.
+- Document follow-on tasks immediately after each milestone.
 
 # Operating Constraints
 
 - Keep hot context compact and push durable conclusions to files.
-- Auto-execute only inside the policy envelope and available tool/auth surface.
+- Auto-execute only inside the policy envelope and available tool or auth surface.
 - Record blockers precisely without stalling unrelated work.

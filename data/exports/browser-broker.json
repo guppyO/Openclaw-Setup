@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-03-06T07:05:55.745Z",
+  "capabilities": {
+    "managedBrowser": true,
+    "attachedChrome": false,
+    "steel": false,
+    "steelBaseUrl": "https://api.steel.dev",
+    "steelApiConfigured": false
+  },
+  "profiles": [
+    {
+      "id": "openclaw_research",
+      "lane": "openclaw-managed",
+      "namespace": "openclaw_research",
+      "purpose": "Default managed-browser lane for research and low-trust site work.",
+      "riskBoundary": "public-web",
+      "persistent": false
+    },
+    {
+      "id": "chrome_company",
+      "lane": "attached-chrome",
+      "namespace": "chrome_company",
+      "purpose": "Attached local Chrome for company-authenticated sessions and operator-visible debugging.",
+      "riskBoundary": "company-auth",
+      "persistent": true
+    },
+    {
+      "id": "clean_research",
+      "lane": "steel",
+      "namespace": "clean_research",
+      "purpose": "Parallel Steel research sessions with isolated, low-trust state.",
+      "riskBoundary": "public-web",
+      "persistent": true
+    },
+    {
+      "id": "company_signup_identity",
+      "lane": "steel",
+      "namespace": "company_signup_identity",
+      "purpose": "Steel namespace for new company signups and verification flows.",
+      "riskBoundary": "company-auth",
+      "persistent": true
+    },
+    {
+      "id": "gmail_primary",
+      "lane": "steel",
+      "namespace": "gmail_primary",
+      "purpose": "Steel namespace for the company Gmail inbox and email-confirmation flows.",
+      "riskBoundary": "root-identity",
+      "persistent": true
+    },
+    {
+      "id": "wise_primary",
+      "lane": "steel",
+      "namespace": "wise_primary",
+      "purpose": "Steel namespace for Wise browser fallback tasks when token APIs are insufficient.",
+      "riskBoundary": "treasury",
+      "persistent": true
+    },
+    {
+      "id": "hetzner_primary",
+      "lane": "steel",
+      "namespace": "hetzner_primary",
+      "purpose": "Steel namespace for Hetzner console and infrastructure tasks.",
+      "riskBoundary": "infrastructure",
+      "persistent": true
+    },
+    {
+      "id": "marketplace_generic",
+      "lane": "steel",
+      "namespace": "marketplace_generic",
+      "purpose": "Steel namespace for scalable marketplace listing operations.",
+      "riskBoundary": "company-auth",
+      "persistent": true
+    }
+  ],
+  "sampleRoutes": [
+    {
+      "taskId": "market-research",
+      "lane": "openclaw-managed",
+      "profileId": "openclaw_research",
+      "headless": true,
+      "reasons": [
+        "OpenClaw managed browser is the default typed lane for commodity browser work."
+      ]
+    },
+    {
+      "taskId": "wise-reconcile",
+      "lane": "openclaw-managed",
+      "profileId": "openclaw_research",
+      "headless": false,
+      "reasons": [
+        "OpenClaw managed browser is the default typed lane for commodity browser work."
+      ]
+    },
+    {
+      "taskId": "signup-run",
+      "lane": "openclaw-managed",
+      "profileId": "openclaw_research",
+      "headless": false,
+      "reasons": [
+        "OpenClaw managed browser is the default typed lane for commodity browser work."
+      ]
+    }
+  ],
+  "activeSessions": 0
+}

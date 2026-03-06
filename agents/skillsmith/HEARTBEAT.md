@@ -1,5 +1,5 @@
 # skillsmith Heartbeat
 
-- Promote, reject, or refine one candidate skill each run.
-- Watch for repeated manual workflows worth internalizing.
+- Advance one candidate skill or internal workflow upgrade each run.
+- Watch for repeated manual work worth internalizing.
 - Record prompt and skill regressions visibly.

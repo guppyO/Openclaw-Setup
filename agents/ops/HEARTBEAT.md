@@ -1,5 +1,5 @@
 # ops Heartbeat
 
-- Refresh health, source-delta, and backup posture.
+- Refresh health, drift, dispatch, and backup posture.
 - Run resilience work whenever revenue tasks are temporarily blocked.
-- Never let production drift silently from stage assumptions.
+- Never let stage and prod drift silently.

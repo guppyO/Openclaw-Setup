@@ -1,4 +1,4 @@
 # skillsmith User Contract
 
-- Output clear promotion decisions with risk and overlap scores.
+- Output promotion decisions with overlap, risk, and runtime fit.
 - Keep skill instructions short and operational.

@@ -1,5 +1,6 @@
 {
-  "asOf": "2026-03-06T04:46:27.925Z",
+  "asOf": "2026-03-06T07:05:55.803Z",
+  "authMode": "browser-only",
   "capabilities": {
     "balanceRead": false,
     "statementRead": false,
@@ -9,7 +10,11 @@
     "spendControls": false,
     "spendLimits": false,
     "webhooks": false,
-    "psd2LimitedActions": true
+    "psd2LimitedActions": true,
+    "browserLaneAvailable": true,
+    "personalTokenConfigured": false,
+    "oauthAppConfigured": false,
+    "emailReceiptIngest": true
   },
   "balances": [
     {
@@ -24,39 +29,92 @@
   "ledger": [
     {
       "id": "ledger-hetzner",
-      "bookedAt": "2026-03-03T04:46:27.924Z",
+      "bookedAt": "2026-03-03T07:05:55.802Z",
       "merchant": "Hetzner",
       "amount": -14.92,
       "currency": "USD",
       "category": "hosting",
       "initiativeId": "control-plane",
       "recurring": true,
-      "notes": "Baseline control-plane VPS assumption."
+      "notes": "Baseline control-plane VPS assumption.",
+      "budgetTag": "ops:hosting",
+      "source": "sample",
+      "evidencePaths": [
+        "docs/treasury/capabilities.md"
+      ]
     },
     {
       "id": "ledger-domain",
-      "bookedAt": "2026-02-24T04:46:27.925Z",
+      "bookedAt": "2026-02-24T07:05:55.803Z",
       "merchant": "Cloudflare Registrar",
       "amount": -12,
       "currency": "USD",
       "category": "domains",
       "initiativeId": "distribution-foundation",
       "recurring": false,
-      "notes": "Initial launch-domain purchase."
+      "notes": "Initial launch-domain purchase.",
+      "budgetTag": "growth:domains",
+      "source": "sample",
+      "evidencePaths": [
+        "docs/portfolio/lane-catalog.md"
+      ]
     },
     {
       "id": "ledger-revenue",
-      "bookedAt": "2026-03-05T04:46:27.925Z",
+      "bookedAt": "2026-03-05T07:05:55.803Z",
       "merchant": "Pilot customer",
       "amount": 450,
       "currency": "USD",
       "category": "revenue",
       "initiativeId": "ops-audit-packs",
       "recurring": false,
-      "notes": "Sample pilot revenue for dashboard and ROI wiring."
+      "notes": "Sample pilot revenue for dashboard and ROI wiring.",
+      "budgetTag": "revenue:services",
+      "source": "sample",
+      "evidencePaths": [
+        "docs/experiments/exp-ops-audit-packs.md"
+      ]
     }
   ],
   "recurringMonthlyUsd": 14.92,
   "runwayMonths": 201.6,
-  "suspiciousSpendCount": 0
+  "suspiciousSpendCount": 0,
+  "budgetEnvelopes": [
+    {
+      "category": "hosting",
+      "dailyUsd": 10,
+      "weeklyUsd": 40,
+      "monthlyUsd": 120,
+      "requiresExperimentTag": false
+    },
+    {
+      "category": "domains",
+      "dailyUsd": 20,
+      "weeklyUsd": 60,
+      "monthlyUsd": 120,
+      "requiresExperimentTag": true
+    },
+    {
+      "category": "marketplace-fees",
+      "dailyUsd": 20,
+      "weeklyUsd": 100,
+      "monthlyUsd": 250,
+      "requiresExperimentTag": true
+    },
+    {
+      "category": "paid-acquisition",
+      "dailyUsd": 25,
+      "weeklyUsd": 125,
+      "monthlyUsd": 300,
+      "requiresExperimentTag": true
+    },
+    {
+      "category": "tools-and-data",
+      "dailyUsd": 15,
+      "weeklyUsd": 75,
+      "monthlyUsd": 200,
+      "requiresExperimentTag": true
+    }
+  ],
+  "pendingReconciliations": 0
 }

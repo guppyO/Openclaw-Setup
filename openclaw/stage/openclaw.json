@@ -6,7 +6,7 @@
   },
   "model": {
     "primary": "openai-codex/gpt-5.3-codex",
-    "fallback": "openai-codex/gpt-5.2"
+    "fallback": "openai-codex/gpt-5-codex"
   },
   "agents": {
     "defaults": {

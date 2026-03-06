@@ -1,0 +1,59 @@
+{
+  "detectedAt": "2026-03-06T07:05:41.654Z",
+  "probeMode": "passive",
+  "codexCliInstalled": true,
+  "openclawInstalled": false,
+  "strategicTarget": "gpt-5.4",
+  "openClawPrimary": "openai-codex/gpt-5.3-codex",
+  "openClawFallback": "openai-codex/gpt-5-codex",
+  "aliases": [
+    {
+      "alias": "model.primary_frontier",
+      "strategicTarget": "gpt-5.4",
+      "resolvedModel": "gpt-5.4",
+      "reasoning": "high",
+      "surface": "codex-cli",
+      "status": "preferred",
+      "note": "Default strategic alias for research, coding, and operating decisions."
+    },
+    {
+      "alias": "model.frontier_browser",
+      "strategicTarget": "gpt-5.4",
+      "resolvedModel": "gpt-5.4",
+      "reasoning": "high",
+      "surface": "codex-cli",
+      "status": "preferred",
+      "note": "Browser-heavy work should stay on GPT-5.4 unless the runtime blocks it."
+    },
+    {
+      "alias": "model.frontier_research",
+      "strategicTarget": "gpt-5.4",
+      "resolvedModel": "gpt-5.4",
+      "reasoning": "xhigh",
+      "surface": "codex-cli",
+      "status": "preferred",
+      "note": "Use the highest-reasoning GPT-5.4 route for multi-source synthesis and policy-sensitive research."
+    },
+    {
+      "alias": "model.frontier_build",
+      "strategicTarget": "gpt-5.4",
+      "resolvedModel": "gpt-5.4",
+      "reasoning": "high",
+      "surface": "codex-cli",
+      "status": "preferred",
+      "note": "Builder defaults remain GPT-5.4-first to preserve coding quality."
+    },
+    {
+      "alias": "openclaw.model.primary_frontier",
+      "strategicTarget": "gpt-5.4",
+      "resolvedModel": "openai-codex/gpt-5.3-codex",
+      "reasoning": "high",
+      "surface": "source-fallback",
+      "status": "fallback",
+      "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
+    }
+  ],
+  "drift": [
+    "OpenClaw is not installed on this host, so provider-model support is inferred from official docs instead of a live gateway probe."
+  ]
+}

@@ -1,22 +1,23 @@
 # START HERE
 
-1. Run `npm install`.
-2. Refresh official anchors with `npm run bootstrap:runtime`.
-3. Generate the operating state with `npm run bootstrap:state`.
-4. Seed the skill queue with `npm run bootstrap:skills`.
-5. Probe treasury capabilities with `npm run bootstrap:wise`.
-6. Run `npm run test` and `npm run verify:smoke`.
-7. Launch the dashboard with `npm run dashboard`.
+Run the local bootstrap in this order:
 
-## Bootstrap still required
+1. `npm install`
+2. `npm run bootstrap:secrets`
+3. `npm run bootstrap:runtime`
+4. `npm run bootstrap:state`
+5. `npm run bootstrap:control-plane`
+6. `npm run runtime:browser-broker`
+7. `npm run bootstrap:wise`
+8. `npm run test`
+9. `npm run verify:smoke`
+10. `npm run dashboard`
 
-- Provision the Linux VPS and install OpenClaw there.
-- Sign OpenClaw into `openai-codex` OAuth on the VPS.
-- Add Wise credentials if treasury ingest beyond sample data is required.
-- Attach the Chrome relay on the Windows node for authenticated browser flows.
+Use [docs/deployment/live-bootstrap.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/deployment/live-bootstrap.md) for the Hetzner bring-up path. The local secret flow is documented in [docs/secrets-handling.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/secrets-handling.md), the browser fabric in [docs/browser-topology.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/browser-topology.md), and the scheduler model in [docs/continuous-dispatch.md](/C:/Users/beres/Desktop/openclaw%20setup/docs/continuous-dispatch.md).
 
-## First production path
+The minimum unavoidable interactive steps are:
 
-- Review [CURRENT-STATE.md](/C:/Users/beres/Desktop/openclaw%20setup/CURRENT-STATE.md).
-- Run the relevant script in [openclaw/stage/scripts/bootstrap-stage.sh](/C:/Users/beres/Desktop/openclaw%20setup/openclaw/stage/scripts/bootstrap-stage.sh) first.
-- Promote to prod only after stage smoke, runtime source refresh, and a fresh backup all pass.
+- complete `openclaw models auth login --provider openai-codex` on the VPS,
+- pair the attached Chrome relay once on Windows,
+- add Steel API or self-hosted details if you want the Steel lane active,
+- verify the Wise lane you want to use beyond browser-only reconciliation.

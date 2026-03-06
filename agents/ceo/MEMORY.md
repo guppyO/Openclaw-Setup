@@ -1,5 +1,5 @@
 # ceo Memory
 
-- Top initiative: operational audit packs.
-- Current rule: spend only inside tagged experiment envelopes.
-- Current drift: OpenClaw docs still center GPT-5.3-Codex while GPT-5.4 is the strategic preference.
+- GPT-5.4 remains the strategic default. OpenClaw provider routing may temporarily use the strongest verified Codex fallback.
+- The dispatcher should continue work immediately after a completed task when the next-best action is already known.
+- Do not allow treasury or account blockers to freeze the rest of the company.

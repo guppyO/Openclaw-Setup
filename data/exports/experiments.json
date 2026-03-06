@@ -24,7 +24,7 @@
     ],
     "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
     "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-13T04:46:27.914Z",
+    "reviewDate": "2026-03-13T07:05:48.314Z",
     "nextActions": [
       {
         "id": "ops-audit-packs-offer",
@@ -33,7 +33,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-06T06:46:27.914Z",
+        "dueAt": "2026-03-06T09:05:48.314Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -43,7 +43,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "highest-priority-product-backlog",
         "priority": 92,
-        "dueAt": "2026-03-06T10:46:27.914Z",
+        "dueAt": "2026-03-06T13:05:48.314Z",
         "notes": "Ship a landing page, support docs, and measurement hooks."
       },
       {
@@ -53,7 +53,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-06T16:46:27.914Z",
+        "dueAt": "2026-03-06T19:05:48.314Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       }
     ]
@@ -83,7 +83,7 @@
     ],
     "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
     "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-15T04:46:27.914Z",
+    "reviewDate": "2026-03-15T07:05:48.314Z",
     "nextActions": [
       {
         "id": "marketplace-automation-packs-offer",
@@ -92,7 +92,7 @@
         "initiativeId": "marketplace-automation-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 99,
-        "dueAt": "2026-03-06T06:46:27.914Z",
+        "dueAt": "2026-03-06T09:05:48.314Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -102,7 +102,7 @@
         "initiativeId": "marketplace-automation-packs",
         "reason": "highest-priority-product-backlog",
         "priority": 91,
-        "dueAt": "2026-03-06T10:46:27.914Z",
+        "dueAt": "2026-03-06T13:05:48.314Z",
         "notes": "Ship a landing page, support docs, and measurement hooks."
       },
       {
@@ -112,7 +112,7 @@
         "initiativeId": "marketplace-automation-packs",
         "reason": "distribution-bottleneck",
         "priority": 87,
-        "dueAt": "2026-03-06T16:46:27.914Z",
+        "dueAt": "2026-03-06T19:05:48.314Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       }
     ]
@@ -142,7 +142,7 @@
     ],
     "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
     "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-17T04:46:27.914Z",
+    "reviewDate": "2026-03-17T07:05:48.314Z",
     "nextActions": [
       {
         "id": "ai-content-repurposer-offer",
@@ -151,7 +151,7 @@
         "initiativeId": "ai-content-repurposer",
         "reason": "highest-ev-open-experiment",
         "priority": 98,
-        "dueAt": "2026-03-06T06:46:27.914Z",
+        "dueAt": "2026-03-06T09:05:48.314Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -161,7 +161,7 @@
         "initiativeId": "ai-content-repurposer",
         "reason": "highest-priority-product-backlog",
         "priority": 90,
-        "dueAt": "2026-03-06T10:46:27.914Z",
+        "dueAt": "2026-03-06T13:05:48.314Z",
         "notes": "Ship a landing page, support docs, and measurement hooks."
       },
       {
@@ -171,7 +171,7 @@
         "initiativeId": "ai-content-repurposer",
         "reason": "distribution-bottleneck",
         "priority": 86,
-        "dueAt": "2026-03-06T16:46:27.914Z",
+        "dueAt": "2026-03-06T19:05:48.314Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       }
     ]
@@ -201,7 +201,7 @@
     ],
     "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
     "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-19T04:46:27.914Z",
+    "reviewDate": "2026-03-19T07:05:48.314Z",
     "nextActions": [
       {
         "id": "niche-lead-gen-sites-offer",
@@ -210,7 +210,7 @@
         "initiativeId": "niche-lead-gen-sites",
         "reason": "highest-ev-open-experiment",
         "priority": 97,
-        "dueAt": "2026-03-06T06:46:27.914Z",
+        "dueAt": "2026-03-06T09:05:48.314Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -220,7 +220,7 @@
         "initiativeId": "niche-lead-gen-sites",
         "reason": "highest-priority-product-backlog",
         "priority": 89,
-        "dueAt": "2026-03-06T10:46:27.914Z",
+        "dueAt": "2026-03-06T13:05:48.314Z",
         "notes": "Ship a landing page, support docs, and measurement hooks."
       },
       {
@@ -230,7 +230,7 @@
         "initiativeId": "niche-lead-gen-sites",
         "reason": "distribution-bottleneck",
         "priority": 85,
-        "dueAt": "2026-03-06T16:46:27.914Z",
+        "dueAt": "2026-03-06T19:05:48.314Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       }
     ]

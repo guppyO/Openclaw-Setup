@@ -1,10 +1,13 @@
 import { emitLog } from "../../services/common/logger.js";
 import { resolveRepoPath, writeJsonFile } from "../../services/common/fs.js";
+import { probeModelCapabilities, writeModelCapabilityArtifacts } from "../../services/runtime-model/index.js";
 import { refreshOfficialSources, writeRuntimeDocs } from "../../services/update-steward/index.js";
 
 async function main(): Promise<void> {
   const result = await refreshOfficialSources();
   await writeRuntimeDocs();
+  const probe = await probeModelCapabilities(process.argv.includes("--active-model-probe") ? "active" : "passive");
+  await writeModelCapabilityArtifacts(probe);
   await writeJsonFile(resolveRepoPath("data", "exports", "runtime-source-refresh.json"), {
     refreshedAt: new Date().toISOString(),
     changedSources: result.changedSources.map((source) => ({
@@ -23,6 +26,7 @@ async function main(): Promise<void> {
     success: true,
     evidencePaths: [
       "docs/runtime-verification.md",
+      "docs/runtime-model-policy.md",
       "docs/source-anchors.md",
       "data/exports/source-snapshots.json",
     ],

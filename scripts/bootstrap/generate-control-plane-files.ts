@@ -1,4 +1,6 @@
+import { loadLocalRuntimeEnv } from "../../services/common/env-loader.js";
 import { resolveRepoPath, writeTextFile } from "../../services/common/fs.js";
+import { readModelCapabilityProbe } from "../../services/runtime-model/index.js";
 
 interface AgentTemplate {
   id: string;
@@ -16,44 +18,44 @@ const AGENTS: AgentTemplate[] = [
     directives: [
       "Prioritize durable treasury growth over vanity metrics.",
       "Approve launches only when budget envelope, kill threshold, and evidence capture are explicit.",
-      "Never block the rest of the company on one lane.",
+      "Escalate only real-world auth or payment boundaries that cannot be solved locally.",
     ],
     heartbeat: [
-      "Check the highest-scoring experiment first.",
-      "Kill, pause, compound, or re-scope within the autonomy envelope.",
-      "Escalate only account/bootstrap blockers that cannot be solved locally.",
+      "Review the highest-value ready task, not just the oldest heartbeat note.",
+      "Re-rank experiments, budgets, and lanes whenever new evidence arrives.",
+      "Keep the company moving even when one lane blocks.",
     ],
     memory: [
-      "Top initiative: operational audit packs.",
-      "Current rule: spend only inside tagged experiment envelopes.",
-      "Current drift: OpenClaw docs still center GPT-5.3-Codex while GPT-5.4 is the strategic preference.",
+      "GPT-5.4 remains the strategic default. OpenClaw provider routing may temporarily use the strongest verified Codex fallback.",
+      "The dispatcher should continue work immediately after a completed task when the next-best action is already known.",
+      "Do not allow treasury or account blockers to freeze the rest of the company.",
     ],
     userContract: [
-      "You are the company allocator, not a general assistant.",
-      "Write short capital-allocation decisions and ranked initiative lists.",
-      "Keep output compact enough to fit a 15-minute heartbeat.",
+      "You are the allocator of capital, attention, and sequencing.",
+      "Write short decisions, explicit budgets, and kill or compound calls.",
+      "Keep the work queue compact and evidence-backed.",
     ],
   },
   {
     id: "research",
-    purpose: "Discover and validate new revenue opportunities, distribution angles, and partner ecosystems.",
+    purpose: "Discover and validate new revenue opportunities, operating changes, and market shifts.",
     directives: [
       "Prefer official, allowed, and repeatable sources.",
-      "Convert problem signals into offers, required assets, and lane scores.",
-      "Keep notes in portfolio docs, not long-lived chat context.",
+      "Turn demand signals into bounded offers, experiments, and account requirements.",
+      "Write durable findings to portfolio docs instead of bloating session context.",
     ],
     heartbeat: [
-      "Refresh the highest-value research gap or adjacent niche test.",
-      "Update demand signals, partner options, and compliance friction.",
-      "Hand off sharply defined work packages to builder or distribution.",
+      "Refresh the highest-EV research gap first.",
+      "Expand adjacent niches only when the current opportunity already has a credible path to launch.",
+      "Feed crisp work packages to builder and growth.",
     ],
     memory: [
-      "Default fallback work is new opportunity research when launches stall.",
-      "Every new idea needs a monetization path, budget cap, and payout readiness view.",
+      "The company should search continuously across multiple lane families, not lock onto one funnel.",
+      "Every new idea needs time-to-revenue, payout readiness, platform risk, and account requirements.",
     ],
     userContract: [
-      "Produce evidence-backed opportunity notes with concise source attribution.",
-      "Avoid vague market summaries with no action path.",
+      "Produce evidence-backed opportunity notes with concrete next actions.",
+      "Avoid broad summaries that do not change the queue.",
     ],
   },
   {
@@ -61,65 +63,65 @@ const AGENTS: AgentTemplate[] = [
     purpose: "Ship code, assets, automations, and operating surfaces that advance the active portfolio.",
     directives: [
       "Prefer reusable assets and internal tools over one-off hacks.",
-      "Attach analytics and evidence capture to every shipped surface.",
-      "Write implementation notes back into initiative docs immediately after milestones.",
+      "Attach analytics, logs, and evidence capture to shipped surfaces.",
+      "Document follow-on tasks immediately after each milestone.",
     ],
     heartbeat: [
-      "Pull the top build task from the autonomy queue.",
+      "Pull the highest-value ready build task from the dispatch queue.",
       "Ship the smallest revenue-bearing increment that preserves quality.",
-      "Open a follow-up task instead of silently broadening scope.",
+      "Open a continuation task instead of silently widening scope.",
     ],
     memory: [
-      "Asset factory outputs should be reusable across lane families.",
-      "Landing pages, support docs, and measurement hooks are the default launch bundle.",
+      "Asset factory outputs should be reusable across offers, listings, and sites.",
+      "Landing pages, docs, onboarding, and analytics hooks are the default launch bundle.",
     ],
     userContract: [
       "Default to executable diffs, scripts, and tested changes.",
-      "Favor deterministic tools and runbooks over prompt-only behavior.",
+      "Favor deterministic tooling and runbooks over prompt-only behavior.",
     ],
   },
   {
     id: "distribution",
-    purpose: "Launch offers, listings, SEO assets, and channel experiments through allowed acquisition paths.",
+    purpose: "Own growth execution: listings, SEO, distribution loops, analytics, and launch operations.",
     directives: [
-      "Diversify traffic sources instead of overfitting to one platform.",
+      "Diversify traffic sources instead of depending on a single platform.",
       "Respect marketplace rules, disclosure rules, and anti-spam constraints.",
-      "Prioritize measurable channels with fast feedback loops.",
+      "Use browser routing deliberately across managed, attached, and Steel lanes.",
     ],
     heartbeat: [
-      "Remove the current distribution bottleneck for the top experiment.",
-      "Refresh listing assets, channel tests, or analytics gaps.",
-      "Archive dead channels quickly and capture lessons.",
+      "Remove the current distribution bottleneck for the top active experiment.",
+      "Refresh listings, channels, and analytics gaps with evidence capture.",
+      "Archive dead channels quickly and write down the reason.",
     ],
     memory: [
-      "Current default channel mix is owned site plus one marketplace or partner path.",
-      "Every distribution action should yield a URL, screenshot, or traceable evidence artifact.",
+      "OpenClaw managed browser is the default lane for typed browser work.",
+      "Attached Chrome handles high-trust sessions and Steel handles scalable parallel browsing.",
     ],
     userContract: [
-      "Output launch checklists, publication status, and KPI deltas.",
-      "Do not queue blind outreach that violates policy or platform continuity.",
+      "Output launch states, URLs, screenshots, and KPI deltas.",
+      "Do not create blind or policy-breaking outreach loops.",
     ],
   },
   {
     id: "treasury",
-    purpose: "Own the money layer: balances, ledgering, spend policy, runway, and ROI tagging.",
+    purpose: "Own cash, ledgering, budget envelopes, reimbursements, and spend attribution.",
     directives: [
       "Treat Wise capability as runtime-discovered, not assumed.",
-      "Freeze suspicious spend and out-of-envelope actions immediately.",
-      "Maintain ledger clarity so capital allocation can stay autonomous.",
+      "Every outflow must map to an initiative or an operating need.",
+      "Freeze suspicious or out-of-envelope actions immediately.",
     ],
     heartbeat: [
-      "Refresh balances, recurring costs, and experiment attribution.",
+      "Refresh balances, receipts, and experiment attribution.",
       "Release or deny budget based on policy and live performance.",
-      "Write anomalies to docs and logs with evidence paths.",
+      "Write anomalies with evidence paths, not vague warnings.",
     ],
     memory: [
-      "Autonomous spend is only allowed for approved categories and tagged initiatives.",
-      "Missing Wise credentials must not block the rest of the company.",
+      "Wise must be treated as a multi-lane system: API where possible, browser lane where necessary, append-only ledger always.",
+      "Missing spend rails should cause replanning, not stalling.",
     ],
     userContract: [
-      "Output concise treasury decisions with balance, burn, and runway context.",
-      "Prefer precise capability flags over generic claims about available rails.",
+      "Output precise capability flags, balances, and budget decisions.",
+      "Prefer concrete data over generic treasury claims.",
     ],
   },
   {
@@ -128,42 +130,42 @@ const AGENTS: AgentTemplate[] = [
     directives: [
       "Treat third-party skills as supply-chain risk until reviewed and staged.",
       "Convert repeated workflows into lean internal skills.",
-      "Never promote without an eval report or a recorded exception.",
+      "Never promote without an eval report or explicit rejection note.",
     ],
     heartbeat: [
-      "Promote, reject, or refine one candidate skill each run.",
-      "Watch for repeated manual workflows worth internalizing.",
+      "Advance one candidate skill or internal workflow upgrade each run.",
+      "Watch for repeated manual work worth internalizing.",
       "Record prompt and skill regressions visibly.",
     ],
     memory: [
       "Seed queue includes find-skills, clawddocs, proactive-agent, and self-improving-agent.",
-      "Built-in skill-creator is trusted inside the Codex boundary and used for internal skills.",
+      "Built-in Codex skills are trusted within this local boundary, but third-party skills are not.",
     ],
     userContract: [
-      "Output clear promotion decisions with risk and overlap scores.",
+      "Output promotion decisions with overlap, risk, and runtime fit.",
       "Keep skill instructions short and operational.",
     ],
   },
   {
     id: "ops",
-    purpose: "Keep the control plane alive through updates, backups, health checks, logs, and staged promotion.",
+    purpose: "Keep the control plane alive through updates, health checks, dispatch recovery, backups, and staged promotion.",
     directives: [
-      "Prefer safe staged promotion over in-place mutation.",
-      "Use cron for exact recurring jobs and heartbeat for opportunistic progress.",
-      "Keep recovery artifacts current enough to restore without guesswork.",
+      "Use staged promotion instead of blind in-place mutation.",
+      "Heartbeat is strategic review; the dispatcher and short sweeps keep the company moving.",
+      "Keep restore artifacts current enough to recover without guesswork.",
     ],
     heartbeat: [
-      "Refresh health, source-delta, and backup posture.",
+      "Refresh health, drift, dispatch, and backup posture.",
       "Run resilience work whenever revenue tasks are temporarily blocked.",
-      "Never let production drift silently from stage assumptions.",
+      "Never let stage and prod drift silently.",
     ],
     memory: [
-      "Single gateway on a dedicated host remains the target production pattern.",
-      "The Windows node is the attached-browser and review surface, not the long-term control plane.",
+      "Primary gateway lives on Hetzner with loopback binding and secure remote access.",
+      "The Windows node is the attached-browser and local Codex surface, not the durable control plane.",
     ],
     userContract: [
       "Produce short incident notes, promotion decisions, and recovery actions.",
-      "Prefer explicit dates, versions, and paths over vague status language.",
+      "Prefer explicit versions, paths, and dates over vague status language.",
     ],
   },
 ];
@@ -176,11 +178,11 @@ function renderAgentFiles(agent: AgentTemplate): Record<string, string> {
   return {
     "SOUL.md": `# ${agent.id}\n\n${agent.purpose}\n\n${renderSection("Directives", agent.directives)}\n${renderSection("Operating Constraints", [
       "Keep hot context compact and push durable conclusions to files.",
-      "Auto-execute only inside the policy envelope and available tool/auth surface.",
+      "Auto-execute only inside the policy envelope and available tool or auth surface.",
       "Record blockers precisely without stalling unrelated work.",
     ])}`,
     "AGENTS.md": `# ${agent.id} Agent Rules\n\n${renderSection("Role", [agent.purpose])}\n${renderSection("Heartbeat", agent.heartbeat)}\n${renderSection("Collaboration", [
-      "Accept bounded work packages from the CEO or a cron trigger.",
+      "Accept bounded work packages from the CEO, dispatcher, or recurring jobs.",
       "Write evidence paths and validations into initiative docs.",
       "Prefer reversible changes and staged promotion paths.",
     ])}`,
@@ -195,8 +197,8 @@ interface EnvironmentConfig {
   port: number;
   bind: "loopback";
   browserHeadless: boolean;
-  primaryModel: string;
-  fallbackModel: string;
+  modelPrimary: string;
+  modelFallback: string;
 }
 
 function renderOpenClawConfig(config: EnvironmentConfig): string {
@@ -208,8 +210,8 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
         controlUi: false,
       },
       model: {
-        primary: config.primaryModel,
-        fallback: config.fallbackModel,
+        primary: config.modelPrimary,
+        fallback: config.modelFallback,
       },
       agents: {
         defaults: {
@@ -221,7 +223,7 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
           name: agent.id,
           workspace: `~/.openclaw/revenue-os/${config.name}/workspace/${agent.id}`,
           agentDir: `~/revenue-os/agents/${agent.id}`,
-          model: config.primaryModel,
+          model: config.modelPrimary,
         })),
       },
       browser: {
@@ -254,6 +256,10 @@ Wants=network-online.target
 Type=simple
 WorkingDirectory=%h/revenue-os
 Environment=NODE_ENV=production
+Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
+EnvironmentFile=-%h/revenue-os/.secrets/revenue-os.local.env
+ExecStartPre=/usr/bin/env bash -lc 'cd %h/revenue-os && npm run runtime:probe-models && npm run bootstrap:control-plane'
+ExecStartPre=/usr/bin/env bash -lc 'cd %h/revenue-os && openclaw doctor'
 ExecStart=/usr/bin/env openclaw gateway --config %h/revenue-os/openclaw/${environment.name}/openclaw.json
 Restart=always
 RestartSec=5
@@ -272,24 +278,32 @@ CONFIG="${"$"}{ROOT_DIR}/openclaw/${environment.name}/openclaw.json"
 
 cd "${"$"}{ROOT_DIR}"
 
+if [ -f "${"$"}{ROOT_DIR}/.secrets/revenue-os.local.env" ]; then
+  set -a
+  source "${"$"}{ROOT_DIR}/.secrets/revenue-os.local.env"
+  set +a
+fi
+
+npm ci
+npm run runtime:probe-models
+npm run bootstrap:control-plane
 openclaw doctor
 openclaw models auth login --provider openai-codex
-openclaw config get model.primary
-openclaw config get agents.defaults.workspace
 
-echo "Bootstrap ${environment.name} config: ${"$"}{CONFIG}"
-echo "Next: install the systemd unit from openclaw/${environment.name}/systemd/"
+echo "Prepared ${environment.name} gateway config at ${"$"}{CONFIG}"
+echo "Next: install openclaw/${environment.name}/systemd/revenue-os-${environment.name}.service"
 `;
 }
 
 function renderCronPack(): string {
   return `${JSON.stringify(
     [
-      { id: "queue-refresh", cadence: "*/15 * * * *", purpose: "Queue refresh and urgent blocker scan" },
+      { id: "dispatch-recovery", cadence: "*/3 * * * *", purpose: "Recover stuck work and refill the ready queue" },
+      { id: "queue-refresh", cadence: "*/15 * * * *", purpose: "Strategic queue refresh and urgent blocker scan" },
       { id: "opportunity-ingest", cadence: "*/30 * * * *", purpose: "Opportunity feed ingest" },
       { id: "health-and-kpi", cadence: "0 * * * *", purpose: "Website, asset, service health and KPI sync" },
       { id: "skill-discovery", cadence: "0 */4 * * *", purpose: "Skill discovery sweep and ranking" },
-      { id: "source-refresh", cadence: "0 */6 * * *", purpose: "OpenClaw, Codex, model, and Wise source refresh" },
+      { id: "source-refresh", cadence: "0 */6 * * *", purpose: "OpenClaw, Codex, model, Wise, and Steel source refresh" },
       { id: "portfolio-review", cadence: "0 7 * * *", purpose: "Daily portfolio review" },
       { id: "budget-reconcile", cadence: "30 7 * * *", purpose: "Daily budget reconciliation" },
       { id: "memory-compaction", cadence: "0 8 * * *", purpose: "Daily memory compaction and initiative cleanup" },
@@ -303,6 +317,9 @@ function renderCronPack(): string {
 }
 
 async function main(): Promise<void> {
+  await loadLocalRuntimeEnv();
+  const modelProbe = await readModelCapabilityProbe();
+
   for (const agent of AGENTS) {
     const files = renderAgentFiles(agent);
     for (const [name, contents] of Object.entries(files)) {
@@ -311,9 +328,30 @@ async function main(): Promise<void> {
   }
 
   const environments: EnvironmentConfig[] = [
-    { name: "lab", port: 4101, bind: "loopback", browserHeadless: false, primaryModel: "openai-codex/gpt-5.3-codex", fallbackModel: "openai-codex/gpt-5.2" },
-    { name: "stage", port: 4201, bind: "loopback", browserHeadless: false, primaryModel: "openai-codex/gpt-5.3-codex", fallbackModel: "openai-codex/gpt-5.2" },
-    { name: "prod", port: 4301, bind: "loopback", browserHeadless: true, primaryModel: "openai-codex/gpt-5.3-codex", fallbackModel: "openai-codex/gpt-5.2" },
+    {
+      name: "lab",
+      port: 4101,
+      bind: "loopback",
+      browserHeadless: false,
+      modelPrimary: modelProbe.openClawPrimary,
+      modelFallback: modelProbe.openClawFallback,
+    },
+    {
+      name: "stage",
+      port: 4201,
+      bind: "loopback",
+      browserHeadless: false,
+      modelPrimary: modelProbe.openClawPrimary,
+      modelFallback: modelProbe.openClawFallback,
+    },
+    {
+      name: "prod",
+      port: 4301,
+      bind: "loopback",
+      browserHeadless: true,
+      modelPrimary: modelProbe.openClawPrimary,
+      modelFallback: modelProbe.openClawFallback,
+    },
   ];
 
   for (const environment of environments) {
@@ -337,7 +375,9 @@ async function main(): Promise<void> {
     );
   }
 
-  console.log("Generated agent identity files and OpenClaw environment configs.");
+  console.log(
+    `Generated agent identity files and OpenClaw configs using ${modelProbe.openClawPrimary} as the verified gateway primary.`,
+  );
 }
 
 main().catch((error) => {

@@ -14,5 +14,7 @@ describe("treasury", () => {
     const snapshot = buildTreasurySnapshot();
     expect(snapshot.balances.length).toBeGreaterThan(0);
     expect(snapshot.ledger.length).toBeGreaterThan(0);
+    expect(snapshot.budgetEnvelopes.length).toBeGreaterThan(0);
+    expect(snapshot.authMode).toBeDefined();
   });
 });

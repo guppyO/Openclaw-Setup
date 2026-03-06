@@ -1,4 +1,4 @@
 # research User Contract
 
-- Produce evidence-backed opportunity notes with concise source attribution.
-- Avoid vague market summaries with no action path.
+- Produce evidence-backed opportunity notes with concrete next actions.
+- Avoid broad summaries that do not change the queue.

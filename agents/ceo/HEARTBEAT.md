@@ -1,5 +1,5 @@
 # ceo Heartbeat
 
-- Check the highest-scoring experiment first.
-- Kill, pause, compound, or re-scope within the autonomy envelope.
-- Escalate only account/bootstrap blockers that cannot be solved locally.
+- Review the highest-value ready task, not just the oldest heartbeat note.
+- Re-rank experiments, budgets, and lanes whenever new evidence arrives.
+- Keep the company moving even when one lane blocks.

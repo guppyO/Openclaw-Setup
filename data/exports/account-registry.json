@@ -1,5 +1,26 @@
 [
   {
+    "id": "account-company-gmail",
+    "owner": "ops",
+    "purpose": "Primary company mailbox and signup identity",
+    "authMechanism": "Email/password with passkey or browser login confirmation",
+    "renewalRequirement": "Rotate reused bootstrap passwords and keep recovery options current",
+    "status": "active",
+    "allowedAutomations": [
+      "Verification inbox monitoring",
+      "Signup confirmations",
+      "Receipt ingest"
+    ],
+    "linkedInitiatives": [
+      "identity",
+      "growth",
+      "treasury"
+    ],
+    "credentialRef": ".secrets/providers/gmail.env",
+    "browserProfile": "gmail_primary",
+    "rotationNeeded": true
+  },
+  {
     "id": "account-chatgpt-pro",
     "owner": "operator",
     "purpose": "Primary reasoning and Codex sign-in identity",
@@ -15,7 +36,8 @@
       "control-plane",
       "builder",
       "research"
-    ]
+    ],
+    "browserProfile": "chrome_company"
   },
   {
     "id": "account-openclaw-prod",
@@ -38,17 +60,42 @@
     "id": "account-wise",
     "owner": "treasury",
     "purpose": "Treasury source of truth",
-    "authMechanism": "Wise personal token or OAuth 2.0 app",
+    "authMechanism": "Wise personal token, partner OAuth, or browser lane fallback",
     "renewalRequirement": "Capability probe after token rotation or account change",
-    "status": "bootstrap-required",
+    "status": "active",
     "allowedAutomations": [
       "Balance read",
       "ledger ingest",
-      "budget tagging"
+      "budget tagging",
+      "Browser fallback reconciliation"
     ],
     "linkedInitiatives": [
       "treasury"
-    ]
+    ],
+    "credentialRef": ".secrets/providers/wise.env",
+    "browserProfile": "wise_primary",
+    "rotationNeeded": true
+  },
+  {
+    "id": "account-hetzner",
+    "owner": "ops",
+    "purpose": "Primary production VPS and infrastructure account",
+    "authMechanism": "Hetzner account login plus VPS SSH or console access",
+    "renewalRequirement": "Use unique host-level credentials and keep SSH access distinct from the account password",
+    "status": "active",
+    "allowedAutomations": [
+      "VPS bootstrap",
+      "Systemd deploys",
+      "Backups",
+      "Scale recommendations"
+    ],
+    "linkedInitiatives": [
+      "control-plane",
+      "ops"
+    ],
+    "credentialRef": ".secrets/providers/hetzner.env",
+    "browserProfile": "hetzner_primary",
+    "rotationNeeded": true
   },
   {
     "id": "account-browser-relay",
@@ -64,6 +111,26 @@
     "linkedInitiatives": [
       "distribution",
       "ops"
+    ],
+    "browserProfile": "chrome_company"
+  },
+  {
+    "id": "account-steel",
+    "owner": "ops",
+    "purpose": "Scalable browser session pool for parallel web work",
+    "authMechanism": "Steel API key with namespace-isolated session routing",
+    "renewalRequirement": "Refresh API key and self-hosted health probes during quarterly review",
+    "status": "bootstrap-required",
+    "allowedAutomations": [
+      "Parallel research",
+      "Company signups",
+      "Marketplace runs",
+      "Browser fallback"
+    ],
+    "linkedInitiatives": [
+      "distribution",
+      "ops",
+      "research"
     ]
   }
 ]

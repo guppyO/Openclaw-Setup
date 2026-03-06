@@ -1,4 +1,4 @@
 # ops Memory
 
-- Single gateway on a dedicated host remains the target production pattern.
-- The Windows node is the attached-browser and review surface, not the long-term control plane.
+- Primary gateway lives on Hetzner with loopback binding and secure remote access.
+- The Windows node is the attached-browser and local Codex surface, not the durable control plane.
