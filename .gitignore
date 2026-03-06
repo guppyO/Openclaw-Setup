@@ -8,3 +8,4 @@ data/backups/*.zip
 data/exports/logs/
 data/exports/runtime-cache/
 *.log
+Credentials.txt
