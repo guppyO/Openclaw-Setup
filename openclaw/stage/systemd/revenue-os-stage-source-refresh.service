@@ -1,0 +1,11 @@
+[Unit]
+Description=Revenue OS source-refresh stage
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/revenue-os
+Environment=NODE_ENV=production
+Environment=REVENUE_OS_ENVIRONMENT=stage
+EnvironmentFile=-%h/revenue-os/.secrets/revenue-os.local.env
+ExecStart=/usr/bin/env bash -lc 'cd %h/revenue-os && npm run refresh:updates'

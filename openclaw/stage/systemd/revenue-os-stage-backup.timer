@@ -1,0 +1,11 @@
+[Unit]
+Description=Revenue OS backup timer stage
+
+[Timer]
+OnBootSec=20min
+OnUnitActiveSec=12h
+Unit=revenue-os-stage-backup.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

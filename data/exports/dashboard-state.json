@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-03-06T07:05:48.329Z",
+  "generatedAt": "2026-03-06T20:02:35.826Z",
   "treasury": {
-    "asOf": "2026-03-06T07:05:48.314Z",
+    "asOf": "2026-03-06T20:02:35.803Z",
+    "mode": "sample",
     "authMode": "none",
     "capabilities": {
       "balanceRead": false,
@@ -31,7 +32,7 @@
     "ledger": [
       {
         "id": "ledger-hetzner",
-        "bookedAt": "2026-03-03T07:05:48.314Z",
+        "bookedAt": "2026-03-03T20:02:35.803Z",
         "merchant": "Hetzner",
         "amount": -14.92,
         "currency": "USD",
@@ -47,7 +48,7 @@
       },
       {
         "id": "ledger-domain",
-        "bookedAt": "2026-02-24T07:05:48.314Z",
+        "bookedAt": "2026-02-24T20:02:35.803Z",
         "merchant": "Cloudflare Registrar",
         "amount": -12,
         "currency": "USD",
@@ -63,7 +64,7 @@
       },
       {
         "id": "ledger-revenue",
-        "bookedAt": "2026-03-05T07:05:48.314Z",
+        "bookedAt": "2026-03-05T20:02:35.803Z",
         "merchant": "Pilot customer",
         "amount": 450,
         "currency": "USD",
@@ -79,7 +80,7 @@
       }
     ],
     "recurringMonthlyUsd": 14.92,
-    "runwayMonths": 201.6,
+    "runwayMonths": 167.6,
     "suspiciousSpendCount": 0,
     "budgetEnvelopes": [
       {
@@ -118,7 +119,14 @@
         "requiresExperimentTag": true
       }
     ],
-    "pendingReconciliations": 0
+    "pendingReconciliations": 0,
+    "fx": {
+      "base": "USD",
+      "asOf": null,
+      "rates": {},
+      "source": "missing",
+      "stale": true
+    }
   },
   "topOpportunities": [
     {
@@ -131,13 +139,13 @@
         {
           "source": "service-business pain",
           "description": "Manual ops and quoting friction remain common in local businesses.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 7.8
         },
         {
           "source": "AI adoption",
           "description": "Businesses want AI help but need bounded and accountable delivery.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 8.2
         }
       ],
@@ -209,13 +217,13 @@
         {
           "source": "creator economy",
           "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 7.4
         },
         {
           "source": "distribution leverage",
           "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 7.1
         }
       ],
@@ -285,13 +293,13 @@
         {
           "source": "content fatigue",
           "description": "Expert creators want output without running full content teams.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 7.6
         },
         {
           "source": "agent fit",
           "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 8.5
         }
       ],
@@ -362,13 +370,13 @@
         {
           "source": "search intent",
           "description": "High-intent long-tail queries still reward specialized content and useful tools.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 8.4
         },
         {
           "source": "buyer routing",
           "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 7.8
         }
       ],
@@ -439,13 +447,13 @@
         {
           "source": "time scarcity",
           "description": "Operators pay for faster access to compiled data in markets they already understand.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 6.8
         },
         {
           "source": "repeatable research",
           "description": "Automated collection and summarization can lower production cost substantially.",
-          "capturedAt": "2026-03-06T07:05:48.313Z",
+          "capturedAt": "2026-03-06T20:02:35.801Z",
           "strength": 7.5
         }
       ],
@@ -533,7 +541,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-13T07:05:48.314Z",
+      "reviewDate": "2026-03-13T20:02:35.803Z",
       "nextActions": [
         {
           "id": "ops-audit-packs-offer",
@@ -542,7 +550,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 100,
-          "dueAt": "2026-03-06T09:05:48.314Z",
+          "dueAt": "2026-03-06T22:02:35.803Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -552,7 +560,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 92,
-          "dueAt": "2026-03-06T13:05:48.314Z",
+          "dueAt": "2026-03-07T02:02:35.803Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -562,7 +570,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "distribution-bottleneck",
           "priority": 88,
-          "dueAt": "2026-03-06T19:05:48.314Z",
+          "dueAt": "2026-03-07T08:02:35.803Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -592,7 +600,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-15T07:05:48.314Z",
+      "reviewDate": "2026-03-15T20:02:35.803Z",
       "nextActions": [
         {
           "id": "marketplace-automation-packs-offer",
@@ -601,7 +609,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 99,
-          "dueAt": "2026-03-06T09:05:48.314Z",
+          "dueAt": "2026-03-06T22:02:35.803Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -611,7 +619,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 91,
-          "dueAt": "2026-03-06T13:05:48.314Z",
+          "dueAt": "2026-03-07T02:02:35.803Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -621,7 +629,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "distribution-bottleneck",
           "priority": 87,
-          "dueAt": "2026-03-06T19:05:48.314Z",
+          "dueAt": "2026-03-07T08:02:35.803Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -651,7 +659,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-17T07:05:48.314Z",
+      "reviewDate": "2026-03-17T20:02:35.803Z",
       "nextActions": [
         {
           "id": "ai-content-repurposer-offer",
@@ -660,7 +668,7 @@
           "initiativeId": "ai-content-repurposer",
           "reason": "highest-ev-open-experiment",
           "priority": 98,
-          "dueAt": "2026-03-06T09:05:48.314Z",
+          "dueAt": "2026-03-06T22:02:35.803Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -670,7 +678,7 @@
           "initiativeId": "ai-content-repurposer",
           "reason": "highest-priority-product-backlog",
           "priority": 90,
-          "dueAt": "2026-03-06T13:05:48.314Z",
+          "dueAt": "2026-03-07T02:02:35.803Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -680,7 +688,7 @@
           "initiativeId": "ai-content-repurposer",
           "reason": "distribution-bottleneck",
           "priority": 86,
-          "dueAt": "2026-03-06T19:05:48.314Z",
+          "dueAt": "2026-03-07T08:02:35.803Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -710,7 +718,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-19T07:05:48.314Z",
+      "reviewDate": "2026-03-19T20:02:35.803Z",
       "nextActions": [
         {
           "id": "niche-lead-gen-sites-offer",
@@ -719,7 +727,7 @@
           "initiativeId": "niche-lead-gen-sites",
           "reason": "highest-ev-open-experiment",
           "priority": 97,
-          "dueAt": "2026-03-06T09:05:48.314Z",
+          "dueAt": "2026-03-06T22:02:35.803Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -729,7 +737,7 @@
           "initiativeId": "niche-lead-gen-sites",
           "reason": "highest-priority-product-backlog",
           "priority": 89,
-          "dueAt": "2026-03-06T13:05:48.314Z",
+          "dueAt": "2026-03-07T02:02:35.803Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -739,7 +747,7 @@
           "initiativeId": "niche-lead-gen-sites",
           "reason": "distribution-bottleneck",
           "priority": 85,
-          "dueAt": "2026-03-06T19:05:48.314Z",
+          "dueAt": "2026-03-07T08:02:35.803Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -753,7 +761,7 @@
       "initiativeId": "ops-audit-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T07:05:48.314Z",
+      "dueAt": "2026-03-06T20:02:35.803Z",
       "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
@@ -763,7 +771,7 @@
       "initiativeId": "ops-audit-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-06T19:05:48.314Z",
+      "dueAt": "2026-03-07T08:02:35.803Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -773,7 +781,7 @@
       "initiativeId": "ops-audit-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T01:05:48.314Z",
+      "dueAt": "2026-03-07T14:02:35.803Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -783,7 +791,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-07T03:05:48.314Z",
+      "dueAt": "2026-03-07T16:02:35.803Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -793,7 +801,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-07T07:05:48.314Z",
+      "dueAt": "2026-03-07T20:02:35.803Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     },
     {
@@ -803,7 +811,7 @@
       "initiativeId": "memory-maintenance",
       "reason": "documentation-and-memory",
       "priority": 52,
-      "dueAt": "2026-03-07T13:05:48.314Z",
+      "dueAt": "2026-03-08T02:02:35.803Z",
       "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
     },
     {
@@ -813,12 +821,12 @@
       "initiativeId": "resilience",
       "reason": "resilience-work",
       "priority": 48,
-      "dueAt": "2026-03-07T19:05:48.314Z",
+      "dueAt": "2026-03-08T08:02:35.803Z",
       "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
     }
   ],
   "dispatch": {
-    "generatedAt": "2026-03-06T07:05:48.314Z",
+    "generatedAt": "2026-03-06T20:02:35.803Z",
     "queue": [
       {
         "id": "ops-audit-packs-offer",
@@ -827,7 +835,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-06T07:05:48.314Z",
+        "dueAt": "2026-03-06T20:02:35.803Z",
         "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -837,7 +845,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-06T19:05:48.314Z",
+        "dueAt": "2026-03-07T08:02:35.803Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       },
       {
@@ -847,7 +855,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "new-opportunity-research",
         "priority": 84,
-        "dueAt": "2026-03-07T01:05:48.314Z",
+        "dueAt": "2026-03-07T14:02:35.803Z",
         "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
       },
       {
@@ -857,7 +865,7 @@
         "initiativeId": "skill-pipeline",
         "reason": "skill-gap-reduction",
         "priority": 74,
-        "dueAt": "2026-03-07T03:05:48.314Z",
+        "dueAt": "2026-03-07T16:02:35.803Z",
         "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
       },
       {
@@ -867,7 +875,7 @@
         "initiativeId": "update-steward",
         "reason": "changelog-adaptation",
         "priority": 68,
-        "dueAt": "2026-03-07T07:05:48.314Z",
+        "dueAt": "2026-03-07T20:02:35.803Z",
         "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
       },
       {
@@ -877,7 +885,7 @@
         "initiativeId": "memory-maintenance",
         "reason": "documentation-and-memory",
         "priority": 52,
-        "dueAt": "2026-03-07T13:05:48.314Z",
+        "dueAt": "2026-03-08T02:02:35.803Z",
         "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
       },
       {
@@ -887,7 +895,7 @@
         "initiativeId": "resilience",
         "reason": "resilience-work",
         "priority": 48,
-        "dueAt": "2026-03-07T19:05:48.314Z",
+        "dueAt": "2026-03-08T08:02:35.803Z",
         "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
       }
     ],
@@ -899,7 +907,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-06T07:05:48.314Z",
+        "dueAt": "2026-03-06T20:02:35.803Z",
         "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       }
     ],
@@ -910,11 +918,29 @@
       "initiativeId": "ops-audit-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T07:05:48.314Z",
+      "dueAt": "2026-03-06T20:02:35.803Z",
       "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     "immediateContinuations": [],
     "completedTaskIds": [],
+    "blockedInitiativeIds": [],
+    "locks": [
+      {
+        "taskId": "ops-audit-packs-offer",
+        "owner": "ceo",
+        "acquiredAt": "2026-03-06T20:02:35.803Z",
+        "expiresAt": "2026-03-06T20:17:35.803Z"
+      }
+    ],
+    "agentConcurrencyLimits": {
+      "ceo": 1,
+      "research": 1,
+      "builder": 1,
+      "distribution": 1,
+      "treasury": 1,
+      "skillsmith": 1,
+      "ops": 2
+    },
     "recoveryActions": [],
     "cadence": {
       "recoverySweepMinutes": 3,
@@ -928,7 +954,7 @@
     }
   },
   "browser": {
-    "generatedAt": "2026-03-06T07:05:48.316Z",
+    "generatedAt": "2026-03-06T20:02:35.805Z",
     "capabilities": {
       "managedBrowser": true,
       "attachedChrome": false,
@@ -1034,7 +1060,7 @@
     "activeSessions": 0
   },
   "modelPolicy": {
-    "detectedAt": "2026-03-06T07:05:41.654Z",
+    "detectedAt": "2026-03-06T20:02:34.312Z",
     "probeMode": "passive",
     "codexCliInstalled": true,
     "openclawInstalled": false,
@@ -1084,7 +1110,7 @@
         "resolvedModel": "openai-codex/gpt-5.3-codex",
         "reasoning": "high",
         "surface": "source-fallback",
-        "status": "fallback",
+        "status": "docs-only",
         "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
       }
     ],

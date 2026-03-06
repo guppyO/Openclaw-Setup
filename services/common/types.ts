@@ -196,8 +196,17 @@ export interface BudgetEnvelope {
   requiresExperimentTag: boolean;
 }
 
+export interface FxSnapshot {
+  base: string;
+  asOf: string | null;
+  rates: Record<string, number>;
+  source: "live" | "cached" | "missing";
+  stale: boolean;
+}
+
 export interface TreasurySnapshot {
   asOf: string;
+  mode: "sample" | "browser-only" | "live-api" | "hybrid-live";
   authMode: TreasuryAuthMode;
   capabilities: TreasuryCapabilityFlags;
   balances: TreasuryBalance[];
@@ -207,6 +216,7 @@ export interface TreasurySnapshot {
   suspiciousSpendCount: number;
   budgetEnvelopes: BudgetEnvelope[];
   pendingReconciliations: number;
+  fx: FxSnapshot;
 }
 
 export type SkillPromotionStage =
@@ -304,6 +314,7 @@ export interface SecretInventoryEntry {
 export interface SecretBootstrapState {
   importedAt: string;
   sourceFile: string;
+  sourceHash: string;
   providers: string[];
   warnings: string[];
   secretFileRefs: string[];
@@ -318,7 +329,7 @@ export interface ModelAliasState {
   resolvedModel: string;
   reasoning: "high" | "xhigh";
   surface: "codex-cli" | "openclaw" | "source-fallback" | "env-override";
-  status: "preferred" | "fallback" | "candidate";
+  status: "preferred" | "fallback" | "candidate" | "unavailable" | "docs-only";
   note: string;
 }
 
@@ -341,6 +352,14 @@ export interface DispatchState {
   nextTask: QueueItem | null;
   immediateContinuations: QueueItem[];
   completedTaskIds: string[];
+  blockedInitiativeIds: string[];
+  locks: Array<{
+    taskId: string;
+    owner: AgentId;
+    acquiredAt: string;
+    expiresAt: string;
+  }>;
+  agentConcurrencyLimits: Record<AgentId, number>;
   recoveryActions: string[];
   cadence: {
     recoverySweepMinutes: number;

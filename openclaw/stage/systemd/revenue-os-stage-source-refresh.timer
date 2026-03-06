@@ -1,0 +1,11 @@
+[Unit]
+Description=Revenue OS source-refresh timer stage
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=6h
+Unit=revenue-os-stage-source-refresh.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

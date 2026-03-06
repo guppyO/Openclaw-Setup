@@ -42,10 +42,16 @@ npm run runtime:browser-broker
 openclaw doctor
 
 mkdir -p "$HOME/.config/systemd/user"
-cp "openclaw/$ENVIRONMENT/systemd/revenue-os-$ENVIRONMENT.service" "$HOME/.config/systemd/user/"
+cp "openclaw/$ENVIRONMENT/systemd/"* "$HOME/.config/systemd/user/"
 systemctl --user daemon-reload
 systemctl --user enable "revenue-os-$ENVIRONMENT.service"
+systemctl --user enable "revenue-os-$ENVIRONMENT-scheduler.timer"
+systemctl --user enable "revenue-os-$ENVIRONMENT-source-refresh.timer"
+systemctl --user enable "revenue-os-$ENVIRONMENT-backup.timer"
 
 echo "OpenClaw installed for $ENVIRONMENT."
 echo "Next interactive step: run 'openclaw models auth login --provider openai-codex' on the VPS and then start the service:"
 echo "systemctl --user start revenue-os-$ENVIRONMENT.service"
+echo "systemctl --user start revenue-os-$ENVIRONMENT-scheduler.timer"
+echo "systemctl --user start revenue-os-$ENVIRONMENT-source-refresh.timer"
+echo "systemctl --user start revenue-os-$ENVIRONMENT-backup.timer"

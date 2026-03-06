@@ -18,7 +18,7 @@ import { AGENT_IDS } from "../common/types.js";
 import { buildBrowserBrokerState } from "../browser-broker/index.js";
 import { buildDispatchState } from "../dispatch/index.js";
 import { buildDefaultModelProbe } from "../runtime-model/index.js";
-import { buildTreasurySnapshot } from "../treasury/index.js";
+import { buildRuntimeTreasurySnapshot } from "../treasury/index.js";
 
 function defaultAgents(queue: QueueItem[]): AgentStatus[] {
   const cadence = {
@@ -48,10 +48,14 @@ export async function buildDashboardState(): Promise<DashboardState> {
     resolveRepoPath("data", "exports", "skill-candidates.json"),
     [],
   );
-  const dispatch = await readJsonFile<DispatchState>(
+  const dispatchFromDisk = await readJsonFile<DispatchState>(
     resolveRepoPath("data", "exports", "dispatch-state.json"),
     buildDispatchState({ opportunities, experiments, queue }),
   );
+  const dispatch =
+    dispatchFromDisk.nextTask === null && queue.length > 0
+      ? buildDispatchState({ opportunities, experiments, queue, previousState: dispatchFromDisk })
+      : dispatchFromDisk;
   const browser = await readJsonFile<BrowserBrokerState>(
     resolveRepoPath("data", "exports", "browser-broker.json"),
     await buildBrowserBrokerState(),
@@ -66,7 +70,7 @@ export async function buildDashboardState(): Promise<DashboardState> {
   );
   const treasury = await readJsonFile<TreasurySnapshot>(
     resolveRepoPath("data", "exports", "treasury.json"),
-    buildTreasurySnapshot(),
+    await buildRuntimeTreasurySnapshot(),
   );
 
   return {

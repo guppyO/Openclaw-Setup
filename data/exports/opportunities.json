@@ -9,13 +9,13 @@
       {
         "source": "service-business pain",
         "description": "Manual ops and quoting friction remain common in local businesses.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 7.8
       },
       {
         "source": "AI adoption",
         "description": "Businesses want AI help but need bounded and accountable delivery.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 8.2
       }
     ],
@@ -87,13 +87,13 @@
       {
         "source": "creator economy",
         "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 7.4
       },
       {
         "source": "distribution leverage",
         "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 7.1
       }
     ],
@@ -163,13 +163,13 @@
       {
         "source": "content fatigue",
         "description": "Expert creators want output without running full content teams.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 7.6
       },
       {
         "source": "agent fit",
         "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 8.5
       }
     ],
@@ -240,13 +240,13 @@
       {
         "source": "search intent",
         "description": "High-intent long-tail queries still reward specialized content and useful tools.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 8.4
       },
       {
         "source": "buyer routing",
         "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 7.8
       }
     ],
@@ -317,13 +317,13 @@
       {
         "source": "time scarcity",
         "description": "Operators pay for faster access to compiled data in markets they already understand.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 6.8
       },
       {
         "source": "repeatable research",
         "description": "Automated collection and summarization can lower production cost substantially.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 7.5
       }
     ],
@@ -394,13 +394,13 @@
       {
         "source": "workflow fragmentation",
         "description": "Small teams still pay for narrow automation wins if setup is simple.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 7.3
       },
       {
         "source": "internal leverage",
         "description": "Existing internal tooling shortens build time and raises product authenticity.",
-        "capturedAt": "2026-03-06T07:05:48.313Z",
+        "capturedAt": "2026-03-06T20:02:35.801Z",
         "strength": 8
       }
     ],

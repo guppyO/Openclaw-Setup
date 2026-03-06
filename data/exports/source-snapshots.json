@@ -2,301 +2,331 @@
   "openai-gpt-5.4-model": {
     "id": "openai-gpt-5.4-model",
     "url": "https://developers.openai.com/api/docs/models/gpt-5.4",
-    "fetchedAt": "2026-03-06T06:58:57.986Z",
+    "fetchedAt": "2026-03-06T20:02:31.804Z",
     "ok": true,
-    "hash": "a1beb422f8368649da525b18c3760fe02802448c14e0bcf0186364f54d5aa0fb",
+    "hash": "8ce543f30bb26ad84e5ed938ffa3d90542c01dc056645c5feaa769328dea0a2d",
     "httpStatus": 200,
     "title": "GPT-5.4 Model | OpenAI API",
-    "excerpt": "GPT-5.4 Model | OpenAI API Home API Docs Guides and concepts for the OpenAI API API reference Endpoints, parameters, and responses Codex ChatGPT Apps SDK Build apps to extend ChatGPT Commerce Build commerce flows in ChatGPT Learn Showcase Demo apps to get inspired Cookbook Notebook examples for building with OpenAI models Blog Learnings and experiences from developers Resources Assets for develope"
+    "excerpt": "GPT-5.4 Model | OpenAI API Home API Docs Guides and concepts for the OpenAI API API reference Endpoints, parameters, and responses Codex ChatGPT Apps SDK Build apps to extend ChatGPT Commerce Build commerce flows in ChatGPT Learn Showcase Demo apps to get inspired Cookbook Notebook examples for building with OpenAI models Blog Learnings and experiences from developers Resources Assets for develope",
+    "method": "direct-fetch"
   },
   "openai-chatgpt-gpt-5.4": {
     "id": "openai-chatgpt-gpt-5.4",
     "url": "https://help.openai.com/en/articles/11909943-gpt-52-in-chatgpt",
-    "fetchedAt": "2026-03-06T06:58:57.699Z",
+    "fetchedAt": "2026-03-06T20:02:31.526Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openai-pro-plan": {
     "id": "openai-pro-plan",
     "url": "https://help.openai.com/en/articles/9793128-what-is-chatgpt-pro",
-    "fetchedAt": "2026-03-06T06:58:57.699Z",
+    "fetchedAt": "2026-03-06T20:02:31.513Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openai-business-limits": {
     "id": "openai-business-limits",
     "url": "https://help.openai.com/en/articles/12003714-chatgpt-business-models-limits",
-    "fetchedAt": "2026-03-06T06:58:57.697Z",
+    "fetchedAt": "2026-03-06T20:02:31.524Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openai-codex-plan": {
     "id": "openai-codex-plan",
     "url": "https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan",
-    "fetchedAt": "2026-03-06T06:58:57.698Z",
+    "fetchedAt": "2026-03-06T20:02:31.513Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openai-codex-upgrades": {
     "id": "openai-codex-upgrades",
     "url": "https://openai.com/index/introducing-upgrades-to-codex/",
-    "fetchedAt": "2026-03-06T06:58:57.698Z",
+    "fetchedAt": "2026-03-06T20:02:31.270Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openai-codex-app": {
     "id": "openai-codex-app",
     "url": "https://openai.com/index/introducing-the-codex-app/",
-    "fetchedAt": "2026-03-06T06:58:57.698Z",
+    "fetchedAt": "2026-03-06T20:02:31.277Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openai-gpt-5.3-codex": {
     "id": "openai-gpt-5.3-codex",
     "url": "https://openai.com/index/introducing-gpt-5-3-codex/",
-    "fetchedAt": "2026-03-06T06:58:57.699Z",
+    "fetchedAt": "2026-03-06T20:02:32.522Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openai-model-release-notes": {
     "id": "openai-model-release-notes",
     "url": "https://help.openai.com/en/articles/9624314-model-release-notes",
-    "fetchedAt": "2026-03-06T06:58:57.699Z",
+    "fetchedAt": "2026-03-06T20:02:31.513Z",
     "ok": false,
     "hash": "9fea79acb501af6f155bbcbdf68d8793cf904139a6b297609bdece09d5308124",
     "httpStatus": 403,
     "title": "Untitled",
-    "excerpt": "Enable JavaScript and cookies to continue"
+    "excerpt": "Enable JavaScript and cookies to continue",
+    "method": "manual-unverified"
   },
   "openclaw-model-providers": {
     "id": "openclaw-model-providers",
     "url": "https://docs.openclaw.ai/concepts/model-providers",
-    "fetchedAt": "2026-03-06T06:58:57.767Z",
+    "fetchedAt": "2026-03-06T20:02:31.606Z",
     "ok": true,
     "hash": "4f24f169ffb1fc9a66e4534464cba1d20933c3c8bc30204ce7aba37506f3e586",
     "httpStatus": 200,
     "title": "Model Providers - OpenClaw",
-    "excerpt": "Model Providers - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration Model Providers Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Model Providers Model Provider Quickstart Model concepts Models CLI Configuration Model Providers Model Failover Providers Anthropic Amazon Bedrock"
+    "excerpt": "Model Providers - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration Model Providers Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Model Providers Model Provider Quickstart Model concepts Models CLI Configuration Model Providers Model Failover Providers Anthropic Amazon Bedrock",
+    "method": "direct-fetch"
   },
   "openclaw-multi-agent": {
     "id": "openclaw-multi-agent",
     "url": "https://docs.openclaw.ai/concepts/multi-agent",
-    "fetchedAt": "2026-03-06T06:58:57.788Z",
+    "fetchedAt": "2026-03-06T20:02:31.593Z",
     "ok": true,
     "hash": "d6a6ed1d3f10478c658bd7ff74ceb7f8f2c0d8079780b13af874370d0dc4f718",
     "httpStatus": 200,
     "title": "Multi-Agent Routing - OpenClaw",
-    "excerpt": "Multi-Agent Routing - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Multi-agent Multi-Agent Routing Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Fundamentals Pi Integration Architecture Gateway Architecture Agent Runtime Agent Loop System Prompt Context Agent Workspace OAuth Bootstrapping Boots"
+    "excerpt": "Multi-Agent Routing - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Multi-agent Multi-Agent Routing Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Fundamentals Pi Integration Architecture Gateway Architecture Agent Runtime Agent Loop System Prompt Context Agent Workspace OAuth Bootstrapping Boots",
+    "method": "direct-fetch"
   },
   "openclaw-multiple-gateways": {
     "id": "openclaw-multiple-gateways",
     "url": "https://docs.openclaw.ai/gateway/multiple-gateways",
-    "fetchedAt": "2026-03-06T06:58:57.982Z",
+    "fetchedAt": "2026-03-06T20:02:31.368Z",
     "ok": true,
     "hash": "3a9544d9f99c5a6e6c3889693bd68d5e4c2386665a1859c6d8ab7c5363384b9c",
     "httpStatus": 200,
     "title": "Multiple Gateways - OpenClaw",
-    "excerpt": "Multiple Gateways - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration and operations Multiple Gateways Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Configuration Configuration Reference Configuration Examples Authentication Auth cre"
+    "excerpt": "Multiple Gateways - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration and operations Multiple Gateways Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Configuration Configuration Reference Configuration Examples Authentication Auth cre",
+    "method": "direct-fetch"
   },
   "openclaw-cron-vs-heartbeat": {
     "id": "openclaw-cron-vs-heartbeat",
     "url": "https://docs.openclaw.ai/automation/cron-vs-heartbeat",
-    "fetchedAt": "2026-03-06T06:58:57.758Z",
+    "fetchedAt": "2026-03-06T20:02:31.353Z",
     "ok": true,
     "hash": "daf1a2f711342a7c19194d6f1afc41d27cd8e96d37d0d5615eccaf8cfb636cdb",
     "httpStatus": 200,
     "title": "Cron vs Heartbeat - OpenClaw",
-    "excerpt": "Cron vs Heartbeat - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Automation Cron vs Heartbeat Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl LLM Task Lobst"
+    "excerpt": "Cron vs Heartbeat - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Automation Cron vs Heartbeat Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl LLM Task Lobst",
+    "method": "direct-fetch"
   },
   "openclaw-memory": {
     "id": "openclaw-memory",
     "url": "https://docs.openclaw.ai/concepts/memory",
-    "fetchedAt": "2026-03-06T06:58:57.780Z",
+    "fetchedAt": "2026-03-06T20:02:31.378Z",
     "ok": true,
     "hash": "5976198505e4ffda9a4e7411c986ba26fd677e1cce494485126eab68928acd45",
     "httpStatus": 200,
     "title": "Memory - OpenClaw",
-    "excerpt": "Memory - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Sessions and memory Memory Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Fundamentals Pi Integration Architecture Gateway Architecture Agent Runtime Agent Loop System Prompt Context Agent Workspace OAuth Bootstrapping Bootstrapping Sessions "
+    "excerpt": "Memory - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Sessions and memory Memory Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Fundamentals Pi Integration Architecture Gateway Architecture Agent Runtime Agent Loop System Prompt Context Agent Workspace OAuth Bootstrapping Bootstrapping Sessions ",
+    "method": "direct-fetch"
   },
   "openclaw-browser": {
     "id": "openclaw-browser",
     "url": "https://docs.openclaw.ai/tools/browser",
-    "fetchedAt": "2026-03-06T06:58:57.773Z",
+    "fetchedAt": "2026-03-06T20:02:31.374Z",
     "ok": true,
     "hash": "f4dd1625ef28370a39df7c7159c3a21f9fc9b2c9e41ea83a530685481a0cc13a",
     "httpStatus": 200,
     "title": "Browser (OpenClaw-managed) - OpenClaw",
-    "excerpt": "Browser (OpenClaw-managed) - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Browser Browser (OpenClaw-managed) Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl"
+    "excerpt": "Browser (OpenClaw-managed) - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Browser Browser (OpenClaw-managed) Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl",
+    "method": "direct-fetch"
   },
   "openclaw-browser-login": {
     "id": "openclaw-browser-login",
     "url": "https://docs.openclaw.ai/tools/browser-login",
-    "fetchedAt": "2026-03-06T06:58:58.008Z",
+    "fetchedAt": "2026-03-06T20:02:31.366Z",
     "ok": true,
     "hash": "2869dcd62a4b58fb2d3bad04477fb10f736fae617e143808d802a2d247555161",
     "httpStatus": 200,
     "title": "Browser Login - OpenClaw",
-    "excerpt": "Browser Login - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Browser Browser Login Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl LLM Task Lobster Tool-loo"
+    "excerpt": "Browser Login - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Browser Browser Login Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl LLM Task Lobster Tool-loo",
+    "method": "direct-fetch"
   },
   "openclaw-configuration": {
     "id": "openclaw-configuration",
     "url": "https://docs.openclaw.ai/gateway/configuration",
-    "fetchedAt": "2026-03-06T06:58:58.047Z",
+    "fetchedAt": "2026-03-06T20:02:31.385Z",
     "ok": true,
     "hash": "d0a86d9daf6b73516f36ebbb1ddf4e4db8cb65dc7cc7688cd5a49bf2bf5c8949",
     "httpStatus": 200,
     "title": "Configuration - OpenClaw",
-    "excerpt": "Configuration - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration and operations Configuration Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Configuration Configuration Reference Configuration Examples Authentication Auth credential "
+    "excerpt": "Configuration - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration and operations Configuration Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Configuration Configuration Reference Configuration Examples Authentication Auth credential ",
+    "method": "direct-fetch"
   },
   "openclaw-secrets": {
     "id": "openclaw-secrets",
     "url": "https://docs.openclaw.ai/gateway/secrets",
-    "fetchedAt": "2026-03-06T06:58:58.128Z",
+    "fetchedAt": "2026-03-06T20:02:31.362Z",
     "ok": true,
     "hash": "8b6de09f5191fe475da23954c0a20295b774eb2a00bbda1eb1b628b2e23704fb",
     "httpStatus": 200,
     "title": "Secrets Management - OpenClaw",
-    "excerpt": "Secrets Management - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration and operations Secrets Management Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Configuration Configuration Reference Configuration Examples Authentication Auth c"
+    "excerpt": "Secrets Management - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Configuration and operations Secrets Management Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Configuration Configuration Reference Configuration Examples Authentication Auth c",
+    "method": "direct-fetch"
   },
   "openclaw-pdf": {
     "id": "openclaw-pdf",
     "url": "https://docs.openclaw.ai/tools/pdf",
-    "fetchedAt": "2026-03-06T06:58:58.022Z",
+    "fetchedAt": "2026-03-06T20:02:31.358Z",
     "ok": true,
     "hash": "23b03a67ed29945b4d222fc187bdb9aae722d98eb69430190f9b9cc522c56944",
     "httpStatus": 200,
     "title": "PDF Tool - OpenClaw",
-    "excerpt": "PDF Tool - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Built-in tools PDF Tool Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl LLM Task Lobster Tool-loop d"
+    "excerpt": "PDF Tool - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Built-in tools PDF Tool Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Overview Tools Built-in tools apply_patch Tool Brave Search Perplexity Sonar Diffs PDF Tool Elevated Mode Exec Tool Exec Approvals Firecrawl LLM Task Lobster Tool-loop d",
+    "method": "direct-fetch"
   },
   "openclaw-security": {
     "id": "openclaw-security",
     "url": "https://docs.openclaw.ai/gateway/security",
-    "fetchedAt": "2026-03-06T06:58:58.017Z",
+    "fetchedAt": "2026-03-06T20:02:31.647Z",
     "ok": true,
-    "hash": "7af043773526354021127cdc345fb3bfde655c93ba5b562e76e16f362f525725",
+    "hash": "95ae2d58698aac5b946d8b50e1396a357679b6431e4c04d09ee9d64eb7b3677a",
     "httpStatus": 200,
     "title": "Security - OpenClaw",
-    "excerpt": "Security - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Security and sandboxing Security Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Security and sandboxing Security Sandboxing Sandbox vs Tool Policy vs Elevated Protocols and APIs Networkin"
+    "excerpt": "Security - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Security and sandboxing Security Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Gateway Gateway Runbook Configuration and operations Security and sandboxing Security Sandboxing Sandbox vs Tool Policy vs Elevated Protocols and APIs Networkin",
+    "method": "direct-fetch"
   },
   "openclaw-faq": {
     "id": "openclaw-faq",
     "url": "https://docs.openclaw.ai/help/faq",
-    "fetchedAt": "2026-03-06T06:58:58.042Z",
+    "fetchedAt": "2026-03-06T20:02:31.617Z",
     "ok": true,
     "hash": "3f98221c329a7afda31f47fb2b5b585a080af1c0a6c9b6a28dde098e9f918bbb",
     "httpStatus": 200,
     "title": "FAQ - OpenClaw",
-    "excerpt": "FAQ - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Help FAQ Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Help Help Troubleshooting FAQ Community OpenClaw Lore Environment and debugging Environment Variables Debugging Testing Scripts Node + tsx Crash Diagnostics Flags Node runtime Node.js Compa"
+    "excerpt": "FAQ - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation Help FAQ Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help Help Help Troubleshooting FAQ Community OpenClaw Lore Environment and debugging Environment Variables Debugging Testing Scripts Node + tsx Crash Diagnostics Flags Node runtime Node.js Compa",
+    "method": "direct-fetch"
   },
   "openclaw-cli": {
     "id": "openclaw-cli",
     "url": "https://docs.openclaw.ai/cli",
-    "fetchedAt": "2026-03-06T06:58:58.031Z",
+    "fetchedAt": "2026-03-06T20:02:32.633Z",
     "ok": true,
     "hash": "e355d39a5c4c820c90d72b1e4664f1edb6fe83247aeec9e92697d5ddb0f0ea63",
     "httpStatus": 200,
     "title": "CLI Reference - OpenClaw",
-    "excerpt": "CLI Reference - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation CLI commands CLI Reference Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help CLI commands CLI Reference acp agent agents approvals browser channels clawbot completion config configure cron daemon dashboard devices directory dns docs docto"
+    "excerpt": "CLI Reference - OpenClaw Skip to main content OpenClaw home page English Search... ⌘ K GitHub Releases Search... Navigation CLI commands CLI Reference Get started Install Channels Agents Tools Models Platforms Gateway & Ops Reference Help CLI commands CLI Reference acp agent agents approvals browser channels clawbot completion config configure cron daemon dashboard devices directory dns docs docto",
+    "method": "direct-fetch"
   },
   "wise-security-access": {
     "id": "wise-security-access",
     "url": "https://docs.wise.com/api-docs/features/authentication-access/personal-tokens",
-    "fetchedAt": "2026-03-06T06:58:58.308Z",
+    "fetchedAt": "2026-03-06T20:02:33.697Z",
     "ok": true,
-    "hash": "a65038bed8bad3d458c10b692f0e847bea703f8cc2e02968d2156c2bfcae57e8",
+    "hash": "d4833b689207ab85601b52be0588f751f62f0e0e9dc0e914adf577e6f3e26dd4",
     "httpStatus": 200,
     "title": "Untitled",
-    "excerpt": "Security & Access | Wise Platform Skip to content Guides API Reference Changelog Search Ctrl+K Back to Guides Auth and Security Introduction mTLS JOSE SCA & 2FA Personal Token Migration Last updated 20 hours ago Security & Access Copy Copy for LLM Copy page as Markdown for LLMs View as Markdown Open this page as Markdown Open in ChatGPT Get insights from ChatGPT Open in Claude Get insights from Cl"
+    "excerpt": "Security & Access | Wise Platform Skip to content Guides API Reference Changelog Search Ctrl+K Back to Guides Auth and Security Introduction mTLS JOSE SCA & 2FA Personal Token Migration Last updated 1 day ago Security & Access Copy Copy for LLM Copy page as Markdown for LLMs View as Markdown Open this page as Markdown Open in ChatGPT Get insights from ChatGPT Open in Claude Get insights from Claud",
+    "method": "direct-fetch"
   },
   "wise-personal-tokens": {
     "id": "wise-personal-tokens",
     "url": "https://docs.wise.com/api-docs/guides/personal-tokens",
-    "fetchedAt": "2026-03-06T06:58:58.710Z",
+    "fetchedAt": "2026-03-06T20:02:33.388Z",
     "ok": true,
-    "hash": "a65038bed8bad3d458c10b692f0e847bea703f8cc2e02968d2156c2bfcae57e8",
+    "hash": "d4833b689207ab85601b52be0588f751f62f0e0e9dc0e914adf577e6f3e26dd4",
     "httpStatus": 200,
     "title": "Untitled",
-    "excerpt": "Security & Access | Wise Platform Skip to content Guides API Reference Changelog Search Ctrl+K Back to Guides Auth and Security Introduction mTLS JOSE SCA & 2FA Personal Token Migration Last updated 20 hours ago Security & Access Copy Copy for LLM Copy page as Markdown for LLMs View as Markdown Open this page as Markdown Open in ChatGPT Get insights from ChatGPT Open in Claude Get insights from Cl"
+    "excerpt": "Security & Access | Wise Platform Skip to content Guides API Reference Changelog Search Ctrl+K Back to Guides Auth and Security Introduction mTLS JOSE SCA & 2FA Personal Token Migration Last updated 1 day ago Security & Access Copy Copy for LLM Copy page as Markdown for LLMs View as Markdown Open this page as Markdown Open in ChatGPT Get insights from ChatGPT Open in Claude Get insights from Claud",
+    "method": "direct-fetch"
   },
   "wise-getting-started": {
     "id": "wise-getting-started",
     "url": "https://docs.wise.com/guides/developer",
-    "fetchedAt": "2026-03-06T06:58:58.310Z",
+    "fetchedAt": "2026-03-06T20:02:33.217Z",
     "ok": true,
     "hash": "2c1dd2003ba35cb7d65f1086def675e77f1a4e20d9d047018afc6217fef8d990",
     "httpStatus": 200,
     "title": "Untitled",
-    "excerpt": "Getting Started: API Access, Environments, and Security Best Practices | Wise Platform Skip to content Guides API Reference Changelog Search Ctrl+K Home Product Onboarding and KYC Send Money Receive Money Multi-currency accounts Issue Cards Partner Support Developer Getting Started Auth & Security Environments Errors Webhooks Language Support Versioning Open Banking Last updated 2 weeks ago Gettin"
+    "excerpt": "Getting Started: API Access, Environments, and Security Best Practices | Wise Platform Skip to content Guides API Reference Changelog Search Ctrl+K Home Product Onboarding and KYC Send Money Receive Money Multi-currency accounts Issue Cards Partner Support Developer Getting Started Auth & Security Environments Errors Webhooks Language Support Versioning Open Banking Last updated 2 weeks ago Gettin",
+    "method": "direct-fetch"
   },
   "steel-sessions-overview": {
     "id": "steel-sessions-overview",
     "url": "https://docs.steel.dev/overview/sessions-api",
-    "fetchedAt": "2026-03-06T06:58:58.071Z",
+    "fetchedAt": "2026-03-06T20:02:31.397Z",
     "ok": false,
     "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "httpStatus": 404,
     "title": "Untitled",
-    "excerpt": ""
+    "excerpt": "",
+    "method": "manual-unverified"
   },
   "steel-quickstart": {
     "id": "steel-quickstart",
     "url": "https://docs.steel.dev/overview/sessions-api/quickstart",
-    "fetchedAt": "2026-03-06T06:58:58.068Z",
+    "fetchedAt": "2026-03-06T20:02:31.338Z",
     "ok": true,
     "hash": "f4a6d5c3e3e67c5cfb4827d525eb44d416ae956602d3f30e6f2afdf1069f013e",
     "httpStatus": 200,
     "title": "Quickstart",
-    "excerpt": "Quickstart Search... Overview Integrations Cookbook Changelog API Reference 5.5 k Search... Sign in Overview Intro to Steel Steel CLI + Skill Need Help? Pricing/Limits Guides Connect with Playwright (Node) Connect with Playwright (Python) Connect with Puppeteer Connect with Selenium Sessions API Overview Quickstart Session Lifecycle Mobile Mode Multi-region Embed Sessions Implement Human-in-the-Lo"
+    "excerpt": "Quickstart Search... Overview Integrations Cookbook Changelog API Reference 5.5 k Search... Sign in Overview Intro to Steel Steel CLI + Skill Need Help? Pricing/Limits Guides Connect with Playwright (Node) Connect with Playwright (Python) Connect with Puppeteer Connect with Selenium Sessions API Overview Quickstart Session Lifecycle Mobile Mode Multi-region Embed Sessions Implement Human-in-the-Lo",
+    "method": "direct-fetch"
   },
   "steel-local-browser": {
     "id": "steel-local-browser",
     "url": "https://docs.steel.dev/overview/local-browser",
-    "fetchedAt": "2026-03-06T06:58:58.786Z",
+    "fetchedAt": "2026-03-06T20:02:31.417Z",
     "ok": false,
     "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "httpStatus": 404,
     "title": "Untitled",
-    "excerpt": ""
+    "excerpt": "",
+    "method": "manual-unverified"
   },
   "steel-credentials": {
     "id": "steel-credentials",
     "url": "https://docs.steel.dev/overview/credentials-api",
-    "fetchedAt": "2026-03-06T06:58:58.096Z",
+    "fetchedAt": "2026-03-06T20:02:31.380Z",
     "ok": false,
     "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "httpStatus": 404,
     "title": "Untitled",
-    "excerpt": ""
+    "excerpt": "",
+    "method": "manual-unverified"
   },
   "steel-changelog": {
     "id": "steel-changelog",
     "url": "https://docs.steel.dev/changelog/changelog",
-    "fetchedAt": "2026-03-06T06:58:58.101Z",
+    "fetchedAt": "2026-03-06T20:02:31.388Z",
     "ok": false,
     "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "httpStatus": 404,
     "title": "Untitled",
-    "excerpt": ""
+    "excerpt": "",
+    "method": "manual-unverified"
   }
 }

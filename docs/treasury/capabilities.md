@@ -1,5 +1,10 @@
 # Treasury State
 
+## Mode
+
+- Snapshot mode: browser-only
+- FX source: missing (stale or missing)
+
 ## Auth mode
 
 - Active treasury auth mode: browser-only
@@ -9,8 +14,6 @@
 
 | Currency | Amount |
 | --- | --- |
-| USD | 2500.00 |
-| GBP | 400.00 |
 
 ## Capability probe
 
@@ -45,4 +48,5 @@
 - Treat Wise capability as runtime-discovered, not assumed.
 - Freeze autonomous spend outside explicit envelopes or when probe confidence drops.
 - Use the Wise API where the current auth mode supports it, but route unsupported actions through a browser lane with evidence capture.
+- Do not present sample balances as live when credentials exist but real balance ingest is unavailable.
 - Tag every outgoing spend to a category and initiative whenever possible.

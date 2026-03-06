@@ -50,4 +50,29 @@ describe("browser policy", () => {
     expect(decision.lane).toBe("attached-chrome");
     expect(decision.headless).toBe(false);
   });
+
+  test("routes company signup flows to Steel when configured", () => {
+    const decision = routeBrowserTask(
+      {
+        id: "signup",
+        title: "Signup flow",
+        initiativeId: "growth",
+        authLevel: "company",
+        antiBotSensitivity: 7,
+        parallelism: 2,
+        operatorVisible: false,
+        requiresPersistentSession: true,
+      },
+      {
+        managedBrowser: true,
+        attachedChrome: false,
+        steel: true,
+        steelBaseUrl: "https://api.steel.dev",
+        steelApiConfigured: true,
+      },
+    );
+
+    expect(decision.lane).toBe("steel");
+    expect(decision.profileId).toBe("company_signup_identity");
+  });
 });

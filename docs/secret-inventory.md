@@ -4,8 +4,9 @@ Bootstrap metadata only. Raw secret values are intentionally excluded.
 
 ## Import summary
 
-- Imported at: 2026-03-06T06:59:12.522Z
+- Imported at: 2026-03-06T20:01:10.390Z
 - Source file: Credentials.txt
+- Source hash: 91751805a561df6af941e01ed982dc56310870124b0491e3d143c5908f2bd48d
 - Providers: wise, hetzner, gmail
 - Secret files: .secrets/providers/wise.env, .secrets/providers/hetzner.env, .secrets/providers/gmail.env
 

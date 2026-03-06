@@ -1,5 +1,5 @@
 {
-  "detectedAt": "2026-03-06T07:05:41.654Z",
+  "detectedAt": "2026-03-06T20:02:34.312Z",
   "probeMode": "passive",
   "codexCliInstalled": true,
   "openclawInstalled": false,
@@ -49,7 +49,7 @@
       "resolvedModel": "openai-codex/gpt-5.3-codex",
       "reasoning": "high",
       "surface": "source-fallback",
-      "status": "fallback",
+      "status": "docs-only",
       "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
     }
   ],

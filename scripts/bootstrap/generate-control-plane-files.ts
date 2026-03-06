@@ -269,6 +269,49 @@ WantedBy=default.target
 `;
 }
 
+function renderAuxService(environment: EnvironmentConfig, id: "scheduler" | "source-refresh" | "backup"): string {
+  const commandMap = {
+    scheduler: "npm run runtime:scheduler",
+    "source-refresh": "npm run refresh:updates",
+    backup: "npm run backup",
+  } as const;
+
+  return `[Unit]
+Description=Revenue OS ${id} ${environment.name}
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/revenue-os
+Environment=NODE_ENV=production
+Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
+EnvironmentFile=-%h/revenue-os/.secrets/revenue-os.local.env
+ExecStart=/usr/bin/env bash -lc 'cd %h/revenue-os && ${commandMap[id]}'
+`;
+}
+
+function renderAuxTimer(environment: EnvironmentConfig, id: "scheduler" | "source-refresh" | "backup"): string {
+  const scheduleMap = {
+    scheduler: { boot: "2min", active: "3min" },
+    "source-refresh": { boot: "10min", active: "6h" },
+    backup: { boot: "20min", active: "12h" },
+  } as const;
+  const schedule = scheduleMap[id];
+
+  return `[Unit]
+Description=Revenue OS ${id} timer ${environment.name}
+
+[Timer]
+OnBootSec=${schedule.boot}
+OnUnitActiveSec=${schedule.active}
+Unit=revenue-os-${environment.name}-${id}.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+`;
+}
+
 function renderBootstrapScript(environment: EnvironmentConfig): string {
   return `#!/usr/bin/env bash
 set -euo pipefail
@@ -364,6 +407,16 @@ async function main(): Promise<void> {
         resolveRepoPath("openclaw", environment.name, "systemd", `revenue-os-${environment.name}.service`),
         renderSystemdUnit(environment),
       );
+      for (const id of ["scheduler", "source-refresh", "backup"] as const) {
+        await writeTextFile(
+          resolveRepoPath("openclaw", environment.name, "systemd", `revenue-os-${environment.name}-${id}.service`),
+          renderAuxService(environment, id),
+        );
+        await writeTextFile(
+          resolveRepoPath("openclaw", environment.name, "systemd", `revenue-os-${environment.name}-${id}.timer`),
+          renderAuxTimer(environment, id),
+        );
+      }
     }
     await writeTextFile(
       resolveRepoPath("openclaw", environment.name, "scripts", `bootstrap-${environment.name}.sh`),

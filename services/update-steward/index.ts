@@ -1,9 +1,13 @@
 import { createHash } from "node:crypto";
+import { exec } from "node:child_process";
+import { promisify } from "node:util";
 
 import { DEFAULT_ANCHOR_VERIFICATIONS, OFFICIAL_SOURCES } from "../common/source-catalog.js";
 import { renderTable } from "../common/markdown.js";
 import { readJsonFile, resolveRepoPath, writeJsonFile, writeTextFile } from "../common/fs.js";
 import type { AnchorVerification, SourceRecord } from "../common/types.js";
+
+const execAsync = promisify(exec);
 
 export interface SourceSnapshot {
   id: string;
@@ -14,6 +18,7 @@ export interface SourceSnapshot {
   httpStatus: number;
   title: string;
   excerpt: string;
+  method: "direct-fetch" | "browser-capture" | "search-backed" | "manual-unverified";
 }
 
 function stripHtml(value: string): string {
@@ -35,26 +40,92 @@ function extractTitle(rawHtml: string): string {
   return "Untitled";
 }
 
-export async function fetchSourceSnapshot(source: SourceRecord): Promise<SourceSnapshot> {
+function snapshotFromText(
+  source: SourceRecord,
+  raw: string,
+  status: number,
+  ok: boolean,
+  method: SourceSnapshot["method"],
+): SourceSnapshot {
+  const text = stripHtml(raw);
+  return {
+    id: source.id,
+    url: source.url,
+    fetchedAt: new Date().toISOString(),
+    ok,
+    hash: createHash("sha256").update(text).digest("hex"),
+    httpStatus: status,
+    title: extractTitle(raw),
+    excerpt: text.slice(0, 400),
+    method,
+  };
+}
+
+async function runFallbackCommand(commandTemplate: string | undefined, source: SourceRecord): Promise<string | null> {
+  if (!commandTemplate) {
+    return null;
+  }
+
   try {
-    const response = await fetch(source.url, {
+    const command = commandTemplate.replace(/\{url\}/g, source.url);
+    const { stdout } = await execAsync(command, { timeout: 120_000 });
+    return stdout.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchSourceSnapshot(
+  source: SourceRecord,
+  options: {
+    fetchImpl?: typeof fetch;
+    browserCapture?: (source: SourceRecord) => Promise<string | null>;
+    searchCapture?: (source: SourceRecord) => Promise<string | null>;
+  } = {},
+): Promise<SourceSnapshot> {
+  const fetchImpl = options.fetchImpl ?? fetch;
+
+  try {
+    const response = await fetchImpl(source.url, {
       headers: {
         "user-agent": "revenue-os/0.1",
       },
     });
     const raw = await response.text();
-    const text = stripHtml(raw);
-    return {
-      id: source.id,
-      url: source.url,
-      fetchedAt: new Date().toISOString(),
-      ok: response.ok,
-      hash: createHash("sha256").update(text).digest("hex"),
-      httpStatus: response.status,
-      title: extractTitle(raw),
-      excerpt: text.slice(0, 400),
-    };
+    if (response.ok) {
+      return snapshotFromText(source, raw, response.status, true, "direct-fetch");
+    }
+
+    const browserCapture =
+      (await options.browserCapture?.(source)) ??
+      (await runFallbackCommand(process.env.REVENUE_OS_BROWSER_CAPTURE_CMD, source));
+    if (browserCapture) {
+      return snapshotFromText(source, browserCapture, response.status, true, "browser-capture");
+    }
+
+    const searchCapture =
+      (await options.searchCapture?.(source)) ??
+      (await runFallbackCommand(process.env.REVENUE_OS_SEARCH_FALLBACK_CMD, source));
+    if (searchCapture) {
+      return snapshotFromText(source, searchCapture, response.status, true, "search-backed");
+    }
+
+    return snapshotFromText(source, raw || `HTTP ${response.status}`, response.status, false, "manual-unverified");
   } catch (error) {
+    const browserCapture =
+      (await options.browserCapture?.(source)) ??
+      (await runFallbackCommand(process.env.REVENUE_OS_BROWSER_CAPTURE_CMD, source));
+    if (browserCapture) {
+      return snapshotFromText(source, browserCapture, 0, true, "browser-capture");
+    }
+
+    const searchCapture =
+      (await options.searchCapture?.(source)) ??
+      (await runFallbackCommand(process.env.REVENUE_OS_SEARCH_FALLBACK_CMD, source));
+    if (searchCapture) {
+      return snapshotFromText(source, searchCapture, 0, true, "search-backed");
+    }
+
     return {
       id: source.id,
       url: source.url,
@@ -64,6 +135,7 @@ export async function fetchSourceSnapshot(source: SourceRecord): Promise<SourceS
       httpStatus: 0,
       title: "Fetch failed",
       excerpt: String(error),
+      method: "manual-unverified",
     };
   }
 }

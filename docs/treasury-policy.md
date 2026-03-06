@@ -1,9 +1,11 @@
 # Treasury Policy
 
-## Source of truth
+## Modes
 
-- Wise is the preferred treasury source of truth once authenticated.
-- Local ledger state remains file-backed so the rest of the company can continue even if Wise auth is unavailable.
+- `sample`: no live credentials or live treasury ingest available
+- `browser-only`: login-level credentials exist, but balance or statement ingest is not yet live
+- `live-api`: personal-token or supported API ingest is live
+- `hybrid-live`: API and browser lanes are both available
 
 ## Spend envelopes
 
@@ -19,3 +21,9 @@
 - suspicious-spend detection,
 - immediate freeze on out-of-envelope or unclassified charges,
 - runway and recurring-burn refresh at least daily.
+
+## FX policy
+
+- Use cached FX files when present.
+- Mark FX as missing or stale when no rate file is available.
+- Do not apply hidden hardcoded conversion factors in dashboard or treasury calculations.

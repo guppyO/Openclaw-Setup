@@ -1,0 +1,11 @@
+[Unit]
+Description=Revenue OS backup timer prod
+
+[Timer]
+OnBootSec=20min
+OnUnitActiveSec=12h
+Unit=revenue-os-prod-backup.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,7 +1,9 @@
 import { loadLocalRuntimeEnv } from "../common/env-loader.js";
+import { loadFxSnapshot } from "./fx.js";
 import type {
   BudgetEnvelope,
   LedgerEntry,
+  TreasuryBalance,
   TreasuryAuthMode,
   TreasuryCapabilityFlags,
   TreasurySnapshot,
@@ -68,6 +70,13 @@ export function sampleLedger(): LedgerEntry[] {
       source: "sample",
       evidencePaths: ["docs/experiments/exp-ops-audit-packs.md"],
     },
+  ];
+}
+
+export function sampleBalances(): TreasuryBalance[] {
+  return [
+    { currency: "USD", amount: 2500 },
+    { currency: "GBP", amount: 400 },
   ];
 }
 
@@ -143,22 +152,56 @@ export function detectTreasuryAuthMode(capabilities: TreasuryCapabilityFlags): T
   return "none";
 }
 
+export function detectTreasuryMode(capabilities: TreasuryCapabilityFlags): TreasurySnapshot["mode"] {
+  if (capabilities.balanceRead && capabilities.browserLaneAvailable) {
+    return "hybrid-live";
+  }
+  if (capabilities.balanceRead) {
+    return "live-api";
+  }
+  if (capabilities.browserLaneAvailable || capabilities.emailReceiptIngest) {
+    return "browser-only";
+  }
+  return "sample";
+}
+
 export function buildTreasurySnapshot(
   capabilities = DEFAULT_TREASURY_CAPABILITIES,
-  ledger = sampleLedger(),
+  options: {
+    balances?: TreasuryBalance[];
+    ledger?: LedgerEntry[];
+    fx?: TreasurySnapshot["fx"];
+  } = {},
 ): TreasurySnapshot {
-  const balances = [
-    { currency: "USD", amount: 2500 },
-    { currency: "GBP", amount: 400 },
-  ];
+  const mode = detectTreasuryMode(capabilities);
+  const balances =
+    options.balances ?? (mode === "sample" ? sampleBalances() : []);
+  const ledger =
+    options.ledger ?? (mode === "sample" ? sampleLedger() : []);
+  const fx = options.fx ?? {
+    base: "USD",
+    asOf: null,
+    rates: {},
+    source: "missing",
+    stale: true,
+  };
   const recurringMonthlyUsd = calculateRecurringMonthlyUsd(ledger);
   const totalUsdApprox = balances.reduce((total, balance) => {
-    const multiplier = balance.currency === "GBP" ? 1.27 : 1;
-    return total + balance.amount * multiplier;
+    if (balance.currency === "USD") {
+      return total + balance.amount;
+    }
+
+    const rate = fx.rates[balance.currency];
+    if (!rate) {
+      return total;
+    }
+
+    return total + balance.amount * rate;
   }, 0);
 
   return {
     asOf: new Date().toISOString(),
+    mode,
     authMode: detectTreasuryAuthMode(capabilities),
     capabilities,
     balances,
@@ -168,6 +211,7 @@ export function buildTreasurySnapshot(
     suspiciousSpendCount: ledger.filter((entry) => entry.amount < -250 && entry.category !== "hosting").length,
     budgetEnvelopes: defaultBudgetEnvelopes(),
     pendingReconciliations: ledger.filter((entry) => !entry.evidencePaths || entry.evidencePaths.length === 0).length,
+    fx,
   };
 }
 
@@ -229,6 +273,58 @@ export async function probeWiseCapabilities(): Promise<TreasuryCapabilityFlags> 
   };
 }
 
+export async function ingestWiseBalances(): Promise<TreasuryBalance[]> {
+  await loadLocalRuntimeEnv();
+
+  const token = process.env.WISE_API_TOKEN;
+  const profileId = process.env.WISE_PROFILE_ID;
+  const baseUrl = process.env.WISE_BASE_URL ?? "https://api.wise.com";
+
+  if (!token || !profileId) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/v4/profiles/${profileId}/balances?types=STANDARD`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      return [];
+    }
+
+    const payload = (await response.json()) as Array<Record<string, unknown>>;
+    return payload
+      .map((entry) => {
+        const amount = Number((entry.amount as Record<string, unknown> | undefined)?.value ?? NaN);
+        const currency = String(entry.currency ?? "");
+        if (!currency || Number.isNaN(amount)) {
+          return null;
+        }
+        return { currency, amount };
+      })
+      .filter((entry): entry is TreasuryBalance => entry !== null);
+  } catch {
+    return [];
+  }
+}
+
+export async function buildRuntimeTreasurySnapshot(): Promise<TreasurySnapshot> {
+  const capabilities = await probeWiseCapabilities();
+  const fx = await loadFxSnapshot();
+  const mode = detectTreasuryMode(capabilities);
+  const balances = capabilities.balanceRead ? await ingestWiseBalances() : mode === "sample" ? sampleBalances() : [];
+  const ledger = mode === "sample" ? sampleLedger() : [];
+
+  return buildTreasurySnapshot(capabilities, {
+    balances,
+    ledger,
+    fx,
+  });
+}
+
 export function buildTreasuryMarkdown(snapshot: TreasurySnapshot): string {
   const capabilityRows = Object.entries(snapshot.capabilities).map(([capability, enabled]) => [
     capability,
@@ -244,6 +340,11 @@ export function buildTreasuryMarkdown(snapshot: TreasurySnapshot): string {
   ]);
 
   return `# Treasury State
+
+## Mode
+
+- Snapshot mode: ${snapshot.mode}
+- FX source: ${snapshot.fx.source}${snapshot.fx.stale ? " (stale or missing)" : ""}
 
 ## Auth mode
 
@@ -267,6 +368,7 @@ ${renderTable(["Category", "Daily", "Weekly", "Monthly", "Requires tag"], budget
 - Treat Wise capability as runtime-discovered, not assumed.
 - Freeze autonomous spend outside explicit envelopes or when probe confidence drops.
 - Use the Wise API where the current auth mode supports it, but route unsupported actions through a browser lane with evidence capture.
+- Do not present sample balances as live when credentials exist but real balance ingest is unavailable.
 - Tag every outgoing spend to a category and initiative whenever possible.
 `;
 }

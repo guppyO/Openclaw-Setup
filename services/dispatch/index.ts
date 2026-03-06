@@ -3,6 +3,17 @@ import { buildDefaultModelProbe } from "../runtime-model/index.js";
 
 const RECOVERY_SWEEP_MINUTES = 3;
 const HEARTBEAT_MINUTES = 12;
+const LOCK_TTL_MINUTES = 15;
+
+const DEFAULT_CONCURRENCY_LIMITS: DispatchState["agentConcurrencyLimits"] = {
+  ceo: 1,
+  research: 1,
+  builder: 1,
+  distribution: 1,
+  treasury: 1,
+  skillsmith: 1,
+  ops: 2,
+};
 
 function sortQueue(queue: QueueItem[]): QueueItem[] {
   return [...queue].sort((left, right) => {
@@ -105,12 +116,47 @@ function readyQueue(queue: QueueItem[]): QueueItem[] {
   );
 }
 
-function buildRecoveryActions(queue: QueueItem[]): string[] {
+function dedupeQueue(queue: QueueItem[]): QueueItem[] {
+  const deduped = new Map<string, QueueItem>();
+
+  for (const task of sortQueue(queue)) {
+    if (!deduped.has(task.id)) {
+      deduped.set(task.id, task);
+    }
+  }
+
+  return Array.from(deduped.values());
+}
+
+function recoverLocks(
+  previousLocks: DispatchState["locks"],
+): { activeLocks: DispatchState["locks"]; recoveryActions: string[] } {
+  const now = Date.now();
+  const activeLocks: DispatchState["locks"] = [];
+  const recoveryActions: string[] = [];
+
+  for (const lock of previousLocks) {
+    if (new Date(lock.expiresAt).getTime() < now) {
+      recoveryActions.push(`Recovered stale lock for ${lock.taskId} owned by ${lock.owner}.`);
+      continue;
+    }
+
+    activeLocks.push(lock);
+  }
+
+  return { activeLocks, recoveryActions };
+}
+
+function buildRecoveryActions(queue: QueueItem[], blockedInitiativeIds: string[]): string[] {
   const now = Date.now();
   const overdue = queue.filter((task) => new Date(task.dueAt).getTime() < now - 2 * 60 * 60 * 1000);
   const actions = overdue.map(
     (task) => `Requeue overdue task ${task.id} owned by ${task.owner}; it is more than two hours late.`,
   );
+
+  for (const blockedInitiativeId of blockedInitiativeIds) {
+    actions.push(`Initiative ${blockedInitiativeId} is blocked; other initiatives should continue normally.`);
+  }
 
   if (queue.length === 0) {
     actions.push("Ready queue is empty; generate a fallback task immediately.");
@@ -125,37 +171,79 @@ export function buildDispatchState(options: {
   queue: QueueItem[];
   previousState?: DispatchState | null;
   completedTaskId?: string;
+  blockedInitiativeIds?: string[];
 }): DispatchState {
   const completedTaskIds = new Set(options.previousState?.completedTaskIds ?? []);
-  let queue = sortQueue(options.queue);
+  let queue = dedupeQueue(options.queue);
+  const blockedInitiativeIds = options.blockedInitiativeIds ?? options.previousState?.blockedInitiativeIds ?? [];
+  const recoveredLocks = recoverLocks(options.previousState?.locks ?? []);
+  let activeLocks = recoveredLocks.activeLocks;
 
   if (options.completedTaskId) {
     completedTaskIds.add(options.completedTaskId);
     queue = promoteContinuation(queue, options.completedTaskId);
+    activeLocks = activeLocks.filter((lock) => lock.taskId !== options.completedTaskId);
   }
 
   queue = queue.filter((task) => !completedTaskIds.has(task.id));
 
-  let ready = readyQueue(queue);
+  const lockCountByOwner = new Map<QueueItem["owner"], number>();
+  for (const lock of activeLocks) {
+    lockCountByOwner.set(lock.owner, (lockCountByOwner.get(lock.owner) ?? 0) + 1);
+  }
+
+  let ready = readyQueue(
+    queue.filter(
+      (task) =>
+        !blockedInitiativeIds.includes(task.initiativeId) &&
+        !activeLocks.some((lock) => lock.taskId === task.id) &&
+        (lockCountByOwner.get(task.owner) ?? 0) < DEFAULT_CONCURRENCY_LIMITS[task.owner],
+    ),
+  );
   if (ready.length === 0) {
     const fallback = pickFallbackTask(options.opportunities, options.experiments, queue);
     if (fallback) {
       const withoutExistingFallback = queue.filter((task) => task.id !== fallback.id);
       queue = sortQueue([fallback, ...withoutExistingFallback]);
-      ready = readyQueue(queue);
+      ready = readyQueue(
+        queue.filter(
+          (task) =>
+            !blockedInitiativeIds.includes(task.initiativeId) &&
+            !activeLocks.some((lock) => lock.taskId === task.id),
+        ),
+      );
     }
   }
 
   const modelProbe = buildDefaultModelProbe();
+  const nextTask =
+    ready[0] ??
+    queue.find((task) => activeLocks.some((lock) => lock.taskId === task.id)) ??
+    null;
+
+  if (nextTask && !activeLocks.some((lock) => lock.taskId === nextTask.id)) {
+    activeLocks = [
+      ...activeLocks,
+      {
+        taskId: nextTask.id,
+        owner: nextTask.owner,
+        acquiredAt: isoNow(),
+        expiresAt: new Date(Date.now() + LOCK_TTL_MINUTES * 60 * 1000).toISOString(),
+      },
+    ];
+  }
 
   return {
     generatedAt: isoNow(),
     queue,
     readyQueue: ready,
-    nextTask: ready[0] ?? null,
+    nextTask,
     immediateContinuations: ready.slice(1, 3),
     completedTaskIds: Array.from(completedTaskIds),
-    recoveryActions: buildRecoveryActions(queue),
+    blockedInitiativeIds,
+    locks: activeLocks,
+    agentConcurrencyLimits: DEFAULT_CONCURRENCY_LIMITS,
+    recoveryActions: [...recoveredLocks.recoveryActions, ...buildRecoveryActions(queue, blockedInitiativeIds)],
     cadence: {
       recoverySweepMinutes: RECOVERY_SWEEP_MINUTES,
       heartbeatMinutes: HEARTBEAT_MINUTES,

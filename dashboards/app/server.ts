@@ -84,6 +84,7 @@ function renderPage() {
             <li><strong>Recurring burn:</strong> $${state.treasury.recurringMonthlyUsd.toFixed(2)} / month</li>
             <li><strong>Runway:</strong> ${state.treasury.runwayMonths ?? "n/a"} months</li>
             <li><strong>Suspicious spend:</strong> ${state.treasury.suspiciousSpendCount}</li>
+            <li><strong>Treasury mode:</strong> ${state.treasury.mode}</li>
             <li><strong>Model drift anchors:</strong> ${summary.driftedAnchorCount}</li>
           </ul>
         </article>

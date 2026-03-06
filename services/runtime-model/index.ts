@@ -151,7 +151,7 @@ export function buildDefaultModelProbe(): ModelCapabilityProbe {
       codexModel: "gpt-5.4",
       openClawPrimary: "openai-codex/gpt-5.3-codex",
       openClawSurface: "source-fallback",
-      openClawStatus: "fallback",
+      openClawStatus: "docs-only",
       openClawNote: "Public OpenClaw provider docs still center GPT-5.3-Codex, so the gateway stays on the strongest verified provider string until runtime proves GPT-5.4 support.",
     }),
     drift: [
@@ -202,7 +202,7 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
     if (!openClawPrimary) {
       openClawPrimary = "openai-codex/gpt-5.3-codex";
       openClawSurface = "source-fallback";
-      openClawStatus = "fallback";
+      openClawStatus = openclawInstalled ? "fallback" : "docs-only";
       openClawNote =
         "OpenClaw provider docs still publicly center GPT-5.3-Codex, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support.";
 

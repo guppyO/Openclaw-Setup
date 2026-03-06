@@ -16,5 +16,27 @@ describe("treasury", () => {
     expect(snapshot.ledger.length).toBeGreaterThan(0);
     expect(snapshot.budgetEnvelopes.length).toBeGreaterThan(0);
     expect(snapshot.authMode).toBeDefined();
+    expect(snapshot.mode).toBe("sample");
+  });
+
+  test("does not pretend browser-only mode has live sample balances", () => {
+    const snapshot = buildTreasurySnapshot({
+      balanceRead: false,
+      statementRead: false,
+      cardTransactionRead: false,
+      recipientManagement: false,
+      transferCreation: false,
+      spendControls: false,
+      spendLimits: false,
+      webhooks: false,
+      psd2LimitedActions: true,
+      browserLaneAvailable: true,
+      personalTokenConfigured: false,
+      oauthAppConfigured: false,
+      emailReceiptIngest: true,
+    });
+
+    expect(snapshot.mode).toBe("browser-only");
+    expect(snapshot.balances).toHaveLength(0);
   });
 });

@@ -1,22 +1,30 @@
 # Architecture
 
-Revenue OS uses a hybrid topology:
+## Chosen topology
 
-- Linux VPS: durable OpenClaw control plane and long-lived automation surface.
-- Windows Codex machine: development workspace, attached-browser node, and review surface.
-- Optional stage gateway: isolated update and regression environment.
+- Hetzner host: primary stage or prod control plane, OpenClaw gateway, scheduler timers, source refresh, backups, and optional Steel browser capacity.
+- Windows Codex workstation: build surface, attached-Chrome node, and high-trust browser continuity lane.
+- Staged environments: `lab`, `stage`, and `prod` configs generated from the runtime model policy.
 
-## Core layers
+## Why this shape
 
-- `services/opportunity-engine`: lane graph, scoring, and portfolio ranking.
-- `services/experiment-runner`: experiment generation and autonomy queue.
-- `services/treasury`: balance, ledger, capability probe, and runway logic.
-- `services/update-steward`: official-source snapshots and runtime drift tracking.
-- `services/skill-intake`: seed queue and promotion discipline.
-- `dashboards/app`: local web dashboard over file-backed state.
+- GPT-5.4 remains the strategic default across Codex-facing surfaces.
+- OpenClaw stays on the strongest verified provider string and promotes automatically when runtime probes can prove a stronger route.
+- A single Hetzner host is still the recommended first live deployment for low-to-moderate browser concurrency.
+- If Steel concurrency or memory pressure grows beyond the host comfortably, split the browser pool onto a separate node.
 
-## Durable memory
+## Runtime layers
 
-- Markdown files are the source of truth.
-- JSON in `data/exports/` is the machine cache and dashboard input.
-- Initiative files and agent memory files are the continuity layer that outlives any single session.
+- `services/opportunity-engine`: lane graph, scoring, and ranked backlog.
+- `services/experiment-runner`: experiment generation and launch state.
+- `services/dispatch`: ready queue, locks, stale-lock recovery, and immediate continuation.
+- `services/browser-broker`: managed browser, attached Chrome, and Steel routing.
+- `services/treasury`: capability probing, runtime-vs-sample mode, FX-aware snapshotting, and spend envelopes.
+- `services/update-steward`: source verification with direct, browser, and search fallback modes.
+- `services/skill-intake`: public-skill intake and internal-skill promotion discipline.
+
+## Durable state
+
+- Markdown is the source of truth for operating memory.
+- `data/exports/` is the machine cache consumed by the dashboard and schedulers.
+- Agent identity files and initiative docs preserve continuity across sessions and host restarts.

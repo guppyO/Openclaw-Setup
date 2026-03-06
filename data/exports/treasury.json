@@ -1,5 +1,6 @@
 {
-  "asOf": "2026-03-06T07:05:55.803Z",
+  "asOf": "2026-03-06T20:02:36.479Z",
+  "mode": "browser-only",
   "authMode": "browser-only",
   "capabilities": {
     "balanceRead": false,
@@ -16,68 +17,10 @@
     "oauthAppConfigured": false,
     "emailReceiptIngest": true
   },
-  "balances": [
-    {
-      "currency": "USD",
-      "amount": 2500
-    },
-    {
-      "currency": "GBP",
-      "amount": 400
-    }
-  ],
-  "ledger": [
-    {
-      "id": "ledger-hetzner",
-      "bookedAt": "2026-03-03T07:05:55.802Z",
-      "merchant": "Hetzner",
-      "amount": -14.92,
-      "currency": "USD",
-      "category": "hosting",
-      "initiativeId": "control-plane",
-      "recurring": true,
-      "notes": "Baseline control-plane VPS assumption.",
-      "budgetTag": "ops:hosting",
-      "source": "sample",
-      "evidencePaths": [
-        "docs/treasury/capabilities.md"
-      ]
-    },
-    {
-      "id": "ledger-domain",
-      "bookedAt": "2026-02-24T07:05:55.803Z",
-      "merchant": "Cloudflare Registrar",
-      "amount": -12,
-      "currency": "USD",
-      "category": "domains",
-      "initiativeId": "distribution-foundation",
-      "recurring": false,
-      "notes": "Initial launch-domain purchase.",
-      "budgetTag": "growth:domains",
-      "source": "sample",
-      "evidencePaths": [
-        "docs/portfolio/lane-catalog.md"
-      ]
-    },
-    {
-      "id": "ledger-revenue",
-      "bookedAt": "2026-03-05T07:05:55.803Z",
-      "merchant": "Pilot customer",
-      "amount": 450,
-      "currency": "USD",
-      "category": "revenue",
-      "initiativeId": "ops-audit-packs",
-      "recurring": false,
-      "notes": "Sample pilot revenue for dashboard and ROI wiring.",
-      "budgetTag": "revenue:services",
-      "source": "sample",
-      "evidencePaths": [
-        "docs/experiments/exp-ops-audit-packs.md"
-      ]
-    }
-  ],
-  "recurringMonthlyUsd": 14.92,
-  "runwayMonths": 201.6,
+  "balances": [],
+  "ledger": [],
+  "recurringMonthlyUsd": 0,
+  "runwayMonths": null,
   "suspiciousSpendCount": 0,
   "budgetEnvelopes": [
     {
@@ -116,5 +59,12 @@
       "requiresExperimentTag": true
     }
   ],
-  "pendingReconciliations": 0
+  "pendingReconciliations": 0,
+  "fx": {
+    "base": "USD",
+    "asOf": null,
+    "rates": {},
+    "source": "missing",
+    "stale": true
+  }
 }

@@ -1,6 +1,6 @@
 # Runtime Model Policy
 
-Generated on 2026-03-06T07:05:41.654Z.
+Generated on 2026-03-06T20:02:34.312Z.
 
 ## Strategic defaults
 
@@ -17,7 +17,7 @@ Generated on 2026-03-06T07:05:41.654Z.
 | model.frontier_browser | gpt-5.4 | high | preferred | codex-cli |
 | model.frontier_research | gpt-5.4 | xhigh | preferred | codex-cli |
 | model.frontier_build | gpt-5.4 | high | preferred | codex-cli |
-| openclaw.model.primary_frontier | openai-codex/gpt-5.3-codex | high | fallback | source-fallback |
+| openclaw.model.primary_frontier | openai-codex/gpt-5.3-codex | high | docs-only | source-fallback |
 
 ## OpenClaw routing
 

@@ -1,11 +1,11 @@
-import { buildTreasuryMarkdown, buildTreasurySnapshot, probeWiseCapabilities } from "../../services/treasury/index.js";
+import { buildRuntimeTreasurySnapshot } from "../../services/treasury/index.js";
 import { emitLog } from "../../services/common/logger.js";
 import { resolveRepoPath, writeJsonFile, writeTextFile } from "../../services/common/fs.js";
 
 async function main(): Promise<void> {
-  const capabilities = await probeWiseCapabilities();
-  const snapshot = buildTreasurySnapshot(capabilities);
+  const snapshot = await buildRuntimeTreasurySnapshot();
   await writeJsonFile(resolveRepoPath("data", "exports", "treasury.json"), snapshot);
+  const { buildTreasuryMarkdown } = await import("../../services/treasury/index.js");
   await writeTextFile(resolveRepoPath("docs", "treasury", "capabilities.md"), buildTreasuryMarkdown(snapshot));
   await emitLog({
     agent: "treasury",
@@ -16,7 +16,7 @@ async function main(): Promise<void> {
     success: true,
     evidencePaths: ["data/exports/treasury.json", "docs/treasury/capabilities.md"],
   });
-  console.log(`Wise capability probe complete. Balance read: ${snapshot.capabilities.balanceRead}`);
+  console.log(`Wise capability probe complete. Mode: ${snapshot.mode}; balance read: ${snapshot.capabilities.balanceRead}`);
 }
 
 main().catch((error) => {

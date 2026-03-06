@@ -1,12 +1,18 @@
+import { createHash } from "node:crypto";
+import { chmod, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { renderTable } from "../common/markdown.js";
-import { ensureDir, readTextFile, resolveRepoPath, writeJsonFile, writeTextFile } from "../common/fs.js";
+import { ensureDir, readJsonFile, readTextFile, resolveRepoPath, writeJsonFile, writeTextFile } from "../common/fs.js";
 import type { SecretBootstrapState, SecretInventoryEntry } from "../common/types.js";
 
 const BOOTSTRAP_CREDENTIAL_FILES = ["credentials", "Credentials.txt"] as const;
 
-interface ParsedSecretSection {
+function fromRoot(rootDir: string, ...segments: string[]): string {
+  return path.resolve(rootDir, ...segments);
+}
+
+export interface ParsedSecretSection {
   provider: string;
   heading: string;
   values: Record<string, string>;
@@ -44,6 +50,15 @@ function detectProvider(heading: string): string {
   if (normalized.includes("gmail") || normalized.includes("google")) {
     return "gmail";
   }
+  if (normalized.includes("steel")) {
+    return "steel";
+  }
+  if (normalized.includes("codex") || normalized.includes("chatgpt") || normalized.includes("openai")) {
+    return "openai";
+  }
+  if (normalized.includes("openclaw")) {
+    return "openclaw";
+  }
   return slugify(heading);
 }
 
@@ -62,6 +77,12 @@ function toEnvKey(provider: string, key: string): string {
     HETZNER_PASSWORD: "HETZNER_PASSWORD",
     GMAIL_EMAIL: "COMPANY_GMAIL_EMAIL",
     GMAIL_PASSWORD: "COMPANY_GMAIL_PASSWORD",
+    STEEL_API_KEY: "STEEL_API_KEY",
+    STEEL_BASE_URL: "STEEL_BASE_URL",
+    OPENAI_EMAIL: "OPENAI_ACCOUNT_EMAIL",
+    OPENAI_PASSWORD: "OPENAI_ACCOUNT_PASSWORD",
+    OPENCLAW_EMAIL: "OPENCLAW_ACCOUNT_EMAIL",
+    OPENCLAW_PASSWORD: "OPENCLAW_ACCOUNT_PASSWORD",
   };
 
   const overrideKey = `${normalizedProvider}_${normalizedKey}`;
@@ -84,6 +105,12 @@ function inventoryPurpose(provider: string): string {
       return "Treasury source account and money movement control";
     case "hetzner":
       return "Primary infrastructure provider for VPS control plane";
+    case "steel":
+      return "Steel browser session pool and namespace broker";
+    case "openai":
+      return "OpenAI or Codex account-level bootstrap credentials";
+    case "openclaw":
+      return "OpenClaw account or runtime bootstrap credentials";
     default:
       return "Runtime secret imported from bootstrap credentials";
   }
@@ -97,12 +124,18 @@ function inventoryScope(provider: string): string {
       return "treasury";
     case "hetzner":
       return "infrastructure";
+    case "steel":
+      return "browser-fabric";
+    case "openai":
+      return "model-runtime";
+    case "openclaw":
+      return "control-plane";
     default:
       return "runtime";
   }
 }
 
-function parseCredentialFile(raw: string): ParsedSecretSection[] {
+export function parseCredentialFile(raw: string): ParsedSecretSection[] {
   const sections: ParsedSecretSection[] = [];
   let current: ParsedSecretSection | null = null;
 
@@ -143,9 +176,9 @@ function parseCredentialFile(raw: string): ParsedSecretSection[] {
   return sections.filter((section) => Object.keys(section.values).length > 0);
 }
 
-async function detectCredentialSource(): Promise<string> {
+async function detectCredentialSource(rootDir: string): Promise<string> {
   for (const candidate of BOOTSTRAP_CREDENTIAL_FILES) {
-    const absolutePath = resolveRepoPath(candidate);
+    const absolutePath = fromRoot(rootDir, candidate);
     const contents = await readTextFile(absolutePath, "");
     if (contents.trim()) {
       return absolutePath;
@@ -155,7 +188,7 @@ async function detectCredentialSource(): Promise<string> {
   throw new Error("No bootstrap credentials file found. Expected `credentials` or `Credentials.txt` in the repo root.");
 }
 
-function buildWarnings(sections: ParsedSecretSection[]): string[] {
+export function buildWarnings(sections: ParsedSecretSection[]): string[] {
   const warnings: string[] = [];
   const passwordToProviders = new Map<string, Set<string>>();
 
@@ -212,7 +245,10 @@ function detectSharedPasswordProviders(sections: ParsedSecretSection[]): Set<str
   return sharedProviders;
 }
 
-async function writeImportedSecretFiles(sections: ParsedSecretSection[]): Promise<ImportedSecretFile[]> {
+async function writeImportedSecretFiles(
+  sections: ParsedSecretSection[],
+  rootDir: string,
+): Promise<ImportedSecretFile[]> {
   const providerEnvMaps = new Map<string, Record<string, string>>();
 
   for (const section of sections) {
@@ -227,9 +263,9 @@ async function writeImportedSecretFiles(sections: ParsedSecretSection[]): Promis
   const combinedEntries: Record<string, string> = {};
 
   for (const [provider, envMap] of providerEnvMaps.entries()) {
-    const providerFilePath = resolveRepoPath(".secrets", "providers", `${provider}.env`);
+    const providerFilePath = fromRoot(rootDir, ".secrets", "providers", `${provider}.env`);
     await ensureDir(path.dirname(providerFilePath));
-    await writeTextFile(providerFilePath, renderEnvFile(envMap));
+    await writeSecretFile(providerFilePath, renderEnvFile(envMap));
     importedFiles.push({
       provider,
       filePath: providerFilePath,
@@ -242,10 +278,8 @@ async function writeImportedSecretFiles(sections: ParsedSecretSection[]): Promis
   }
 
   combinedEntries.REVENUE_OS_SECRET_BOOTSTRAP = "complete";
-  combinedEntries.REVENUE_OS_SECRET_BOOTSTRAP_AT = new Date().toISOString();
-
-  await writeTextFile(
-    resolveRepoPath(".secrets", "revenue-os.local.env"),
+  await writeSecretFile(
+    fromRoot(rootDir, ".secrets", "revenue-os.local.env"),
     renderEnvFile(combinedEntries),
   );
 
@@ -257,6 +291,7 @@ function buildInventory(
   importedFiles: ImportedSecretFile[],
   warnings: string[],
   sourceFile: string,
+  rootDir: string,
 ): SecretInventoryEntry[] {
   const importedFileMap = new Map(importedFiles.map((entry) => [entry.provider, entry]));
   const sharedPasswordProviders = detectSharedPasswordProviders(sections);
@@ -283,7 +318,7 @@ function buildInventory(
       scope: inventoryScope(section.provider),
       lastVerified: new Date().toISOString(),
       rotationNeeded: sharedPasswordProviders.has(section.provider),
-      storageRef: imported ? path.relative(resolveRepoPath(), imported.filePath).replace(/\\/g, "/") : ".secrets/",
+      storageRef: imported ? path.relative(rootDir, imported.filePath).replace(/\\/g, "/") : ".secrets/",
       importSource: path.basename(sourceFile),
       secretKeys: imported?.keys ?? Object.keys(section.values).map((key) => toEnvKey(section.provider, key)),
       notes,
@@ -300,6 +335,7 @@ Bootstrap metadata only. Raw secret values are intentionally excluded.
 
 - Imported at: ${state.importedAt}
 - Source file: ${state.sourceFile}
+- Source hash: ${state.sourceHash}
 - Providers: ${state.providers.join(", ")}
 - Secret files: ${state.secretFileRefs.join(", ")}
 
@@ -328,9 +364,24 @@ ${state.warnings.length === 0 ? "- None." : state.warnings.map((warning) => `- $
 `;
 }
 
-export async function importBootstrapSecrets(): Promise<SecretBootstrapState> {
-  const sourceFile = await detectCredentialSource();
-  const raw = await readTextFile(sourceFile);
+function hashSecretSource(raw: string): string {
+  return createHash("sha256").update(raw).digest("hex");
+}
+
+async function writeSecretFile(filePath: string, contents: string): Promise<void> {
+  await ensureDir(path.dirname(filePath));
+  await writeFile(filePath, contents, { encoding: "utf8", mode: 0o600 });
+
+  if (process.platform !== "win32") {
+    await chmod(filePath, 0o600);
+  }
+}
+
+export async function importBootstrapSecretsFromText(
+  raw: string,
+  sourceFile = "credentials",
+  rootDir = resolveRepoPath(),
+): Promise<SecretBootstrapState> {
   const sections = parseCredentialFile(raw);
 
   if (sections.length === 0) {
@@ -338,20 +389,36 @@ export async function importBootstrapSecrets(): Promise<SecretBootstrapState> {
   }
 
   const warnings = buildWarnings(sections);
-  const importedFiles = await writeImportedSecretFiles(sections);
-  const inventory = buildInventory(sections, importedFiles, warnings, sourceFile);
+  const importedFiles = await writeImportedSecretFiles(sections, rootDir);
+  const inventory = buildInventory(sections, importedFiles, warnings, sourceFile, rootDir);
+  const sourceHash = hashSecretSource(raw);
+  const previousState = await readJsonFile<SecretBootstrapState | null>(
+    fromRoot(rootDir, "data", "exports", "secret-inventory.json"),
+    null,
+  );
+  const importedAt =
+    previousState?.sourceHash === sourceHash
+      ? previousState.importedAt
+      : new Date().toISOString();
 
   const state: SecretBootstrapState = {
-    importedAt: new Date().toISOString(),
+    importedAt,
     sourceFile: path.basename(sourceFile),
+    sourceHash,
     providers: sections.map((section) => section.provider),
     warnings,
-    secretFileRefs: importedFiles.map((entry) => path.relative(resolveRepoPath(), entry.filePath).replace(/\\/g, "/")),
+    secretFileRefs: importedFiles.map((entry) => path.relative(rootDir, entry.filePath).replace(/\\/g, "/")),
     inventory,
   };
 
-  await writeJsonFile(resolveRepoPath("data", "exports", "secret-inventory.json"), state);
-  await writeTextFile(resolveRepoPath("docs", "secret-inventory.md"), buildSecretInventoryMarkdown(state));
+  await writeJsonFile(fromRoot(rootDir, "data", "exports", "secret-inventory.json"), state);
+  await writeTextFile(fromRoot(rootDir, "docs", "secret-inventory.md"), buildSecretInventoryMarkdown(state));
 
   return state;
+}
+
+export async function importBootstrapSecrets(rootDir = resolveRepoPath()): Promise<SecretBootstrapState> {
+  const sourceFile = await detectCredentialSource(rootDir);
+  const raw = await readTextFile(sourceFile);
+  return importBootstrapSecretsFromText(raw, sourceFile, rootDir);
 }

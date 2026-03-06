@@ -7,10 +7,12 @@ Automate the change-management process, not blind in-place mutation.
 ## Flow
 
 1. Detect official-source change.
-2. Summarize delta and classify impact.
-3. Patch lab or stage.
-4. Run smoke, browser, memory, and treasury checks.
-5. Promote only with a clean backup and rollback point.
+2. Attempt direct verification first.
+3. If direct fetch fails, fall back to browser capture or search-backed verification and record the method used.
+4. Summarize delta and classify impact as awareness-only, stage-required, or prod-blocking.
+5. Patch lab or stage.
+6. Run smoke, browser, memory, dispatch, and treasury checks.
+7. Promote only with a clean backup and rollback point.
 
 ## Current note
 

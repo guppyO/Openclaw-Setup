@@ -12,8 +12,16 @@ export interface DashboardSummary {
 
 export function summarizeDashboard(state: DashboardState): DashboardSummary {
   const balanceUsdApprox = state.treasury.balances.reduce((total, balance) => {
-    const multiplier = balance.currency === "GBP" ? 1.27 : 1;
-    return total + balance.amount * multiplier;
+    if (balance.currency === "USD") {
+      return total + balance.amount;
+    }
+
+    const rate = state.treasury.fx.rates[balance.currency];
+    if (!rate) {
+      return total;
+    }
+
+    return total + balance.amount * rate;
   }, 0);
 
   return {

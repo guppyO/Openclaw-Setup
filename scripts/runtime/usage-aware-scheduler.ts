@@ -16,6 +16,10 @@ async function main(): Promise<void> {
   const opportunities = await readJsonFile<Opportunity[]>(resolveRepoPath("data", "exports", "opportunities.json"), []);
   const experiments = await readJsonFile<Experiment[]>(resolveRepoPath("data", "exports", "experiments.json"), []);
   const queue = await readJsonFile<QueueItem[]>(resolveRepoPath("data", "exports", "autonomy-queue.json"), []);
+  const blockedInitiativeIds = await readJsonFile<string[]>(
+    resolveRepoPath("data", "exports", "blockers.json"),
+    [],
+  );
   const previousState = await readJsonFile<DispatchState | null>(
     resolveRepoPath("data", "exports", "dispatch-state.json"),
     null,
@@ -28,6 +32,7 @@ async function main(): Promise<void> {
     queue,
     previousState,
     completedTaskId,
+    blockedInitiativeIds,
   });
 
   await writeJsonFile(resolveRepoPath("data", "exports", "dispatch-state.json"), dispatchState);
