@@ -1,0 +1,238 @@
+[
+  {
+    "id": "exp-ops-audit-packs",
+    "opportunityId": "ops-audit-packs",
+    "title": "Experiment: Operational audit packs for SMB service businesses",
+    "thesis": "Launch one niche-specific landing page, outbound-compatible intake flow, and paid diagnostic offer capped at low acquisition spend.",
+    "status": "building",
+    "successMetrics": [
+      "Positive contribution margin within budget envelope",
+      "Evidence of repeatable acquisition channel",
+      "Operator-independent runbook drafted"
+    ],
+    "budgetCapUsd": 250,
+    "launchChecklist": [
+      "Define asset package and offer page",
+      "Attach analytics and evidence capture",
+      "Confirm treasury category and spend tags",
+      "Create kill and compound review dates"
+    ],
+    "measurementPlan": [
+      "Capture spend, attributable revenue, and response rate daily",
+      "Review conversion and payback time every 24 hours during launch week",
+      "Update portfolio score after each milestone or anomaly"
+    ],
+    "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+    "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+    "reviewDate": "2026-03-13T04:46:27.914Z",
+    "nextActions": [
+      {
+        "id": "ops-audit-packs-offer",
+        "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+        "owner": "ceo",
+        "initiativeId": "ops-audit-packs",
+        "reason": "highest-ev-open-experiment",
+        "priority": 100,
+        "dueAt": "2026-03-06T06:46:27.914Z",
+        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      },
+      {
+        "id": "ops-audit-packs-asset",
+        "title": "Build launch assets for Operational audit packs for SMB service businesses",
+        "owner": "builder",
+        "initiativeId": "ops-audit-packs",
+        "reason": "highest-priority-product-backlog",
+        "priority": 92,
+        "dueAt": "2026-03-06T10:46:27.914Z",
+        "notes": "Ship a landing page, support docs, and measurement hooks."
+      },
+      {
+        "id": "ops-audit-packs-distribution",
+        "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+        "owner": "distribution",
+        "initiativeId": "ops-audit-packs",
+        "reason": "distribution-bottleneck",
+        "priority": 88,
+        "dueAt": "2026-03-06T16:46:27.914Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      }
+    ]
+  },
+  {
+    "id": "exp-marketplace-automation-packs",
+    "opportunityId": "marketplace-automation-packs",
+    "title": "Experiment: Automation packs sold through compliant marketplaces",
+    "thesis": "Package two internal workflow assets into a starter bundle and A/B test listings across one primary marketplace and one owned landing page.",
+    "status": "approved",
+    "successMetrics": [
+      "Positive contribution margin within budget envelope",
+      "Evidence of repeatable acquisition channel",
+      "Operator-independent runbook drafted"
+    ],
+    "budgetCapUsd": 150,
+    "launchChecklist": [
+      "Define asset package and offer page",
+      "Attach analytics and evidence capture",
+      "Confirm treasury category and spend tags",
+      "Create kill and compound review dates"
+    ],
+    "measurementPlan": [
+      "Capture spend, attributable revenue, and response rate daily",
+      "Review conversion and payback time every 24 hours during launch week",
+      "Update portfolio score after each milestone or anomaly"
+    ],
+    "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+    "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+    "reviewDate": "2026-03-15T04:46:27.914Z",
+    "nextActions": [
+      {
+        "id": "marketplace-automation-packs-offer",
+        "title": "Define the first bounded offer for Automation packs sold through compliant marketplaces",
+        "owner": "ceo",
+        "initiativeId": "marketplace-automation-packs",
+        "reason": "highest-ev-open-experiment",
+        "priority": 99,
+        "dueAt": "2026-03-06T06:46:27.914Z",
+        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      },
+      {
+        "id": "marketplace-automation-packs-asset",
+        "title": "Build launch assets for Automation packs sold through compliant marketplaces",
+        "owner": "builder",
+        "initiativeId": "marketplace-automation-packs",
+        "reason": "highest-priority-product-backlog",
+        "priority": 91,
+        "dueAt": "2026-03-06T10:46:27.914Z",
+        "notes": "Ship a landing page, support docs, and measurement hooks."
+      },
+      {
+        "id": "marketplace-automation-packs-distribution",
+        "title": "Remove the first distribution bottleneck for Automation packs sold through compliant marketplaces",
+        "owner": "distribution",
+        "initiativeId": "marketplace-automation-packs",
+        "reason": "distribution-bottleneck",
+        "priority": 87,
+        "dueAt": "2026-03-06T16:46:27.914Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      }
+    ]
+  },
+  {
+    "id": "exp-ai-content-repurposer",
+    "opportunityId": "ai-content-repurposer",
+    "title": "Experiment: Repurposing engine for expert-led content portfolios",
+    "thesis": "Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.",
+    "status": "planned",
+    "successMetrics": [
+      "Positive contribution margin within budget envelope",
+      "Evidence of repeatable acquisition channel",
+      "Operator-independent runbook drafted"
+    ],
+    "budgetCapUsd": 225,
+    "launchChecklist": [
+      "Define asset package and offer page",
+      "Attach analytics and evidence capture",
+      "Confirm treasury category and spend tags",
+      "Create kill and compound review dates"
+    ],
+    "measurementPlan": [
+      "Capture spend, attributable revenue, and response rate daily",
+      "Review conversion and payback time every 24 hours during launch week",
+      "Update portfolio score after each milestone or anomaly"
+    ],
+    "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+    "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+    "reviewDate": "2026-03-17T04:46:27.914Z",
+    "nextActions": [
+      {
+        "id": "ai-content-repurposer-offer",
+        "title": "Define the first bounded offer for Repurposing engine for expert-led content portfolios",
+        "owner": "ceo",
+        "initiativeId": "ai-content-repurposer",
+        "reason": "highest-ev-open-experiment",
+        "priority": 98,
+        "dueAt": "2026-03-06T06:46:27.914Z",
+        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      },
+      {
+        "id": "ai-content-repurposer-asset",
+        "title": "Build launch assets for Repurposing engine for expert-led content portfolios",
+        "owner": "builder",
+        "initiativeId": "ai-content-repurposer",
+        "reason": "highest-priority-product-backlog",
+        "priority": 90,
+        "dueAt": "2026-03-06T10:46:27.914Z",
+        "notes": "Ship a landing page, support docs, and measurement hooks."
+      },
+      {
+        "id": "ai-content-repurposer-distribution",
+        "title": "Remove the first distribution bottleneck for Repurposing engine for expert-led content portfolios",
+        "owner": "distribution",
+        "initiativeId": "ai-content-repurposer",
+        "reason": "distribution-bottleneck",
+        "priority": 86,
+        "dueAt": "2026-03-06T16:46:27.914Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      }
+    ]
+  },
+  {
+    "id": "exp-niche-lead-gen-sites",
+    "opportunityId": "niche-lead-gen-sites",
+    "title": "Experiment: Niche lead-gen sites with qualified buyer routing",
+    "thesis": "Pick one underserved niche, launch a comparison page and lead magnet, then route qualified traffic to a disclosed partner or owned offer.",
+    "status": "planned",
+    "successMetrics": [
+      "Positive contribution margin within budget envelope",
+      "Evidence of repeatable acquisition channel",
+      "Operator-independent runbook drafted"
+    ],
+    "budgetCapUsd": 400,
+    "launchChecklist": [
+      "Define asset package and offer page",
+      "Attach analytics and evidence capture",
+      "Confirm treasury category and spend tags",
+      "Create kill and compound review dates"
+    ],
+    "measurementPlan": [
+      "Capture spend, attributable revenue, and response rate daily",
+      "Review conversion and payback time every 24 hours during launch week",
+      "Update portfolio score after each milestone or anomaly"
+    ],
+    "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+    "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+    "reviewDate": "2026-03-19T04:46:27.914Z",
+    "nextActions": [
+      {
+        "id": "niche-lead-gen-sites-offer",
+        "title": "Define the first bounded offer for Niche lead-gen sites with qualified buyer routing",
+        "owner": "ceo",
+        "initiativeId": "niche-lead-gen-sites",
+        "reason": "highest-ev-open-experiment",
+        "priority": 97,
+        "dueAt": "2026-03-06T06:46:27.914Z",
+        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      },
+      {
+        "id": "niche-lead-gen-sites-asset",
+        "title": "Build launch assets for Niche lead-gen sites with qualified buyer routing",
+        "owner": "builder",
+        "initiativeId": "niche-lead-gen-sites",
+        "reason": "highest-priority-product-backlog",
+        "priority": 89,
+        "dueAt": "2026-03-06T10:46:27.914Z",
+        "notes": "Ship a landing page, support docs, and measurement hooks."
+      },
+      {
+        "id": "niche-lead-gen-sites-distribution",
+        "title": "Remove the first distribution bottleneck for Niche lead-gen sites with qualified buyer routing",
+        "owner": "distribution",
+        "initiativeId": "niche-lead-gen-sites",
+        "reason": "distribution-bottleneck",
+        "priority": 85,
+        "dueAt": "2026-03-06T16:46:27.914Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      }
+    ]
+  }
+]

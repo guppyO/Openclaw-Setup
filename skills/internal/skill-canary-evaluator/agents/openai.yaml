@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Canary Evaluator"
+  short_description: "Stage and evaluate candidate skills"
+  default_prompt: "Use this skill to stage a candidate skill, run evals, and decide whether it should be promoted or rejected."

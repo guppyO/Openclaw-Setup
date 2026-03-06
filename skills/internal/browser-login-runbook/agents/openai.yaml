@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Login Runbook"
+  short_description: "Handle browser auth and session checks"
+  default_prompt: "Use this skill to run authenticated browser flows safely, capture evidence, and record session health."

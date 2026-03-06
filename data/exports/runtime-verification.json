@@ -1,0 +1,196 @@
+[
+  {
+    "id": "anchor-1",
+    "anchor": "ChatGPT Pro and Business unlimited GPT-5 access in ChatGPT is guardrail-based rather than truly uncapped.",
+    "status": "verified",
+    "note": "Official Help Center docs confirm unlimited or virtually unlimited GPT-5 access with abuse guardrails.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openai-pro-plan",
+      "openai-business-limits"
+    ]
+  },
+  {
+    "id": "anchor-2",
+    "anchor": "GPT-5.4 is the current frontier model for professional work with a 1,050,000 token context window.",
+    "status": "verified",
+    "note": "The OpenAI API model page explicitly labels GPT-5.4 as the frontier model and documents the 1.05M context window.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openai-gpt-5.4-model"
+    ]
+  },
+  {
+    "id": "anchor-3",
+    "anchor": "GPT-5.4 is available everywhere you use Codex.",
+    "status": "drifted",
+    "note": "Current official Codex docs still center GPT-5-Codex and GPT-5.3-Codex on Codex surfaces. GPT-5.4 is documented in ChatGPT/API, but not as the universal Codex default.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openai-codex-upgrades",
+      "openai-gpt-5.3-codex",
+      "openai-gpt-5.4-model"
+    ]
+  },
+  {
+    "id": "anchor-4",
+    "anchor": "Codex-native frontier work currently rides on GPT-5.3-Codex or GPT-5-Codex rather than a public GPT-5.4 Codex release.",
+    "status": "verified",
+    "note": "The strongest current Codex-native model publicly documented by OpenAI is GPT-5.3-Codex, with GPT-5.4 documented separately for ChatGPT/API reasoning work.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openai-gpt-5.3-codex",
+      "openai-gpt-5.4-model"
+    ]
+  },
+  {
+    "id": "anchor-5",
+    "anchor": "Codex supports ChatGPT sign-in and is included with ChatGPT plans.",
+    "status": "verified",
+    "note": "OpenAI Help and blog docs explicitly describe signing in with ChatGPT and included plan access.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openai-codex-plan",
+      "openai-codex-upgrades"
+    ]
+  },
+  {
+    "id": "anchor-6",
+    "anchor": "Current Codex Pro local usage windows are higher than the prompt's 223-1120 estimate.",
+    "status": "drifted",
+    "note": "The current official plan article documents roughly 300-1,500 local Pro messages per 5 hours, with task-size variance and a shared weekly limit.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openai-codex-plan"
+    ]
+  },
+  {
+    "id": "anchor-7",
+    "anchor": "OpenClaw officially supports Codex OAuth / ChatGPT sign-in.",
+    "status": "verified",
+    "note": "OpenClaw model provider docs explicitly support `openai-codex` OAuth for external tools and workflows.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-model-providers"
+    ]
+  },
+  {
+    "id": "anchor-8",
+    "anchor": "OpenClaw recommends Node runtime for stable gateways and does not recommend Bun for gateway installs.",
+    "status": "verified",
+    "note": "The CLI reference says gateway install defaults to Node runtime and specifically notes Bun is not recommended.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-cli"
+    ]
+  },
+  {
+    "id": "anchor-9",
+    "anchor": "The strongest always-on OpenClaw pattern is one primary gateway with remote nodes and clients.",
+    "status": "verified",
+    "note": "Multiple-gateway docs recommend one gateway for most setups, while FAQ/docs describe remote nodes and tailnet access for distributed control.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-multiple-gateways",
+      "openclaw-faq"
+    ]
+  },
+  {
+    "id": "anchor-10",
+    "anchor": "Cron and heartbeat serve different purposes and should be combined.",
+    "status": "verified",
+    "note": "OpenClaw's Cron vs Heartbeat guide explicitly recommends using both together.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-cron-vs-heartbeat"
+    ]
+  },
+  {
+    "id": "anchor-11",
+    "anchor": "OpenClaw memory is Markdown-first, and Codex OAuth does not satisfy embeddings for memory search.",
+    "status": "verified",
+    "note": "The memory docs explicitly say Markdown files are the source of truth and Codex OAuth does not cover embeddings.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-memory"
+    ]
+  },
+  {
+    "id": "anchor-12",
+    "anchor": "OpenClaw supports QMD and local memory-search backends.",
+    "status": "verified",
+    "note": "The memory docs explicitly document the experimental QMD backend and local embedding mode.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-memory"
+    ]
+  },
+  {
+    "id": "anchor-13",
+    "anchor": "OpenClaw skills, plugins, and skill folders are supply-chain risk and must be treated as trusted or untrusted code accordingly.",
+    "status": "verified",
+    "note": "OpenClaw security and skills docs explicitly warn that plugins are trusted code and third-party skills should be treated as untrusted code.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-security",
+      "openclaw-secrets"
+    ]
+  },
+  {
+    "id": "anchor-14",
+    "anchor": "OpenClaw current docs expose strict config validation, additive SecretRefs, and a first-class PDF tool.",
+    "status": "verified",
+    "note": "Current configuration, secrets, and PDF docs confirm all three. The exact command in docs is `openclaw doctor`, not a documented `openclaw config validate --json` entry.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-configuration",
+      "openclaw-secrets",
+      "openclaw-pdf"
+    ]
+  },
+  {
+    "id": "anchor-15",
+    "anchor": "OpenClaw can use a managed browser or an attached Chrome relay, and headless mode is more likely to trigger anti-bot checks.",
+    "status": "verified",
+    "note": "Browser docs cover the managed browser and extension relay; FAQ documents headless mode and anti-bot risk.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-browser",
+      "openclaw-faq",
+      "openclaw-browser-login"
+    ]
+  },
+  {
+    "id": "anchor-16",
+    "anchor": "Automated self-update is possible but not the primary recommended operating pattern.",
+    "status": "verified",
+    "note": "The FAQ explicitly says asking OpenClaw to update itself is possible but not recommended.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openclaw-faq"
+    ]
+  },
+  {
+    "id": "anchor-17",
+    "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU/UK PSD2 constrains personal-token actions.",
+    "status": "verified",
+    "note": "Wise docs explicitly distinguish small-business personal tokens from partner OAuth 2.0 and call out EU/UK PSD2 limits.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "wise-security-access",
+      "wise-personal-tokens",
+      "wise-getting-started"
+    ]
+  },
+  {
+    "id": "anchor-18",
+    "anchor": "GPT-4.5-preview assumptions are stale and deprecated.",
+    "status": "verified",
+    "note": "OpenAI model docs and retirement notes show GPT-4.5 preview is deprecated while GPT-5.4 is current.",
+    "checkedAt": "2026-03-06T00:00:00.000Z",
+    "sourceIds": [
+      "openai-model-release-notes",
+      "openai-gpt-5.4-model"
+    ]
+  }
+]

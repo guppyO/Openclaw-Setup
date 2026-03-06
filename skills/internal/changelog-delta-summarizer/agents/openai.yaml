@@ -1,0 +1,4 @@
+interface:
+  display_name: "Changelog Delta Summarizer"
+  short_description: "Summarize official product or API deltas"
+  default_prompt: "Use this skill to compare official docs or changelogs, classify operational impact, and write a concise delta report."

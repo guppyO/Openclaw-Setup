@@ -1,0 +1,4 @@
+interface:
+  display_name: "Opportunity Ranker"
+  short_description: "Score and rank revenue opportunities"
+  default_prompt: "Use this skill to score, compare, and rank revenue opportunities for Revenue OS."

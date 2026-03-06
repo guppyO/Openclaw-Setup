@@ -1,0 +1,10 @@
+dist/
+node_modules/
+coverage/
+.env
+.DS_Store
+data/backups/*.tar.gz
+data/backups/*.zip
+data/exports/logs/
+data/exports/runtime-cache/
+*.log

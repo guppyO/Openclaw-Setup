@@ -1,0 +1,4 @@
+interface:
+  display_name: "Revenue Lane Scorer"
+  short_description: "Evaluate lane families for durable growth"
+  default_prompt: "Use this skill to evaluate revenue lane families against durability, capital efficiency, automation fit, and platform risk."

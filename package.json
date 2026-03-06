@@ -1,0 +1,41 @@
+{
+  "name": "revenue-os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Autonomous revenue operating system built for OpenClaw, Codex, and ChatGPT sign-in workflows.",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "dashboard": "tsx dashboards/app/server.ts",
+    "bootstrap:runtime": "tsx scripts/bootstrap/probe-runtime.ts",
+    "bootstrap:state": "tsx scripts/bootstrap/init-state.ts",
+    "bootstrap:control-plane": "tsx scripts/bootstrap/generate-control-plane-files.ts",
+    "bootstrap:skills": "tsx scripts/bootstrap/seed-skills.ts",
+    "bootstrap:internal-skills": "tsx scripts/bootstrap/populate-internal-skills.ts",
+    "bootstrap:wise": "tsx scripts/bootstrap/probe-wise.ts",
+    "refresh:opportunities": "tsx scripts/bootstrap/init-state.ts --opportunities-only",
+    "refresh:updates": "tsx scripts/update/watch-sources.ts",
+    "verify:smoke": "tsx scripts/verify/smoke.ts",
+    "backup": "tsx scripts/backup/backup.ts",
+    "restore": "tsx scripts/restore/restore.ts"
+  },
+  "dependencies": {
+    "commander": "^14.0.1",
+    "express": "^5.1.0",
+    "gray-matter": "^4.0.3",
+    "tar": "^7.4.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.4",
+    "@types/node": "^24.10.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

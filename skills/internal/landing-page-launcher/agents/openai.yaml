@@ -1,0 +1,4 @@
+interface:
+  display_name: "Landing Page Launcher"
+  short_description: "Ship bounded launch pages and offers"
+  default_prompt: "Use this skill to build and validate a launch-ready landing page package for a revenue experiment."

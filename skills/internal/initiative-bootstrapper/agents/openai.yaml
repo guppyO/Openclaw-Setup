@@ -1,0 +1,4 @@
+interface:
+  display_name: "Initiative Bootstrapper"
+  short_description: "Create initiative memory files and milestones"
+  default_prompt: "Use this skill to create initiative Prompt.md, Plan.md, Implement.md, and Documentation.md files with acceptance checks."

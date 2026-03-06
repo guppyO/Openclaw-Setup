@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ops-audit-packs-offer",
+    "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+    "owner": "ceo",
+    "initiativeId": "ops-audit-packs",
+    "reason": "highest-ev-open-experiment",
+    "priority": 100,
+    "dueAt": "2026-03-06T06:46:27.914Z",
+    "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+  },
+  {
+    "id": "ops-audit-packs-distribution",
+    "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+    "owner": "distribution",
+    "initiativeId": "ops-audit-packs",
+    "reason": "distribution-bottleneck",
+    "priority": 88,
+    "dueAt": "2026-03-06T16:46:27.914Z",
+    "notes": "Set the initial channel mix and evidence capture for first traffic."
+  },
+  {
+    "id": "ops-audit-packs-research",
+    "title": "Expand demand proof and adjacent niches for Operational audit packs for SMB service businesses",
+    "owner": "research",
+    "initiativeId": "ops-audit-packs",
+    "reason": "new-opportunity-research",
+    "priority": 84,
+    "dueAt": "2026-03-06T22:46:27.914Z",
+    "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
+  },
+  {
+    "id": "skill-gap-reduction",
+    "title": "Promote the highest-leverage internal skill candidate",
+    "owner": "skillsmith",
+    "initiativeId": "skill-pipeline",
+    "reason": "skill-gap-reduction",
+    "priority": 74,
+    "dueAt": "2026-03-07T00:46:27.914Z",
+    "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
+  },
+  {
+    "id": "changelog-adaptation",
+    "title": "Refresh official-source deltas and compare stage vs prod assumptions",
+    "owner": "ops",
+    "initiativeId": "update-steward",
+    "reason": "changelog-adaptation",
+    "priority": 68,
+    "dueAt": "2026-03-07T04:46:27.914Z",
+    "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
+  },
+  {
+    "id": "memory-cleanup",
+    "title": "Compact initiative memory into durable docs",
+    "owner": "ops",
+    "initiativeId": "memory-maintenance",
+    "reason": "documentation-and-memory",
+    "priority": 52,
+    "dueAt": "2026-03-07T10:46:27.914Z",
+    "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
+  },
+  {
+    "id": "resilience-check",
+    "title": "Run backup and smoke verification",
+    "owner": "ops",
+    "initiativeId": "resilience",
+    "reason": "resilience-work",
+    "priority": 48,
+    "dueAt": "2026-03-07T16:46:27.914Z",
+    "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
+  }
+]

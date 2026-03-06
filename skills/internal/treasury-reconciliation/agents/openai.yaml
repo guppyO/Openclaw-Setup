@@ -1,0 +1,4 @@
+interface:
+  display_name: "Treasury Reconciliation"
+  short_description: "Reconcile ledger, balances, and ROI"
+  default_prompt: "Use this skill to reconcile treasury balances, ledger entries, and experiment tagging for Revenue OS."

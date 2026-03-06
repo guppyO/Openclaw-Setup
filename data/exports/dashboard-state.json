@@ -1,0 +1,1086 @@
+{
+  "generatedAt": "2026-03-06T04:46:27.941Z",
+  "treasury": {
+    "asOf": "2026-03-06T04:46:27.925Z",
+    "capabilities": {
+      "balanceRead": false,
+      "statementRead": false,
+      "cardTransactionRead": false,
+      "recipientManagement": false,
+      "transferCreation": false,
+      "spendControls": false,
+      "spendLimits": false,
+      "webhooks": false,
+      "psd2LimitedActions": true
+    },
+    "balances": [
+      {
+        "currency": "USD",
+        "amount": 2500
+      },
+      {
+        "currency": "GBP",
+        "amount": 400
+      }
+    ],
+    "ledger": [
+      {
+        "id": "ledger-hetzner",
+        "bookedAt": "2026-03-03T04:46:27.924Z",
+        "merchant": "Hetzner",
+        "amount": -14.92,
+        "currency": "USD",
+        "category": "hosting",
+        "initiativeId": "control-plane",
+        "recurring": true,
+        "notes": "Baseline control-plane VPS assumption."
+      },
+      {
+        "id": "ledger-domain",
+        "bookedAt": "2026-02-24T04:46:27.925Z",
+        "merchant": "Cloudflare Registrar",
+        "amount": -12,
+        "currency": "USD",
+        "category": "domains",
+        "initiativeId": "distribution-foundation",
+        "recurring": false,
+        "notes": "Initial launch-domain purchase."
+      },
+      {
+        "id": "ledger-revenue",
+        "bookedAt": "2026-03-05T04:46:27.925Z",
+        "merchant": "Pilot customer",
+        "amount": 450,
+        "currency": "USD",
+        "category": "revenue",
+        "initiativeId": "ops-audit-packs",
+        "recurring": false,
+        "notes": "Sample pilot revenue for dashboard and ROI wiring."
+      }
+    ],
+    "recurringMonthlyUsd": 14.92,
+    "runwayMonths": 201.6,
+    "suspiciousSpendCount": 0
+  },
+  "topOpportunities": [
+    {
+      "id": "ops-audit-packs",
+      "title": "Operational audit packs for SMB service businesses",
+      "thesis": "Package agent-assisted audits, fix plans, and tracked automation setup into a repeatable paid offer with strong margin and fast proof-of-value.",
+      "laneFamily": "productized-service",
+      "monetizationRoute": "Fixed-fee audit plus recurring optimization retainer",
+      "demandSignals": [
+        {
+          "source": "service-business pain",
+          "description": "Manual ops and quoting friction remain common in local businesses.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 7.8
+        },
+        {
+          "source": "AI adoption",
+          "description": "Businesses want AI help but need bounded and accountable delivery.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 8.2
+        }
+      ],
+      "requiredAssets": [
+        "landing-page",
+        "audit-template",
+        "intake-form",
+        "case-study"
+      ],
+      "requiredAccounts": [
+        "ChatGPT Pro",
+        "Codex",
+        "OpenClaw Gateway",
+        "Wise"
+      ],
+      "timeToLaunchDays": 6,
+      "timeToRevenueDays": 14,
+      "expectedMarginPct": 78,
+      "capitalRequiredUsd": 200,
+      "automationFit": 8.5,
+      "defensibility": 6.4,
+      "distributionFit": 7.9,
+      "complianceFriction": 2.7,
+      "payoutFriction": 1.5,
+      "buildComplexity": 4.3,
+      "maintenanceBurden": 4.6,
+      "platformRisk": 2.9,
+      "compoundingPotential": 8.1,
+      "confidence": 7.5,
+      "synergy": 8.4,
+      "payoutReadiness": 8.6,
+      "currentStatus": "researched",
+      "experimentPlan": "Launch one niche-specific landing page, outbound-compatible intake flow, and paid diagnostic offer capped at low acquisition spend.",
+      "liveKpis": [
+        "qualified leads",
+        "close rate",
+        "gross margin",
+        "implementation cycle time"
+      ],
+      "score": {
+        "total": 7.88,
+        "rankedScore": 78.8,
+        "weightVersion": "2026-03-06.a",
+        "dimensionScores": {
+          "expectedValue": 7.93,
+          "confidence": 7.5,
+          "speedToLaunch": 9.14,
+          "speedToRevenue": 8.6,
+          "capitalEfficiency": 9.2,
+          "platformRisk": 2.9,
+          "distributionEfficiency": 7.9,
+          "buildComplexity": 4.3,
+          "maintenanceBurden": 4.6,
+          "compoundingPotential": 8.1,
+          "automationSuitability": 8.5,
+          "synergyWithExistingAssets": 8.4,
+          "payoutReadiness": 8.55,
+          "complianceFriction": 2.7
+        }
+      }
+    },
+    {
+      "id": "marketplace-automation-packs",
+      "title": "Automation packs sold through compliant marketplaces",
+      "thesis": "Externalize internal workflow templates and automation bundles into small-ticket digital products that can compound with support upsells.",
+      "laneFamily": "digital-products",
+      "monetizationRoute": "Marketplace sales plus support upsell and bundle expansion",
+      "demandSignals": [
+        {
+          "source": "creator economy",
+          "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 7.4
+        },
+        {
+          "source": "distribution leverage",
+          "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 7.1
+        }
+      ],
+      "requiredAssets": [
+        "product-package",
+        "screenshots",
+        "listing-copy",
+        "support-docs"
+      ],
+      "requiredAccounts": [
+        "Marketplace account",
+        "Wise"
+      ],
+      "timeToLaunchDays": 9,
+      "timeToRevenueDays": 18,
+      "expectedMarginPct": 86,
+      "capitalRequiredUsd": 120,
+      "automationFit": 9.2,
+      "defensibility": 5.8,
+      "distributionFit": 7.2,
+      "complianceFriction": 2,
+      "payoutFriction": 2.5,
+      "buildComplexity": 4.8,
+      "maintenanceBurden": 3.8,
+      "platformRisk": 5.2,
+      "compoundingPotential": 8.9,
+      "confidence": 7,
+      "synergy": 9.1,
+      "payoutReadiness": 7.4,
+      "currentStatus": "scored",
+      "experimentPlan": "Package two internal workflow assets into a starter bundle and A/B test listings across one primary marketplace and one owned landing page.",
+      "liveKpis": [
+        "visitors",
+        "purchase conversion",
+        "refund rate",
+        "upsell attach rate"
+      ],
+      "score": {
+        "total": 7.78,
+        "rankedScore": 77.8,
+        "weightVersion": "2026-03-06.a",
+        "dimensionScores": {
+          "expectedValue": 8.23,
+          "confidence": 7,
+          "speedToLaunch": 8.71,
+          "speedToRevenue": 8.2,
+          "capitalEfficiency": 9.52,
+          "platformRisk": 5.2,
+          "distributionEfficiency": 7.2,
+          "buildComplexity": 4.8,
+          "maintenanceBurden": 3.8,
+          "compoundingPotential": 8.9,
+          "automationSuitability": 9.2,
+          "synergyWithExistingAssets": 9.1,
+          "payoutReadiness": 7.45,
+          "complianceFriction": 2
+        }
+      }
+    },
+    {
+      "id": "ai-content-repurposer",
+      "title": "Repurposing engine for expert-led content portfolios",
+      "thesis": "Offer an autonomous content repurposing and publication system as a managed productized service for experts and small media brands.",
+      "laneFamily": "service-plus-software",
+      "monetizationRoute": "Monthly retainer with optional content-ops software tier",
+      "demandSignals": [
+        {
+          "source": "content fatigue",
+          "description": "Expert creators want output without running full content teams.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 7.6
+        },
+        {
+          "source": "agent fit",
+          "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 8.5
+        }
+      ],
+      "requiredAssets": [
+        "offer-page",
+        "workflow-demo",
+        "content-pipeline",
+        "analytics"
+      ],
+      "requiredAccounts": [
+        "Social tools",
+        "Analytics",
+        "Wise"
+      ],
+      "timeToLaunchDays": 7,
+      "timeToRevenueDays": 16,
+      "expectedMarginPct": 74,
+      "capitalRequiredUsd": 180,
+      "automationFit": 9.4,
+      "defensibility": 6,
+      "distributionFit": 7.7,
+      "complianceFriction": 2.5,
+      "payoutFriction": 1.6,
+      "buildComplexity": 4.7,
+      "maintenanceBurden": 5.4,
+      "platformRisk": 4.8,
+      "compoundingPotential": 7.9,
+      "confidence": 7.1,
+      "synergy": 8.7,
+      "payoutReadiness": 8.3,
+      "currentStatus": "approved",
+      "experimentPlan": "Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.",
+      "liveKpis": [
+        "proposal-to-close",
+        "gross margin",
+        "retention",
+        "hours per account"
+      ],
+      "score": {
+        "total": 7.66,
+        "rankedScore": 76.6,
+        "weightVersion": "2026-03-06.a",
+        "dimensionScores": {
+          "expectedValue": 7.67,
+          "confidence": 7.1,
+          "speedToLaunch": 9,
+          "speedToRevenue": 8.4,
+          "capitalEfficiency": 9.28,
+          "platformRisk": 4.8,
+          "distributionEfficiency": 7.7,
+          "buildComplexity": 4.7,
+          "maintenanceBurden": 5.4,
+          "compoundingPotential": 7.9,
+          "automationSuitability": 9.4,
+          "synergyWithExistingAssets": 8.7,
+          "payoutReadiness": 8.35,
+          "complianceFriction": 2.5
+        }
+      }
+    },
+    {
+      "id": "niche-lead-gen-sites",
+      "title": "Niche lead-gen sites with qualified buyer routing",
+      "thesis": "Build a diversified lead-generation portfolio where SEO and utilities capture demand and route qualified buyers to vetted partners or internal service offers.",
+      "laneFamily": "owned-media",
+      "monetizationRoute": "Lead fees, affiliate commissions, and in-house service upsell",
+      "demandSignals": [
+        {
+          "source": "search intent",
+          "description": "High-intent long-tail queries still reward specialized content and useful tools.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 8.4
+        },
+        {
+          "source": "buyer routing",
+          "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 7.8
+        }
+      ],
+      "requiredAssets": [
+        "content-cluster",
+        "comparison-tool",
+        "analytics",
+        "lead-routing"
+      ],
+      "requiredAccounts": [
+        "Domain registrar",
+        "Hosting",
+        "Analytics"
+      ],
+      "timeToLaunchDays": 12,
+      "timeToRevenueDays": 30,
+      "expectedMarginPct": 88,
+      "capitalRequiredUsd": 320,
+      "automationFit": 8.7,
+      "defensibility": 7.3,
+      "distributionFit": 8.5,
+      "complianceFriction": 3.2,
+      "payoutFriction": 3,
+      "buildComplexity": 5.6,
+      "maintenanceBurden": 5.1,
+      "platformRisk": 3.6,
+      "compoundingPotential": 9.4,
+      "confidence": 7.8,
+      "synergy": 8,
+      "payoutReadiness": 7,
+      "currentStatus": "researched",
+      "experimentPlan": "Pick one underserved niche, launch a comparison page and lead magnet, then route qualified traffic to a disclosed partner or owned offer.",
+      "liveKpis": [
+        "organic sessions",
+        "CPL",
+        "lead qualification rate",
+        "revenue per page"
+      ],
+      "score": {
+        "total": 7.63,
+        "rankedScore": 76.3,
+        "weightVersion": "2026-03-06.a",
+        "dimensionScores": {
+          "expectedValue": 8.9,
+          "confidence": 7.8,
+          "speedToLaunch": 8.29,
+          "speedToRevenue": 7,
+          "capitalEfficiency": 8.72,
+          "platformRisk": 3.6,
+          "distributionEfficiency": 8.5,
+          "buildComplexity": 5.6,
+          "maintenanceBurden": 5.1,
+          "compoundingPotential": 9.4,
+          "automationSuitability": 8.7,
+          "synergyWithExistingAssets": 8,
+          "payoutReadiness": 7,
+          "complianceFriction": 3.2
+        }
+      }
+    },
+    {
+      "id": "licensed-data-briefs",
+      "title": "Licensed data briefs for recurring market niches",
+      "thesis": "Package curated market and operational data into paid briefings and datasets for niche buyers who value speed over building their own intelligence stack.",
+      "laneFamily": "data-product",
+      "monetizationRoute": "Subscriptions, one-off briefs, and enterprise licensing",
+      "demandSignals": [
+        {
+          "source": "time scarcity",
+          "description": "Operators pay for faster access to compiled data in markets they already understand.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 6.8
+        },
+        {
+          "source": "repeatable research",
+          "description": "Automated collection and summarization can lower production cost substantially.",
+          "capturedAt": "2026-03-06T04:46:27.912Z",
+          "strength": 7.5
+        }
+      ],
+      "requiredAssets": [
+        "data-pipeline",
+        "brief-template",
+        "subscriber-page",
+        "archive"
+      ],
+      "requiredAccounts": [
+        "Data providers",
+        "Hosting",
+        "Wise"
+      ],
+      "timeToLaunchDays": 15,
+      "timeToRevenueDays": 28,
+      "expectedMarginPct": 79,
+      "capitalRequiredUsd": 280,
+      "automationFit": 8.9,
+      "defensibility": 7.7,
+      "distributionFit": 6.4,
+      "complianceFriction": 4.9,
+      "payoutFriction": 1.8,
+      "buildComplexity": 6.1,
+      "maintenanceBurden": 6.5,
+      "platformRisk": 2.6,
+      "compoundingPotential": 8.6,
+      "confidence": 6.6,
+      "synergy": 7.2,
+      "payoutReadiness": 8.4,
+      "currentStatus": "discovered",
+      "experimentPlan": "Ship one premium niche brief with a fixed format, limited founding cohort, and clear refresh cadence before broadening coverage.",
+      "liveKpis": [
+        "subscriber conversion",
+        "renewal rate",
+        "gross margin",
+        "dataset reuse"
+      ],
+      "score": {
+        "total": 7.1,
+        "rankedScore": 71,
+        "weightVersion": "2026-03-06.a",
+        "dimensionScores": {
+          "expectedValue": 7.63,
+          "confidence": 6.6,
+          "speedToLaunch": 7.86,
+          "speedToRevenue": 7.2,
+          "capitalEfficiency": 8.88,
+          "platformRisk": 2.6,
+          "distributionEfficiency": 6.4,
+          "buildComplexity": 6.1,
+          "maintenanceBurden": 6.5,
+          "compoundingPotential": 8.6,
+          "automationSuitability": 8.9,
+          "synergyWithExistingAssets": 7.2,
+          "payoutReadiness": 8.3,
+          "complianceFriction": 4.9
+        }
+      }
+    }
+  ],
+  "activeExperiments": [
+    {
+      "id": "exp-ops-audit-packs",
+      "opportunityId": "ops-audit-packs",
+      "title": "Experiment: Operational audit packs for SMB service businesses",
+      "thesis": "Launch one niche-specific landing page, outbound-compatible intake flow, and paid diagnostic offer capped at low acquisition spend.",
+      "status": "building",
+      "successMetrics": [
+        "Positive contribution margin within budget envelope",
+        "Evidence of repeatable acquisition channel",
+        "Operator-independent runbook drafted"
+      ],
+      "budgetCapUsd": 250,
+      "launchChecklist": [
+        "Define asset package and offer page",
+        "Attach analytics and evidence capture",
+        "Confirm treasury category and spend tags",
+        "Create kill and compound review dates"
+      ],
+      "measurementPlan": [
+        "Capture spend, attributable revenue, and response rate daily",
+        "Review conversion and payback time every 24 hours during launch week",
+        "Update portfolio score after each milestone or anomaly"
+      ],
+      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+      "reviewDate": "2026-03-13T04:46:27.914Z",
+      "nextActions": [
+        {
+          "id": "ops-audit-packs-offer",
+          "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+          "owner": "ceo",
+          "initiativeId": "ops-audit-packs",
+          "reason": "highest-ev-open-experiment",
+          "priority": 100,
+          "dueAt": "2026-03-06T06:46:27.914Z",
+          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        },
+        {
+          "id": "ops-audit-packs-asset",
+          "title": "Build launch assets for Operational audit packs for SMB service businesses",
+          "owner": "builder",
+          "initiativeId": "ops-audit-packs",
+          "reason": "highest-priority-product-backlog",
+          "priority": 92,
+          "dueAt": "2026-03-06T10:46:27.914Z",
+          "notes": "Ship a landing page, support docs, and measurement hooks."
+        },
+        {
+          "id": "ops-audit-packs-distribution",
+          "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+          "owner": "distribution",
+          "initiativeId": "ops-audit-packs",
+          "reason": "distribution-bottleneck",
+          "priority": 88,
+          "dueAt": "2026-03-06T16:46:27.914Z",
+          "notes": "Set the initial channel mix and evidence capture for first traffic."
+        }
+      ]
+    },
+    {
+      "id": "exp-marketplace-automation-packs",
+      "opportunityId": "marketplace-automation-packs",
+      "title": "Experiment: Automation packs sold through compliant marketplaces",
+      "thesis": "Package two internal workflow assets into a starter bundle and A/B test listings across one primary marketplace and one owned landing page.",
+      "status": "approved",
+      "successMetrics": [
+        "Positive contribution margin within budget envelope",
+        "Evidence of repeatable acquisition channel",
+        "Operator-independent runbook drafted"
+      ],
+      "budgetCapUsd": 150,
+      "launchChecklist": [
+        "Define asset package and offer page",
+        "Attach analytics and evidence capture",
+        "Confirm treasury category and spend tags",
+        "Create kill and compound review dates"
+      ],
+      "measurementPlan": [
+        "Capture spend, attributable revenue, and response rate daily",
+        "Review conversion and payback time every 24 hours during launch week",
+        "Update portfolio score after each milestone or anomaly"
+      ],
+      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+      "reviewDate": "2026-03-15T04:46:27.914Z",
+      "nextActions": [
+        {
+          "id": "marketplace-automation-packs-offer",
+          "title": "Define the first bounded offer for Automation packs sold through compliant marketplaces",
+          "owner": "ceo",
+          "initiativeId": "marketplace-automation-packs",
+          "reason": "highest-ev-open-experiment",
+          "priority": 99,
+          "dueAt": "2026-03-06T06:46:27.914Z",
+          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        },
+        {
+          "id": "marketplace-automation-packs-asset",
+          "title": "Build launch assets for Automation packs sold through compliant marketplaces",
+          "owner": "builder",
+          "initiativeId": "marketplace-automation-packs",
+          "reason": "highest-priority-product-backlog",
+          "priority": 91,
+          "dueAt": "2026-03-06T10:46:27.914Z",
+          "notes": "Ship a landing page, support docs, and measurement hooks."
+        },
+        {
+          "id": "marketplace-automation-packs-distribution",
+          "title": "Remove the first distribution bottleneck for Automation packs sold through compliant marketplaces",
+          "owner": "distribution",
+          "initiativeId": "marketplace-automation-packs",
+          "reason": "distribution-bottleneck",
+          "priority": 87,
+          "dueAt": "2026-03-06T16:46:27.914Z",
+          "notes": "Set the initial channel mix and evidence capture for first traffic."
+        }
+      ]
+    },
+    {
+      "id": "exp-ai-content-repurposer",
+      "opportunityId": "ai-content-repurposer",
+      "title": "Experiment: Repurposing engine for expert-led content portfolios",
+      "thesis": "Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.",
+      "status": "planned",
+      "successMetrics": [
+        "Positive contribution margin within budget envelope",
+        "Evidence of repeatable acquisition channel",
+        "Operator-independent runbook drafted"
+      ],
+      "budgetCapUsd": 225,
+      "launchChecklist": [
+        "Define asset package and offer page",
+        "Attach analytics and evidence capture",
+        "Confirm treasury category and spend tags",
+        "Create kill and compound review dates"
+      ],
+      "measurementPlan": [
+        "Capture spend, attributable revenue, and response rate daily",
+        "Review conversion and payback time every 24 hours during launch week",
+        "Update portfolio score after each milestone or anomaly"
+      ],
+      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+      "reviewDate": "2026-03-17T04:46:27.914Z",
+      "nextActions": [
+        {
+          "id": "ai-content-repurposer-offer",
+          "title": "Define the first bounded offer for Repurposing engine for expert-led content portfolios",
+          "owner": "ceo",
+          "initiativeId": "ai-content-repurposer",
+          "reason": "highest-ev-open-experiment",
+          "priority": 98,
+          "dueAt": "2026-03-06T06:46:27.914Z",
+          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        },
+        {
+          "id": "ai-content-repurposer-asset",
+          "title": "Build launch assets for Repurposing engine for expert-led content portfolios",
+          "owner": "builder",
+          "initiativeId": "ai-content-repurposer",
+          "reason": "highest-priority-product-backlog",
+          "priority": 90,
+          "dueAt": "2026-03-06T10:46:27.914Z",
+          "notes": "Ship a landing page, support docs, and measurement hooks."
+        },
+        {
+          "id": "ai-content-repurposer-distribution",
+          "title": "Remove the first distribution bottleneck for Repurposing engine for expert-led content portfolios",
+          "owner": "distribution",
+          "initiativeId": "ai-content-repurposer",
+          "reason": "distribution-bottleneck",
+          "priority": 86,
+          "dueAt": "2026-03-06T16:46:27.914Z",
+          "notes": "Set the initial channel mix and evidence capture for first traffic."
+        }
+      ]
+    },
+    {
+      "id": "exp-niche-lead-gen-sites",
+      "opportunityId": "niche-lead-gen-sites",
+      "title": "Experiment: Niche lead-gen sites with qualified buyer routing",
+      "thesis": "Pick one underserved niche, launch a comparison page and lead magnet, then route qualified traffic to a disclosed partner or owned offer.",
+      "status": "planned",
+      "successMetrics": [
+        "Positive contribution margin within budget envelope",
+        "Evidence of repeatable acquisition channel",
+        "Operator-independent runbook drafted"
+      ],
+      "budgetCapUsd": 400,
+      "launchChecklist": [
+        "Define asset package and offer page",
+        "Attach analytics and evidence capture",
+        "Confirm treasury category and spend tags",
+        "Create kill and compound review dates"
+      ],
+      "measurementPlan": [
+        "Capture spend, attributable revenue, and response rate daily",
+        "Review conversion and payback time every 24 hours during launch week",
+        "Update portfolio score after each milestone or anomaly"
+      ],
+      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+      "reviewDate": "2026-03-19T04:46:27.914Z",
+      "nextActions": [
+        {
+          "id": "niche-lead-gen-sites-offer",
+          "title": "Define the first bounded offer for Niche lead-gen sites with qualified buyer routing",
+          "owner": "ceo",
+          "initiativeId": "niche-lead-gen-sites",
+          "reason": "highest-ev-open-experiment",
+          "priority": 97,
+          "dueAt": "2026-03-06T06:46:27.914Z",
+          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        },
+        {
+          "id": "niche-lead-gen-sites-asset",
+          "title": "Build launch assets for Niche lead-gen sites with qualified buyer routing",
+          "owner": "builder",
+          "initiativeId": "niche-lead-gen-sites",
+          "reason": "highest-priority-product-backlog",
+          "priority": 89,
+          "dueAt": "2026-03-06T10:46:27.914Z",
+          "notes": "Ship a landing page, support docs, and measurement hooks."
+        },
+        {
+          "id": "niche-lead-gen-sites-distribution",
+          "title": "Remove the first distribution bottleneck for Niche lead-gen sites with qualified buyer routing",
+          "owner": "distribution",
+          "initiativeId": "niche-lead-gen-sites",
+          "reason": "distribution-bottleneck",
+          "priority": 85,
+          "dueAt": "2026-03-06T16:46:27.914Z",
+          "notes": "Set the initial channel mix and evidence capture for first traffic."
+        }
+      ]
+    }
+  ],
+  "queue": [
+    {
+      "id": "ops-audit-packs-offer",
+      "title": "Define the first bounded offer for Operational audit packs for SMB service businesses",
+      "owner": "ceo",
+      "initiativeId": "ops-audit-packs",
+      "reason": "highest-ev-open-experiment",
+      "priority": 100,
+      "dueAt": "2026-03-06T06:46:27.914Z",
+      "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+    },
+    {
+      "id": "ops-audit-packs-distribution",
+      "title": "Remove the first distribution bottleneck for Operational audit packs for SMB service businesses",
+      "owner": "distribution",
+      "initiativeId": "ops-audit-packs",
+      "reason": "distribution-bottleneck",
+      "priority": 88,
+      "dueAt": "2026-03-06T16:46:27.914Z",
+      "notes": "Set the initial channel mix and evidence capture for first traffic."
+    },
+    {
+      "id": "ops-audit-packs-research",
+      "title": "Expand demand proof and adjacent niches for Operational audit packs for SMB service businesses",
+      "owner": "research",
+      "initiativeId": "ops-audit-packs",
+      "reason": "new-opportunity-research",
+      "priority": 84,
+      "dueAt": "2026-03-06T22:46:27.914Z",
+      "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
+    },
+    {
+      "id": "skill-gap-reduction",
+      "title": "Promote the highest-leverage internal skill candidate",
+      "owner": "skillsmith",
+      "initiativeId": "skill-pipeline",
+      "reason": "skill-gap-reduction",
+      "priority": 74,
+      "dueAt": "2026-03-07T00:46:27.914Z",
+      "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
+    },
+    {
+      "id": "changelog-adaptation",
+      "title": "Refresh official-source deltas and compare stage vs prod assumptions",
+      "owner": "ops",
+      "initiativeId": "update-steward",
+      "reason": "changelog-adaptation",
+      "priority": 68,
+      "dueAt": "2026-03-07T04:46:27.914Z",
+      "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
+    },
+    {
+      "id": "memory-cleanup",
+      "title": "Compact initiative memory into durable docs",
+      "owner": "ops",
+      "initiativeId": "memory-maintenance",
+      "reason": "documentation-and-memory",
+      "priority": 52,
+      "dueAt": "2026-03-07T10:46:27.914Z",
+      "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
+    },
+    {
+      "id": "resilience-check",
+      "title": "Run backup and smoke verification",
+      "owner": "ops",
+      "initiativeId": "resilience",
+      "reason": "resilience-work",
+      "priority": 48,
+      "dueAt": "2026-03-07T16:46:27.914Z",
+      "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
+    }
+  ],
+  "skillCandidates": [
+    {
+      "id": "skill-find-skills",
+      "slug": "find-skills",
+      "source": "ClawHub candidate search required",
+      "sourceType": "clawhub",
+      "stage": "seeded",
+      "rationale": "Explicit operator request and likely leverage for discovery loops.",
+      "provenance": "Seeded from build prompt.",
+      "versionPin": "pending-source-resolution",
+      "maintenanceSignal": 6.5,
+      "overlapScore": 8.7,
+      "riskScore": 10,
+      "notes": "Locate canonical source before any promotion."
+    },
+    {
+      "id": "skill-clawddocs",
+      "slug": "clawddocs",
+      "source": "ClawHub candidate search required",
+      "sourceType": "clawhub",
+      "stage": "seeded",
+      "rationale": "Could improve documentation retrieval and OpenClaw adaptation speed.",
+      "provenance": "Seeded from build prompt.",
+      "versionPin": "pending-source-resolution",
+      "maintenanceSignal": 6.2,
+      "overlapScore": 8.3,
+      "riskScore": 10,
+      "notes": "Verify source availability and compatibility with current OpenClaw release."
+    },
+    {
+      "id": "skill-skill-creator",
+      "slug": "skill-creator",
+      "source": "Preinstalled Codex system skill",
+      "sourceType": "built-in",
+      "stage": "prod",
+      "rationale": "Required for internal skill creation workflow.",
+      "provenance": "Local Codex system skill present in this session.",
+      "versionPin": "system-preinstalled",
+      "maintenanceSignal": 9,
+      "overlapScore": 9.2,
+      "riskScore": 0.2,
+      "notes": "Use for internal skills; treat as trusted within the Codex boundary."
+    },
+    {
+      "id": "skill-proactive-agent",
+      "slug": "proactive-agent",
+      "source": "ClawHub or GitHub lookup required",
+      "sourceType": "clawhub",
+      "stage": "seeded",
+      "rationale": "Maps directly to always-on autonomy patterns but must be supply-chain vetted.",
+      "provenance": "Seeded from build prompt.",
+      "versionPin": "pending-source-resolution",
+      "maintenanceSignal": 5.5,
+      "overlapScore": 8.8,
+      "riskScore": 10,
+      "notes": "Potentially high leverage; high trust review required."
+    },
+    {
+      "id": "skill-self-improving-agent",
+      "slug": "self-improving-agent",
+      "source": "ClawHub or GitHub lookup required",
+      "sourceType": "clawhub",
+      "stage": "seeded",
+      "rationale": "Maps directly to continuous self-improvement objective.",
+      "provenance": "Seeded from build prompt.",
+      "versionPin": "pending-source-resolution",
+      "maintenanceSignal": 5.8,
+      "overlapScore": 9.1,
+      "riskScore": 10,
+      "notes": "Do not promote without deterministic evals and mutation boundaries."
+    }
+  ],
+  "anchors": [
+    {
+      "id": "anchor-1",
+      "anchor": "ChatGPT Pro and Business unlimited GPT-5 access in ChatGPT is guardrail-based rather than truly uncapped.",
+      "status": "verified",
+      "note": "Official Help Center docs confirm unlimited or virtually unlimited GPT-5 access with abuse guardrails.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openai-pro-plan",
+        "openai-business-limits"
+      ]
+    },
+    {
+      "id": "anchor-2",
+      "anchor": "GPT-5.4 is the current frontier model for professional work with a 1,050,000 token context window.",
+      "status": "verified",
+      "note": "The OpenAI API model page explicitly labels GPT-5.4 as the frontier model and documents the 1.05M context window.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openai-gpt-5.4-model"
+      ]
+    },
+    {
+      "id": "anchor-3",
+      "anchor": "GPT-5.4 is available everywhere you use Codex.",
+      "status": "drifted",
+      "note": "Current official Codex docs still center GPT-5-Codex and GPT-5.3-Codex on Codex surfaces. GPT-5.4 is documented in ChatGPT/API, but not as the universal Codex default.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openai-codex-upgrades",
+        "openai-gpt-5.3-codex",
+        "openai-gpt-5.4-model"
+      ]
+    },
+    {
+      "id": "anchor-4",
+      "anchor": "Codex-native frontier work currently rides on GPT-5.3-Codex or GPT-5-Codex rather than a public GPT-5.4 Codex release.",
+      "status": "verified",
+      "note": "The strongest current Codex-native model publicly documented by OpenAI is GPT-5.3-Codex, with GPT-5.4 documented separately for ChatGPT/API reasoning work.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openai-gpt-5.3-codex",
+        "openai-gpt-5.4-model"
+      ]
+    },
+    {
+      "id": "anchor-5",
+      "anchor": "Codex supports ChatGPT sign-in and is included with ChatGPT plans.",
+      "status": "verified",
+      "note": "OpenAI Help and blog docs explicitly describe signing in with ChatGPT and included plan access.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openai-codex-plan",
+        "openai-codex-upgrades"
+      ]
+    },
+    {
+      "id": "anchor-6",
+      "anchor": "Current Codex Pro local usage windows are higher than the prompt's 223-1120 estimate.",
+      "status": "drifted",
+      "note": "The current official plan article documents roughly 300-1,500 local Pro messages per 5 hours, with task-size variance and a shared weekly limit.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openai-codex-plan"
+      ]
+    },
+    {
+      "id": "anchor-7",
+      "anchor": "OpenClaw officially supports Codex OAuth / ChatGPT sign-in.",
+      "status": "verified",
+      "note": "OpenClaw model provider docs explicitly support `openai-codex` OAuth for external tools and workflows.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-model-providers"
+      ]
+    },
+    {
+      "id": "anchor-8",
+      "anchor": "OpenClaw recommends Node runtime for stable gateways and does not recommend Bun for gateway installs.",
+      "status": "verified",
+      "note": "The CLI reference says gateway install defaults to Node runtime and specifically notes Bun is not recommended.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-cli"
+      ]
+    },
+    {
+      "id": "anchor-9",
+      "anchor": "The strongest always-on OpenClaw pattern is one primary gateway with remote nodes and clients.",
+      "status": "verified",
+      "note": "Multiple-gateway docs recommend one gateway for most setups, while FAQ/docs describe remote nodes and tailnet access for distributed control.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-multiple-gateways",
+        "openclaw-faq"
+      ]
+    },
+    {
+      "id": "anchor-10",
+      "anchor": "Cron and heartbeat serve different purposes and should be combined.",
+      "status": "verified",
+      "note": "OpenClaw's Cron vs Heartbeat guide explicitly recommends using both together.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-cron-vs-heartbeat"
+      ]
+    },
+    {
+      "id": "anchor-11",
+      "anchor": "OpenClaw memory is Markdown-first, and Codex OAuth does not satisfy embeddings for memory search.",
+      "status": "verified",
+      "note": "The memory docs explicitly say Markdown files are the source of truth and Codex OAuth does not cover embeddings.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-memory"
+      ]
+    },
+    {
+      "id": "anchor-12",
+      "anchor": "OpenClaw supports QMD and local memory-search backends.",
+      "status": "verified",
+      "note": "The memory docs explicitly document the experimental QMD backend and local embedding mode.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-memory"
+      ]
+    },
+    {
+      "id": "anchor-13",
+      "anchor": "OpenClaw skills, plugins, and skill folders are supply-chain risk and must be treated as trusted or untrusted code accordingly.",
+      "status": "verified",
+      "note": "OpenClaw security and skills docs explicitly warn that plugins are trusted code and third-party skills should be treated as untrusted code.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-security",
+        "openclaw-secrets"
+      ]
+    },
+    {
+      "id": "anchor-14",
+      "anchor": "OpenClaw current docs expose strict config validation, additive SecretRefs, and a first-class PDF tool.",
+      "status": "verified",
+      "note": "Current configuration, secrets, and PDF docs confirm all three. The exact command in docs is `openclaw doctor`, not a documented `openclaw config validate --json` entry.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-configuration",
+        "openclaw-secrets",
+        "openclaw-pdf"
+      ]
+    },
+    {
+      "id": "anchor-15",
+      "anchor": "OpenClaw can use a managed browser or an attached Chrome relay, and headless mode is more likely to trigger anti-bot checks.",
+      "status": "verified",
+      "note": "Browser docs cover the managed browser and extension relay; FAQ documents headless mode and anti-bot risk.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-browser",
+        "openclaw-faq",
+        "openclaw-browser-login"
+      ]
+    },
+    {
+      "id": "anchor-16",
+      "anchor": "Automated self-update is possible but not the primary recommended operating pattern.",
+      "status": "verified",
+      "note": "The FAQ explicitly says asking OpenClaw to update itself is possible but not recommended.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openclaw-faq"
+      ]
+    },
+    {
+      "id": "anchor-17",
+      "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU/UK PSD2 constrains personal-token actions.",
+      "status": "verified",
+      "note": "Wise docs explicitly distinguish small-business personal tokens from partner OAuth 2.0 and call out EU/UK PSD2 limits.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "wise-security-access",
+        "wise-personal-tokens",
+        "wise-getting-started"
+      ]
+    },
+    {
+      "id": "anchor-18",
+      "anchor": "GPT-4.5-preview assumptions are stale and deprecated.",
+      "status": "verified",
+      "note": "OpenAI model docs and retirement notes show GPT-4.5 preview is deprecated while GPT-5.4 is current.",
+      "checkedAt": "2026-03-06T00:00:00.000Z",
+      "sourceIds": [
+        "openai-model-release-notes",
+        "openai-gpt-5.4-model"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "agentId": "ceo",
+      "heartbeatCadence": "15m",
+      "lastHeartbeatAt": null,
+      "backlogCount": 1,
+      "activeInitiative": "ops-audit-packs"
+    },
+    {
+      "agentId": "research",
+      "heartbeatCadence": "30m",
+      "lastHeartbeatAt": null,
+      "backlogCount": 1,
+      "activeInitiative": "ops-audit-packs"
+    },
+    {
+      "agentId": "builder",
+      "heartbeatCadence": "15m",
+      "lastHeartbeatAt": null,
+      "backlogCount": 0,
+      "activeInitiative": "none"
+    },
+    {
+      "agentId": "distribution",
+      "heartbeatCadence": "60m",
+      "lastHeartbeatAt": null,
+      "backlogCount": 1,
+      "activeInitiative": "ops-audit-packs"
+    },
+    {
+      "agentId": "treasury",
+      "heartbeatCadence": "24h",
+      "lastHeartbeatAt": null,
+      "backlogCount": 0,
+      "activeInitiative": "none"
+    },
+    {
+      "agentId": "skillsmith",
+      "heartbeatCadence": "4h",
+      "lastHeartbeatAt": null,
+      "backlogCount": 1,
+      "activeInitiative": "skill-pipeline"
+    },
+    {
+      "agentId": "ops",
+      "heartbeatCadence": "15m",
+      "lastHeartbeatAt": null,
+      "backlogCount": 3,
+      "activeInitiative": "update-steward"
+    }
+  ],
+  "notes": [
+    "Use prod only after stage smoke, source refresh, and treasury capability probe all pass.",
+    "Keep GPT-5.4 as the default strategy model where supported, but allow provider-level overrides where Codex/OpenClaw currently expose only GPT-5-Codex variants.",
+    "The dashboard is file-driven; every recurring run should refresh JSON exports and the docs alongside them."
+  ]
+}

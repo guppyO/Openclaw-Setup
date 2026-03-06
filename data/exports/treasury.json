@@ -1,0 +1,62 @@
+{
+  "asOf": "2026-03-06T04:46:27.925Z",
+  "capabilities": {
+    "balanceRead": false,
+    "statementRead": false,
+    "cardTransactionRead": false,
+    "recipientManagement": false,
+    "transferCreation": false,
+    "spendControls": false,
+    "spendLimits": false,
+    "webhooks": false,
+    "psd2LimitedActions": true
+  },
+  "balances": [
+    {
+      "currency": "USD",
+      "amount": 2500
+    },
+    {
+      "currency": "GBP",
+      "amount": 400
+    }
+  ],
+  "ledger": [
+    {
+      "id": "ledger-hetzner",
+      "bookedAt": "2026-03-03T04:46:27.924Z",
+      "merchant": "Hetzner",
+      "amount": -14.92,
+      "currency": "USD",
+      "category": "hosting",
+      "initiativeId": "control-plane",
+      "recurring": true,
+      "notes": "Baseline control-plane VPS assumption."
+    },
+    {
+      "id": "ledger-domain",
+      "bookedAt": "2026-02-24T04:46:27.925Z",
+      "merchant": "Cloudflare Registrar",
+      "amount": -12,
+      "currency": "USD",
+      "category": "domains",
+      "initiativeId": "distribution-foundation",
+      "recurring": false,
+      "notes": "Initial launch-domain purchase."
+    },
+    {
+      "id": "ledger-revenue",
+      "bookedAt": "2026-03-05T04:46:27.925Z",
+      "merchant": "Pilot customer",
+      "amount": 450,
+      "currency": "USD",
+      "category": "revenue",
+      "initiativeId": "ops-audit-packs",
+      "recurring": false,
+      "notes": "Sample pilot revenue for dashboard and ROI wiring."
+    }
+  ],
+  "recurringMonthlyUsd": 14.92,
+  "runwayMonths": 201.6,
+  "suspiciousSpendCount": 0
+}

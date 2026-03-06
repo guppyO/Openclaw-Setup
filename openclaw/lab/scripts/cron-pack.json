@@ -1,0 +1,57 @@
+[
+  {
+    "id": "queue-refresh",
+    "cadence": "*/15 * * * *",
+    "purpose": "Queue refresh and urgent blocker scan"
+  },
+  {
+    "id": "opportunity-ingest",
+    "cadence": "*/30 * * * *",
+    "purpose": "Opportunity feed ingest"
+  },
+  {
+    "id": "health-and-kpi",
+    "cadence": "0 * * * *",
+    "purpose": "Website, asset, service health and KPI sync"
+  },
+  {
+    "id": "skill-discovery",
+    "cadence": "0 */4 * * *",
+    "purpose": "Skill discovery sweep and ranking"
+  },
+  {
+    "id": "source-refresh",
+    "cadence": "0 */6 * * *",
+    "purpose": "OpenClaw, Codex, model, and Wise source refresh"
+  },
+  {
+    "id": "portfolio-review",
+    "cadence": "0 7 * * *",
+    "purpose": "Daily portfolio review"
+  },
+  {
+    "id": "budget-reconcile",
+    "cadence": "30 7 * * *",
+    "purpose": "Daily budget reconciliation"
+  },
+  {
+    "id": "memory-compaction",
+    "cadence": "0 8 * * *",
+    "purpose": "Daily memory compaction and initiative cleanup"
+  },
+  {
+    "id": "canary-rehearsal",
+    "cadence": "0 9 * * 1",
+    "purpose": "Weekly canary update rehearsal"
+  },
+  {
+    "id": "lane-recalibration",
+    "cadence": "0 10 * * 1",
+    "purpose": "Weekly lane score recalibration"
+  },
+  {
+    "id": "kill-or-compound",
+    "cadence": "0 11 * * 1",
+    "purpose": "Weekly kill-or-compound review"
+  }
+]

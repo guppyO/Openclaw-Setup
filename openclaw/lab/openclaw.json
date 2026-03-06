@@ -1,0 +1,76 @@
+{
+  "gateway": {
+    "bind": "loopback",
+    "port": 4101,
+    "controlUi": false
+  },
+  "model": {
+    "primary": "openai-codex/gpt-5.3-codex",
+    "fallback": "openai-codex/gpt-5.2"
+  },
+  "agents": {
+    "defaults": {
+      "workspace": "~/.openclaw/revenue-os/lab/workspace",
+      "userTimezone": "Europe/London",
+      "timeFormat": "en-GB"
+    },
+    "list": [
+      {
+        "name": "ceo",
+        "workspace": "~/.openclaw/revenue-os/lab/workspace/ceo",
+        "agentDir": "~/revenue-os/agents/ceo",
+        "model": "openai-codex/gpt-5.3-codex"
+      },
+      {
+        "name": "research",
+        "workspace": "~/.openclaw/revenue-os/lab/workspace/research",
+        "agentDir": "~/revenue-os/agents/research",
+        "model": "openai-codex/gpt-5.3-codex"
+      },
+      {
+        "name": "builder",
+        "workspace": "~/.openclaw/revenue-os/lab/workspace/builder",
+        "agentDir": "~/revenue-os/agents/builder",
+        "model": "openai-codex/gpt-5.3-codex"
+      },
+      {
+        "name": "distribution",
+        "workspace": "~/.openclaw/revenue-os/lab/workspace/distribution",
+        "agentDir": "~/revenue-os/agents/distribution",
+        "model": "openai-codex/gpt-5.3-codex"
+      },
+      {
+        "name": "treasury",
+        "workspace": "~/.openclaw/revenue-os/lab/workspace/treasury",
+        "agentDir": "~/revenue-os/agents/treasury",
+        "model": "openai-codex/gpt-5.3-codex"
+      },
+      {
+        "name": "skillsmith",
+        "workspace": "~/.openclaw/revenue-os/lab/workspace/skillsmith",
+        "agentDir": "~/revenue-os/agents/skillsmith",
+        "model": "openai-codex/gpt-5.3-codex"
+      },
+      {
+        "name": "ops",
+        "workspace": "~/.openclaw/revenue-os/lab/workspace/ops",
+        "agentDir": "~/revenue-os/agents/ops",
+        "model": "openai-codex/gpt-5.3-codex"
+      }
+    ]
+  },
+  "browser": {
+    "defaultProfile": "openclaw",
+    "profiles": {
+      "openclaw": {
+        "headless": false
+      },
+      "chrome": {
+        "mode": "attached"
+      }
+    }
+  },
+  "cron": {
+    "enabled": true
+  }
+}

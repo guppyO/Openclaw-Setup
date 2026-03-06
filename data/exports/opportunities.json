@@ -1,0 +1,464 @@
+[
+  {
+    "id": "ops-audit-packs",
+    "title": "Operational audit packs for SMB service businesses",
+    "thesis": "Package agent-assisted audits, fix plans, and tracked automation setup into a repeatable paid offer with strong margin and fast proof-of-value.",
+    "laneFamily": "productized-service",
+    "monetizationRoute": "Fixed-fee audit plus recurring optimization retainer",
+    "demandSignals": [
+      {
+        "source": "service-business pain",
+        "description": "Manual ops and quoting friction remain common in local businesses.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 7.8
+      },
+      {
+        "source": "AI adoption",
+        "description": "Businesses want AI help but need bounded and accountable delivery.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 8.2
+      }
+    ],
+    "requiredAssets": [
+      "landing-page",
+      "audit-template",
+      "intake-form",
+      "case-study"
+    ],
+    "requiredAccounts": [
+      "ChatGPT Pro",
+      "Codex",
+      "OpenClaw Gateway",
+      "Wise"
+    ],
+    "timeToLaunchDays": 6,
+    "timeToRevenueDays": 14,
+    "expectedMarginPct": 78,
+    "capitalRequiredUsd": 200,
+    "automationFit": 8.5,
+    "defensibility": 6.4,
+    "distributionFit": 7.9,
+    "complianceFriction": 2.7,
+    "payoutFriction": 1.5,
+    "buildComplexity": 4.3,
+    "maintenanceBurden": 4.6,
+    "platformRisk": 2.9,
+    "compoundingPotential": 8.1,
+    "confidence": 7.5,
+    "synergy": 8.4,
+    "payoutReadiness": 8.6,
+    "currentStatus": "researched",
+    "experimentPlan": "Launch one niche-specific landing page, outbound-compatible intake flow, and paid diagnostic offer capped at low acquisition spend.",
+    "liveKpis": [
+      "qualified leads",
+      "close rate",
+      "gross margin",
+      "implementation cycle time"
+    ],
+    "score": {
+      "total": 7.88,
+      "rankedScore": 78.8,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 7.93,
+        "confidence": 7.5,
+        "speedToLaunch": 9.14,
+        "speedToRevenue": 8.6,
+        "capitalEfficiency": 9.2,
+        "platformRisk": 2.9,
+        "distributionEfficiency": 7.9,
+        "buildComplexity": 4.3,
+        "maintenanceBurden": 4.6,
+        "compoundingPotential": 8.1,
+        "automationSuitability": 8.5,
+        "synergyWithExistingAssets": 8.4,
+        "payoutReadiness": 8.55,
+        "complianceFriction": 2.7
+      }
+    }
+  },
+  {
+    "id": "marketplace-automation-packs",
+    "title": "Automation packs sold through compliant marketplaces",
+    "thesis": "Externalize internal workflow templates and automation bundles into small-ticket digital products that can compound with support upsells.",
+    "laneFamily": "digital-products",
+    "monetizationRoute": "Marketplace sales plus support upsell and bundle expansion",
+    "demandSignals": [
+      {
+        "source": "creator economy",
+        "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 7.4
+      },
+      {
+        "source": "distribution leverage",
+        "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 7.1
+      }
+    ],
+    "requiredAssets": [
+      "product-package",
+      "screenshots",
+      "listing-copy",
+      "support-docs"
+    ],
+    "requiredAccounts": [
+      "Marketplace account",
+      "Wise"
+    ],
+    "timeToLaunchDays": 9,
+    "timeToRevenueDays": 18,
+    "expectedMarginPct": 86,
+    "capitalRequiredUsd": 120,
+    "automationFit": 9.2,
+    "defensibility": 5.8,
+    "distributionFit": 7.2,
+    "complianceFriction": 2,
+    "payoutFriction": 2.5,
+    "buildComplexity": 4.8,
+    "maintenanceBurden": 3.8,
+    "platformRisk": 5.2,
+    "compoundingPotential": 8.9,
+    "confidence": 7,
+    "synergy": 9.1,
+    "payoutReadiness": 7.4,
+    "currentStatus": "scored",
+    "experimentPlan": "Package two internal workflow assets into a starter bundle and A/B test listings across one primary marketplace and one owned landing page.",
+    "liveKpis": [
+      "visitors",
+      "purchase conversion",
+      "refund rate",
+      "upsell attach rate"
+    ],
+    "score": {
+      "total": 7.78,
+      "rankedScore": 77.8,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 8.23,
+        "confidence": 7,
+        "speedToLaunch": 8.71,
+        "speedToRevenue": 8.2,
+        "capitalEfficiency": 9.52,
+        "platformRisk": 5.2,
+        "distributionEfficiency": 7.2,
+        "buildComplexity": 4.8,
+        "maintenanceBurden": 3.8,
+        "compoundingPotential": 8.9,
+        "automationSuitability": 9.2,
+        "synergyWithExistingAssets": 9.1,
+        "payoutReadiness": 7.45,
+        "complianceFriction": 2
+      }
+    }
+  },
+  {
+    "id": "ai-content-repurposer",
+    "title": "Repurposing engine for expert-led content portfolios",
+    "thesis": "Offer an autonomous content repurposing and publication system as a managed productized service for experts and small media brands.",
+    "laneFamily": "service-plus-software",
+    "monetizationRoute": "Monthly retainer with optional content-ops software tier",
+    "demandSignals": [
+      {
+        "source": "content fatigue",
+        "description": "Expert creators want output without running full content teams.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 7.6
+      },
+      {
+        "source": "agent fit",
+        "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 8.5
+      }
+    ],
+    "requiredAssets": [
+      "offer-page",
+      "workflow-demo",
+      "content-pipeline",
+      "analytics"
+    ],
+    "requiredAccounts": [
+      "Social tools",
+      "Analytics",
+      "Wise"
+    ],
+    "timeToLaunchDays": 7,
+    "timeToRevenueDays": 16,
+    "expectedMarginPct": 74,
+    "capitalRequiredUsd": 180,
+    "automationFit": 9.4,
+    "defensibility": 6,
+    "distributionFit": 7.7,
+    "complianceFriction": 2.5,
+    "payoutFriction": 1.6,
+    "buildComplexity": 4.7,
+    "maintenanceBurden": 5.4,
+    "platformRisk": 4.8,
+    "compoundingPotential": 7.9,
+    "confidence": 7.1,
+    "synergy": 8.7,
+    "payoutReadiness": 8.3,
+    "currentStatus": "approved",
+    "experimentPlan": "Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.",
+    "liveKpis": [
+      "proposal-to-close",
+      "gross margin",
+      "retention",
+      "hours per account"
+    ],
+    "score": {
+      "total": 7.66,
+      "rankedScore": 76.6,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 7.67,
+        "confidence": 7.1,
+        "speedToLaunch": 9,
+        "speedToRevenue": 8.4,
+        "capitalEfficiency": 9.28,
+        "platformRisk": 4.8,
+        "distributionEfficiency": 7.7,
+        "buildComplexity": 4.7,
+        "maintenanceBurden": 5.4,
+        "compoundingPotential": 7.9,
+        "automationSuitability": 9.4,
+        "synergyWithExistingAssets": 8.7,
+        "payoutReadiness": 8.35,
+        "complianceFriction": 2.5
+      }
+    }
+  },
+  {
+    "id": "niche-lead-gen-sites",
+    "title": "Niche lead-gen sites with qualified buyer routing",
+    "thesis": "Build a diversified lead-generation portfolio where SEO and utilities capture demand and route qualified buyers to vetted partners or internal service offers.",
+    "laneFamily": "owned-media",
+    "monetizationRoute": "Lead fees, affiliate commissions, and in-house service upsell",
+    "demandSignals": [
+      {
+        "source": "search intent",
+        "description": "High-intent long-tail queries still reward specialized content and useful tools.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 8.4
+      },
+      {
+        "source": "buyer routing",
+        "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 7.8
+      }
+    ],
+    "requiredAssets": [
+      "content-cluster",
+      "comparison-tool",
+      "analytics",
+      "lead-routing"
+    ],
+    "requiredAccounts": [
+      "Domain registrar",
+      "Hosting",
+      "Analytics"
+    ],
+    "timeToLaunchDays": 12,
+    "timeToRevenueDays": 30,
+    "expectedMarginPct": 88,
+    "capitalRequiredUsd": 320,
+    "automationFit": 8.7,
+    "defensibility": 7.3,
+    "distributionFit": 8.5,
+    "complianceFriction": 3.2,
+    "payoutFriction": 3,
+    "buildComplexity": 5.6,
+    "maintenanceBurden": 5.1,
+    "platformRisk": 3.6,
+    "compoundingPotential": 9.4,
+    "confidence": 7.8,
+    "synergy": 8,
+    "payoutReadiness": 7,
+    "currentStatus": "researched",
+    "experimentPlan": "Pick one underserved niche, launch a comparison page and lead magnet, then route qualified traffic to a disclosed partner or owned offer.",
+    "liveKpis": [
+      "organic sessions",
+      "CPL",
+      "lead qualification rate",
+      "revenue per page"
+    ],
+    "score": {
+      "total": 7.63,
+      "rankedScore": 76.3,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 8.9,
+        "confidence": 7.8,
+        "speedToLaunch": 8.29,
+        "speedToRevenue": 7,
+        "capitalEfficiency": 8.72,
+        "platformRisk": 3.6,
+        "distributionEfficiency": 8.5,
+        "buildComplexity": 5.6,
+        "maintenanceBurden": 5.1,
+        "compoundingPotential": 9.4,
+        "automationSuitability": 8.7,
+        "synergyWithExistingAssets": 8,
+        "payoutReadiness": 7,
+        "complianceFriction": 3.2
+      }
+    }
+  },
+  {
+    "id": "licensed-data-briefs",
+    "title": "Licensed data briefs for recurring market niches",
+    "thesis": "Package curated market and operational data into paid briefings and datasets for niche buyers who value speed over building their own intelligence stack.",
+    "laneFamily": "data-product",
+    "monetizationRoute": "Subscriptions, one-off briefs, and enterprise licensing",
+    "demandSignals": [
+      {
+        "source": "time scarcity",
+        "description": "Operators pay for faster access to compiled data in markets they already understand.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 6.8
+      },
+      {
+        "source": "repeatable research",
+        "description": "Automated collection and summarization can lower production cost substantially.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 7.5
+      }
+    ],
+    "requiredAssets": [
+      "data-pipeline",
+      "brief-template",
+      "subscriber-page",
+      "archive"
+    ],
+    "requiredAccounts": [
+      "Data providers",
+      "Hosting",
+      "Wise"
+    ],
+    "timeToLaunchDays": 15,
+    "timeToRevenueDays": 28,
+    "expectedMarginPct": 79,
+    "capitalRequiredUsd": 280,
+    "automationFit": 8.9,
+    "defensibility": 7.7,
+    "distributionFit": 6.4,
+    "complianceFriction": 4.9,
+    "payoutFriction": 1.8,
+    "buildComplexity": 6.1,
+    "maintenanceBurden": 6.5,
+    "platformRisk": 2.6,
+    "compoundingPotential": 8.6,
+    "confidence": 6.6,
+    "synergy": 7.2,
+    "payoutReadiness": 8.4,
+    "currentStatus": "discovered",
+    "experimentPlan": "Ship one premium niche brief with a fixed format, limited founding cohort, and clear refresh cadence before broadening coverage.",
+    "liveKpis": [
+      "subscriber conversion",
+      "renewal rate",
+      "gross margin",
+      "dataset reuse"
+    ],
+    "score": {
+      "total": 7.1,
+      "rankedScore": 71,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 7.63,
+        "confidence": 6.6,
+        "speedToLaunch": 7.86,
+        "speedToRevenue": 7.2,
+        "capitalEfficiency": 8.88,
+        "platformRisk": 2.6,
+        "distributionEfficiency": 6.4,
+        "buildComplexity": 6.1,
+        "maintenanceBurden": 6.5,
+        "compoundingPotential": 8.6,
+        "automationSuitability": 8.9,
+        "synergyWithExistingAssets": 7.2,
+        "payoutReadiness": 8.3,
+        "complianceFriction": 4.9
+      }
+    }
+  },
+  {
+    "id": "micro-saas-connectors",
+    "title": "Micro-SaaS connectors externalized from internal tooling",
+    "thesis": "Turn internal automations into narrowly scoped integrations that save teams time and justify recurring subscription revenue.",
+    "laneFamily": "software",
+    "monetizationRoute": "Recurring subscription with setup and migration add-ons",
+    "demandSignals": [
+      {
+        "source": "workflow fragmentation",
+        "description": "Small teams still pay for narrow automation wins if setup is simple.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 7.3
+      },
+      {
+        "source": "internal leverage",
+        "description": "Existing internal tooling shortens build time and raises product authenticity.",
+        "capturedAt": "2026-03-06T04:46:27.912Z",
+        "strength": 8
+      }
+    ],
+    "requiredAssets": [
+      "landing-page",
+      "connector-app",
+      "support-portal",
+      "docs-site"
+    ],
+    "requiredAccounts": [
+      "Hosting",
+      "Payment processor",
+      "Support inbox"
+    ],
+    "timeToLaunchDays": 18,
+    "timeToRevenueDays": 35,
+    "expectedMarginPct": 82,
+    "capitalRequiredUsd": 650,
+    "automationFit": 8.2,
+    "defensibility": 7.1,
+    "distributionFit": 6.8,
+    "complianceFriction": 4,
+    "payoutFriction": 2.8,
+    "buildComplexity": 7.2,
+    "maintenanceBurden": 6.9,
+    "platformRisk": 4.4,
+    "compoundingPotential": 9,
+    "confidence": 6.3,
+    "synergy": 7.6,
+    "payoutReadiness": 7.8,
+    "currentStatus": "discovered",
+    "experimentPlan": "Release a single connector as a paid beta with manual onboarding and tight instrumentation before broadening scope.",
+    "liveKpis": [
+      "beta signups",
+      "activation",
+      "MRR",
+      "support load"
+    ],
+    "score": {
+      "total": 6.75,
+      "rankedScore": 67.5,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 8,
+        "confidence": 6.3,
+        "speedToLaunch": 7.43,
+        "speedToRevenue": 6.5,
+        "capitalEfficiency": 7.4,
+        "platformRisk": 4.4,
+        "distributionEfficiency": 6.8,
+        "buildComplexity": 7.2,
+        "maintenanceBurden": 6.9,
+        "compoundingPotential": 9,
+        "automationSuitability": 8.2,
+        "synergyWithExistingAssets": 7.6,
+        "payoutReadiness": 7.5,
+        "complianceFriction": 4
+      }
+    }
+  }
+]

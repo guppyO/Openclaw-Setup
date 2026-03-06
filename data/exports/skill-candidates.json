@@ -1,0 +1,72 @@
+[
+  {
+    "id": "skill-find-skills",
+    "slug": "find-skills",
+    "source": "ClawHub candidate search required",
+    "sourceType": "clawhub",
+    "stage": "seeded",
+    "rationale": "Explicit operator request and likely leverage for discovery loops.",
+    "provenance": "Seeded from build prompt.",
+    "versionPin": "pending-source-resolution",
+    "maintenanceSignal": 6.5,
+    "overlapScore": 8.7,
+    "riskScore": 10,
+    "notes": "Locate canonical source before any promotion."
+  },
+  {
+    "id": "skill-clawddocs",
+    "slug": "clawddocs",
+    "source": "ClawHub candidate search required",
+    "sourceType": "clawhub",
+    "stage": "seeded",
+    "rationale": "Could improve documentation retrieval and OpenClaw adaptation speed.",
+    "provenance": "Seeded from build prompt.",
+    "versionPin": "pending-source-resolution",
+    "maintenanceSignal": 6.2,
+    "overlapScore": 8.3,
+    "riskScore": 10,
+    "notes": "Verify source availability and compatibility with current OpenClaw release."
+  },
+  {
+    "id": "skill-skill-creator",
+    "slug": "skill-creator",
+    "source": "Preinstalled Codex system skill",
+    "sourceType": "built-in",
+    "stage": "prod",
+    "rationale": "Required for internal skill creation workflow.",
+    "provenance": "Local Codex system skill present in this session.",
+    "versionPin": "system-preinstalled",
+    "maintenanceSignal": 9,
+    "overlapScore": 9.2,
+    "riskScore": 0.2,
+    "notes": "Use for internal skills; treat as trusted within the Codex boundary."
+  },
+  {
+    "id": "skill-proactive-agent",
+    "slug": "proactive-agent",
+    "source": "ClawHub or GitHub lookup required",
+    "sourceType": "clawhub",
+    "stage": "seeded",
+    "rationale": "Maps directly to always-on autonomy patterns but must be supply-chain vetted.",
+    "provenance": "Seeded from build prompt.",
+    "versionPin": "pending-source-resolution",
+    "maintenanceSignal": 5.5,
+    "overlapScore": 8.8,
+    "riskScore": 10,
+    "notes": "Potentially high leverage; high trust review required."
+  },
+  {
+    "id": "skill-self-improving-agent",
+    "slug": "self-improving-agent",
+    "source": "ClawHub or GitHub lookup required",
+    "sourceType": "clawhub",
+    "stage": "seeded",
+    "rationale": "Maps directly to continuous self-improvement objective.",
+    "provenance": "Seeded from build prompt.",
+    "versionPin": "pending-source-resolution",
+    "maintenanceSignal": 5.8,
+    "overlapScore": 9.1,
+    "riskScore": 10,
+    "notes": "Do not promote without deterministic evals and mutation boundaries."
+  }
+]

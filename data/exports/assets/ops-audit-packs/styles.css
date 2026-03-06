@@ -1,0 +1,80 @@
+:root {
+  color-scheme: light;
+  --bg: #f4efe7;
+  --ink: #11211d;
+  --accent: #d76d1f;
+  --muted: #5e6b67;
+  --panel: rgba(255, 255, 255, 0.78);
+  --line: rgba(17, 33, 29, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(215, 109, 31, 0.14), transparent 34%),
+    linear-gradient(180deg, #fbf6ef 0%, var(--bg) 100%);
+}
+
+.shell {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 20px 72px;
+}
+
+.hero {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 28px;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  font: 700 12px/1.2 "Segoe UI", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1,
+h2 {
+  margin: 0 0 14px;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  line-height: 0.98;
+}
+
+.lede,
+li {
+  font: 500 1.05rem/1.65 "Segoe UI", sans-serif;
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+  font: 600 0.92rem/1.4 "Segoe UI", sans-serif;
+  color: var(--muted);
+}
+
+.panel {
+  margin-top: 22px;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+}
+
+.split {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
