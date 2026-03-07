@@ -40,6 +40,8 @@ The node-host script writes:
 - `OPENCLAW_NODE_HOST_ID=<node name>`
 - `OPENCLAW_NODE_HOST_STATUS=configured|ready`
 
+It also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` into the process before running `openclaw node install` and `openclaw node run`.
+
 ## Routing policy
 
 - Public and low-trust browsing defaults to OpenClaw managed browsing.

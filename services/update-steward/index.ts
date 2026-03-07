@@ -64,7 +64,7 @@ function snapshotFromText(
     hash: createHash("sha256").update(text).digest("hex"),
     httpStatus: status,
     title: extractTitle(raw),
-    excerpt: text.slice(0, 1_200),
+    excerpt: text.slice(0, 20_000),
     method,
   };
 }
@@ -340,13 +340,15 @@ function evaluateAnchorVerification(
           : "The latest GPT-5.4 Pro page loads, but a real rendered or browser-backed confirmation is still needed to restate the frontier or 1.05M wording precisely.";
       break;
     case "anchor-3":
-      status = containsAny(sourcesText, ["gpt-5.4", "gpt-5.4 pro"]) && containsAny(sourcesText, ["codex", "windows", "cli", "ide"])
+      status =
+        containsAny(sourcesText, ["gpt-5.4", "gpt-5.4 pro", "latest: gpt-5.4"]) &&
+        containsAny(sourcesText, ["codex", "cli", "ide", "computer use"])
         ? "verified"
         : "drifted";
       note =
         status === "verified"
-          ? "Official frontier-model and Codex docs can be represented separately: GPT-5.4 stays the strategic frontier target while Codex surface defaults remain a runtime-probed fact."
-          : "Current official frontier-model and Codex docs still need a clearer separation in the repo than the old one-line claim allowed.";
+          ? "Official frontier-model and Codex docs can be represented separately: GPT-5.4 stays the strategic frontier target while OpenClaw provider-model promotion remains a separate runtime-probed fact."
+          : "Current official frontier-model and Codex docs still need a clearer separation from OpenClaw provider-model lag in the repo.";
       break;
     case "anchor-4":
       status = containsAny(sourcesText, ["openai-codex", "gpt-5.3-codex", "gpt-5.1-codex", "gpt-5-codex"])
@@ -514,7 +516,7 @@ ${renderTable(
 
 ## Build implications
 
-- Keep GPT-5.4 as the strategic frontier target for substantive work, but separate that policy from Codex-surface model naming until runtime proves the live route.
+- Keep GPT-5.4 as the strategic frontier target for substantive work; official OpenAI Codex docs already support that policy even when OpenClaw provider-model promotion still waits on live gateway proof.
 - Keep OpenClaw provider identifiers behind aliases because public provider docs can lag frontier OpenAI model pages.
 - Treat \`ua-fetch-fallback\` and \`search-backed\` source captures as advisory; they do not replace direct fetch or a real browser-produced artifact.
 - Keep real browser-backed refresh available because some OpenAI pages still return HTTP 403 to plain fetches.

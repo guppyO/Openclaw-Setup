@@ -6,7 +6,7 @@ describe("runtime model policy", () => {
 
     expect(probe.strategicTarget).toBe("gpt-5.4");
     expect(probe.officialFrontierModel).toBe("gpt-5.4");
-    expect(probe.officialCodexDocsStatus).toBe("mixed");
+    expect(probe.officialCodexDocsStatus).toBe("verified");
     expect(probe.provisional).toBe(true);
     expect(probe.codexCliInstalled).toBe(false);
     expect(probe.openClawPrimary).toBe("openai-codex/gpt-5.3-codex");

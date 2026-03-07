@@ -13,9 +13,32 @@ interface WakeAttempt {
   hookBaseUrl: string | null;
   nextTaskId: string | null;
   completedTaskId: string;
+  targetOwner: string | null;
+  targetTaskId: string | null;
+  targetTaskIds: string[];
+  hookPath: string | null;
   ok: boolean;
   reason: string;
   statusCode?: number;
+}
+
+interface WakeSummary {
+  attemptedAt: string;
+  environment: string;
+  gatewayMode: string;
+  hookBaseUrl: string | null;
+  nextTaskId: string | null;
+  completedTaskId: string;
+  targetedOwners: string[];
+  ok: boolean;
+  reason: string;
+  wakeAttempts: WakeAttempt[];
+}
+
+interface WakeTarget {
+  owner: string;
+  taskIds: string[];
+  primaryTaskId: string | null;
 }
 
 function parseTaskId(): string {
@@ -74,9 +97,37 @@ export function resolveGatewayHookBaseUrl(environment: string): {
   };
 }
 
+function buildWakeTargets(dispatchState: DispatchState): WakeTarget[] {
+  const byOwner = new Map<string, string[]>();
+  const prioritized = dispatchState.nextTask?.owner ?? null;
+
+  for (const assignment of dispatchState.activeAssignments) {
+    if (!byOwner.has(assignment.owner)) {
+      byOwner.set(assignment.owner, []);
+    }
+    byOwner.get(assignment.owner)!.push(assignment.taskId);
+  }
+
+  const targets = Array.from(byOwner.entries()).map(([owner, taskIds]) => ({
+    owner,
+    taskIds,
+    primaryTaskId: dispatchState.nextTask?.owner === owner ? dispatchState.nextTask.id : taskIds[0] ?? null,
+  }));
+
+  return targets.sort((left, right) => {
+    if (prioritized && left.owner === prioritized && right.owner !== prioritized) {
+      return -1;
+    }
+    if (prioritized && right.owner === prioritized && left.owner !== prioritized) {
+      return 1;
+    }
+    return left.owner.localeCompare(right.owner);
+  });
+}
+
 export async function completeTaskAndWake(completedTaskId: string): Promise<{
   dispatchState: DispatchState;
-  wakeAttempt: WakeAttempt;
+  wakeAttempt: WakeSummary;
 }> {
   await loadLocalRuntimeEnv();
 
@@ -108,50 +159,93 @@ export async function completeTaskAndWake(completedTaskId: string): Promise<{
   const hookToken = process.env.OPENCLAW_HOOK_TOKEN;
   const { gatewayMode, hookBaseUrl } = resolveGatewayHookBaseUrl(environment);
   const nextTaskId = dispatchState.nextTask?.id ?? null;
+  const wakeTargets = buildWakeTargets(dispatchState);
 
-  let wakeAttempt: WakeAttempt = {
+  let wakeAttempt: WakeSummary = {
     attemptedAt,
     environment,
     gatewayMode,
     hookBaseUrl,
     completedTaskId,
     nextTaskId,
+    targetedOwners: wakeTargets.map((target) => target.owner),
     ok: false,
     reason: "not-attempted",
+    wakeAttempts: [],
   };
 
   if (!hookToken) {
     wakeAttempt = { ...wakeAttempt, reason: "missing-hook-token" };
-  } else if (!nextTaskId) {
-    wakeAttempt = { ...wakeAttempt, reason: "no-next-task" };
+  } else if (wakeTargets.length === 0) {
+    wakeAttempt = { ...wakeAttempt, reason: "no-active-assignments" };
   } else if (!hookBaseUrl) {
     wakeAttempt = { ...wakeAttempt, reason: "missing-remote-gateway-base-url" };
   } else {
-    const response = await fetch(`${hookBaseUrl}/hooks/dispatch`, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${hookToken}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        text: `Dispatch continuation requested after task completion. Completed task: ${completedTaskId}. Next task: ${nextTaskId}.`,
-        mode: "now",
-        completedTaskId,
-        nextTaskId,
-      }),
-    }).catch(() => null);
+    const wakeAttempts = await Promise.all(
+      wakeTargets.map(async (target): Promise<WakeAttempt> => {
+        const hookPath = `/hooks/dispatch/${target.owner}`;
+        const response = await fetch(`${hookBaseUrl}${hookPath}`, {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${hookToken}`,
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            text: `Dispatch continuation requested after task completion. Completed task: ${completedTaskId}. Target owner: ${target.owner}. Primary task: ${target.primaryTaskId ?? "none"}.`,
+            mode: "now",
+            completedTaskId,
+            nextTaskId,
+            targetOwner: target.owner,
+            targetTaskId: target.primaryTaskId,
+            targetTaskIds: target.taskIds,
+          }),
+        }).catch(() => null);
 
-    wakeAttempt = response
-      ? {
-          ...wakeAttempt,
-          ok: response.ok,
-          reason: response.ok ? "wake-request-sent" : "wake-request-rejected",
-          statusCode: response.status,
-        }
-      : {
-          ...wakeAttempt,
-          reason: "wake-request-failed",
-        };
+        return response
+          ? {
+              attemptedAt,
+              environment,
+              gatewayMode,
+              hookBaseUrl,
+              completedTaskId,
+              nextTaskId,
+              targetOwner: target.owner,
+              targetTaskId: target.primaryTaskId,
+              targetTaskIds: target.taskIds,
+              hookPath,
+              ok: response.ok,
+              reason: response.ok ? "wake-request-sent" : "wake-request-rejected",
+              statusCode: response.status,
+            }
+          : {
+              attemptedAt,
+              environment,
+              gatewayMode,
+              hookBaseUrl,
+              completedTaskId,
+              nextTaskId,
+              targetOwner: target.owner,
+              targetTaskId: target.primaryTaskId,
+              targetTaskIds: target.taskIds,
+              hookPath,
+              ok: false,
+              reason: "wake-request-failed",
+            };
+      }),
+    );
+
+    const okCount = wakeAttempts.filter((attempt) => attempt.ok).length;
+    wakeAttempt = {
+      ...wakeAttempt,
+      wakeAttempts,
+      ok: okCount === wakeAttempts.length,
+      reason:
+        okCount === wakeAttempts.length
+          ? "wake-requests-sent"
+          : okCount > 0
+            ? "wake-requests-partial"
+            : "wake-requests-failed",
+    };
   }
 
   await writeJsonFile(resolveRepoPath("data", "exports", "dispatch-state.json"), dispatchState);

@@ -5,7 +5,7 @@
 1. Immediate continuation
    - When tracked work finishes, use `npm run runtime:run-task -- --task <task-id> -- <command...>` as the default wrapper.
    - If you already completed the work outside the wrapper, use `npm run runtime:complete-task -- --task <task-id>`.
-   - Both paths update `dispatch-state.json`, release the lock, and attempt an immediate hook call to the live gateway.
+   - Both paths update `dispatch-state.json`, release the lock, and attempt immediate hook calls to the live gateway for each owner with an active assignment.
 
 2. Recovery sweep
    - Run every 3 minutes.
@@ -23,6 +23,7 @@
 
 - The dispatcher can assign multiple specialist agents in parallel up to the configured concurrency limits.
 - `nextTask` still names the highest-priority assignment, but `activeAssignments` is now the real work surface.
+- Immediate continuation targets the owner-specific dispatch hooks for the current `activeAssignments`, not just a single CEO wake path.
 - Blocked initiatives stay isolated; they do not stall unrelated work.
 - If no immediately ready task exists, the scheduler generates the next-best fallback task instead of idling.
 

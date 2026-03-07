@@ -52,6 +52,7 @@ async function main(): Promise<void> {
         completedTaskId: taskId,
         nextTaskId: result.dispatchState.nextTask?.id ?? null,
         wake: result.wakeAttempt.reason,
+        targetedOwners: result.wakeAttempt.targetedOwners,
       },
       null,
       2,

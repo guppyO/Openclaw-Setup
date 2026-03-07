@@ -32,6 +32,7 @@
 ## Blocked by real-world runtime boundaries
 
 - The Hetzner VPS still needs its concrete SSH host path and the one-time `openclaw models auth login --provider openai-codex` step before stage or prod can run.
+- The VPS still needs the post-auth finalize step `bash scripts/bootstrap/finalize-openclaw-auth.sh <stage|prod>` so the live OpenClaw provider probe can regenerate configs from the authenticated runtime.
 - The Windows SSH tunnel is not running yet, so remote wake and remote browser control are not live.
 - The Windows node host is not running yet, so the attached Chrome lane is still incomplete for a VPS-first gateway.
 - The attached Chrome relay is not yet paired.
@@ -43,7 +44,7 @@
 
 - Run [scripts/bootstrap/bootstrap-hetzner-live.sh](./scripts/bootstrap/bootstrap-hetzner-live.sh) after exporting `LIVE_VPS_HOST` and optional `BOOTSTRAP_ENVIRONMENT=stage`.
 - Follow the authoritative deployment guide in [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md).
-- Complete `openclaw models auth login --provider openai-codex` on the VPS as `revenueos`, then start the stage service and timers.
+- Complete `openclaw models auth login --provider openai-codex` on the VPS as `revenueos`, then run `bash scripts/bootstrap/finalize-openclaw-auth.sh stage`, then start the stage service and timers.
 - On Windows, run `powershell -ExecutionPolicy Bypass -File scripts/bootstrap/start-gateway-ssh-tunnel.ps1 -Environment stage`.
 - On Windows, run `powershell -ExecutionPolicy Bypass -File scripts/bootstrap/bootstrap-openclaw-node-host.ps1 -Environment stage`.
 - Pair the Windows attached Chrome relay using `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env`, then rerun `npm run runtime:browser-broker`.

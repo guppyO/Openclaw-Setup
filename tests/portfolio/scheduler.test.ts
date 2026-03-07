@@ -105,7 +105,7 @@ describe("autonomy queue", () => {
         openclawInstalled: true,
         strategicTarget: "gpt-5.4",
         officialFrontierModel: "gpt-5.4",
-        officialCodexDocsStatus: "mixed",
+        officialCodexDocsStatus: "verified",
         openClawPrimary: "openai-codex/gpt-5.3-codex",
         openClawFallback: "openai-codex/gpt-5-codex",
         openClawProbeSource: "config-read",

@@ -47,7 +47,7 @@ sudo -u "$RUNTIME_USER" -H bash -lc "
     set +a
   fi
   npm ci
-  npm run runtime:probe-models -- --active
+  npm run runtime:probe-models
   npm run bootstrap:control-plane
   npm run bootstrap:state
   npm run bootstrap:wise
@@ -63,8 +63,9 @@ sudo systemctl enable "revenue-os-$ENVIRONMENT-source-refresh.timer"
 sudo systemctl enable "revenue-os-$ENVIRONMENT-backup.timer"
 
 echo "OpenClaw installed for $ENVIRONMENT."
-echo "Next interactive step: run 'openclaw models auth login --provider openai-codex' on the VPS and then start the service:"
+echo "Next interactive step: run 'openclaw models auth login --provider openai-codex' on the VPS, then finalize the authenticated runtime and start the service:"
 echo "sudo -u $RUNTIME_USER -H bash -lc 'cd $ROOT_DIR && openclaw models auth login --provider openai-codex'"
+echo "sudo -u $RUNTIME_USER -H bash -lc 'cd $ROOT_DIR && bash scripts/bootstrap/finalize-openclaw-auth.sh $ENVIRONMENT'"
 echo "sudo systemctl start revenue-os-$ENVIRONMENT.service"
 echo "sudo systemctl start revenue-os-$ENVIRONMENT-scheduler.timer"
 echo "sudo systemctl start revenue-os-$ENVIRONMENT-source-refresh.timer"

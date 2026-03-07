@@ -226,6 +226,21 @@ function secretRef(key: string): { $secretRef: string } {
 }
 
 function renderOpenClawConfig(config: EnvironmentConfig): string {
+  const hookMappings = AGENTS.map((agent) => ({
+    name: `dispatch-immediate-${agent.id}`,
+    match: {
+      path: `dispatch/${agent.id}`,
+    },
+    action: "agent",
+    agentId: agent.id,
+    wakeMode: "now",
+    sessionKey: `hook:${config.name}:dispatch:${agent.id}`,
+    deliver: false,
+    model: config.modelPrimary,
+    messageTemplate:
+      "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}.",
+  }));
+
   return `${JSON.stringify(
     {
       gateway: {
@@ -248,23 +263,8 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
         defaultSessionKey: `hook:${config.name}:dispatch`,
         allowRequestSessionKey: false,
         allowedSessionKeyPrefixes: [`hook:${config.name}:`],
-        allowedAgentIds: ["ceo", "ops"],
-        mappings: [
-          {
-            name: "dispatch-immediate",
-            match: {
-              path: "dispatch",
-            },
-            action: "agent",
-            agentId: "ceo",
-            wakeMode: "now",
-            sessionKey: `hook:${config.name}:dispatch:ceo`,
-            deliver: false,
-            model: config.modelPrimary,
-            messageTemplate:
-              "Dispatch continuation requested. Review dispatch-state.json and continue the next ready task immediately. Completed task: {{completedTaskId}}. Next task: {{nextTaskId}}.",
-          },
-        ],
+        allowedAgentIds: AGENTS.map((agent) => agent.id),
+        mappings: hookMappings,
       },
       agents: {
         defaults: {
@@ -402,10 +402,11 @@ if [ -f "${"$"}{ROOT_DIR}/.secrets/revenue-os.local.env" ]; then
 fi
 
 npm ci
-npm run runtime:probe-models -- --active
+npm run runtime:probe-models
 npm run bootstrap:control-plane
 openclaw doctor
 openclaw models auth login --provider openai-codex
+bash scripts/bootstrap/finalize-openclaw-auth.sh ${environment.name}
 
 echo "Prepared ${environment.name} gateway config at ${"$"}{CONFIG}"
 echo "Next: install systemd units from openclaw/${environment.name}/systemd into /etc/systemd/system and start revenue-os-${environment.name}.service"

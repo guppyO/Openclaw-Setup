@@ -13,10 +13,11 @@ if [ -f "${ROOT_DIR}/.secrets/revenue-os.local.env" ]; then
 fi
 
 npm ci
-npm run runtime:probe-models -- --active
+npm run runtime:probe-models
 npm run bootstrap:control-plane
 openclaw doctor
 openclaw models auth login --provider openai-codex
+bash scripts/bootstrap/finalize-openclaw-auth.sh prod
 
 echo "Prepared prod gateway config at ${CONFIG}"
 echo "Next: install systemd units from openclaw/prod/systemd into /etc/systemd/system and start revenue-os-prod.service"

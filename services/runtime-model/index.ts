@@ -207,7 +207,7 @@ export function buildDefaultModelProbe(): ModelCapabilityProbe {
     openclawInstalled: false,
     strategicTarget: "gpt-5.4",
     officialFrontierModel: "gpt-5.4",
-    officialCodexDocsStatus: "mixed",
+    officialCodexDocsStatus: "verified",
     openClawPrimary: "openai-codex/gpt-5.3-codex",
     openClawFallback: "openai-codex/gpt-5-codex",
     openClawProbeSource: "docs-only",
@@ -217,7 +217,7 @@ export function buildDefaultModelProbe(): ModelCapabilityProbe {
       codexSurface: "provisional",
       codexStatus: "candidate",
       codexNote:
-        "No live model-capabilities artifact was available, so GPT-5.4 remains the strategic target under a provisional alias until a passive or active probe confirms the route on this host.",
+        "No live model-capabilities artifact was available, so GPT-5.4 remains the strategic Codex target under a provisional alias until a passive or active probe confirms the route on this host.",
       openClawPrimary: "openai-codex/gpt-5.3-codex",
       openClawSurface: "source-fallback",
       openClawStatus: "docs-only",
@@ -226,7 +226,7 @@ export function buildDefaultModelProbe(): ModelCapabilityProbe {
     }),
     drift: [
       "OpenClaw is not installed on this host, so provider-model support is inferred from official docs instead of a live gateway probe.",
-      "Official OpenAI frontier-model docs and current Codex-specific docs should be treated as separate truths until the runtime probe confirms the live route.",
+      "Official OpenAI Codex docs support GPT-5.4 as the current frontier starting point, but OpenClaw provider-model support still needs a live gateway probe before the gateway config is auto-promoted.",
     ],
   };
 }
@@ -317,7 +317,7 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
     openclawInstalled,
     strategicTarget,
     officialFrontierModel: "gpt-5.4",
-    officialCodexDocsStatus: "mixed",
+    officialCodexDocsStatus: "verified",
     openClawPrimary,
     openClawFallback,
     openClawProbeSource,
@@ -327,8 +327,8 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
       codexSurface: codexCliInstalled ? "codex-cli" : "provisional",
       codexStatus: codexCliInstalled ? "preferred" : "candidate",
       codexNote: codexCliInstalled
-        ? "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
-        : "Codex CLI is not installed on this host, so GPT-5.4 remains a strategic target rather than a locally verified CLI route.",
+        ? "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+        : "Codex CLI is not installed on this host, so GPT-5.4 remains an official strategic target rather than a locally verified CLI route.",
       openClawPrimary,
       openClawSurface,
       openClawStatus,
@@ -380,7 +380,7 @@ ${probe.drift.length === 0 ? "- None." : probe.drift.map((item) => `- ${item}`).
 ## Policy rules
 
 - Use GPT-5.4 for substantive work on Codex-facing surfaces by default.
-- Treat official OpenAI frontier-model docs, Codex-specific public docs, and live OpenClaw provider proof as separate truths.
+- Treat official OpenAI frontier-model docs, official Codex docs, and live OpenClaw provider proof as separate truths.
 - Keep OpenClaw on the strongest verified provider string and auto-flip back to a GPT-5.4-compatible provider identifier only after a live gateway probe confirms it.
 - Use high reasoning by default and xhigh for architecture, policy-sensitive research, major debugging, and capital allocation decisions.
 `;

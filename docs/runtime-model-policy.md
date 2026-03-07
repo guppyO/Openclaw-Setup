@@ -1,12 +1,12 @@
 # Runtime Model Policy
 
-Generated on 2026-03-07T01:28:37.488Z.
+Generated on 2026-03-07T02:45:17.042Z.
 
 ## Strategic defaults
 
 - Company-level target: `gpt-5.4`
 - Official frontier model page: `gpt-5.4`
-- Official Codex docs state: mixed
+- Official Codex docs state: verified
 - Provisional artifact: no
 - Codex CLI installed: yes
 - OpenClaw installed on this host: no
@@ -36,6 +36,6 @@ Generated on 2026-03-07T01:28:37.488Z.
 ## Policy rules
 
 - Use GPT-5.4 for substantive work on Codex-facing surfaces by default.
-- Treat official OpenAI frontier-model docs, Codex-specific public docs, and live OpenClaw provider proof as separate truths.
+- Treat official OpenAI frontier-model docs, official Codex docs, and live OpenClaw provider proof as separate truths.
 - Keep OpenClaw on the strongest verified provider string and auto-flip back to a GPT-5.4-compatible provider identifier only after a live gateway probe confirms it.
 - Use high reasoning by default and xhigh for architecture, policy-sensitive research, major debugging, and capital allocation decisions.

@@ -43,6 +43,12 @@ Complete the one-time OpenClaw OAuth step on the VPS as the runtime user:
 sudo -u revenueos -H bash -lc 'cd /opt/revenue-os && openclaw models auth login --provider openai-codex'
 ```
 
+Then finalize the authenticated runtime so the active model probe and generated OpenClaw configs are refreshed from the live gateway surface instead of the docs-only fallback:
+
+```bash
+sudo -u revenueos -H bash -lc 'cd /opt/revenue-os && bash scripts/bootstrap/finalize-openclaw-auth.sh stage'
+```
+
 Then start stage:
 
 ```bash
@@ -82,6 +88,8 @@ This writes:
 
 - `OPENCLAW_NODE_HOST_ID=<node name>`
 - `OPENCLAW_NODE_HOST_STATUS=configured|ready`
+
+The script also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` before running `openclaw node install` and `openclaw node run`.
 
 ## 6. Attached Chrome pairing
 
@@ -144,3 +152,4 @@ npm run verify:smoke
 - Stage first, then prod.
 - Promote only after runtime sources, browser broker, dispatch state, treasury probe, and backup status are current.
 - Use `npm run runtime:run-task -- --task <id> -- <command...>` for tracked work so completion and wake-now behavior happen automatically.
+- `runtime:complete-task` wakes each owner-specific dispatch hook for the current active assignments, not just a single fixed agent path.

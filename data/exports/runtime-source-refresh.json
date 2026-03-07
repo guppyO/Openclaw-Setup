@@ -1,12 +1,12 @@
 {
-  "refreshedAt": "2026-03-07T01:28:37.490Z",
+  "refreshedAt": "2026-03-07T02:45:17.044Z",
   "methods": {
     "openai-gpt-5.4-model": "direct-fetch",
     "openai-pro-plan": "ua-fetch-fallback",
     "openai-business-limits": "ua-fetch-fallback",
     "openai-codex-plan": "ua-fetch-fallback",
-    "openai-codex-upgrades": "ua-fetch-fallback",
-    "openai-codex-app": "ua-fetch-fallback",
+    "openai-codex-upgrades": "direct-fetch",
+    "openai-codex-app": "direct-fetch",
     "openai-model-release-notes": "ua-fetch-fallback",
     "openclaw-model-providers": "direct-fetch",
     "openclaw-multi-agent": "direct-fetch",
@@ -16,8 +16,8 @@
     "openclaw-browser": "direct-fetch",
     "openclaw-browser-login": "direct-fetch",
     "openclaw-configuration": "direct-fetch",
-    "openclaw-remote-access": "search-backed",
-    "openclaw-nodes": "search-backed",
+    "openclaw-remote-access": "direct-fetch",
+    "openclaw-nodes": "direct-fetch",
     "openclaw-secrets": "direct-fetch",
     "openclaw-pdf": "direct-fetch",
     "openclaw-security": "direct-fetch",
@@ -32,27 +32,5 @@
     "steel-credentials": "direct-fetch",
     "steel-local-vs-cloud": "direct-fetch"
   },
-  "changedSources": [
-    {
-      "id": "openai-codex-app",
-      "status": 403,
-      "ok": true,
-      "title": "Introducing the Codex app | OpenAI",
-      "method": "ua-fetch-fallback"
-    },
-    {
-      "id": "openclaw-remote-access",
-      "status": 404,
-      "ok": true,
-      "title": "Untitled",
-      "method": "search-backed"
-    },
-    {
-      "id": "openclaw-nodes",
-      "status": 404,
-      "ok": true,
-      "title": "Untitled",
-      "method": "search-backed"
-    }
-  ]
+  "changedSources": []
 }

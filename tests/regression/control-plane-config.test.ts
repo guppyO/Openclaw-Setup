@@ -10,5 +10,7 @@ describe("control-plane config", () => {
     expect(config).toContain("\"auth\"");
     expect(config).toContain("\"hooks\"");
     expect(config).toContain("\"heartbeat\"");
+    expect(config).toContain("\"dispatch/ceo\"");
+    expect(config).toContain("\"dispatch/research\"");
   });
 });

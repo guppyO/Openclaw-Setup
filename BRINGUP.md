@@ -9,6 +9,7 @@ Use that document for:
 - the Windows SSH tunnel path to the loopback-bound VPS gateway,
 - the Windows node-host setup for attached Chrome,
 - the OpenClaw OAuth step on the VPS,
+- the post-auth finalize step that re-probes the live OpenClaw model route and regenerates configs,
 - attached Chrome gateway-token pairing,
 - Steel activation,
 - Wise browser-only versus token or OAuth follow-through,

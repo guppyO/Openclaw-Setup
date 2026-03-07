@@ -27,13 +27,18 @@
     ],
     "allowedAgentIds": [
       "ceo",
+      "research",
+      "builder",
+      "distribution",
+      "treasury",
+      "skillsmith",
       "ops"
     ],
     "mappings": [
       {
-        "name": "dispatch-immediate",
+        "name": "dispatch-immediate-ceo",
         "match": {
-          "path": "dispatch"
+          "path": "dispatch/ceo"
         },
         "action": "agent",
         "agentId": "ceo",
@@ -41,7 +46,85 @@
         "sessionKey": "hook:prod:dispatch:ceo",
         "deliver": false,
         "model": "openai-codex/gpt-5.3-codex",
-        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue the next ready task immediately. Completed task: {{completedTaskId}}. Next task: {{nextTaskId}}."
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
+      },
+      {
+        "name": "dispatch-immediate-research",
+        "match": {
+          "path": "dispatch/research"
+        },
+        "action": "agent",
+        "agentId": "research",
+        "wakeMode": "now",
+        "sessionKey": "hook:prod:dispatch:research",
+        "deliver": false,
+        "model": "openai-codex/gpt-5.3-codex",
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
+      },
+      {
+        "name": "dispatch-immediate-builder",
+        "match": {
+          "path": "dispatch/builder"
+        },
+        "action": "agent",
+        "agentId": "builder",
+        "wakeMode": "now",
+        "sessionKey": "hook:prod:dispatch:builder",
+        "deliver": false,
+        "model": "openai-codex/gpt-5.3-codex",
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
+      },
+      {
+        "name": "dispatch-immediate-distribution",
+        "match": {
+          "path": "dispatch/distribution"
+        },
+        "action": "agent",
+        "agentId": "distribution",
+        "wakeMode": "now",
+        "sessionKey": "hook:prod:dispatch:distribution",
+        "deliver": false,
+        "model": "openai-codex/gpt-5.3-codex",
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
+      },
+      {
+        "name": "dispatch-immediate-treasury",
+        "match": {
+          "path": "dispatch/treasury"
+        },
+        "action": "agent",
+        "agentId": "treasury",
+        "wakeMode": "now",
+        "sessionKey": "hook:prod:dispatch:treasury",
+        "deliver": false,
+        "model": "openai-codex/gpt-5.3-codex",
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
+      },
+      {
+        "name": "dispatch-immediate-skillsmith",
+        "match": {
+          "path": "dispatch/skillsmith"
+        },
+        "action": "agent",
+        "agentId": "skillsmith",
+        "wakeMode": "now",
+        "sessionKey": "hook:prod:dispatch:skillsmith",
+        "deliver": false,
+        "model": "openai-codex/gpt-5.3-codex",
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
+      },
+      {
+        "name": "dispatch-immediate-ops",
+        "match": {
+          "path": "dispatch/ops"
+        },
+        "action": "agent",
+        "agentId": "ops",
+        "wakeMode": "now",
+        "sessionKey": "hook:prod:dispatch:ops",
+        "deliver": false,
+        "model": "openai-codex/gpt-5.3-codex",
+        "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
       }
     ]
   },
