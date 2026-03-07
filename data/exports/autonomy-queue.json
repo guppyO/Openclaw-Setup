@@ -6,7 +6,7 @@
     "initiativeId": "discovered-internal-skill-packs",
     "reason": "highest-ev-open-experiment",
     "priority": 100,
-    "dueAt": "2026-03-07T05:37:19.384Z",
+    "dueAt": "2026-03-07T06:18:32.970Z",
     "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
   },
   {
@@ -16,7 +16,7 @@
     "initiativeId": "discovered-internal-skill-packs",
     "reason": "distribution-bottleneck",
     "priority": 88,
-    "dueAt": "2026-03-07T15:37:19.384Z",
+    "dueAt": "2026-03-07T16:18:32.970Z",
     "notes": "Set the initial channel mix and evidence capture for first traffic."
   },
   {
@@ -26,7 +26,7 @@
     "initiativeId": "discovered-internal-skill-packs",
     "reason": "new-opportunity-research",
     "priority": 84,
-    "dueAt": "2026-03-07T21:37:19.384Z",
+    "dueAt": "2026-03-07T22:18:32.970Z",
     "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
   },
   {
@@ -36,7 +36,7 @@
     "initiativeId": "skill-pipeline",
     "reason": "skill-gap-reduction",
     "priority": 74,
-    "dueAt": "2026-03-07T23:37:19.384Z",
+    "dueAt": "2026-03-08T00:18:32.970Z",
     "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
   },
   {
@@ -46,7 +46,7 @@
     "initiativeId": "update-steward",
     "reason": "changelog-adaptation",
     "priority": 68,
-    "dueAt": "2026-03-08T03:37:19.384Z",
+    "dueAt": "2026-03-08T04:18:32.970Z",
     "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
   },
   {
@@ -56,7 +56,7 @@
     "initiativeId": "memory-maintenance",
     "reason": "documentation-and-memory",
     "priority": 52,
-    "dueAt": "2026-03-08T09:37:19.384Z",
+    "dueAt": "2026-03-08T10:18:32.970Z",
     "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
   },
   {
@@ -66,7 +66,7 @@
     "initiativeId": "resilience",
     "reason": "resilience-work",
     "priority": 48,
-    "dueAt": "2026-03-08T15:37:19.384Z",
+    "dueAt": "2026-03-08T16:18:32.970Z",
     "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
   }
 ]

@@ -41,6 +41,10 @@ interface WakeTarget {
   primaryTaskId: string | null;
 }
 
+export function resolveRuntimeEnvironment(): string {
+  return process.env.REVENUE_OS_ENVIRONMENT ?? "stage";
+}
+
 function parseTaskId(): string {
   const flagIndex = process.argv.findIndex((argument) => argument === "--task");
   if (flagIndex >= 0 && process.argv[flagIndex + 1]) {
@@ -155,7 +159,7 @@ export async function completeTaskAndWake(completedTaskId: string): Promise<{
   });
 
   const attemptedAt = new Date().toISOString();
-  const environment = process.env.REVENUE_OS_ENVIRONMENT ?? "prod";
+  const environment = resolveRuntimeEnvironment();
   const hookToken = process.env.OPENCLAW_HOOK_TOKEN;
   const { gatewayMode, hookBaseUrl } = resolveGatewayHookBaseUrl(environment);
   const nextTaskId = dispatchState.nextTask?.id ?? null;

@@ -6,10 +6,12 @@
 - Runtime source refresh, runtime verification, model-policy probing, dispatch state, browser-broker state, treasury state, account registry, and dashboard state are generated in `data/exports/`.
 - OpenClaw `lab`, `stage`, and `prod` configs now include `gateway.mode: "local"`, explicit hook auth, and explicit heartbeat settings.
 - Hetzner bootstrap is now stage-first by default; prod requires an explicit override.
+- The follow-on OpenClaw bootstrap, finalize-auth, and tracked-task continuation entrypoints are also stage-first unless `prod` is explicitly requested.
 - Continuous dispatch is live locally through `data/exports/dispatch-state.json`, `data/exports/dispatch-wake.json`, `npm run runtime:scheduler`, `npm run runtime:complete-task`, and `npm run runtime:run-task`.
 - Dispatch now carries parallel specialist assignments instead of only one serialized head-of-line task.
 - Browser routing is live locally through `data/exports/browser-broker.json` and the `services/browser-broker` layer, with explicit remote-gateway mode, node-host state, Steel Cloud versus self-hosted truth, and blocked high-trust routes.
 - Runtime source refresh now has a repo-native browser-backed capture path that can persist source HTML under `data/exports/source-captures/` once the Windows browser lane or an auth-ready browser lane is available.
+- Browser capture labels are now strict: only persisted or repo-native browser-rendered artifacts count as `browser-capture`; plain user-agent fetches stay `ua-fetch-fallback`.
 - Opportunity ingest now mixes live feed discovery, GitHub demand signals, internal asset reuse, pinned imports, and seeded fallback lanes.
 - Skill intake now uses real workspace refs or GitHub commit pins when discovery succeeds, and leaves unresolved third-party candidates unresolved instead of inventing HTML-hash pins.
 - The repo builds, tests, smoke-checks, and the dashboard health endpoint responds locally.

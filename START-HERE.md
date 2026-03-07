@@ -15,6 +15,8 @@ Run the local bootstrap in this order:
 
 Use [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md) for the authoritative live bring-up flow after the local bootstrap passes.
 
+Every non-promotion bootstrap entrypoint now defaults to `stage`; use `prod` only when you are intentionally promoting.
+
 Key follow-through docs:
 
 - Secrets and generated gateway tokens: [docs/secrets-handling.md](./docs/secrets-handling.md)

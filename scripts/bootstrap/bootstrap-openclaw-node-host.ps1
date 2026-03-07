@@ -1,5 +1,6 @@
 param(
   [string]$NodeName = $(if ($env:OPENCLAW_NODE_HOST_ID) { $env:OPENCLAW_NODE_HOST_ID } else { "windows-browser" }),
+  [string]$DisplayName = $(if ($env:OPENCLAW_NODE_DISPLAY_NAME) { $env:OPENCLAW_NODE_DISPLAY_NAME } else { "Revenue OS Windows Browser" }),
   [ValidateSet("lab", "stage", "prod")]
   [string]$Environment = $(if ($env:REVENUE_OS_ENVIRONMENT) { $env:REVENUE_OS_ENVIRONMENT } else { "stage" }),
   [string]$GatewayHost = "127.0.0.1",
@@ -93,10 +94,11 @@ if ($remoteMode -ne "local" -and -not $env:OPENCLAW_GATEWAY_BASE_URL) {
 }
 
 Update-LocalEnv -Key "OPENCLAW_NODE_HOST_ID" -Value $NodeName
+Update-LocalEnv -Key "OPENCLAW_NODE_DISPLAY_NAME" -Value $DisplayName
 Update-LocalEnv -Key "OPENCLAW_GATEWAY_PORT" -Value "$gatewayPortValue"
 Update-LocalEnv -Key "OPENCLAW_NODE_HOST_STATUS" -Value "configured"
 
-openclaw node install $NodeName --host $GatewayHost --port $gatewayPortValue
+openclaw node install --host $GatewayHost --port $gatewayPortValue --node-id $NodeName --display-name $DisplayName
 
 if ($InstallOnly) {
   Write-Host "Installed node host $NodeName for $GatewayHost:$gatewayPortValue using OPENCLAW_GATEWAY_TOKEN from the local secret env. Run this script again without -InstallOnly to start it."
@@ -105,4 +107,4 @@ if ($InstallOnly) {
 
 Update-LocalEnv -Key "OPENCLAW_NODE_HOST_STATUS" -Value "ready"
 Write-Host "Starting OpenClaw node host $NodeName against $GatewayHost:$gatewayPortValue"
-openclaw node run $NodeName --host $GatewayHost --port $gatewayPortValue
+openclaw node run --host $GatewayHost --port $gatewayPortValue --node-id $NodeName

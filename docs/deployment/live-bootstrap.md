@@ -35,6 +35,8 @@ bash scripts/bootstrap/bootstrap-hetzner-live.sh
 
 This syncs the repo to `/opt/revenue-os`, installs or upgrades runtime dependencies, creates the dedicated `revenueos` service user by default, validates the generated OpenClaw config, writes system-level units, and enables the gateway plus the recovery timers.
 
+The bootstrap, finalize, and tracked-task completion entrypoints all default to `stage` unless you explicitly promote to `prod`.
+
 ## 3. VPS interactive step
 
 Complete the one-time OpenClaw OAuth step on the VPS as the runtime user:
@@ -89,9 +91,10 @@ powershell -ExecutionPolicy Bypass -File scripts/bootstrap/bootstrap-openclaw-no
 This writes:
 
 - `OPENCLAW_NODE_HOST_ID=<node name>`
+- `OPENCLAW_NODE_DISPLAY_NAME=<display label>`
 - `OPENCLAW_NODE_HOST_STATUS=configured|ready`
 
-The script also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` before running `openclaw node install` and `openclaw node run`.
+The script also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` before running `openclaw node install --node-id <id> --display-name <label>` and `openclaw node run --node-id <id>`.
 
 ## 6. Attached Chrome pairing
 
@@ -104,7 +107,7 @@ Pairing flow:
 3. Confirm the relay points at the tunneled gateway URL.
 4. Set `OPENCLAW_CHROME_RELAY_STATUS=paired` in `.secrets/revenue-os.local.env`.
 5. Re-run `npm run runtime:browser-broker` and `npm run verify:smoke`.
-6. Re-run `npm run bootstrap:runtime` or `npm run refresh:updates` if you want the source verifier to upgrade any remaining OpenAI `ua-fetch-fallback` pages into repo-native `browser-capture` artifacts.
+6. Re-run `npm run bootstrap:runtime` or `npm run refresh:updates` if you want the source verifier to upgrade any remaining OpenAI `ua-fetch-fallback` pages into repo-native `browser-capture` artifacts produced by the actual browser lane.
 
 If the relay is marked paired but the gateway token, tunnel path, or node host is missing, smoke verification fails on purpose.
 

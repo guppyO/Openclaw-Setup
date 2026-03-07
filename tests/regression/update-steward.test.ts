@@ -1,6 +1,12 @@
 import { deriveRuntimeVerification, fetchSourceSnapshot } from "../../services/update-steward/index.js";
 
 describe("update steward", () => {
+  const originalEnv = { ...process.env };
+
+  afterEach(() => {
+    process.env = { ...originalEnv };
+  });
+
   test("records direct fetch success", async () => {
     const snapshot = await fetchSourceSnapshot(
       {
@@ -65,6 +71,32 @@ describe("update steward", () => {
 
     expect(snapshot.method).toBe("ua-fetch-fallback");
     expect(snapshot.ok).toBe(true);
+  });
+
+  test("does not relabel an arbitrary shell command as browser capture", async () => {
+    process.env.REVENUE_OS_BROWSER_CAPTURE_CMD =
+      `"${process.execPath}" -e "process.stdout.write('<html><title>Shell</title><body>Capture</body></html>')"`;
+
+    const snapshot = await fetchSourceSnapshot(
+      {
+        id: "test",
+        label: "Test",
+        domain: "openai",
+        url: "https://example.com",
+        purpose: "test",
+      },
+      {
+        fetchImpl: async () =>
+          new Response("blocked", {
+            status: 403,
+          }),
+        uaFetchCapture: async () => null,
+        searchCapture: async () => null,
+      },
+    );
+
+    expect(snapshot.method).toBe("manual-unverified");
+    expect(snapshot.ok).toBe(false);
   });
 
   test("prefers repo-native browser capture over UA fallback when a browser lane is ready", async () => {

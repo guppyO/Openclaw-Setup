@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ENVIRONMENT="${1:-${REVENUE_OS_ENVIRONMENT:-prod}}"
+ENVIRONMENT="${1:-${REVENUE_OS_ENVIRONMENT:-stage}}"
 ROOT_DIR="${REVENUE_OS_ROOT_DIR:-/opt/revenue-os}"
 RUNTIME_USER="${LIVE_VPS_RUNTIME_USER:-revenueos}"
 

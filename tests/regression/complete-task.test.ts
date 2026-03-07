@@ -1,4 +1,4 @@
-import { resolveGatewayHookBaseUrl } from "../../scripts/runtime/complete-task.js";
+import { resolveGatewayHookBaseUrl, resolveRuntimeEnvironment } from "../../scripts/runtime/complete-task.js";
 
 describe("complete-task gateway resolution", () => {
   const originalEnv = { ...process.env };
@@ -36,5 +36,17 @@ describe("complete-task gateway resolution", () => {
     const resolved = resolveGatewayHookBaseUrl("prod");
     expect(resolved.gatewayMode).toBe("tailscale");
     expect(resolved.hookBaseUrl).toBeNull();
+  });
+
+  test("defaults the runtime environment to stage", () => {
+    delete process.env.REVENUE_OS_ENVIRONMENT;
+
+    expect(resolveRuntimeEnvironment()).toBe("stage");
+  });
+
+  test("honors an explicit runtime environment override", () => {
+    process.env.REVENUE_OS_ENVIRONMENT = "prod";
+
+    expect(resolveRuntimeEnvironment()).toBe("prod");
   });
 });

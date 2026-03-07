@@ -38,9 +38,10 @@ The tunnel script writes:
 The node-host script writes:
 
 - `OPENCLAW_NODE_HOST_ID=<node name>`
+- `OPENCLAW_NODE_DISPLAY_NAME=<display label>`
 - `OPENCLAW_NODE_HOST_STATUS=configured|ready`
 
-It also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` into the process before running `openclaw node install` and `openclaw node run`.
+It also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` into the process before running `openclaw node install --node-id <id> --display-name <label>` and `openclaw node run --node-id <id>` against the tunneled gateway port.
 
 ## Routing policy
 

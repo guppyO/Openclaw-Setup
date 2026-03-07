@@ -7,9 +7,19 @@ describe("bootstrap safety", () => {
       path.join(process.cwd(), "scripts", "bootstrap", "bootstrap-hetzner-live.sh"),
       "utf8",
     );
+    const bootstrapOpenClaw = await readFile(
+      path.join(process.cwd(), "scripts", "bootstrap", "bootstrap-openclaw.sh"),
+      "utf8",
+    );
+    const finalizeScript = await readFile(
+      path.join(process.cwd(), "scripts", "bootstrap", "finalize-openclaw-auth.sh"),
+      "utf8",
+    );
     const startHere = await readFile(path.join(process.cwd(), "START-HERE.md"), "utf8");
 
     expect(bootstrapScript).toContain('BOOTSTRAP_ENVIRONMENT="${BOOTSTRAP_ENVIRONMENT:-stage}"');
+    expect(bootstrapOpenClaw).toContain('ENVIRONMENT="${1:-${REVENUE_OS_ENVIRONMENT:-stage}}"');
+    expect(finalizeScript).toContain('ENVIRONMENT="${1:-${REVENUE_OS_ENVIRONMENT:-stage}}"');
     expect(startHere).toContain("bash scripts/bootstrap/finalize-openclaw-auth.sh stage");
   });
 

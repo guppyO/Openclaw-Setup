@@ -290,7 +290,7 @@ async function defaultBrowserCapture(
     return null;
   }
 
-  return runFallbackCommand(process.env.REVENUE_OS_BROWSER_CAPTURE_CMD, source);
+  return null;
 }
 
 async function defaultSearchCapture(source: SourceRecord): Promise<string | null> {
