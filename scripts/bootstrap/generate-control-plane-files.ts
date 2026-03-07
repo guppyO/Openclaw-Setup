@@ -229,6 +229,7 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
   return `${JSON.stringify(
     {
       gateway: {
+        mode: "local",
         bind: config.bind,
         port: config.port,
         controlUi: false,
@@ -329,7 +330,7 @@ WorkingDirectory=${VPS_ROOT_DIR}
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
 EnvironmentFile=-${VPS_ROOT_DIR}/.secrets/revenue-os.local.env
-ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:probe-models && npm run bootstrap:control-plane'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:probe-models -- --active && npm run bootstrap:control-plane'
 ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && openclaw doctor'
 ExecStart=/usr/bin/env openclaw gateway --config ${VPS_ROOT_DIR}/openclaw/${environment.name}/openclaw.json
 Restart=always
@@ -401,7 +402,7 @@ if [ -f "${"$"}{ROOT_DIR}/.secrets/revenue-os.local.env" ]; then
 fi
 
 npm ci
-npm run runtime:probe-models
+npm run runtime:probe-models -- --active
 npm run bootstrap:control-plane
 openclaw doctor
 openclaw models auth login --provider openai-codex

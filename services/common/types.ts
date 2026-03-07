@@ -251,6 +251,8 @@ export interface SkillCandidate {
   rationale: string;
   provenance: string;
   versionPin: string;
+  pinKind: "clawhub-version" | "github-commit" | "github-release" | "workspace" | "built-in" | "unresolved";
+  artifactUrl?: string;
   maintenanceSignal: number;
   overlapScore: number;
   riskScore: number;
@@ -356,8 +358,12 @@ export interface ModelCapabilityProbe {
   codexCliInstalled: boolean;
   openclawInstalled: boolean;
   strategicTarget: string;
+  officialFrontierModel: string;
+  officialCodexDocsStatus: "verified" | "mixed" | "pending-runtime-check";
   openClawPrimary: string;
   openClawFallback: string;
+  openClawProbeSource: "live-gateway" | "config-read" | "docs-only" | "env-override";
+  openClawVerifiedCandidates: string[];
   aliases: ModelAliasState[];
   drift: string[];
 }
@@ -368,6 +374,14 @@ export interface DispatchState {
   readyQueue: QueueItem[];
   nextTask: QueueItem | null;
   immediateContinuations: QueueItem[];
+  activeAssignments: Array<{
+    taskId: string;
+    owner: AgentId;
+    initiativeId: string;
+    title: string;
+    acquiredAt: string;
+    expiresAt: string;
+  }>;
   completedTaskIds: string[];
   blockedInitiativeIds: string[];
   locks: Array<{
@@ -391,6 +405,7 @@ export interface DispatchState {
 }
 
 export type BrowserLaneId = "openclaw-managed" | "attached-chrome" | "steel";
+export type BrowserRouteStatus = "ready" | "blocked";
 
 export interface BrowserTaskRequest {
   id: string;
@@ -406,10 +421,12 @@ export interface BrowserTaskRequest {
 
 export interface BrowserRouteDecision {
   taskId: string;
-  lane: BrowserLaneId;
-  profileId: string;
+  status: BrowserRouteStatus;
+  lane: BrowserLaneId | "blocked";
+  profileId: string | null;
   headless: boolean;
   reasons: string[];
+  blockerReason?: string;
 }
 
 export interface BrowserProfileClass {
@@ -427,13 +444,23 @@ export interface BrowserBrokerState {
     managedBrowser: boolean;
     attachedChrome: boolean;
     attachedChromePaired: boolean;
+    nodeHostConfigured: boolean;
+    nodeHostReady: boolean;
     gatewayTokenConfigured: boolean;
+    remoteGatewayConfigured: boolean;
+    remoteGatewayBaseUrl: string;
+    remoteGatewayMode: "local" | "ssh-tunnel" | "tailscale" | "https" | "custom";
     steel: boolean;
     steelMode: "none" | "cloud" | "self-hosted";
     steelReady: boolean;
     steelBaseUrl: string;
     steelAuthConfigured: boolean;
     steelApiConfigured: boolean;
+    steelCredentialsSupported: boolean;
+    steelProfilesSupported: boolean;
+    steelSessionPersistenceSupported: boolean;
+    steelLiveDebugSupported: boolean;
+    steelAuthStateReady: boolean;
   };
   profiles: BrowserProfileClass[];
   sampleRoutes: BrowserRouteDecision[];

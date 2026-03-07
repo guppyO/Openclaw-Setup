@@ -127,29 +127,42 @@ function renderPage() {
           <h2>Dispatch</h2>
           <ul class="tight">
             <li><strong>Next task:</strong> ${state.dispatch.nextTask?.title ?? "none"}</li>
+            <li><strong>Active assignments:</strong> ${state.dispatch.activeAssignments.length}</li>
             <li><strong>Immediate continuation:</strong> ${state.dispatch.cadence.immediateContinuation ? "enabled" : "disabled"}</li>
             <li><strong>Recovery sweep:</strong> every ${state.dispatch.cadence.recoverySweepMinutes} minutes</li>
             <li><strong>Heartbeat:</strong> every ${state.dispatch.cadence.heartbeatMinutes} minutes</li>
           </ul>
+          ${state.dispatch.activeAssignments.map((assignment) => `
+            <div class="status-row">
+              <div>
+                <strong>${assignment.title}</strong><br />
+                <span class="mono">${assignment.owner} / ${assignment.taskId}</span>
+              </div>
+              <div class="metric-label">${assignment.initiativeId}</div>
+            </div>`).join("")}
           ${state.dispatch.recoveryActions.map((action) => `<div class="status-row"><div>${action}</div></div>`).join("")}
         </article>
         <article class="panel">
           <h2>Browser fabric</h2>
           <ul class="tight">
             <li><strong>Managed browser:</strong> ${state.browser.capabilities.managedBrowser ? "ready" : "missing"}</li>
-            <li><strong>Attached Chrome:</strong> ${state.browser.capabilities.attachedChrome ? "ready" : state.browser.capabilities.attachedChromePaired ? "paired but token-missing" : "not paired"}</li>
+            <li><strong>Attached Chrome:</strong> ${state.browser.capabilities.attachedChrome ? "ready" : state.browser.capabilities.attachedChromePaired ? "paired but incomplete" : "not paired"}</li>
             <li><strong>Gateway token:</strong> ${state.browser.capabilities.gatewayTokenConfigured ? "present" : "missing"}</li>
+            <li><strong>Remote gateway:</strong> ${state.browser.capabilities.remoteGatewayMode} / ${state.browser.capabilities.remoteGatewayConfigured ? "configured" : "missing"}</li>
+            <li><strong>Node host:</strong> ${state.browser.capabilities.nodeHostReady ? "ready" : state.browser.capabilities.nodeHostConfigured ? "configured but not ready" : "missing"}</li>
             <li><strong>Steel mode:</strong> ${state.browser.capabilities.steelMode}</li>
             <li><strong>Steel auth:</strong> ${state.browser.capabilities.steelAuthConfigured ? "present" : "missing"}</li>
+            <li><strong>Steel auth state:</strong> ${state.browser.capabilities.steelAuthStateReady ? "ready" : "missing"}</li>
             <li><strong>Steel lane:</strong> ${state.browser.capabilities.steelReady ? "ready" : "not ready"}</li>
           </ul>
           ${state.browser.sampleRoutes.map((route) => `
             <div class="status-row">
               <div>
                 <strong>${route.taskId}</strong><br />
-                <span class="mono">${route.lane} / ${route.profileId}</span>
+                <span class="mono">${route.lane}${route.profileId ? ` / ${route.profileId}` : ""}</span><br />
+                <span>${route.reasons.join(" ")}</span>
               </div>
-              <div class="metric-label">${route.headless ? "headless" : "visible"}</div>
+              <div class="metric-label">${route.status === "blocked" ? "blocked" : route.headless ? "headless" : "visible"}</div>
             </div>`).join("")}
         </article>
       </section>
@@ -161,7 +174,7 @@ function renderPage() {
             <div class="status-row">
               <div>
                 <strong>${candidate.slug}</strong><br />
-                <span class="mono">${candidate.versionPin}</span>
+                <span class="mono">${candidate.pinKind} / ${candidate.versionPin}</span>
               </div>
               <div>
                 <div>${candidate.stage}</div>

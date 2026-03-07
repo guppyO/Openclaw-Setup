@@ -13,7 +13,7 @@ if [ -f "${ROOT_DIR}/.secrets/revenue-os.local.env" ]; then
 fi
 
 npm ci
-npm run runtime:probe-models
+npm run runtime:probe-models -- --active
 npm run bootstrap:control-plane
 openclaw doctor
 openclaw models auth login --provider openai-codex

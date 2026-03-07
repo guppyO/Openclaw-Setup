@@ -34,6 +34,13 @@ async function main(): Promise<void> {
   if (dashboardState.browser.capabilities.attachedChromePaired && !dashboardState.browser.capabilities.gatewayTokenConfigured) {
     throw new Error("Attached Chrome is marked paired but OPENCLAW_GATEWAY_TOKEN is missing.");
   }
+  if (
+    dashboardState.browser.capabilities.attachedChromePaired &&
+    dashboardState.browser.capabilities.remoteGatewayMode !== "local" &&
+    !dashboardState.browser.capabilities.nodeHostReady
+  ) {
+    throw new Error("Attached Chrome is paired for a remote gateway path, but the Windows node host is not ready.");
+  }
   if (!dashboardState.topOpportunities.some((opportunity) => opportunity.origin === "discovered")) {
     throw new Error("Opportunity ingest did not produce any discovered opportunities.");
   }
@@ -45,8 +52,8 @@ async function main(): Promise<void> {
     throw new Error("Stage systemd unit is not configured for the dedicated revenueos runtime user.");
   }
   const stageConfig = await readTextFile(resolveRepoPath("openclaw", "stage", "openclaw.json"), "");
-  if (!stageConfig.includes("\"hooks\"") || !stageConfig.includes("\"heartbeat\"")) {
-    throw new Error("Stage OpenClaw config is missing the explicit hook or heartbeat configuration.");
+  if (!stageConfig.includes("\"hooks\"") || !stageConfig.includes("\"heartbeat\"") || !stageConfig.includes("\"mode\": \"local\"")) {
+    throw new Error("Stage OpenClaw config is missing the explicit hook, heartbeat, or gateway mode configuration.");
   }
 
   await emitLog({

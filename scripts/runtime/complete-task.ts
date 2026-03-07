@@ -4,10 +4,13 @@ import { readJsonFile, resolveRepoPath, writeJsonFile } from "../../services/com
 import type { DispatchState, Experiment, Opportunity, QueueItem } from "../../services/common/types.js";
 import { buildDispatchState } from "../../services/dispatch/index.js";
 import { readModelCapabilityProbe } from "../../services/runtime-model/index.js";
+import { pathToFileURL } from "node:url";
 
 interface WakeAttempt {
   attemptedAt: string;
   environment: string;
+  gatewayMode: string;
+  hookBaseUrl: string | null;
   nextTaskId: string | null;
   completedTaskId: string;
   ok: boolean;
@@ -39,74 +42,44 @@ function gatewayPortForEnvironment(environment: string): number {
   return 4301;
 }
 
-async function wakeGatewayNow(completedTaskId: string, nextTaskId: string | null): Promise<WakeAttempt> {
-  await loadLocalRuntimeEnv();
+function stripTrailingSlash(value: string): string {
+  return value.replace(/\/+$/, "");
+}
 
-  const attemptedAt = new Date().toISOString();
-  const environment = process.env.REVENUE_OS_ENVIRONMENT ?? "prod";
-  const hookToken = process.env.OPENCLAW_HOOK_TOKEN;
-  const port = Number(process.env.OPENCLAW_GATEWAY_PORT ?? gatewayPortForEnvironment(environment));
+export function resolveGatewayHookBaseUrl(environment: string): {
+  gatewayMode: string;
+  hookBaseUrl: string | null;
+} {
+  const gatewayMode = process.env.OPENCLAW_REMOTE_ACCESS_MODE ?? "local";
+  const configuredBaseUrl = process.env.OPENCLAW_HOOK_BASE_URL ?? process.env.OPENCLAW_GATEWAY_BASE_URL;
+  const localPort = Number(process.env.OPENCLAW_GATEWAY_PORT ?? gatewayPortForEnvironment(environment));
 
-  if (!hookToken) {
+  if (configuredBaseUrl) {
     return {
-      attemptedAt,
-      environment,
-      completedTaskId,
-      nextTaskId,
-      ok: false,
-      reason: "missing-hook-token",
+      gatewayMode,
+      hookBaseUrl: stripTrailingSlash(configuredBaseUrl),
     };
   }
 
-  if (!nextTaskId) {
+  if (gatewayMode === "local" || gatewayMode === "ssh-tunnel") {
     return {
-      attemptedAt,
-      environment,
-      completedTaskId,
-      nextTaskId,
-      ok: false,
-      reason: "no-next-task",
-    };
-  }
-
-  const response = await fetch(`http://127.0.0.1:${port}/hooks/wake`, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${hookToken}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      text: `Dispatch continuation requested after task completion. Completed task: ${completedTaskId}. Next task: ${nextTaskId}.`,
-      mode: "now",
-      completedTaskId,
-      nextTaskId,
-    }),
-  }).catch(() => null);
-
-  if (!response) {
-    return {
-      attemptedAt,
-      environment,
-      completedTaskId,
-      nextTaskId,
-      ok: false,
-      reason: "wake-request-failed",
+      gatewayMode,
+      hookBaseUrl: `http://127.0.0.1:${localPort}`,
     };
   }
 
   return {
-    attemptedAt,
-    environment,
-    completedTaskId,
-    nextTaskId,
-    ok: response.ok,
-    reason: response.ok ? "wake-request-sent" : "wake-request-rejected",
-    statusCode: response.status,
+    gatewayMode,
+    hookBaseUrl: null,
   };
 }
 
-async function main(): Promise<void> {
-  const completedTaskId = parseTaskId();
+export async function completeTaskAndWake(completedTaskId: string): Promise<{
+  dispatchState: DispatchState;
+  wakeAttempt: WakeAttempt;
+}> {
+  await loadLocalRuntimeEnv();
+
   const opportunities = await readJsonFile<Opportunity[]>(resolveRepoPath("data", "exports", "opportunities.json"), []);
   const experiments = await readJsonFile<Experiment[]>(resolveRepoPath("data", "exports", "experiments.json"), []);
   const queue = await readJsonFile<QueueItem[]>(resolveRepoPath("data", "exports", "autonomy-queue.json"), []);
@@ -129,7 +102,57 @@ async function main(): Promise<void> {
     blockedInitiativeIds,
     modelProbe,
   });
-  const wakeAttempt = await wakeGatewayNow(completedTaskId, dispatchState.nextTask?.id ?? null);
+
+  const attemptedAt = new Date().toISOString();
+  const environment = process.env.REVENUE_OS_ENVIRONMENT ?? "prod";
+  const hookToken = process.env.OPENCLAW_HOOK_TOKEN;
+  const { gatewayMode, hookBaseUrl } = resolveGatewayHookBaseUrl(environment);
+  const nextTaskId = dispatchState.nextTask?.id ?? null;
+
+  let wakeAttempt: WakeAttempt = {
+    attemptedAt,
+    environment,
+    gatewayMode,
+    hookBaseUrl,
+    completedTaskId,
+    nextTaskId,
+    ok: false,
+    reason: "not-attempted",
+  };
+
+  if (!hookToken) {
+    wakeAttempt = { ...wakeAttempt, reason: "missing-hook-token" };
+  } else if (!nextTaskId) {
+    wakeAttempt = { ...wakeAttempt, reason: "no-next-task" };
+  } else if (!hookBaseUrl) {
+    wakeAttempt = { ...wakeAttempt, reason: "missing-remote-gateway-base-url" };
+  } else {
+    const response = await fetch(`${hookBaseUrl}/hooks/dispatch`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${hookToken}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        text: `Dispatch continuation requested after task completion. Completed task: ${completedTaskId}. Next task: ${nextTaskId}.`,
+        mode: "now",
+        completedTaskId,
+        nextTaskId,
+      }),
+    }).catch(() => null);
+
+    wakeAttempt = response
+      ? {
+          ...wakeAttempt,
+          ok: response.ok,
+          reason: response.ok ? "wake-request-sent" : "wake-request-rejected",
+          statusCode: response.status,
+        }
+      : {
+          ...wakeAttempt,
+          reason: "wake-request-failed",
+        };
+  }
 
   await writeJsonFile(resolveRepoPath("data", "exports", "dispatch-state.json"), dispatchState);
   await writeJsonFile(resolveRepoPath("data", "exports", "autonomy-queue.json"), dispatchState.queue);
@@ -149,13 +172,24 @@ async function main(): Promise<void> {
     ],
   });
 
+  return {
+    dispatchState,
+    wakeAttempt,
+  };
+}
+
+async function main(): Promise<void> {
+  const completedTaskId = parseTaskId();
+  const result = await completeTaskAndWake(completedTaskId);
+
   console.log(
     JSON.stringify(
       {
         completedTaskId,
-        nextTaskId: dispatchState.nextTask?.id ?? null,
-        readyCount: dispatchState.readyQueue.length,
-        wake: wakeAttempt,
+        nextTaskId: result.dispatchState.nextTask?.id ?? null,
+        readyCount: result.dispatchState.readyQueue.length,
+        activeAssignments: result.dispatchState.activeAssignments.length,
+        wake: result.wakeAttempt,
       },
       null,
       2,
@@ -163,7 +197,11 @@ async function main(): Promise<void> {
   );
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+const isMain = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;
+
+if (isMain) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

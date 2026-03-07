@@ -20,12 +20,16 @@
 
 - `OPENCLAW_GATEWAY_TOKEN`
 - `OPENCLAW_HOOK_TOKEN`
+- `OPENCLAW_REMOTE_ACCESS_MODE` defaulting to `local`
+- `OPENCLAW_CHROME_RELAY_STATUS` defaulting to `unpaired`
+- `OPENCLAW_NODE_HOST_STATUS` defaulting to `missing`
 
 These are generated during bootstrap if they are missing and stored only in `.secrets/revenue-os.local.env`. They are used for:
 
 - attached Chrome relay pairing,
 - OpenClaw gateway auth,
 - immediate wake-hook requests after task completion.
+- remote gateway routing and Windows node-host readiness checks.
 
 ## Current risk notes
 
@@ -37,4 +41,5 @@ These are generated during bootstrap if they are missing and stored only in `.se
 
 - Node scripts load `.secrets/revenue-os.local.env` automatically when present.
 - Generated OpenClaw configs reference the gateway and hook tokens through secret refs rather than embedding the values in versioned config.
-- Browser and treasury subsystems read the local env file for Wise, Steel, and Chrome-relay state.
+- Browser and treasury subsystems read the local env file for Wise, Steel, Chrome-relay state, SSH-tunnel base URLs, and node-host readiness.
+- Steel Cloud auth-sensitive lanes become ready only when `STEEL_AUTH_READY_PROFILES` includes the exact profile ids you actually provisioned.

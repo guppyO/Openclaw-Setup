@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import path from "node:path";
 
 import { renderTable } from "../common/markdown.js";
 import { listMarkdownFiles, resolveRepoPath } from "../common/fs.js";
@@ -14,7 +14,7 @@ interface SeedDescriptor {
   overlapScore: number;
   riskScore: number;
   notes: string;
-  preferredUrls?: string[];
+  githubQuery?: string;
 }
 
 const SEED_DESCRIPTORS: SeedDescriptor[] = [
@@ -27,11 +27,8 @@ const SEED_DESCRIPTORS: SeedDescriptor[] = [
     maintenanceSignal: 6.5,
     overlapScore: 8.7,
     riskScore: 5.2,
-    notes: "Resolve the live ClawHub or GitHub source before promotion.",
-    preferredUrls: [
-      "https://clawhub.ai/search?q=find-skills",
-      "https://github.com/search?q=find-skills+openclaw+skill&type=repositories",
-    ],
+    notes: "Resolve a real ClawHub skill page or GitHub repo before promotion.",
+    githubQuery: "find-skills openclaw skill",
   },
   {
     id: "skill-clawddocs",
@@ -43,10 +40,7 @@ const SEED_DESCRIPTORS: SeedDescriptor[] = [
     overlapScore: 8.3,
     riskScore: 5.6,
     notes: "Verify source availability and compatibility with current OpenClaw releases before promotion.",
-    preferredUrls: [
-      "https://clawhub.ai/search?q=clawddocs",
-      "https://github.com/search?q=clawddocs+openclaw+skill&type=repositories",
-    ],
+    githubQuery: "clawddocs openclaw skill",
   },
   {
     id: "skill-skill-creator",
@@ -69,10 +63,7 @@ const SEED_DESCRIPTORS: SeedDescriptor[] = [
     overlapScore: 8.8,
     riskScore: 6.0,
     notes: "Potentially high leverage; require provenance, pinning, and evals before stage.",
-    preferredUrls: [
-      "https://clawhub.ai/search?q=proactive-agent",
-      "https://github.com/search?q=proactive-agent+openclaw+skill&type=repositories",
-    ],
+    githubQuery: "proactive-agent openclaw skill",
   },
   {
     id: "skill-self-improving-agent",
@@ -84,12 +75,15 @@ const SEED_DESCRIPTORS: SeedDescriptor[] = [
     overlapScore: 9.1,
     riskScore: 6.3,
     notes: "Do not promote without deterministic evals and mutation boundaries.",
-    preferredUrls: [
-      "https://clawhub.ai/search?q=self-improving-agent",
-      "https://github.com/search?q=self-improving-agent+openclaw+skill&type=repositories",
-    ],
+    githubQuery: "self-improving-agent openclaw skill",
   },
 ];
+
+interface GithubRepository {
+  html_url: string;
+  full_name: string;
+  default_branch: string;
+}
 
 function scoreRisk(candidate: SkillCandidate): number {
   const sourcePenalty =
@@ -122,10 +116,10 @@ function baseCandidate(seed: SeedDescriptor): SkillCandidate {
     stage: seed.sourceType === "built-in" ? "prod" : "seeded",
     discoveredAt: new Date().toISOString(),
     discoveryMode: seed.sourceType === "built-in" ? "workspace" : "seeded",
-    sourceUrl: seed.preferredUrls?.[0],
     rationale: seed.rationale,
     provenance: seed.provenance,
     versionPin: seed.sourceType === "built-in" ? "system-preinstalled" : "pending-source-resolution",
+    pinKind: seed.sourceType === "built-in" ? "built-in" : "unresolved",
     maintenanceSignal: seed.maintenanceSignal,
     overlapScore: seed.overlapScore,
     riskScore: seed.riskScore,
@@ -133,43 +127,57 @@ function baseCandidate(seed: SeedDescriptor): SkillCandidate {
   };
 }
 
-async function fetchFirstReachable(urls: string[] | undefined): Promise<{
-  url: string;
-  title: string;
-  sourceType: SkillCandidate["sourceType"];
-  versionPin: string;
-} | null> {
-  if (!urls || urls.length === 0) {
+async function resolveGithubRepository(query: string | undefined): Promise<GithubRepository | null> {
+  if (!query) {
     return null;
   }
 
-  for (const url of urls) {
-    try {
-      const response = await fetch(url, {
+  try {
+    const response = await fetch(
+      `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=1`,
+      {
         headers: {
           "user-agent": "revenue-os/0.1",
+          accept: "application/vnd.github+json",
         },
-      });
+      },
+    );
 
-      if (!response.ok) {
-        continue;
-      }
-
-      const raw = await response.text();
-      const titleMatch = raw.match(/<title>(.*?)<\/title>/i);
-      const title = titleMatch?.[1]?.replace(/\s+/g, " ").trim() ?? url;
-      return {
-        url,
-        title,
-        sourceType: url.includes("github.com") ? "github" : "clawhub",
-        versionPin: `sha256:${createHash("sha256").update(raw).digest("hex").slice(0, 12)}`,
-      };
-    } catch {
-      continue;
+    if (!response.ok) {
+      return null;
     }
-  }
 
-  return null;
+    const payload = (await response.json()) as {
+      items?: GithubRepository[];
+    };
+
+    return payload.items?.[0] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function resolveGithubCommit(repository: GithubRepository): Promise<string | null> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${repository.full_name}/commits/${encodeURIComponent(repository.default_branch)}`,
+      {
+        headers: {
+          "user-agent": "revenue-os/0.1",
+          accept: "application/vnd.github+json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const payload = (await response.json()) as { sha?: string };
+    return payload.sha ?? null;
+  } catch {
+    return null;
+  }
 }
 
 async function discoverWorkspaceSkills(): Promise<SkillCandidate[]> {
@@ -191,10 +199,12 @@ async function discoverWorkspaceSkills(): Promise<SkillCandidate[]> {
         stage: "prod" as const,
         discoveredAt: new Date().toISOString(),
         discoveryMode: "workspace" as const,
-        sourceUrl: filePath,
+        sourceUrl: path.relative(resolveRepoPath(), filePath).replace(/\\/g, "/"),
         rationale: "Internal skill already present in the workspace and available for reuse.",
         provenance: "Discovered by scanning skills/internal.",
         versionPin: `workspace:${slug}`,
+        pinKind: "workspace" as const,
+        artifactUrl: path.relative(resolveRepoPath(), filePath).replace(/\\/g, "/"),
         maintenanceSignal: 8.2,
         overlapScore: 8.8,
         riskScore: 2.3,
@@ -231,8 +241,8 @@ export async function discoverSkillCandidates(): Promise<SkillCandidate[]> {
       continue;
     }
 
-    const remote = await fetchFirstReachable(seed.preferredUrls);
-    if (!remote) {
+    const repository = await resolveGithubRepository(seed.githubQuery);
+    if (!repository) {
       discovered.push({
         ...candidate,
         riskScore: scoreRisk(candidate),
@@ -240,16 +250,23 @@ export async function discoverSkillCandidates(): Promise<SkillCandidate[]> {
       continue;
     }
 
+    const commitSha = await resolveGithubCommit(repository);
+    const versionPin = commitSha ? `git:${commitSha.slice(0, 12)}` : "pending-source-resolution";
+    const pinKind = commitSha ? "github-commit" : "unresolved";
+    const artifactUrl = commitSha ? `${repository.html_url}/tree/${commitSha}` : repository.html_url;
+
     const resolved: SkillCandidate = {
       ...candidate,
-      source: remote.title,
-      sourceType: remote.sourceType,
-      sourceUrl: remote.url,
-      discoveryMode: remote.sourceType === "clawhub" ? "clawhub" : "github",
-      stage: "quarantine",
-      versionPin: remote.versionPin,
-      provenance: `${candidate.provenance} Resolved to a live ${remote.sourceType} page during discovery.`,
-      notes: `${candidate.notes} Candidate resolved to ${remote.url}.`,
+      source: repository.full_name,
+      sourceType: "github",
+      sourceUrl: repository.html_url,
+      discoveryMode: "github",
+      stage: commitSha ? "quarantine" : "seeded",
+      versionPin,
+      pinKind,
+      artifactUrl,
+      provenance: `${candidate.provenance} Resolved to GitHub repository ${repository.full_name}.`,
+      notes: `${candidate.notes} Candidate resolved to ${artifactUrl}.`,
     };
 
     discovered.push({
@@ -267,21 +284,21 @@ export function buildSkillIntakeMarkdown(candidates: SkillCandidate[]): string {
     candidate.slug,
     candidate.stage,
     candidate.discoveryMode ?? "seeded",
-    String(candidate.overlapScore),
-    String(candidate.riskScore),
+    candidate.pinKind,
     candidate.versionPin,
+    String(candidate.riskScore),
   ]);
 
   return `# Skill Intake
 
 ## Current queue
 
-${renderTable(["Skill", "Stage", "Discovery", "Overlap", "Risk", "Version pin"], rows)}
+${renderTable(["Skill", "Stage", "Discovery", "Pin kind", "Version pin", "Risk"], rows)}
 
 ## Promotion policy
 
 - Capture source provenance before promotion.
-- Pin a version, hash, or workspace ref before stage evaluation.
+- Pin a real artifact, commit, release tag, or workspace ref before stage evaluation.
 - Treat third-party skills as supply-chain risk until local code review and evals pass.
 - Promote only after quarantine -> stage -> prod evidence exists.
 `;

@@ -5,11 +5,11 @@ A live-upgraded autonomous revenue operating system built around OpenClaw, Codex
 ## What is in the repo
 
 - GPT-5.4-first runtime policy with a truthful distinction between strategic target, verified local route, verified OpenClaw route, and docs-only fallback.
-- Continuous dispatch with a recovery sweep plus an immediate completion wrapper that can wake the live gateway hook instead of waiting for the next sweep.
-- Browser routing across OpenClaw managed browsing, attached Chrome, and Steel with explicit cloud versus self-hosted semantics.
+- Continuous dispatch with parallel specialist assignments, a recovery sweep, `runtime:complete-task`, and `runtime:run-task` so tracked work can wake the live gateway immediately instead of waiting for the next sweep.
+- Browser routing across OpenClaw managed browsing, attached Chrome plus a Windows node host, and Steel with explicit cloud versus self-hosted semantics and blocked high-trust fallbacks.
 - Treasury state that distinguishes sample, browser-only, API, and hybrid modes, plus cash-truth and ledger-completeness status.
-- Opportunity ingest that mixes live feed discovery, internal asset reuse, pinned opportunities, and seeded fallback lanes.
-- Skill discovery that resolves live ClawHub or GitHub candidates when possible and keeps them in quarantine until promotion evidence exists.
+- Opportunity ingest that mixes live feed discovery, GitHub demand signals, internal asset reuse, pinned opportunities, and seeded fallback lanes.
+- Skill discovery that resolves real GitHub commit pins when possible and keeps unresolved third-party candidates in quarantine instead of faking artifact pins.
 
 ## Start
 

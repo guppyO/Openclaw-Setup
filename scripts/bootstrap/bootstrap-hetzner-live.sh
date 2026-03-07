@@ -33,3 +33,6 @@ if [[ -f "$ROOT_DIR/.secrets/revenue-os.local.env" ]]; then
 fi
 
 ssh "$LIVE_VPS_USER@$LIVE_VPS_HOST" "cd '$REMOTE_REPO_DIR' && LIVE_VPS_RUNTIME_USER='$LIVE_VPS_RUNTIME_USER' REVENUE_OS_ROOT_DIR='$REMOTE_REPO_DIR' REVENUE_OS_ENVIRONMENT='$BOOTSTRAP_ENVIRONMENT' bash scripts/bootstrap/bootstrap-openclaw.sh '$BOOTSTRAP_ENVIRONMENT'"
+
+echo "Repo synced to $LIVE_VPS_HOST:$REMOTE_REPO_DIR for $BOOTSTRAP_ENVIRONMENT."
+echo "Next on Windows: run scripts/bootstrap/start-gateway-ssh-tunnel.ps1 and scripts/bootstrap/bootstrap-openclaw-node-host.ps1."

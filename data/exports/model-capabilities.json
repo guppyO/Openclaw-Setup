@@ -1,12 +1,16 @@
 {
-  "detectedAt": "2026-03-06T23:07:37.880Z",
+  "detectedAt": "2026-03-07T01:28:37.488Z",
   "probeMode": "passive",
   "provisional": false,
   "codexCliInstalled": true,
   "openclawInstalled": false,
   "strategicTarget": "gpt-5.4",
+  "officialFrontierModel": "gpt-5.4",
+  "officialCodexDocsStatus": "mixed",
   "openClawPrimary": "openai-codex/gpt-5.3-codex",
   "openClawFallback": "openai-codex/gpt-5-codex",
+  "openClawProbeSource": "docs-only",
+  "openClawVerifiedCandidates": [],
   "aliases": [
     {
       "alias": "model.primary_frontier",
@@ -15,7 +19,7 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
     },
     {
       "alias": "model.frontier_browser",
@@ -24,7 +28,7 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
     },
     {
       "alias": "model.frontier_research",
@@ -33,7 +37,7 @@
       "reasoning": "xhigh",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
     },
     {
       "alias": "model.frontier_build",
@@ -42,7 +46,7 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
     },
     {
       "alias": "openclaw.model.primary_frontier",
@@ -51,7 +55,7 @@
       "reasoning": "high",
       "surface": "source-fallback",
       "status": "docs-only",
-      "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
+      "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex examples, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
     }
   ],
   "drift": [

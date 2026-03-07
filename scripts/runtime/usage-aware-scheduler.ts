@@ -60,6 +60,7 @@ async function main(): Promise<void> {
         generatedAt: dispatchState.generatedAt,
         nextTask: dispatchState.nextTask?.id ?? null,
         readyCount: dispatchState.readyQueue.length,
+        activeAssignments: dispatchState.activeAssignments.length,
         recoveryActions: dispatchState.recoveryActions.length,
       },
       null,

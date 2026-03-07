@@ -1,15 +1,15 @@
-# Experiment: Operational audit packs for SMB service businesses
+# Experiment: asiifdev/business-leads-ai-automation operator-mapped opportunity
 
 ## Thesis
 
-Launch one niche-specific landing page, outbound-compatible intake flow, and paid diagnostic offer capped at low acquisition spend.
+Launch a narrow comparison or lead-capture surface around the strongest repeated pain cluster and route the first qualified demand.
 
 ## Opportunity
 
-- Opportunity: Operational audit packs for SMB service businesses
-- Lane family: productized-service
-- Budget cap: $250
-- Review date: 2026-03-16
+- Opportunity: asiifdev/business-leads-ai-automation operator-mapped opportunity
+- Lane family: owned-media
+- Budget cap: $267
+- Review date: 2026-03-18
 
 ## Launch checklist
 

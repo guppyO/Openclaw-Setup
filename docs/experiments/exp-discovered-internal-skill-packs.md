@@ -9,7 +9,7 @@ Convert the highest-reuse internal skill into a documented, supportable automati
 - Opportunity: Externalize internal workflow assets as paid automation packs
 - Lane family: digital-products
 - Budget cap: $150
-- Review date: 2026-03-13
+- Review date: 2026-03-14
 
 ## Launch checklist
 

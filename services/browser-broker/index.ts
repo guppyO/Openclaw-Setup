@@ -23,6 +23,26 @@ export interface SteelSessionResult {
   error?: string;
 }
 
+function parseCsv(value: string | undefined): string[] {
+  return (value ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function profileById(profileId: string): BrowserProfileClass | undefined {
+  return defaultBrowserProfiles().find((profile) => profile.id === profileId);
+}
+
+function profileNeedsAuthState(profileId: string): boolean {
+  const profile = profileById(profileId);
+  return Boolean(profile && profile.riskBoundary !== "public-web");
+}
+
+function steelAuthReadyProfiles(): Set<string> {
+  return new Set(parseCsv(process.env.STEEL_AUTH_READY_PROFILES));
+}
+
 export function defaultBrowserProfiles(): BrowserProfileClass[] {
   return [
     {
@@ -92,20 +112,42 @@ export function defaultBrowserProfiles(): BrowserProfileClass[] {
   ];
 }
 
+function inferRemoteGatewayMode(
+  configuredMode: string | undefined,
+  baseUrl: string,
+): BrowserBrokerState["capabilities"]["remoteGatewayMode"] {
+  if (configuredMode === "ssh-tunnel" || configuredMode === "tailscale" || configuredMode === "https" || configuredMode === "local") {
+    return configuredMode;
+  }
+
+  if (!baseUrl) {
+    return "local";
+  }
+
+  if (/^https:\/\//i.test(baseUrl)) {
+    return "https";
+  }
+
+  return "custom";
+}
+
 export async function browserCapabilities(): Promise<BrowserBrokerState["capabilities"]> {
   await loadLocalRuntimeEnv();
 
   const configuredBaseUrl = process.env.STEEL_BASE_URL;
-  const inferredSteelMode =
+  const configuredSteelMode =
     process.env.STEEL_MODE === "cloud" || process.env.STEEL_MODE === "self-hosted"
       ? process.env.STEEL_MODE
-      : configuredBaseUrl
-        ? configuredBaseUrl.includes("api.steel.dev")
-          ? "cloud"
-          : "self-hosted"
-        : process.env.STEEL_API_KEY
-          ? "cloud"
-          : "none";
+      : undefined;
+  const inferredSteelMode =
+    configuredSteelMode ??
+    (configuredBaseUrl
+      ? configuredBaseUrl.includes("api.steel.dev")
+        ? "cloud"
+        : "self-hosted"
+      : process.env.STEEL_API_KEY
+        ? "cloud"
+        : "none");
   const steelBaseUrl = configuredBaseUrl ?? (inferredSteelMode === "cloud" ? "https://api.steel.dev" : "");
   const steelApiConfigured = Boolean(process.env.STEEL_API_KEY);
   const steelAuthConfigured =
@@ -114,20 +156,62 @@ export async function browserCapabilities(): Promise<BrowserBrokerState["capabil
       : inferredSteelMode === "self-hosted"
         ? Boolean(process.env.STEEL_SELF_HOSTED_TOKEN || process.env.STEEL_API_KEY)
         : false;
+
+  const steelCredentialsSupported = inferredSteelMode === "cloud";
+  const steelProfilesSupported = inferredSteelMode === "cloud";
+  const steelSessionPersistenceSupported = inferredSteelMode !== "none";
+  const steelLiveDebugSupported = inferredSteelMode !== "none";
+  const steelAuthReady = steelAuthReadyProfiles().size > 0;
+
   const gatewayTokenConfigured = Boolean(process.env.OPENCLAW_GATEWAY_TOKEN);
   const attachedChromePaired = process.env.OPENCLAW_CHROME_RELAY_STATUS === "paired";
+  const remoteGatewayBaseUrl =
+    process.env.OPENCLAW_GATEWAY_BASE_URL ??
+    process.env.OPENCLAW_HOOK_BASE_URL ??
+    "";
+  const remoteGatewayMode = inferRemoteGatewayMode(
+    process.env.OPENCLAW_REMOTE_ACCESS_MODE,
+    remoteGatewayBaseUrl,
+  );
+  const remoteGatewayConfigured =
+    remoteGatewayMode === "local" ? true : Boolean(remoteGatewayBaseUrl);
+  const nodeHostConfigured = Boolean(
+    process.env.OPENCLAW_NODE_HOST_ID ||
+      process.env.OPENCLAW_NODE_HOST_COMMAND ||
+      process.env.OPENCLAW_NODE_HOST_WS_URL,
+  );
+  const nodeHostReady = process.env.OPENCLAW_NODE_HOST_STATUS === "ready";
+  const attachedChrome =
+    attachedChromePaired &&
+    gatewayTokenConfigured &&
+    remoteGatewayConfigured &&
+    (remoteGatewayMode === "local" || nodeHostReady);
 
   return {
     managedBrowser: true,
-    attachedChrome: attachedChromePaired && gatewayTokenConfigured,
+    attachedChrome,
     attachedChromePaired,
+    nodeHostConfigured,
+    nodeHostReady,
     gatewayTokenConfigured,
+    remoteGatewayConfigured,
+    remoteGatewayBaseUrl,
+    remoteGatewayMode,
     steel: inferredSteelMode !== "none",
     steelMode: inferredSteelMode,
-    steelReady: inferredSteelMode !== "none" && steelAuthConfigured && Boolean(steelBaseUrl),
+    steelReady:
+      inferredSteelMode !== "none" &&
+      steelAuthConfigured &&
+      Boolean(steelBaseUrl) &&
+      steelSessionPersistenceSupported,
     steelBaseUrl,
     steelAuthConfigured,
     steelApiConfigured,
+    steelCredentialsSupported,
+    steelProfilesSupported,
+    steelSessionPersistenceSupported,
+    steelLiveDebugSupported,
+    steelAuthStateReady: steelAuthReady,
   };
 }
 
@@ -144,103 +228,131 @@ function defaultProfileForRequest(request: BrowserTaskRequest): string {
   }
 }
 
+function readyDecision(
+  request: BrowserTaskRequest,
+  lane: BrowserRouteDecision["lane"],
+  profileId: string,
+  headless: boolean,
+  reasons: string[],
+): BrowserRouteDecision {
+  return {
+    taskId: request.id,
+    status: "ready",
+    lane,
+    profileId,
+    headless,
+    reasons,
+  };
+}
+
+function blockedDecision(request: BrowserTaskRequest, blockerReason: string, reasons: string[]): BrowserRouteDecision {
+  return {
+    taskId: request.id,
+    status: "blocked",
+    lane: "blocked",
+    profileId: null,
+    headless: false,
+    blockerReason,
+    reasons,
+  };
+}
+
+function steelProfileReady(
+  profileId: string,
+  capabilities: BrowserBrokerState["capabilities"],
+): boolean {
+  if (!capabilities.steelReady) {
+    return false;
+  }
+
+  if (!profileNeedsAuthState(profileId)) {
+    return true;
+  }
+
+  if (!capabilities.steelCredentialsSupported || !capabilities.steelProfilesSupported) {
+    return false;
+  }
+
+  return steelAuthReadyProfiles().has(profileId);
+}
+
 export function routeBrowserTask(
   request: BrowserTaskRequest,
   capabilities: BrowserBrokerState["capabilities"],
 ): BrowserRouteDecision {
-  if (request.preferredProfileId) {
-    const preferredProfile = defaultBrowserProfiles().find((profile) => profile.id === request.preferredProfileId);
-    if (preferredProfile) {
-      return {
-        taskId: request.id,
-        lane: preferredProfile.lane,
-        profileId: preferredProfile.id,
-        headless: preferredProfile.lane !== "attached-chrome" && request.authLevel === "public",
-        reasons: ["Preferred profile explicitly requested by the workflow."],
-      };
-    }
-  }
+  const preferredProfileId = request.preferredProfileId ?? defaultProfileForRequest(request);
+  const preferredProfile = profileById(preferredProfileId);
 
   if (request.authLevel === "treasury" || request.authLevel === "infrastructure") {
-    if (request.operatorVisible && capabilities.attachedChrome) {
-      return {
-        taskId: request.id,
-        lane: "attached-chrome",
-        profileId: "chrome_company",
-        headless: false,
-        reasons: [
-          "This high-trust account task is explicitly operator-visible, so the attached Chrome lane takes precedence.",
-        ],
-      };
+    if (capabilities.attachedChrome && (request.operatorVisible || request.antiBotSensitivity >= 8)) {
+      return readyDecision(request, "attached-chrome", "chrome_company", false, [
+        "High-trust work prefers attached Chrome when the paired relay and node host are both ready.",
+      ]);
     }
 
-    if (capabilities.steelReady) {
-      return {
-        taskId: request.id,
-        lane: "steel",
-        profileId: defaultProfileForRequest(request),
-        headless: false,
-        reasons: [
-          "Treasury and infrastructure flows prefer a persistent Steel namespace unless attached Chrome is explicitly required.",
-        ],
-      };
+    if (preferredProfile && preferredProfile.lane === "steel" && steelProfileReady(preferredProfile.id, capabilities)) {
+      return readyDecision(request, "steel", preferredProfile.id, false, [
+        "Steel Cloud is ready with profile-backed auth state for this high-trust task.",
+      ]);
     }
 
-    if (capabilities.attachedChrome && request.antiBotSensitivity >= 9) {
-      return {
-        taskId: request.id,
-        lane: "attached-chrome",
-        profileId: "chrome_company",
-        headless: false,
-        reasons: [
-          "Steel is unavailable and the task is highly sensitive, so attached Chrome becomes the fallback high-trust lane.",
-        ],
-      };
+    return blockedDecision(request, "high-trust-browser-lane-unavailable", [
+      "Treasury and infrastructure work will not silently degrade into the generic managed browser.",
+      capabilities.attachedChrome
+        ? "Attached Chrome is ready, but this task requested a non-visible or non-preferred path."
+        : "Attached Chrome is not fully ready through pairing, token auth, remote gateway reachability, and node host.",
+      capabilities.steelMode === "cloud"
+        ? "Steel Cloud is missing auth-ready profile state for this task."
+        : capabilities.steelMode === "self-hosted"
+          ? "Steel Local or self-hosted mode is not treated as auth-ready for credential-injection tasks."
+          : "Steel is not configured for auth-sensitive browser work.",
+    ]);
+  }
+
+  if (request.authLevel === "company" && request.requiresPersistentSession) {
+    if (capabilities.attachedChrome && (request.operatorVisible || request.antiBotSensitivity >= 8)) {
+      return readyDecision(request, "attached-chrome", "chrome_company", false, [
+        "Attached Chrome is the safest ready lane for operator-visible or stubborn company-auth work.",
+      ]);
     }
+
+    if (preferredProfile && preferredProfile.lane === "steel" && steelProfileReady(preferredProfile.id, capabilities)) {
+      return readyDecision(request, "steel", preferredProfile.id, false, [
+        "Steel Cloud is ready with persistent profile-backed auth for this company task.",
+      ]);
+    }
+
+    return blockedDecision(request, "company-auth-lane-unavailable", [
+      "Company-auth work that needs persistent state will not silently fall back to the generic managed browser.",
+    ]);
+  }
+
+  if (capabilities.attachedChrome && (request.operatorVisible || (request.authLevel === "company" && request.antiBotSensitivity >= 8))) {
+    return readyDecision(request, "attached-chrome", "chrome_company", false, [
+      "Attached Chrome is paired and ready for the requested visible or high-sensitivity flow.",
+    ]);
   }
 
   if (
-    capabilities.attachedChrome &&
-    (request.operatorVisible || (request.authLevel === "company" && request.antiBotSensitivity >= 8))
-  ) {
-    return {
-      taskId: request.id,
-      lane: "attached-chrome",
-      profileId: "chrome_company",
-      headless: false,
-      reasons: [
-        "Attached Chrome is paired and this task benefits from high-trust or operator-visible browsing.",
-      ],
-    };
-  }
-
-  if (
+    preferredProfile &&
+    preferredProfile.lane === "steel" &&
     capabilities.steelReady &&
-    (request.parallelism > 1 ||
-      request.requiresPersistentSession ||
-      request.authLevel === "company")
+    (request.parallelism > 1 || request.requiresPersistentSession || request.authLevel === "company")
   ) {
-    const profileId = defaultProfileForRequest(request);
-    return {
-      taskId: request.id,
-      lane: "steel",
-      profileId,
-      headless: false,
-      reasons: [
-        "Steel is the best lane for persistent or parallel browser work tied to a reusable namespace.",
-      ],
-    };
+    if (profileNeedsAuthState(preferredProfile.id) && !steelProfileReady(preferredProfile.id, capabilities)) {
+      return blockedDecision(request, "steel-auth-state-missing", [
+        "The requested Steel profile requires auth-ready profile state that has not been provisioned yet.",
+      ]);
+    }
+
+    return readyDecision(request, "steel", preferredProfile.id, false, [
+      "Steel is the best available lane for persistent or parallel browser work tied to a reusable namespace.",
+    ]);
   }
 
-  return {
-    taskId: request.id,
-    lane: "openclaw-managed",
-    profileId: "openclaw_research",
-    headless: request.authLevel === "public",
-    reasons: [
-      "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready.",
-    ],
-  };
+  return readyDecision(request, "openclaw-managed", "openclaw_research", request.authLevel === "public", [
+    "OpenClaw managed browser is the default typed lane for public or low-trust work.",
+  ]);
 }
 
 function authHeaders(mode: BrowserBrokerState["capabilities"]["steelMode"]): HeadersInit {
@@ -284,6 +396,16 @@ export async function createSteelSession(request: SteelSessionRequest): Promise<
     };
   }
 
+  if (profileNeedsAuthState(request.profileId) && !steelProfileReady(request.profileId, capabilities)) {
+    return {
+      ok: false,
+      error:
+        capabilities.steelMode === "self-hosted"
+          ? "Steel self-hosted mode is not treated as auth-ready for credential-backed account lanes."
+          : `Steel profile ${request.profileId} is not marked auth-ready in STEEL_AUTH_READY_PROFILES.`,
+    };
+  }
+
   const response = await fetch(`${baseUrl}/v1/sessions`, {
     method: "POST",
     headers: authHeaders(capabilities.steelMode),
@@ -296,6 +418,12 @@ export async function createSteelSession(request: SteelSessionRequest): Promise<
         initiativeId: request.initiativeId,
         ...request.metadata,
       },
+      credentials:
+        capabilities.steelMode === "cloud" && profileNeedsAuthState(request.profileId)
+          ? {
+              profileId: request.profileId,
+            }
+          : undefined,
     }),
   });
 

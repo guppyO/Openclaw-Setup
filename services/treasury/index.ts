@@ -201,6 +201,15 @@ async function loadAppendOnlyLedgerImport(): Promise<LedgerEntry[]> {
   );
 }
 
+function latestLedgerTimestamp(ledger: LedgerEntry[]): string | null {
+  const bookedAt = ledger
+    .map((entry) => new Date(entry.bookedAt).getTime())
+    .filter((value) => Number.isFinite(value))
+    .sort((left, right) => right - left)[0];
+
+  return bookedAt ? new Date(bookedAt).toISOString() : null;
+}
+
 function deriveLedgerTruth(
   mode: TreasurySnapshot["mode"],
   capabilities: TreasuryCapabilityFlags,
@@ -225,12 +234,14 @@ function deriveLedgerTruth(
     };
   }
 
+  const latestLedgerAt = latestLedgerTimestamp(ledger);
+
   if (capabilities.statementRead || capabilities.cardTransactionRead) {
     return {
       cashTruth,
       ledgerStatus: "complete",
       ledgerCoverageNote:
-        "Ledger entries exist and the current Wise capability probe can read transactional history, so reconciliation can be treated as materially complete.",
+        `Ledger entries exist${latestLedgerAt ? ` through ${latestLedgerAt.slice(0, 10)}` : ""} and the current Wise capability probe can read transactional history, so reconciliation can be treated as materially complete.`,
     };
   }
 
@@ -238,8 +249,19 @@ function deriveLedgerTruth(
     cashTruth,
     ledgerStatus: "partial",
     ledgerCoverageNote:
-      "Balances or receipts exist, but the current Wise lane cannot guarantee complete statement coverage yet. Treat burn and ROI as partial.",
+      `Balances or receipts exist${latestLedgerAt ? ` through ${latestLedgerAt.slice(0, 10)}` : ""}, but the current Wise lane cannot guarantee complete statement coverage yet. Treat burn and ROI as partial.`,
   };
+}
+
+function statementCurrencyCandidates(balances: TreasuryBalance[]): string[] {
+  const configured = (process.env.WISE_STATEMENT_CURRENCIES ?? "")
+    .split(",")
+    .map((value) => value.trim().toUpperCase())
+    .filter(Boolean);
+  const fromBalances = balances.map((balance) => balance.currency.toUpperCase());
+  const defaults = ["GBP", "USD", "EUR"];
+
+  return Array.from(new Set([...configured, ...fromBalances, ...defaults]));
 }
 
 export function buildTreasurySnapshot(
@@ -334,9 +356,17 @@ export async function probeWiseCapabilities(): Promise<TreasuryCapabilityFlags> 
 
   const balanceRead = await check(`/v4/profiles/${profileId}/balances?types=STANDARD`);
   const profilesReadable = await check("/v1/profiles");
-  const statementRead = await check(
-    `/v1/profiles/${profileId}/balance-statements?currency=GBP&intervalStart=${encodeURIComponent(interval.intervalStart)}&intervalEnd=${encodeURIComponent(interval.intervalEnd)}&type=COMPACT`,
-  );
+  const balances = balanceRead ? await ingestWiseBalances() : [];
+  const statementReadCandidates = statementCurrencyCandidates(balances);
+  let statementRead = false;
+  for (const currency of statementReadCandidates) {
+    statementRead = await check(
+      `/v1/profiles/${profileId}/balance-statements?currency=${encodeURIComponent(currency)}&intervalStart=${encodeURIComponent(interval.intervalStart)}&intervalEnd=${encodeURIComponent(interval.intervalEnd)}&type=COMPACT`,
+    );
+    if (statementRead) {
+      break;
+    }
+  }
 
   return {
     balanceRead: balanceRead && profilesReadable,

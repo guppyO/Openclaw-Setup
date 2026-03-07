@@ -55,6 +55,8 @@ export async function buildDashboardState(): Promise<DashboardState> {
   );
   const dispatch =
     ((dispatchFromDisk.nextTask === null && queue.length > 0) ||
+      !Array.isArray(dispatchFromDisk.activeAssignments) ||
+      dispatchFromDisk.activeAssignments.length === 0 ||
       dispatchFromDisk.usagePolicy.openClawModel !== modelPolicy.openClawPrimary ||
       dispatchFromDisk.usagePolicy.strategicModel !== modelPolicy.strategicTarget)
       ? buildDispatchState({ opportunities, experiments, queue, previousState: dispatchFromDisk, modelProbe: modelPolicy })
@@ -83,21 +85,31 @@ export async function buildDashboardState(): Promise<DashboardState> {
     agents: defaultAgents(queue),
     notes: [
       "Use prod only after stage smoke, source refresh, treasury probe, and browser broker checks all pass.",
-      "Keep GPT-5.4 as the default strategy model where supported, while OpenClaw stays on the strongest verified provider string until runtime proves a GPT-5.4 provider path.",
-      "The dispatcher should continue work immediately after task completion instead of waiting for the next heartbeat sweep.",
+      "Keep GPT-5.4 as the strategic model target, while separating official frontier-model truth, Codex-surface docs, and live OpenClaw provider proof.",
+      "The dispatcher should continue work immediately after task completion and keep multiple specialists occupied when ready work exists.",
       `Treasury truth is ${treasury.cashTruth} cash with ${treasury.ledgerStatus} ledger coverage.`,
     ],
     blockers: [
-      ...(browser.capabilities.attachedChromePaired
-        ? browser.capabilities.gatewayTokenConfigured
-          ? []
-          : ["Attached Chrome relay is marked paired but OPENCLAW_GATEWAY_TOKEN is missing, so the relay is not actually usable yet."]
-        : ["Attached Chrome relay is not yet paired on the Windows browser host."]),
+      ...(browser.capabilities.attachedChrome
+        ? []
+        : browser.capabilities.attachedChromePaired
+          ? browser.capabilities.gatewayTokenConfigured
+            ? browser.capabilities.remoteGatewayMode === "local" || browser.capabilities.nodeHostReady
+              ? []
+              : ["Attached Chrome relay is paired, but the remote node host is not ready for the VPS-first gateway path."]
+            : ["Attached Chrome relay is marked paired but OPENCLAW_GATEWAY_TOKEN is missing, so the relay is not actually usable yet."]
+          : ["Attached Chrome relay is not yet paired on the Windows browser host."]),
+      ...(browser.capabilities.remoteGatewayConfigured
+        ? []
+        : ["Remote gateway access is not configured yet. Set OPENCLAW_GATEWAY_BASE_URL or establish the documented SSH tunnel path before remote wake or node-host flows can work."]),
       ...(browser.capabilities.steelReady
         ? []
         : browser.capabilities.steelMode === "self-hosted"
-          ? ["Steel self-hosted mode is configured without usable auth details, so the session lane is not live yet."]
+          ? ["Steel self-hosted mode is configured without cloud-only auth-state features, so auth-sensitive Steel lanes are not live yet."]
           : ["Steel is not fully configured for session automation yet."]),
+      ...(browser.sampleRoutes.some((route) => route.status === "blocked")
+        ? ["One or more browser routes are intentionally blocked because no safe high-trust lane is ready."]
+        : []),
       ...(treasury.authMode === "none" && treasury.mode === "sample"
         ? ["Wise automation is still limited to sample state until a token, OAuth app, or browser lane is verified."]
         : []),

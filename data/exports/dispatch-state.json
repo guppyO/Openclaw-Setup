@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T23:07:55.405Z",
+  "generatedAt": "2026-03-07T01:28:37.492Z",
   "queue": [
     {
       "id": "discovered-internal-skill-packs-offer",
@@ -8,8 +8,8 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T23:07:55.405Z",
-      "notes": "[idle-prevention] [idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      "dueAt": "2026-03-07T03:28:37.482Z",
+      "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
       "id": "discovered-internal-skill-packs-distribution",
@@ -18,7 +18,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-07T11:07:51.888Z",
+      "dueAt": "2026-03-07T13:28:37.482Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -28,7 +28,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T17:07:51.888Z",
+      "dueAt": "2026-03-07T19:28:37.482Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -38,7 +38,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-07T19:07:51.888Z",
+      "dueAt": "2026-03-07T21:28:37.482Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -48,7 +48,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-07T23:07:51.888Z",
+      "dueAt": "2026-03-08T01:28:37.482Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     },
     {
@@ -58,7 +58,7 @@
       "initiativeId": "memory-maintenance",
       "reason": "documentation-and-memory",
       "priority": 52,
-      "dueAt": "2026-03-08T05:07:51.888Z",
+      "dueAt": "2026-03-08T07:28:37.482Z",
       "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
     },
     {
@@ -68,11 +68,62 @@
       "initiativeId": "resilience",
       "reason": "resilience-work",
       "priority": 48,
-      "dueAt": "2026-03-08T11:07:51.888Z",
+      "dueAt": "2026-03-08T13:28:37.482Z",
       "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
     }
   ],
-  "readyQueue": [],
+  "readyQueue": [
+    {
+      "id": "discovered-internal-skill-packs-offer",
+      "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
+      "owner": "ceo",
+      "initiativeId": "discovered-internal-skill-packs",
+      "reason": "highest-ev-open-experiment",
+      "priority": 100,
+      "dueAt": "2026-03-07T03:28:37.482Z",
+      "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+    },
+    {
+      "id": "discovered-internal-skill-packs-distribution",
+      "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
+      "owner": "distribution",
+      "initiativeId": "discovered-internal-skill-packs",
+      "reason": "distribution-bottleneck",
+      "priority": 88,
+      "dueAt": "2026-03-07T13:28:37.482Z",
+      "notes": "Set the initial channel mix and evidence capture for first traffic."
+    },
+    {
+      "id": "discovered-internal-skill-packs-research",
+      "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
+      "owner": "research",
+      "initiativeId": "discovered-internal-skill-packs",
+      "reason": "new-opportunity-research",
+      "priority": 84,
+      "dueAt": "2026-03-07T19:28:37.482Z",
+      "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
+    },
+    {
+      "id": "skill-gap-reduction",
+      "title": "Promote the highest-leverage internal skill candidate",
+      "owner": "skillsmith",
+      "initiativeId": "skill-pipeline",
+      "reason": "skill-gap-reduction",
+      "priority": 74,
+      "dueAt": "2026-03-07T21:28:37.482Z",
+      "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
+    },
+    {
+      "id": "changelog-adaptation",
+      "title": "Refresh official-source deltas and compare stage vs prod assumptions",
+      "owner": "ops",
+      "initiativeId": "update-steward",
+      "reason": "changelog-adaptation",
+      "priority": 68,
+      "dueAt": "2026-03-08T01:28:37.482Z",
+      "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
+    }
+  ],
   "nextTask": {
     "id": "discovered-internal-skill-packs-offer",
     "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
@@ -80,18 +131,115 @@
     "initiativeId": "discovered-internal-skill-packs",
     "reason": "highest-ev-open-experiment",
     "priority": 100,
-    "dueAt": "2026-03-06T23:07:55.405Z",
-    "notes": "[idle-prevention] [idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+    "dueAt": "2026-03-07T03:28:37.482Z",
+    "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
   },
-  "immediateContinuations": [],
+  "immediateContinuations": [
+    {
+      "id": "discovered-internal-skill-packs-distribution",
+      "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
+      "owner": "distribution",
+      "initiativeId": "discovered-internal-skill-packs",
+      "reason": "distribution-bottleneck",
+      "priority": 88,
+      "dueAt": "2026-03-07T13:28:37.482Z",
+      "notes": "Set the initial channel mix and evidence capture for first traffic."
+    },
+    {
+      "id": "discovered-internal-skill-packs-research",
+      "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
+      "owner": "research",
+      "initiativeId": "discovered-internal-skill-packs",
+      "reason": "new-opportunity-research",
+      "priority": 84,
+      "dueAt": "2026-03-07T19:28:37.482Z",
+      "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
+    },
+    {
+      "id": "skill-gap-reduction",
+      "title": "Promote the highest-leverage internal skill candidate",
+      "owner": "skillsmith",
+      "initiativeId": "skill-pipeline",
+      "reason": "skill-gap-reduction",
+      "priority": 74,
+      "dueAt": "2026-03-07T21:28:37.482Z",
+      "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
+    }
+  ],
+  "activeAssignments": [
+    {
+      "taskId": "discovered-internal-skill-packs-offer",
+      "owner": "ceo",
+      "initiativeId": "discovered-internal-skill-packs",
+      "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "discovered-internal-skill-packs-distribution",
+      "owner": "distribution",
+      "initiativeId": "discovered-internal-skill-packs",
+      "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "changelog-adaptation",
+      "owner": "ops",
+      "initiativeId": "update-steward",
+      "title": "Refresh official-source deltas and compare stage vs prod assumptions",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "discovered-internal-skill-packs-research",
+      "owner": "research",
+      "initiativeId": "discovered-internal-skill-packs",
+      "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "skill-gap-reduction",
+      "owner": "skillsmith",
+      "initiativeId": "skill-pipeline",
+      "title": "Promote the highest-leverage internal skill candidate",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    }
+  ],
   "completedTaskIds": [],
   "blockedInitiativeIds": [],
   "locks": [
     {
       "taskId": "discovered-internal-skill-packs-offer",
       "owner": "ceo",
-      "acquiredAt": "2026-03-06T23:07:51.890Z",
-      "expiresAt": "2026-03-06T23:22:51.890Z"
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "discovered-internal-skill-packs-distribution",
+      "owner": "distribution",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "discovered-internal-skill-packs-research",
+      "owner": "research",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "skill-gap-reduction",
+      "owner": "skillsmith",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
+    },
+    {
+      "taskId": "changelog-adaptation",
+      "owner": "ops",
+      "acquiredAt": "2026-03-07T01:28:37.484Z",
+      "expiresAt": "2026-03-07T01:43:37.484Z"
     }
   ],
   "agentConcurrencyLimits": {

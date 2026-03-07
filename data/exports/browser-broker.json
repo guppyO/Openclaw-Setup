@@ -1,16 +1,26 @@
 {
-  "generatedAt": "2026-03-06T23:07:54.685Z",
+  "generatedAt": "2026-03-07T01:28:50.700Z",
   "capabilities": {
     "managedBrowser": true,
     "attachedChrome": false,
     "attachedChromePaired": false,
+    "nodeHostConfigured": false,
+    "nodeHostReady": false,
     "gatewayTokenConfigured": true,
+    "remoteGatewayConfigured": true,
+    "remoteGatewayBaseUrl": "",
+    "remoteGatewayMode": "local",
     "steel": false,
     "steelMode": "none",
     "steelReady": false,
     "steelBaseUrl": "",
     "steelAuthConfigured": false,
-    "steelApiConfigured": false
+    "steelApiConfigured": false,
+    "steelCredentialsSupported": false,
+    "steelProfilesSupported": false,
+    "steelSessionPersistenceSupported": false,
+    "steelLiveDebugSupported": false,
+    "steelAuthStateReady": false
   },
   "profiles": [
     {
@@ -81,29 +91,36 @@
   "sampleRoutes": [
     {
       "taskId": "market-research",
+      "status": "ready",
       "lane": "openclaw-managed",
       "profileId": "openclaw_research",
       "headless": true,
       "reasons": [
-        "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
+        "OpenClaw managed browser is the default typed lane for public or low-trust work."
       ]
     },
     {
       "taskId": "wise-reconcile",
-      "lane": "openclaw-managed",
-      "profileId": "openclaw_research",
+      "status": "blocked",
+      "lane": "blocked",
+      "profileId": null,
       "headless": false,
+      "blockerReason": "high-trust-browser-lane-unavailable",
       "reasons": [
-        "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
+        "Treasury and infrastructure work will not silently degrade into the generic managed browser.",
+        "Attached Chrome is not fully ready through pairing, token auth, remote gateway reachability, and node host.",
+        "Steel is not configured for auth-sensitive browser work."
       ]
     },
     {
       "taskId": "signup-run",
-      "lane": "openclaw-managed",
-      "profileId": "openclaw_research",
+      "status": "blocked",
+      "lane": "blocked",
+      "profileId": null,
       "headless": false,
+      "blockerReason": "company-auth-lane-unavailable",
       "reasons": [
-        "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
+        "Company-auth work that needs persistent state will not silently fall back to the generic managed browser."
       ]
     }
   ],

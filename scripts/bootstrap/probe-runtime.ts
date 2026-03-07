@@ -7,7 +7,9 @@ async function main(): Promise<void> {
   const result = await refreshOfficialSources();
   const anchors = deriveRuntimeVerification(result.snapshots);
   await writeRuntimeDocs({ anchors, snapshots: result.snapshots });
-  const probe = await probeModelCapabilities(process.argv.includes("--active-model-probe") ? "active" : "passive");
+  const probe = await probeModelCapabilities(
+    process.argv.includes("--active-model-probe") || process.argv.includes("--active") ? "active" : "passive",
+  );
   await writeModelCapabilityArtifacts(probe);
   await writeJsonFile(resolveRepoPath("data", "exports", "runtime-source-refresh.json"), {
     refreshedAt: new Date().toISOString(),

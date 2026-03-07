@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-03-06T23:07:53.179Z",
+  "generatedAt": "2026-03-07T01:28:39.456Z",
   "treasury": {
-    "asOf": "2026-03-06T23:07:51.892Z",
+    "asOf": "2026-03-07T01:28:37.494Z",
     "mode": "browser-only",
     "authMode": "browser-only",
     "capabilities": {
@@ -84,7 +84,7 @@
         {
           "source": "internal-asset-reuse",
           "description": "Detected 8 internal skill assets suitable for external packaging.",
-          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "capturedAt": "2026-03-07T01:28:33.891Z",
           "strength": 8.5
         }
       ],
@@ -127,28 +127,28 @@
       "sourceEvidence": [
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "capturedAt": "2026-03-07T01:28:33.891Z",
           "url": "skills/internal/browser-login-runbook/SKILL.md",
           "note": "Internal skill detected at browser-login-runbook.",
           "method": "internal"
         },
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "capturedAt": "2026-03-07T01:28:33.891Z",
           "url": "skills/internal/changelog-delta-summarizer/SKILL.md",
           "note": "Internal skill detected at changelog-delta-summarizer.",
           "method": "internal"
         },
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "capturedAt": "2026-03-07T01:28:33.891Z",
           "url": "skills/internal/initiative-bootstrapper/SKILL.md",
           "note": "Internal skill detected at initiative-bootstrapper.",
           "method": "internal"
         },
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-06T23:07:39.425Z",
+          "capturedAt": "2026-03-07T01:28:33.891Z",
           "url": "skills/internal/landing-page-launcher/SKILL.md",
           "note": "Internal skill detected at landing-page-launcher.",
           "method": "internal"
@@ -186,13 +186,13 @@
         {
           "source": "service-business pain",
           "description": "Manual ops and quoting friction remain common in local businesses.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "capturedAt": "2026-03-07T01:28:37.482Z",
           "strength": 7.8
         },
         {
           "source": "AI adoption",
           "description": "Businesses want AI help but need bounded and accountable delivery.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "capturedAt": "2026-03-07T01:28:37.482Z",
           "strength": 8.2
         }
       ],
@@ -236,7 +236,7 @@
       "sourceEvidence": [
         {
           "sourceId": "seed-catalog",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "capturedAt": "2026-03-07T01:28:37.482Z",
           "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
           "method": "seeded"
         }
@@ -264,6 +264,88 @@
       }
     },
     {
+      "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+      "title": "asiifdev/business-leads-ai-automation operator-mapped opportunity",
+      "thesis": "GitHub demand signal from GitHub repositories: lead systems and SEO tooling: asiifdev/business-leads-ai-automation. ⚡ Open source lead generation & marketing automation. Google Maps scraper + AI-powered email/WhatsApp templates. Perfect for SMEs & agencies. Convert the repeated workflow into a bounded offer, hosted tool, or paid implementation pack.",
+      "laneFamily": "owned-media",
+      "monetizationRoute": "Lead fees, affiliate payouts, and productized implementation upsell",
+      "demandSignals": [
+        {
+          "source": "GitHub repositories: lead systems and SEO tooling",
+          "description": "⚡ Open source lead generation & marketing automation. Google Maps scraper + AI-powered email/WhatsApp templates. Perfect for SMEs & agencies. (61 GitHub stars).",
+          "capturedAt": "2026-03-07T01:28:35.588Z",
+          "strength": 8.1,
+          "url": "https://github.com/asiifdev/business-leads-ai-automation"
+        }
+      ],
+      "requiredAssets": [
+        "comparison-page",
+        "analytics",
+        "lead-routing",
+        "content-cluster"
+      ],
+      "requiredAccounts": [
+        "Domain registrar",
+        "Hosting",
+        "Analytics"
+      ],
+      "timeToLaunchDays": 10,
+      "timeToRevenueDays": 21,
+      "expectedMarginPct": 84.3,
+      "capitalRequiredUsd": 213.9,
+      "automationFit": 9.2,
+      "defensibility": 6.3,
+      "distributionFit": 7.9,
+      "complianceFriction": 2.5,
+      "payoutFriction": 2.7,
+      "buildComplexity": 4.8,
+      "maintenanceBurden": 4.3,
+      "platformRisk": 3.7,
+      "compoundingPotential": 9.4,
+      "confidence": 6.7,
+      "synergy": 8.7,
+      "payoutReadiness": 7.7,
+      "currentStatus": "discovered",
+      "experimentPlan": "Launch a narrow comparison or lead-capture surface around the strongest repeated pain cluster and route the first qualified demand.",
+      "liveKpis": [
+        "organic visits",
+        "lead conversion",
+        "qualified leads",
+        "revenue per lead"
+      ],
+      "origin": "discovered",
+      "sourceEvidence": [
+        {
+          "sourceId": "github-lead-systems",
+          "capturedAt": "2026-03-05T17:45:17Z",
+          "url": "https://github.com/asiifdev/business-leads-ai-automation",
+          "note": "GitHub repository signal from GitHub repositories: lead systems and SEO tooling: asiifdev/business-leads-ai-automation",
+          "method": "search"
+        }
+      ],
+      "score": {
+        "total": 7.84,
+        "rankedScore": 78.4,
+        "weightVersion": "2026-03-06.a",
+        "dimensionScores": {
+          "expectedValue": 8.58,
+          "confidence": 6.7,
+          "speedToLaunch": 8.57,
+          "speedToRevenue": 7.9,
+          "capitalEfficiency": 9.14,
+          "platformRisk": 3.7,
+          "distributionEfficiency": 7.9,
+          "buildComplexity": 4.8,
+          "maintenanceBurden": 4.3,
+          "compoundingPotential": 9.4,
+          "automationSuitability": 9.2,
+          "synergyWithExistingAssets": 8.7,
+          "payoutReadiness": 7.5,
+          "complianceFriction": 2.5
+        }
+      }
+    },
+    {
       "id": "marketplace-automation-packs",
       "title": "Automation packs sold through compliant marketplaces",
       "thesis": "Externalize internal workflow templates and automation bundles into small-ticket digital products that can compound with support upsells.",
@@ -273,13 +355,13 @@
         {
           "source": "creator economy",
           "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "capturedAt": "2026-03-07T01:28:37.482Z",
           "strength": 7.4
         },
         {
           "source": "distribution leverage",
           "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "capturedAt": "2026-03-07T01:28:37.482Z",
           "strength": 7.1
         }
       ],
@@ -321,7 +403,7 @@
       "sourceEvidence": [
         {
           "sourceId": "seed-catalog",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
+          "capturedAt": "2026-03-07T01:28:37.482Z",
           "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
           "method": "seeded"
         }
@@ -349,174 +431,84 @@
       }
     },
     {
-      "id": "ai-content-repurposer",
-      "title": "Repurposing engine for expert-led content portfolios",
-      "thesis": "Offer an autonomous content repurposing and publication system as a managed productized service for experts and small media brands.",
-      "laneFamily": "service-plus-software",
-      "monetizationRoute": "Monthly retainer with optional content-ops software tier",
+      "id": "discovered-github-automation-templates-somiibo-somiibo-microservice-template",
+      "title": "somiibo/somiibo-microservice-template operator-mapped opportunity",
+      "thesis": "GitHub demand signal from GitHub repositories: automation templates: somiibo/somiibo-microservice-template. A free social media automation platform that organically grows your online presence and gets you more followers. Convert the repeated workflow into a bounded offer, hosted tool, or paid implementation pack.",
+      "laneFamily": "digital-products",
+      "monetizationRoute": "Template bundle sales plus setup or support upsell",
       "demandSignals": [
         {
-          "source": "content fatigue",
-          "description": "Expert creators want output without running full content teams.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
-          "strength": 7.6
-        },
-        {
-          "source": "agent fit",
-          "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
-          "strength": 8.5
+          "source": "GitHub repositories: automation templates",
+          "description": "A free social media automation platform that organically grows your online presence and gets you more followers. (46 GitHub stars).",
+          "capturedAt": "2026-03-07T01:28:35.188Z",
+          "strength": 8,
+          "url": "https://github.com/somiibo/somiibo-microservice-template"
         }
       ],
       "requiredAssets": [
-        "offer-page",
-        "workflow-demo",
-        "content-pipeline",
-        "analytics"
+        "product-package",
+        "screenshots",
+        "comparison-page",
+        "support-docs"
       ],
       "requiredAccounts": [
-        "Social tools",
-        "Analytics",
-        "Wise"
+        "Company Gmail",
+        "Wise",
+        "Marketplace account"
       ],
-      "timeToLaunchDays": 7,
-      "timeToRevenueDays": 16,
-      "expectedMarginPct": 74,
-      "capitalRequiredUsd": 180,
-      "automationFit": 9.4,
-      "defensibility": 6,
-      "distributionFit": 7.7,
+      "timeToLaunchDays": 10,
+      "timeToRevenueDays": 21,
+      "expectedMarginPct": 84.3,
+      "capitalRequiredUsd": 215.4,
+      "automationFit": 9.2,
+      "defensibility": 6.3,
+      "distributionFit": 7.9,
       "complianceFriction": 2.5,
-      "payoutFriction": 1.6,
-      "buildComplexity": 4.7,
-      "maintenanceBurden": 5.4,
-      "platformRisk": 4.8,
-      "compoundingPotential": 7.9,
-      "confidence": 7.1,
+      "payoutFriction": 1.9,
+      "buildComplexity": 4.8,
+      "maintenanceBurden": 4.3,
+      "platformRisk": 4.2,
+      "compoundingPotential": 8.4,
+      "confidence": 6.6,
       "synergy": 8.7,
-      "payoutReadiness": 8.3,
-      "currentStatus": "approved",
-      "experimentPlan": "Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.",
+      "payoutReadiness": 7.7,
+      "currentStatus": "discovered",
+      "experimentPlan": "Package a narrow automation or template offer around the strongest repeated repo pattern and validate it on one owned page plus one marketplace.",
       "liveKpis": [
-        "proposal-to-close",
-        "gross margin",
-        "retention",
-        "hours per account"
+        "product views",
+        "purchases",
+        "refund rate",
+        "support time"
       ],
-      "origin": "seeded",
+      "origin": "discovered",
       "sourceEvidence": [
         {
-          "sourceId": "seed-catalog",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
-          "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
-          "method": "seeded"
+          "sourceId": "github-automation-templates",
+          "capturedAt": "2026-03-06T03:29:35Z",
+          "url": "https://github.com/somiibo/somiibo-microservice-template",
+          "note": "GitHub repository signal from GitHub repositories: automation templates: somiibo/somiibo-microservice-template",
+          "method": "search"
         }
       ],
       "score": {
-        "total": 7.66,
-        "rankedScore": 76.6,
+        "total": 7.7,
+        "rankedScore": 77,
         "weightVersion": "2026-03-06.a",
         "dimensionScores": {
-          "expectedValue": 7.67,
-          "confidence": 7.1,
-          "speedToLaunch": 9,
-          "speedToRevenue": 8.4,
-          "capitalEfficiency": 9.28,
-          "platformRisk": 4.8,
-          "distributionEfficiency": 7.7,
-          "buildComplexity": 4.7,
-          "maintenanceBurden": 5.4,
-          "compoundingPotential": 7.9,
-          "automationSuitability": 9.4,
+          "expectedValue": 8.24,
+          "confidence": 6.6,
+          "speedToLaunch": 8.57,
+          "speedToRevenue": 7.9,
+          "capitalEfficiency": 9.14,
+          "platformRisk": 4.2,
+          "distributionEfficiency": 7.9,
+          "buildComplexity": 4.8,
+          "maintenanceBurden": 4.3,
+          "compoundingPotential": 8.4,
+          "automationSuitability": 9.2,
           "synergyWithExistingAssets": 8.7,
-          "payoutReadiness": 8.35,
+          "payoutReadiness": 7.9,
           "complianceFriction": 2.5
-        }
-      }
-    },
-    {
-      "id": "niche-lead-gen-sites",
-      "title": "Niche lead-gen sites with qualified buyer routing",
-      "thesis": "Build a diversified lead-generation portfolio where SEO and utilities capture demand and route qualified buyers to vetted partners or internal service offers.",
-      "laneFamily": "owned-media",
-      "monetizationRoute": "Lead fees, affiliate commissions, and in-house service upsell",
-      "demandSignals": [
-        {
-          "source": "search intent",
-          "description": "High-intent long-tail queries still reward specialized content and useful tools.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
-          "strength": 8.4
-        },
-        {
-          "source": "buyer routing",
-          "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
-          "strength": 7.8
-        }
-      ],
-      "requiredAssets": [
-        "content-cluster",
-        "comparison-tool",
-        "analytics",
-        "lead-routing"
-      ],
-      "requiredAccounts": [
-        "Domain registrar",
-        "Hosting",
-        "Analytics"
-      ],
-      "timeToLaunchDays": 12,
-      "timeToRevenueDays": 30,
-      "expectedMarginPct": 88,
-      "capitalRequiredUsd": 320,
-      "automationFit": 8.7,
-      "defensibility": 7.3,
-      "distributionFit": 8.5,
-      "complianceFriction": 3.2,
-      "payoutFriction": 3,
-      "buildComplexity": 5.6,
-      "maintenanceBurden": 5.1,
-      "platformRisk": 3.6,
-      "compoundingPotential": 9.4,
-      "confidence": 7.8,
-      "synergy": 8,
-      "payoutReadiness": 7,
-      "currentStatus": "researched",
-      "experimentPlan": "Pick one underserved niche, launch a comparison page and lead magnet, then route qualified traffic to a disclosed partner or owned offer.",
-      "liveKpis": [
-        "organic sessions",
-        "CPL",
-        "lead qualification rate",
-        "revenue per page"
-      ],
-      "origin": "seeded",
-      "sourceEvidence": [
-        {
-          "sourceId": "seed-catalog",
-          "capturedAt": "2026-03-06T23:07:51.887Z",
-          "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
-          "method": "seeded"
-        }
-      ],
-      "score": {
-        "total": 7.63,
-        "rankedScore": 76.3,
-        "weightVersion": "2026-03-06.a",
-        "dimensionScores": {
-          "expectedValue": 8.9,
-          "confidence": 7.8,
-          "speedToLaunch": 8.29,
-          "speedToRevenue": 7,
-          "capitalEfficiency": 8.72,
-          "platformRisk": 3.6,
-          "distributionEfficiency": 8.5,
-          "buildComplexity": 5.6,
-          "maintenanceBurden": 5.1,
-          "compoundingPotential": 9.4,
-          "automationSuitability": 8.7,
-          "synergyWithExistingAssets": 8,
-          "payoutReadiness": 7,
-          "complianceFriction": 3.2
         }
       }
     }
@@ -547,7 +539,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-13T23:07:51.888Z",
+      "reviewDate": "2026-03-14T01:28:37.482Z",
       "nextActions": [
         {
           "id": "discovered-internal-skill-packs-offer",
@@ -556,7 +548,7 @@
           "initiativeId": "discovered-internal-skill-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 100,
-          "dueAt": "2026-03-07T01:07:51.888Z",
+          "dueAt": "2026-03-07T03:28:37.482Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -566,7 +558,7 @@
           "initiativeId": "discovered-internal-skill-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 92,
-          "dueAt": "2026-03-07T05:07:51.888Z",
+          "dueAt": "2026-03-07T07:28:37.482Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -576,7 +568,7 @@
           "initiativeId": "discovered-internal-skill-packs",
           "reason": "distribution-bottleneck",
           "priority": 88,
-          "dueAt": "2026-03-07T11:07:51.888Z",
+          "dueAt": "2026-03-07T13:28:37.482Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -606,7 +598,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-15T23:07:51.888Z",
+      "reviewDate": "2026-03-16T01:28:37.482Z",
       "nextActions": [
         {
           "id": "ops-audit-packs-offer",
@@ -615,7 +607,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 99,
-          "dueAt": "2026-03-07T01:07:51.888Z",
+          "dueAt": "2026-03-07T03:28:37.482Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -625,7 +617,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 91,
-          "dueAt": "2026-03-07T05:07:51.888Z",
+          "dueAt": "2026-03-07T07:28:37.482Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -635,7 +627,66 @@
           "initiativeId": "ops-audit-packs",
           "reason": "distribution-bottleneck",
           "priority": 87,
-          "dueAt": "2026-03-07T11:07:51.888Z",
+          "dueAt": "2026-03-07T13:28:37.482Z",
+          "notes": "Set the initial channel mix and evidence capture for first traffic."
+        }
+      ]
+    },
+    {
+      "id": "exp-discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+      "opportunityId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+      "title": "Experiment: asiifdev/business-leads-ai-automation operator-mapped opportunity",
+      "thesis": "Launch a narrow comparison or lead-capture surface around the strongest repeated pain cluster and route the first qualified demand.",
+      "status": "planned",
+      "successMetrics": [
+        "Positive contribution margin within budget envelope",
+        "Evidence of repeatable acquisition channel",
+        "Operator-independent runbook drafted"
+      ],
+      "budgetCapUsd": 267,
+      "launchChecklist": [
+        "Define asset package and offer page",
+        "Attach analytics and evidence capture",
+        "Confirm treasury category and spend tags",
+        "Create kill and compound review dates"
+      ],
+      "measurementPlan": [
+        "Capture spend, attributable revenue, and response rate daily",
+        "Review conversion and payback time every 24 hours during launch week",
+        "Update portfolio score after each milestone or anomaly"
+      ],
+      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+      "reviewDate": "2026-03-18T01:28:37.482Z",
+      "nextActions": [
+        {
+          "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation-offer",
+          "title": "Define the first bounded offer for asiifdev/business-leads-ai-automation operator-mapped opportunity",
+          "owner": "ceo",
+          "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+          "reason": "highest-ev-open-experiment",
+          "priority": 98,
+          "dueAt": "2026-03-07T03:28:37.482Z",
+          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        },
+        {
+          "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation-asset",
+          "title": "Build launch assets for asiifdev/business-leads-ai-automation operator-mapped opportunity",
+          "owner": "builder",
+          "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+          "reason": "highest-priority-product-backlog",
+          "priority": 90,
+          "dueAt": "2026-03-07T07:28:37.482Z",
+          "notes": "Ship a landing page, support docs, and measurement hooks."
+        },
+        {
+          "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation-distribution",
+          "title": "Remove the first distribution bottleneck for asiifdev/business-leads-ai-automation operator-mapped opportunity",
+          "owner": "distribution",
+          "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+          "reason": "distribution-bottleneck",
+          "priority": 86,
+          "dueAt": "2026-03-07T13:28:37.482Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -665,7 +716,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-17T23:07:51.888Z",
+      "reviewDate": "2026-03-20T01:28:37.482Z",
       "nextActions": [
         {
           "id": "marketplace-automation-packs-offer",
@@ -673,8 +724,8 @@
           "owner": "ceo",
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-ev-open-experiment",
-          "priority": 98,
-          "dueAt": "2026-03-07T01:07:51.888Z",
+          "priority": 97,
+          "dueAt": "2026-03-07T03:28:37.482Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -683,8 +734,8 @@
           "owner": "builder",
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-priority-product-backlog",
-          "priority": 90,
-          "dueAt": "2026-03-07T05:07:51.888Z",
+          "priority": 89,
+          "dueAt": "2026-03-07T07:28:37.482Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -693,67 +744,8 @@
           "owner": "distribution",
           "initiativeId": "marketplace-automation-packs",
           "reason": "distribution-bottleneck",
-          "priority": 86,
-          "dueAt": "2026-03-07T11:07:51.888Z",
-          "notes": "Set the initial channel mix and evidence capture for first traffic."
-        }
-      ]
-    },
-    {
-      "id": "exp-ai-content-repurposer",
-      "opportunityId": "ai-content-repurposer",
-      "title": "Experiment: Repurposing engine for expert-led content portfolios",
-      "thesis": "Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.",
-      "status": "planned",
-      "successMetrics": [
-        "Positive contribution margin within budget envelope",
-        "Evidence of repeatable acquisition channel",
-        "Operator-independent runbook drafted"
-      ],
-      "budgetCapUsd": 225,
-      "launchChecklist": [
-        "Define asset package and offer page",
-        "Attach analytics and evidence capture",
-        "Confirm treasury category and spend tags",
-        "Create kill and compound review dates"
-      ],
-      "measurementPlan": [
-        "Capture spend, attributable revenue, and response rate daily",
-        "Review conversion and payback time every 24 hours during launch week",
-        "Update portfolio score after each milestone or anomaly"
-      ],
-      "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
-      "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-19T23:07:51.888Z",
-      "nextActions": [
-        {
-          "id": "ai-content-repurposer-offer",
-          "title": "Define the first bounded offer for Repurposing engine for expert-led content portfolios",
-          "owner": "ceo",
-          "initiativeId": "ai-content-repurposer",
-          "reason": "highest-ev-open-experiment",
-          "priority": 97,
-          "dueAt": "2026-03-07T01:07:51.888Z",
-          "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
-        },
-        {
-          "id": "ai-content-repurposer-asset",
-          "title": "Build launch assets for Repurposing engine for expert-led content portfolios",
-          "owner": "builder",
-          "initiativeId": "ai-content-repurposer",
-          "reason": "highest-priority-product-backlog",
-          "priority": 89,
-          "dueAt": "2026-03-07T05:07:51.888Z",
-          "notes": "Ship a landing page, support docs, and measurement hooks."
-        },
-        {
-          "id": "ai-content-repurposer-distribution",
-          "title": "Remove the first distribution bottleneck for Repurposing engine for expert-led content portfolios",
-          "owner": "distribution",
-          "initiativeId": "ai-content-repurposer",
-          "reason": "distribution-bottleneck",
           "priority": 85,
-          "dueAt": "2026-03-07T11:07:51.888Z",
+          "dueAt": "2026-03-07T13:28:37.482Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -767,8 +759,8 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T23:07:51.890Z",
-      "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      "dueAt": "2026-03-07T03:28:37.482Z",
+      "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
       "id": "discovered-internal-skill-packs-distribution",
@@ -777,7 +769,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-07T11:07:51.888Z",
+      "dueAt": "2026-03-07T13:28:37.482Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -787,7 +779,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T17:07:51.888Z",
+      "dueAt": "2026-03-07T19:28:37.482Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -797,7 +789,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-07T19:07:51.888Z",
+      "dueAt": "2026-03-07T21:28:37.482Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -807,7 +799,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-07T23:07:51.888Z",
+      "dueAt": "2026-03-08T01:28:37.482Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     },
     {
@@ -817,7 +809,7 @@
       "initiativeId": "memory-maintenance",
       "reason": "documentation-and-memory",
       "priority": 52,
-      "dueAt": "2026-03-08T05:07:51.888Z",
+      "dueAt": "2026-03-08T07:28:37.482Z",
       "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
     },
     {
@@ -827,12 +819,12 @@
       "initiativeId": "resilience",
       "reason": "resilience-work",
       "priority": 48,
-      "dueAt": "2026-03-08T11:07:51.888Z",
+      "dueAt": "2026-03-08T13:28:37.482Z",
       "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
     }
   ],
   "dispatch": {
-    "generatedAt": "2026-03-06T23:07:51.890Z",
+    "generatedAt": "2026-03-07T01:28:37.492Z",
     "queue": [
       {
         "id": "discovered-internal-skill-packs-offer",
@@ -841,8 +833,8 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-06T23:07:51.890Z",
-        "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        "dueAt": "2026-03-07T03:28:37.482Z",
+        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
         "id": "discovered-internal-skill-packs-distribution",
@@ -851,7 +843,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-07T11:07:51.888Z",
+        "dueAt": "2026-03-07T13:28:37.482Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       },
       {
@@ -861,7 +853,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "new-opportunity-research",
         "priority": 84,
-        "dueAt": "2026-03-07T17:07:51.888Z",
+        "dueAt": "2026-03-07T19:28:37.482Z",
         "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
       },
       {
@@ -871,7 +863,7 @@
         "initiativeId": "skill-pipeline",
         "reason": "skill-gap-reduction",
         "priority": 74,
-        "dueAt": "2026-03-07T19:07:51.888Z",
+        "dueAt": "2026-03-07T21:28:37.482Z",
         "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
       },
       {
@@ -881,7 +873,7 @@
         "initiativeId": "update-steward",
         "reason": "changelog-adaptation",
         "priority": 68,
-        "dueAt": "2026-03-07T23:07:51.888Z",
+        "dueAt": "2026-03-08T01:28:37.482Z",
         "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
       },
       {
@@ -891,7 +883,7 @@
         "initiativeId": "memory-maintenance",
         "reason": "documentation-and-memory",
         "priority": 52,
-        "dueAt": "2026-03-08T05:07:51.888Z",
+        "dueAt": "2026-03-08T07:28:37.482Z",
         "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
       },
       {
@@ -901,7 +893,7 @@
         "initiativeId": "resilience",
         "reason": "resilience-work",
         "priority": 48,
-        "dueAt": "2026-03-08T11:07:51.888Z",
+        "dueAt": "2026-03-08T13:28:37.482Z",
         "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
       }
     ],
@@ -913,8 +905,48 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-06T23:07:51.890Z",
-        "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+        "dueAt": "2026-03-07T03:28:37.482Z",
+        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      },
+      {
+        "id": "discovered-internal-skill-packs-distribution",
+        "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
+        "owner": "distribution",
+        "initiativeId": "discovered-internal-skill-packs",
+        "reason": "distribution-bottleneck",
+        "priority": 88,
+        "dueAt": "2026-03-07T13:28:37.482Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      },
+      {
+        "id": "discovered-internal-skill-packs-research",
+        "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
+        "owner": "research",
+        "initiativeId": "discovered-internal-skill-packs",
+        "reason": "new-opportunity-research",
+        "priority": 84,
+        "dueAt": "2026-03-07T19:28:37.482Z",
+        "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
+      },
+      {
+        "id": "skill-gap-reduction",
+        "title": "Promote the highest-leverage internal skill candidate",
+        "owner": "skillsmith",
+        "initiativeId": "skill-pipeline",
+        "reason": "skill-gap-reduction",
+        "priority": 74,
+        "dueAt": "2026-03-07T21:28:37.482Z",
+        "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
+      },
+      {
+        "id": "changelog-adaptation",
+        "title": "Refresh official-source deltas and compare stage vs prod assumptions",
+        "owner": "ops",
+        "initiativeId": "update-steward",
+        "reason": "changelog-adaptation",
+        "priority": 68,
+        "dueAt": "2026-03-08T01:28:37.482Z",
+        "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
       }
     ],
     "nextTask": {
@@ -924,18 +956,115 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-06T23:07:51.890Z",
-      "notes": "[idle-prevention] Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      "dueAt": "2026-03-07T03:28:37.482Z",
+      "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
-    "immediateContinuations": [],
+    "immediateContinuations": [
+      {
+        "id": "discovered-internal-skill-packs-distribution",
+        "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
+        "owner": "distribution",
+        "initiativeId": "discovered-internal-skill-packs",
+        "reason": "distribution-bottleneck",
+        "priority": 88,
+        "dueAt": "2026-03-07T13:28:37.482Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      },
+      {
+        "id": "discovered-internal-skill-packs-research",
+        "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
+        "owner": "research",
+        "initiativeId": "discovered-internal-skill-packs",
+        "reason": "new-opportunity-research",
+        "priority": 84,
+        "dueAt": "2026-03-07T19:28:37.482Z",
+        "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
+      },
+      {
+        "id": "skill-gap-reduction",
+        "title": "Promote the highest-leverage internal skill candidate",
+        "owner": "skillsmith",
+        "initiativeId": "skill-pipeline",
+        "reason": "skill-gap-reduction",
+        "priority": 74,
+        "dueAt": "2026-03-07T21:28:37.482Z",
+        "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
+      }
+    ],
+    "activeAssignments": [
+      {
+        "taskId": "discovered-internal-skill-packs-offer",
+        "owner": "ceo",
+        "initiativeId": "discovered-internal-skill-packs",
+        "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "discovered-internal-skill-packs-distribution",
+        "owner": "distribution",
+        "initiativeId": "discovered-internal-skill-packs",
+        "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "changelog-adaptation",
+        "owner": "ops",
+        "initiativeId": "update-steward",
+        "title": "Refresh official-source deltas and compare stage vs prod assumptions",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "discovered-internal-skill-packs-research",
+        "owner": "research",
+        "initiativeId": "discovered-internal-skill-packs",
+        "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "skill-gap-reduction",
+        "owner": "skillsmith",
+        "initiativeId": "skill-pipeline",
+        "title": "Promote the highest-leverage internal skill candidate",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      }
+    ],
     "completedTaskIds": [],
     "blockedInitiativeIds": [],
     "locks": [
       {
         "taskId": "discovered-internal-skill-packs-offer",
         "owner": "ceo",
-        "acquiredAt": "2026-03-06T23:07:51.890Z",
-        "expiresAt": "2026-03-06T23:22:51.890Z"
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "discovered-internal-skill-packs-distribution",
+        "owner": "distribution",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "discovered-internal-skill-packs-research",
+        "owner": "research",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "skill-gap-reduction",
+        "owner": "skillsmith",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
+      },
+      {
+        "taskId": "changelog-adaptation",
+        "owner": "ops",
+        "acquiredAt": "2026-03-07T01:28:37.484Z",
+        "expiresAt": "2026-03-07T01:43:37.484Z"
       }
     ],
     "agentConcurrencyLimits": {
@@ -960,18 +1089,28 @@
     }
   },
   "browser": {
-    "generatedAt": "2026-03-06T23:07:53.147Z",
+    "generatedAt": "2026-03-07T01:28:39.431Z",
     "capabilities": {
       "managedBrowser": true,
       "attachedChrome": false,
       "attachedChromePaired": false,
+      "nodeHostConfigured": false,
+      "nodeHostReady": false,
       "gatewayTokenConfigured": true,
+      "remoteGatewayConfigured": true,
+      "remoteGatewayBaseUrl": "",
+      "remoteGatewayMode": "local",
       "steel": false,
       "steelMode": "none",
       "steelReady": false,
       "steelBaseUrl": "",
       "steelAuthConfigured": false,
-      "steelApiConfigured": false
+      "steelApiConfigured": false,
+      "steelCredentialsSupported": false,
+      "steelProfilesSupported": false,
+      "steelSessionPersistenceSupported": false,
+      "steelLiveDebugSupported": false,
+      "steelAuthStateReady": false
     },
     "profiles": [
       {
@@ -1042,43 +1181,54 @@
     "sampleRoutes": [
       {
         "taskId": "market-research",
+        "status": "ready",
         "lane": "openclaw-managed",
         "profileId": "openclaw_research",
         "headless": true,
         "reasons": [
-          "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
+          "OpenClaw managed browser is the default typed lane for public or low-trust work."
         ]
       },
       {
         "taskId": "wise-reconcile",
-        "lane": "openclaw-managed",
-        "profileId": "openclaw_research",
+        "status": "blocked",
+        "lane": "blocked",
+        "profileId": null,
         "headless": false,
+        "blockerReason": "high-trust-browser-lane-unavailable",
         "reasons": [
-          "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
+          "Treasury and infrastructure work will not silently degrade into the generic managed browser.",
+          "Attached Chrome is not fully ready through pairing, token auth, remote gateway reachability, and node host.",
+          "Steel is not configured for auth-sensitive browser work."
         ]
       },
       {
         "taskId": "signup-run",
-        "lane": "openclaw-managed",
-        "profileId": "openclaw_research",
+        "status": "blocked",
+        "lane": "blocked",
+        "profileId": null,
         "headless": false,
+        "blockerReason": "company-auth-lane-unavailable",
         "reasons": [
-          "OpenClaw managed browser is the default typed lane when a stronger attached or Steel route is not ready."
+          "Company-auth work that needs persistent state will not silently fall back to the generic managed browser."
         ]
       }
     ],
     "activeSessions": 0
   },
   "modelPolicy": {
-    "detectedAt": "2026-03-06T23:07:37.880Z",
+    "detectedAt": "2026-03-07T01:28:37.488Z",
     "probeMode": "passive",
     "provisional": false,
     "codexCliInstalled": true,
     "openclawInstalled": false,
     "strategicTarget": "gpt-5.4",
+    "officialFrontierModel": "gpt-5.4",
+    "officialCodexDocsStatus": "mixed",
     "openClawPrimary": "openai-codex/gpt-5.3-codex",
     "openClawFallback": "openai-codex/gpt-5-codex",
+    "openClawProbeSource": "docs-only",
+    "openClawVerifiedCandidates": [],
     "aliases": [
       {
         "alias": "model.primary_frontier",
@@ -1087,7 +1237,7 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
       },
       {
         "alias": "model.frontier_browser",
@@ -1096,7 +1246,7 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
       },
       {
         "alias": "model.frontier_research",
@@ -1105,7 +1255,7 @@
         "reasoning": "xhigh",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
       },
       {
         "alias": "model.frontier_build",
@@ -1114,7 +1264,7 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work whenever the local runtime proves it."
       },
       {
         "alias": "openclaw.model.primary_frontier",
@@ -1123,7 +1273,7 @@
         "reasoning": "high",
         "surface": "source-fallback",
         "status": "docs-only",
-        "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
+        "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex examples, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
       }
     ],
     "drift": [
@@ -1134,36 +1284,40 @@
     {
       "id": "skill-find-skills",
       "slug": "find-skills",
-      "source": "ClawHub",
-      "sourceType": "clawhub",
+      "source": "nkchivas/openclaw-skill-find-skills",
+      "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-06T23:07:51.892Z",
-      "discoveryMode": "clawhub",
-      "sourceUrl": "https://clawhub.ai/search?q=find-skills",
+      "discoveredAt": "2026-03-07T01:28:37.494Z",
+      "discoveryMode": "github",
       "rationale": "Explicit operator request and likely leverage for discovery loops.",
-      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
-      "versionPin": "sha256:9fd7a2bd5c53",
+      "provenance": "Seeded from the operator brief. Resolved to GitHub repository nkchivas/openclaw-skill-find-skills.",
+      "versionPin": "git:17824198e58d",
+      "pinKind": "github-commit",
       "maintenanceSignal": 6.5,
       "overlapScore": 8.7,
       "riskScore": 10,
-      "notes": "Resolve the live ClawHub or GitHub source before promotion. Candidate resolved to https://clawhub.ai/search?q=find-skills."
+      "notes": "Resolve a real ClawHub skill page or GitHub repo before promotion. Candidate resolved to https://github.com/nkchivas/openclaw-skill-find-skills/tree/17824198e58d2ddf9d45b69b241e29529b9fa763.",
+      "sourceUrl": "https://github.com/nkchivas/openclaw-skill-find-skills",
+      "artifactUrl": "https://github.com/nkchivas/openclaw-skill-find-skills/tree/17824198e58d2ddf9d45b69b241e29529b9fa763"
     },
     {
       "id": "skill-clawddocs",
       "slug": "clawddocs",
-      "source": "ClawHub",
-      "sourceType": "clawhub",
+      "source": "vyakimov/clawddocs-claude-code-skill",
+      "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-06T23:07:52.196Z",
-      "discoveryMode": "clawhub",
-      "sourceUrl": "https://clawhub.ai/search?q=clawddocs",
+      "discoveredAt": "2026-03-07T01:28:37.841Z",
+      "discoveryMode": "github",
       "rationale": "Could improve documentation retrieval and OpenClaw adaptation speed.",
-      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
-      "versionPin": "sha256:0569f1b8e346",
+      "provenance": "Seeded from the operator brief. Resolved to GitHub repository vyakimov/clawddocs-claude-code-skill.",
+      "versionPin": "git:a2c05bc08608",
+      "pinKind": "github-commit",
       "maintenanceSignal": 6.2,
       "overlapScore": 8.3,
       "riskScore": 10,
-      "notes": "Verify source availability and compatibility with current OpenClaw releases before promotion. Candidate resolved to https://clawhub.ai/search?q=clawddocs."
+      "notes": "Verify source availability and compatibility with current OpenClaw releases before promotion. Candidate resolved to https://github.com/vyakimov/clawddocs-claude-code-skill/tree/a2c05bc08608b7747ffc7d099a8d7e29db775797.",
+      "sourceUrl": "https://github.com/vyakimov/clawddocs-claude-code-skill",
+      "artifactUrl": "https://github.com/vyakimov/clawddocs-claude-code-skill/tree/a2c05bc08608b7747ffc7d099a8d7e29db775797"
     },
     {
       "id": "skill-skill-creator",
@@ -1171,11 +1325,12 @@
       "source": "Local Codex system skill",
       "sourceType": "built-in",
       "stage": "prod",
-      "discoveredAt": "2026-03-06T23:07:52.490Z",
+      "discoveredAt": "2026-03-07T01:28:38.602Z",
       "discoveryMode": "workspace",
       "rationale": "Required for internal skill creation workflow.",
       "provenance": "Local Codex system skill present in this session.",
       "versionPin": "system-preinstalled",
+      "pinKind": "built-in",
       "maintenanceSignal": 9,
       "overlapScore": 9.2,
       "riskScore": 0.2,
@@ -1184,36 +1339,40 @@
     {
       "id": "skill-proactive-agent",
       "slug": "proactive-agent",
-      "source": "ClawHub",
-      "sourceType": "clawhub",
+      "source": "nkchivas/openclaw-skill-proactive-agent",
+      "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-06T23:07:52.490Z",
-      "discoveryMode": "clawhub",
-      "sourceUrl": "https://clawhub.ai/search?q=proactive-agent",
+      "discoveredAt": "2026-03-07T01:28:38.602Z",
+      "discoveryMode": "github",
       "rationale": "Maps directly to always-on autonomy patterns but must be supply-chain vetted.",
-      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
-      "versionPin": "sha256:9048806b74a8",
+      "provenance": "Seeded from the operator brief. Resolved to GitHub repository nkchivas/openclaw-skill-proactive-agent.",
+      "versionPin": "git:71d9b7062220",
+      "pinKind": "github-commit",
       "maintenanceSignal": 5.5,
       "overlapScore": 8.8,
       "riskScore": 10,
-      "notes": "Potentially high leverage; require provenance, pinning, and evals before stage. Candidate resolved to https://clawhub.ai/search?q=proactive-agent."
+      "notes": "Potentially high leverage; require provenance, pinning, and evals before stage. Candidate resolved to https://github.com/nkchivas/openclaw-skill-proactive-agent/tree/71d9b7062220e940a8d7be2df583e75189498552.",
+      "sourceUrl": "https://github.com/nkchivas/openclaw-skill-proactive-agent",
+      "artifactUrl": "https://github.com/nkchivas/openclaw-skill-proactive-agent/tree/71d9b7062220e940a8d7be2df583e75189498552"
     },
     {
       "id": "skill-self-improving-agent",
       "slug": "self-improving-agent",
-      "source": "ClawHub",
-      "sourceType": "clawhub",
+      "source": "yanhongxi-openclaw/proactive-self-improving-agent",
+      "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-06T23:07:52.703Z",
-      "discoveryMode": "clawhub",
-      "sourceUrl": "https://clawhub.ai/search?q=self-improving-agent",
+      "discoveredAt": "2026-03-07T01:28:39.043Z",
+      "discoveryMode": "github",
       "rationale": "Maps directly to the self-improvement objective.",
-      "provenance": "Seeded from the operator brief. Resolved to a live clawhub page during discovery.",
-      "versionPin": "sha256:4ef3844ee635",
+      "provenance": "Seeded from the operator brief. Resolved to GitHub repository yanhongxi-openclaw/proactive-self-improving-agent.",
+      "versionPin": "git:5af957709186",
+      "pinKind": "github-commit",
       "maintenanceSignal": 5.8,
       "overlapScore": 9.1,
       "riskScore": 10,
-      "notes": "Do not promote without deterministic evals and mutation boundaries. Candidate resolved to https://clawhub.ai/search?q=self-improving-agent."
+      "notes": "Do not promote without deterministic evals and mutation boundaries. Candidate resolved to https://github.com/yanhongxi-openclaw/proactive-self-improving-agent/tree/5af957709186392fb9892382d0ffb26e8095ad65.",
+      "sourceUrl": "https://github.com/yanhongxi-openclaw/proactive-self-improving-agent",
+      "artifactUrl": "https://github.com/yanhongxi-openclaw/proactive-self-improving-agent/tree/5af957709186392fb9892382d0ffb26e8095ad65"
     },
     {
       "id": "workspace-browser-login-runbook",
@@ -1221,12 +1380,14 @@
       "source": "Workspace internal skill",
       "sourceType": "workspace",
       "stage": "prod",
-      "discoveredAt": "2026-03-06T23:07:53.147Z",
+      "discoveredAt": "2026-03-07T01:28:39.431Z",
       "discoveryMode": "workspace",
-      "sourceUrl": "C:\\Users\\beres\\Desktop\\openclaw setup\\skills\\internal\\browser-login-runbook\\SKILL.md",
+      "sourceUrl": "skills/internal/browser-login-runbook/SKILL.md",
       "rationale": "Internal skill already present in the workspace and available for reuse.",
       "provenance": "Discovered by scanning skills/internal.",
       "versionPin": "workspace:browser-login-runbook",
+      "pinKind": "workspace",
+      "artifactUrl": "skills/internal/browser-login-runbook/SKILL.md",
       "maintenanceSignal": 8.2,
       "overlapScore": 8.8,
       "riskScore": 2.3,
@@ -1238,12 +1399,14 @@
       "source": "Workspace internal skill",
       "sourceType": "workspace",
       "stage": "prod",
-      "discoveredAt": "2026-03-06T23:07:53.147Z",
+      "discoveredAt": "2026-03-07T01:28:39.431Z",
       "discoveryMode": "workspace",
-      "sourceUrl": "C:\\Users\\beres\\Desktop\\openclaw setup\\skills\\internal\\changelog-delta-summarizer\\SKILL.md",
+      "sourceUrl": "skills/internal/changelog-delta-summarizer/SKILL.md",
       "rationale": "Internal skill already present in the workspace and available for reuse.",
       "provenance": "Discovered by scanning skills/internal.",
       "versionPin": "workspace:changelog-delta-summarizer",
+      "pinKind": "workspace",
+      "artifactUrl": "skills/internal/changelog-delta-summarizer/SKILL.md",
       "maintenanceSignal": 8.2,
       "overlapScore": 8.8,
       "riskScore": 2.3,
@@ -1255,12 +1418,14 @@
       "source": "Workspace internal skill",
       "sourceType": "workspace",
       "stage": "prod",
-      "discoveredAt": "2026-03-06T23:07:53.147Z",
+      "discoveredAt": "2026-03-07T01:28:39.431Z",
       "discoveryMode": "workspace",
-      "sourceUrl": "C:\\Users\\beres\\Desktop\\openclaw setup\\skills\\internal\\initiative-bootstrapper\\SKILL.md",
+      "sourceUrl": "skills/internal/initiative-bootstrapper/SKILL.md",
       "rationale": "Internal skill already present in the workspace and available for reuse.",
       "provenance": "Discovered by scanning skills/internal.",
       "versionPin": "workspace:initiative-bootstrapper",
+      "pinKind": "workspace",
+      "artifactUrl": "skills/internal/initiative-bootstrapper/SKILL.md",
       "maintenanceSignal": 8.2,
       "overlapScore": 8.8,
       "riskScore": 2.3,
@@ -1270,10 +1435,10 @@
   "anchors": [
     {
       "id": "anchor-1",
-      "anchor": "ChatGPT Pro and Business unlimited GPT-5 access in ChatGPT is guardrail-based rather than truly uncapped.",
-      "status": "verified",
-      "note": "Official plan docs still frame GPT-5 access in ChatGPT as unlimited or effectively unlimited subject to abuse guardrails. Methods: openai-pro-plan:browser-capture, openai-business-limits:browser-capture.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "ChatGPT Pro and Business frame GPT access in ChatGPT as unlimited or effectively unlimited, subject to guardrails.",
+      "status": "pending-runtime-check",
+      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-pro-plan:ua-fetch-fallback, openai-business-limits:ua-fetch-fallback.",
+      "checkedAt": "2026-03-07T01:28:39.455Z",
       "sourceIds": [
         "openai-pro-plan",
         "openai-business-limits"
@@ -1281,43 +1446,44 @@
     },
     {
       "id": "anchor-2",
-      "anchor": "GPT-5.4 is the current frontier model for professional work with a 1,050,000 token context window.",
-      "status": "drifted",
-      "note": "The latest GPT-5.4 model page no longer exposes the earlier frontier or 1.05M context wording clearly enough to keep the old anchor unchanged. Methods: openai-gpt-5.4-model:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "GPT-5.4 Pro remains the frontier OpenAI model page with a 1,050,000 token context window claim.",
+      "status": "pending-runtime-check",
+      "note": "The latest GPT-5.4 Pro page loads, but a real rendered or browser-backed confirmation is still needed to restate the frontier or 1.05M wording precisely. Methods: openai-gpt-5.4-model:direct-fetch.",
+      "checkedAt": "2026-03-07T01:28:39.455Z",
       "sourceIds": [
         "openai-gpt-5.4-model"
       ]
     },
     {
       "id": "anchor-3",
-      "anchor": "GPT-5.4 is available everywhere you use Codex.",
-      "status": "drifted",
-      "note": "Codex-facing docs still emphasize GPT-5-Codex or GPT-5.3-Codex rather than proving GPT-5.4 as the universal Codex default. Methods: openai-codex-upgrades:browser-capture, openai-gpt-5.3-codex:browser-capture, openai-gpt-5.4-model:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "This repo should keep GPT-5.4 as the strategic frontier target while treating Codex-surface defaults as a separately verified runtime fact.",
+      "status": "pending-runtime-check",
+      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-gpt-5.4-model:direct-fetch, openai-codex-plan:ua-fetch-fallback, openai-codex-upgrades:ua-fetch-fallback, openai-codex-app:ua-fetch-fallback.",
+      "checkedAt": "2026-03-07T01:28:39.455Z",
       "sourceIds": [
+        "openai-gpt-5.4-model",
+        "openai-codex-plan",
         "openai-codex-upgrades",
-        "openai-gpt-5.3-codex",
-        "openai-gpt-5.4-model"
+        "openai-codex-app"
       ]
     },
     {
       "id": "anchor-4",
-      "anchor": "Codex-native frontier work currently rides on GPT-5.3-Codex or GPT-5-Codex rather than a public GPT-5.4 Codex release.",
-      "status": "verified",
-      "note": "Current Codex-native docs still center GPT-5.3-Codex or GPT-5-Codex on the Codex surface. Methods: openai-gpt-5.3-codex:browser-capture, openai-gpt-5.4-model:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "OpenClaw provider examples can lag the frontier model naming, so provider-model promotion must be runtime-probed.",
+      "status": "pending-runtime-check",
+      "note": "The provider docs still need a clearer rendered read before restating the exact compatibility fallback assumptions automatically. Methods: openclaw-model-providers:direct-fetch, openai-gpt-5.4-model:direct-fetch.",
+      "checkedAt": "2026-03-07T01:28:39.455Z",
       "sourceIds": [
-        "openai-gpt-5.3-codex",
+        "openclaw-model-providers",
         "openai-gpt-5.4-model"
       ]
     },
     {
       "id": "anchor-5",
-      "anchor": "Codex supports ChatGPT sign-in and is included with ChatGPT plans.",
-      "status": "verified",
-      "note": "Current Codex docs still support ChatGPT sign-in and plan-based access. Methods: openai-codex-plan:browser-capture, openai-codex-upgrades:browser-capture.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "Codex supports ChatGPT sign-in and plan-based access.",
+      "status": "pending-runtime-check",
+      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback, openai-codex-upgrades:ua-fetch-fallback.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openai-codex-plan",
         "openai-codex-upgrades"
@@ -1325,53 +1491,55 @@
     },
     {
       "id": "anchor-6",
-      "anchor": "Current Codex Pro local usage windows are higher than the prompt's 223-1120 estimate.",
+      "anchor": "Codex plan usage windows are separate from ChatGPT chat usage and require pacing discipline.",
       "status": "pending-runtime-check",
-      "note": "The current Codex plan article could not be parsed cleanly enough to restate the present local-window numbers automatically. Methods: openai-codex-plan:browser-capture.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openai-codex-plan"
       ]
     },
     {
       "id": "anchor-7",
-      "anchor": "OpenClaw officially supports Codex OAuth / ChatGPT sign-in.",
+      "anchor": "OpenClaw officially supports Codex OAuth or ChatGPT sign-in for external workflows.",
       "status": "verified",
       "note": "OpenClaw provider docs still explicitly document OpenAI Codex OAuth support. Methods: openclaw-model-providers:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-model-providers"
       ]
     },
     {
       "id": "anchor-8",
-      "anchor": "OpenClaw recommends Node runtime for stable gateways and does not recommend Bun for gateway installs.",
+      "anchor": "OpenClaw recommends Node for stable gateways and does not recommend Bun for gateway installs.",
       "status": "pending-runtime-check",
       "note": "The current CLI docs could not be parsed cleanly enough to restate the Node-versus-Bun guidance automatically. Methods: openclaw-cli:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-cli"
       ]
     },
     {
       "id": "anchor-9",
-      "anchor": "The strongest always-on OpenClaw pattern is one primary gateway with remote nodes and clients.",
+      "anchor": "The strongest always-on OpenClaw pattern is one primary loopback-bound gateway with secure remote access and remote nodes where needed.",
       "status": "pending-runtime-check",
-      "note": "The single-gateway guidance needs a human check because the latest pages did not expose the wording clearly enough. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-faq:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-remote-access:search-backed, openclaw-nodes:search-backed.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-multiple-gateways",
-        "openclaw-faq"
+        "openclaw-remote-access",
+        "openclaw-nodes"
       ]
     },
     {
       "id": "anchor-10",
-      "anchor": "Cron and heartbeat serve different purposes and should be combined.",
-      "status": "verified",
-      "note": "The latest automation docs still distinguish cron from heartbeat and recommend using both together. Methods: openclaw-cron-vs-heartbeat:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "Cron and heartbeat serve different purposes and should be combined with explicit wake or continuation flows.",
+      "status": "pending-runtime-check",
+      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openclaw-cron-vs-heartbeat:direct-fetch, openclaw-nodes:search-backed.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
-        "openclaw-cron-vs-heartbeat"
+        "openclaw-cron-vs-heartbeat",
+        "openclaw-nodes"
       ]
     },
     {
@@ -1379,17 +1547,17 @@
       "anchor": "OpenClaw memory is Markdown-first, and Codex OAuth does not satisfy embeddings for memory search.",
       "status": "verified",
       "note": "The latest memory docs still show Markdown-first memory and separate embedding requirements. Methods: openclaw-memory:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-memory"
       ]
     },
     {
       "id": "anchor-12",
-      "anchor": "OpenClaw supports QMD and local memory-search backends.",
+      "anchor": "OpenClaw supports QMD and local-first memory search backends.",
       "status": "verified",
-      "note": "The memory docs still advertise local-first memory search options such as QMD or local embeddings. Methods: openclaw-memory:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "note": "The memory docs still advertise QMD and local-first search options. Methods: openclaw-memory:direct-fetch.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-memory"
       ]
@@ -1399,7 +1567,7 @@
       "anchor": "OpenClaw skills, plugins, and skill folders are supply-chain risk and must be treated as trusted or untrusted code accordingly.",
       "status": "verified",
       "note": "OpenClaw security guidance still treats skills and plugins as trusted-code or supply-chain risk surfaces. Methods: openclaw-security:direct-fetch, openclaw-secrets:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-security",
         "openclaw-secrets"
@@ -1407,10 +1575,10 @@
     },
     {
       "id": "anchor-14",
-      "anchor": "OpenClaw current docs expose strict config validation, additive SecretRefs, and a first-class PDF tool.",
+      "anchor": "OpenClaw current docs expose strict config requirements, additive SecretRefs, and a first-class PDF tool.",
       "status": "verified",
-      "note": "Current OpenClaw docs still expose config validation or doctor-style checks, broader secret coverage, and PDF tooling. Methods: openclaw-configuration:direct-fetch, openclaw-secrets:direct-fetch, openclaw-pdf:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "note": "Current OpenClaw docs still expose config requirements, broader secret coverage, and PDF tooling. Methods: openclaw-configuration:direct-fetch, openclaw-secrets:direct-fetch, openclaw-pdf:direct-fetch.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-configuration",
         "openclaw-secrets",
@@ -1419,14 +1587,15 @@
     },
     {
       "id": "anchor-15",
-      "anchor": "OpenClaw can use a managed browser or an attached Chrome relay, and headless mode is more likely to trigger anti-bot checks.",
-      "status": "verified",
-      "note": "The browser docs still cover managed browsing, attached Chrome, and headless tradeoffs. Methods: openclaw-browser:direct-fetch, openclaw-faq:direct-fetch, openclaw-browser-login:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "OpenClaw can use a managed browser, attached Chrome relay, and remote nodes; headless mode can trigger more anti-bot friction.",
+      "status": "pending-runtime-check",
+      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openclaw-browser:direct-fetch, openclaw-browser-login:direct-fetch, openclaw-nodes:search-backed, openclaw-faq:direct-fetch.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-browser",
-        "openclaw-faq",
-        "openclaw-browser-login"
+        "openclaw-browser-login",
+        "openclaw-nodes",
+        "openclaw-faq"
       ]
     },
     {
@@ -1434,17 +1603,17 @@
       "anchor": "Automated self-update is possible but not the primary recommended operating pattern.",
       "status": "pending-runtime-check",
       "note": "The latest FAQ needs a human confirmation of the self-update guidance. Methods: openclaw-faq:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "openclaw-faq"
       ]
     },
     {
       "id": "anchor-17",
-      "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU/UK PSD2 constrains personal-token actions.",
+      "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU or UK PSD2 rules constrain some personal-token actions.",
       "status": "verified",
       "note": "Current Wise docs still separate personal-token and OAuth realities and preserve PSD2 constraints. Methods: wise-security-access:direct-fetch, wise-personal-tokens:direct-fetch, wise-getting-started:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
         "wise-security-access",
         "wise-personal-tokens",
@@ -1453,13 +1622,15 @@
     },
     {
       "id": "anchor-18",
-      "anchor": "GPT-4.5-preview assumptions are stale and deprecated.",
-      "status": "pending-runtime-check",
-      "note": "The latest release notes need a human review before restating the GPT-4.5 deprecation claim. Methods: openai-model-release-notes:browser-capture, openai-gpt-5.4-model:direct-fetch.",
-      "checkedAt": "2026-03-06T23:07:53.178Z",
+      "anchor": "Steel Cloud and Steel Local differ materially; auth-sensitive credential injection is not a safe assumption in Steel Local.",
+      "status": "verified",
+      "note": "Current Steel docs still distinguish Cloud from Local and separate credential or profile capabilities accordingly. Methods: steel-sessions-overview:direct-fetch, steel-profiles:direct-fetch, steel-credentials:direct-fetch, steel-local-vs-cloud:direct-fetch.",
+      "checkedAt": "2026-03-07T01:28:39.456Z",
       "sourceIds": [
-        "openai-model-release-notes",
-        "openai-gpt-5.4-model"
+        "steel-sessions-overview",
+        "steel-profiles",
+        "steel-credentials",
+        "steel-local-vs-cloud"
       ]
     }
   ],
@@ -1516,12 +1687,13 @@
   ],
   "notes": [
     "Use prod only after stage smoke, source refresh, treasury probe, and browser broker checks all pass.",
-    "Keep GPT-5.4 as the default strategy model where supported, while OpenClaw stays on the strongest verified provider string until runtime proves a GPT-5.4 provider path.",
-    "The dispatcher should continue work immediately after task completion instead of waiting for the next heartbeat sweep.",
+    "Keep GPT-5.4 as the strategic model target, while separating official frontier-model truth, Codex-surface docs, and live OpenClaw provider proof.",
+    "The dispatcher should continue work immediately after task completion and keep multiple specialists occupied when ready work exists.",
     "Treasury truth is unknown cash with unavailable ledger coverage."
   ],
   "blockers": [
     "Attached Chrome relay is not yet paired on the Windows browser host.",
-    "Steel is not fully configured for session automation yet."
+    "Steel is not fully configured for session automation yet.",
+    "One or more browser routes are intentionally blocked because no safe high-trust lane is ready."
   ]
 }

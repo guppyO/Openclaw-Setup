@@ -18,13 +18,14 @@ Use [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md) for
 Key follow-through docs:
 
 - Secrets and generated gateway tokens: [docs/secrets-handling.md](./docs/secrets-handling.md)
-- Browser routing and pairing: [docs/browser-topology.md](./docs/browser-topology.md)
-- Dispatch, recovery, and wake-now flow: [docs/continuous-dispatch.md](./docs/continuous-dispatch.md)
+- Browser routing, SSH tunnel, and node host: [docs/browser-topology.md](./docs/browser-topology.md)
+- Dispatch, recovery, and default tracked-task runner: [docs/continuous-dispatch.md](./docs/continuous-dispatch.md)
 - Current runtime truth: [CURRENT-STATE.md](./CURRENT-STATE.md)
 
 The minimum unavoidable interactive steps are:
 
 - complete `openclaw models auth login --provider openai-codex` on the VPS as the runtime user,
+- start the Windows SSH tunnel and node host once the VPS gateway exists,
 - pair the attached Chrome relay once on Windows using the generated gateway token,
-- add Steel cloud or self-hosted auth details if you want the Steel lane live,
+- add Steel cloud auth details and auth-ready profile refs if you want the Steel high-trust lane live,
 - verify the Wise lane you want to use beyond browser-only reconciliation.

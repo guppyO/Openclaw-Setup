@@ -9,7 +9,7 @@
       {
         "source": "internal-asset-reuse",
         "description": "Detected 8 internal skill assets suitable for external packaging.",
-        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "capturedAt": "2026-03-07T01:28:33.891Z",
         "strength": 8.5
       }
     ],
@@ -52,28 +52,28 @@
     "sourceEvidence": [
       {
         "sourceId": "internal-skill-reuse",
-        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "capturedAt": "2026-03-07T01:28:33.891Z",
         "url": "skills/internal/browser-login-runbook/SKILL.md",
         "note": "Internal skill detected at browser-login-runbook.",
         "method": "internal"
       },
       {
         "sourceId": "internal-skill-reuse",
-        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "capturedAt": "2026-03-07T01:28:33.891Z",
         "url": "skills/internal/changelog-delta-summarizer/SKILL.md",
         "note": "Internal skill detected at changelog-delta-summarizer.",
         "method": "internal"
       },
       {
         "sourceId": "internal-skill-reuse",
-        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "capturedAt": "2026-03-07T01:28:33.891Z",
         "url": "skills/internal/initiative-bootstrapper/SKILL.md",
         "note": "Internal skill detected at initiative-bootstrapper.",
         "method": "internal"
       },
       {
         "sourceId": "internal-skill-reuse",
-        "capturedAt": "2026-03-06T23:07:39.425Z",
+        "capturedAt": "2026-03-07T01:28:33.891Z",
         "url": "skills/internal/landing-page-launcher/SKILL.md",
         "note": "Internal skill detected at landing-page-launcher.",
         "method": "internal"
@@ -111,13 +111,13 @@
       {
         "source": "service-business pain",
         "description": "Manual ops and quoting friction remain common in local businesses.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 7.8
       },
       {
         "source": "AI adoption",
         "description": "Businesses want AI help but need bounded and accountable delivery.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 8.2
       }
     ],
@@ -161,7 +161,7 @@
     "sourceEvidence": [
       {
         "sourceId": "seed-catalog",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
         "method": "seeded"
       }
@@ -189,6 +189,88 @@
     }
   },
   {
+    "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+    "title": "asiifdev/business-leads-ai-automation operator-mapped opportunity",
+    "thesis": "GitHub demand signal from GitHub repositories: lead systems and SEO tooling: asiifdev/business-leads-ai-automation. ⚡ Open source lead generation & marketing automation. Google Maps scraper + AI-powered email/WhatsApp templates. Perfect for SMEs & agencies. Convert the repeated workflow into a bounded offer, hosted tool, or paid implementation pack.",
+    "laneFamily": "owned-media",
+    "monetizationRoute": "Lead fees, affiliate payouts, and productized implementation upsell",
+    "demandSignals": [
+      {
+        "source": "GitHub repositories: lead systems and SEO tooling",
+        "description": "⚡ Open source lead generation & marketing automation. Google Maps scraper + AI-powered email/WhatsApp templates. Perfect for SMEs & agencies. (61 GitHub stars).",
+        "capturedAt": "2026-03-07T01:28:35.588Z",
+        "strength": 8.1,
+        "url": "https://github.com/asiifdev/business-leads-ai-automation"
+      }
+    ],
+    "requiredAssets": [
+      "comparison-page",
+      "analytics",
+      "lead-routing",
+      "content-cluster"
+    ],
+    "requiredAccounts": [
+      "Domain registrar",
+      "Hosting",
+      "Analytics"
+    ],
+    "timeToLaunchDays": 10,
+    "timeToRevenueDays": 21,
+    "expectedMarginPct": 84.3,
+    "capitalRequiredUsd": 213.9,
+    "automationFit": 9.2,
+    "defensibility": 6.3,
+    "distributionFit": 7.9,
+    "complianceFriction": 2.5,
+    "payoutFriction": 2.7,
+    "buildComplexity": 4.8,
+    "maintenanceBurden": 4.3,
+    "platformRisk": 3.7,
+    "compoundingPotential": 9.4,
+    "confidence": 6.7,
+    "synergy": 8.7,
+    "payoutReadiness": 7.7,
+    "currentStatus": "discovered",
+    "experimentPlan": "Launch a narrow comparison or lead-capture surface around the strongest repeated pain cluster and route the first qualified demand.",
+    "liveKpis": [
+      "organic visits",
+      "lead conversion",
+      "qualified leads",
+      "revenue per lead"
+    ],
+    "origin": "discovered",
+    "sourceEvidence": [
+      {
+        "sourceId": "github-lead-systems",
+        "capturedAt": "2026-03-05T17:45:17Z",
+        "url": "https://github.com/asiifdev/business-leads-ai-automation",
+        "note": "GitHub repository signal from GitHub repositories: lead systems and SEO tooling: asiifdev/business-leads-ai-automation",
+        "method": "search"
+      }
+    ],
+    "score": {
+      "total": 7.84,
+      "rankedScore": 78.4,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 8.58,
+        "confidence": 6.7,
+        "speedToLaunch": 8.57,
+        "speedToRevenue": 7.9,
+        "capitalEfficiency": 9.14,
+        "platformRisk": 3.7,
+        "distributionEfficiency": 7.9,
+        "buildComplexity": 4.8,
+        "maintenanceBurden": 4.3,
+        "compoundingPotential": 9.4,
+        "automationSuitability": 9.2,
+        "synergyWithExistingAssets": 8.7,
+        "payoutReadiness": 7.5,
+        "complianceFriction": 2.5
+      }
+    }
+  },
+  {
     "id": "marketplace-automation-packs",
     "title": "Automation packs sold through compliant marketplaces",
     "thesis": "Externalize internal workflow templates and automation bundles into small-ticket digital products that can compound with support upsells.",
@@ -198,13 +280,13 @@
       {
         "source": "creator economy",
         "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 7.4
       },
       {
         "source": "distribution leverage",
         "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 7.1
       }
     ],
@@ -246,7 +328,7 @@
     "sourceEvidence": [
       {
         "sourceId": "seed-catalog",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
         "method": "seeded"
       }
@@ -274,6 +356,88 @@
     }
   },
   {
+    "id": "discovered-github-automation-templates-somiibo-somiibo-microservice-template",
+    "title": "somiibo/somiibo-microservice-template operator-mapped opportunity",
+    "thesis": "GitHub demand signal from GitHub repositories: automation templates: somiibo/somiibo-microservice-template. A free social media automation platform that organically grows your online presence and gets you more followers. Convert the repeated workflow into a bounded offer, hosted tool, or paid implementation pack.",
+    "laneFamily": "digital-products",
+    "monetizationRoute": "Template bundle sales plus setup or support upsell",
+    "demandSignals": [
+      {
+        "source": "GitHub repositories: automation templates",
+        "description": "A free social media automation platform that organically grows your online presence and gets you more followers. (46 GitHub stars).",
+        "capturedAt": "2026-03-07T01:28:35.188Z",
+        "strength": 8,
+        "url": "https://github.com/somiibo/somiibo-microservice-template"
+      }
+    ],
+    "requiredAssets": [
+      "product-package",
+      "screenshots",
+      "comparison-page",
+      "support-docs"
+    ],
+    "requiredAccounts": [
+      "Company Gmail",
+      "Wise",
+      "Marketplace account"
+    ],
+    "timeToLaunchDays": 10,
+    "timeToRevenueDays": 21,
+    "expectedMarginPct": 84.3,
+    "capitalRequiredUsd": 215.4,
+    "automationFit": 9.2,
+    "defensibility": 6.3,
+    "distributionFit": 7.9,
+    "complianceFriction": 2.5,
+    "payoutFriction": 1.9,
+    "buildComplexity": 4.8,
+    "maintenanceBurden": 4.3,
+    "platformRisk": 4.2,
+    "compoundingPotential": 8.4,
+    "confidence": 6.6,
+    "synergy": 8.7,
+    "payoutReadiness": 7.7,
+    "currentStatus": "discovered",
+    "experimentPlan": "Package a narrow automation or template offer around the strongest repeated repo pattern and validate it on one owned page plus one marketplace.",
+    "liveKpis": [
+      "product views",
+      "purchases",
+      "refund rate",
+      "support time"
+    ],
+    "origin": "discovered",
+    "sourceEvidence": [
+      {
+        "sourceId": "github-automation-templates",
+        "capturedAt": "2026-03-06T03:29:35Z",
+        "url": "https://github.com/somiibo/somiibo-microservice-template",
+        "note": "GitHub repository signal from GitHub repositories: automation templates: somiibo/somiibo-microservice-template",
+        "method": "search"
+      }
+    ],
+    "score": {
+      "total": 7.7,
+      "rankedScore": 77,
+      "weightVersion": "2026-03-06.a",
+      "dimensionScores": {
+        "expectedValue": 8.24,
+        "confidence": 6.6,
+        "speedToLaunch": 8.57,
+        "speedToRevenue": 7.9,
+        "capitalEfficiency": 9.14,
+        "platformRisk": 4.2,
+        "distributionEfficiency": 7.9,
+        "buildComplexity": 4.8,
+        "maintenanceBurden": 4.3,
+        "compoundingPotential": 8.4,
+        "automationSuitability": 9.2,
+        "synergyWithExistingAssets": 8.7,
+        "payoutReadiness": 7.9,
+        "complianceFriction": 2.5
+      }
+    }
+  },
+  {
     "id": "ai-content-repurposer",
     "title": "Repurposing engine for expert-led content portfolios",
     "thesis": "Offer an autonomous content repurposing and publication system as a managed productized service for experts and small media brands.",
@@ -283,13 +447,13 @@
       {
         "source": "content fatigue",
         "description": "Expert creators want output without running full content teams.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 7.6
       },
       {
         "source": "agent fit",
         "description": "Agentic drafting, clipping, and distribution are highly automatable with review layers.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 8.5
       }
     ],
@@ -332,7 +496,7 @@
     "sourceEvidence": [
       {
         "sourceId": "seed-catalog",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
         "method": "seeded"
       }
@@ -369,13 +533,13 @@
       {
         "source": "search intent",
         "description": "High-intent long-tail queries still reward specialized content and useful tools.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 8.4
       },
       {
         "source": "buyer routing",
         "description": "Local and niche buyers continue to prefer guided comparisons over cold outreach.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 7.8
       }
     ],
@@ -418,7 +582,7 @@
     "sourceEvidence": [
       {
         "sourceId": "seed-catalog",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
         "method": "seeded"
       }
@@ -455,13 +619,13 @@
       {
         "source": "time scarcity",
         "description": "Operators pay for faster access to compiled data in markets they already understand.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 6.8
       },
       {
         "source": "repeatable research",
         "description": "Automated collection and summarization can lower production cost substantially.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 7.5
       }
     ],
@@ -504,7 +668,7 @@
     "sourceEvidence": [
       {
         "sourceId": "seed-catalog",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
         "method": "seeded"
       }
@@ -541,13 +705,13 @@
       {
         "source": "workflow fragmentation",
         "description": "Small teams still pay for narrow automation wins if setup is simple.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 7.3
       },
       {
         "source": "internal leverage",
         "description": "Existing internal tooling shortens build time and raises product authenticity.",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "strength": 8
       }
     ],
@@ -590,7 +754,7 @@
     "sourceEvidence": [
       {
         "sourceId": "seed-catalog",
-        "capturedAt": "2026-03-06T23:07:51.887Z",
+        "capturedAt": "2026-03-07T01:28:37.482Z",
         "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
         "method": "seeded"
       }

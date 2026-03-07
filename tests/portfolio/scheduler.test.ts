@@ -3,7 +3,7 @@ import { buildAutonomyQueue, createExperiments } from "../../services/experiment
 import { defaultOpportunities, rankOpportunities } from "../../services/opportunity-engine/index.js";
 
 describe("autonomy queue", () => {
-  test("creates productive fallback work", () => {
+  test("creates productive fallback work and active assignments", () => {
     const opportunities = rankOpportunities(defaultOpportunities());
     const experiments = createExperiments(opportunities);
     const queue = buildAutonomyQueue(opportunities, experiments);
@@ -13,6 +13,7 @@ describe("autonomy queue", () => {
     expect(queue[0]!.reason).toBe("highest-ev-open-experiment");
     expect(dispatch.nextTask).not.toBeNull();
     expect(dispatch.readyQueue.length).toBeGreaterThan(0);
+    expect(dispatch.activeAssignments.length).toBeGreaterThan(0);
   });
 
   test("recovers stale locks and prevents duplicate queued ids", () => {
@@ -31,6 +32,7 @@ describe("autonomy queue", () => {
         readyQueue: duplicated,
         nextTask: duplicated[0]!,
         immediateContinuations: [],
+        activeAssignments: [],
         completedTaskIds: [],
         blockedInitiativeIds: [],
         locks: [
@@ -102,8 +104,12 @@ describe("autonomy queue", () => {
         codexCliInstalled: true,
         openclawInstalled: true,
         strategicTarget: "gpt-5.4",
+        officialFrontierModel: "gpt-5.4",
+        officialCodexDocsStatus: "mixed",
         openClawPrimary: "openai-codex/gpt-5.3-codex",
         openClawFallback: "openai-codex/gpt-5-codex",
+        openClawProbeSource: "config-read",
+        openClawVerifiedCandidates: ["openai-codex/gpt-5.3-codex"],
         aliases: [],
         drift: [],
       },
@@ -112,5 +118,16 @@ describe("autonomy queue", () => {
     expect(dispatch.completedTaskIds).toContain(completedTaskId);
     expect(dispatch.nextTask?.id).not.toBe(completedTaskId);
     expect(dispatch.usagePolicy.strategicModel).toBe("gpt-5.4");
+  });
+
+  test("assigns parallel work to multiple specialist agents when capacity exists", () => {
+    const opportunities = rankOpportunities(defaultOpportunities());
+    const experiments = createExperiments(opportunities);
+    const queue = buildAutonomyQueue(opportunities, experiments);
+    const dispatch = buildDispatchState({ opportunities, experiments, queue });
+
+    const owners = new Set(dispatch.activeAssignments.map((assignment) => assignment.owner));
+    expect(dispatch.activeAssignments.length).toBeGreaterThan(1);
+    expect(owners.size).toBeGreaterThan(1);
   });
 });

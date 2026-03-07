@@ -6,6 +6,8 @@ Use that document for:
 
 - the local bootstrap order,
 - stage-first Hetzner deployment,
+- the Windows SSH tunnel path to the loopback-bound VPS gateway,
+- the Windows node-host setup for attached Chrome,
 - the OpenClaw OAuth step on the VPS,
 - attached Chrome gateway-token pairing,
 - Steel activation,

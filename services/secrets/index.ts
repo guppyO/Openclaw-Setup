@@ -283,6 +283,15 @@ async function writeImportedSecretFiles(
   if (!combinedEntries.OPENCLAW_HOOK_TOKEN) {
     combinedEntries.OPENCLAW_HOOK_TOKEN = randomBytes(24).toString("hex");
   }
+  if (!combinedEntries.OPENCLAW_REMOTE_ACCESS_MODE) {
+    combinedEntries.OPENCLAW_REMOTE_ACCESS_MODE = "local";
+  }
+  if (!combinedEntries.OPENCLAW_CHROME_RELAY_STATUS) {
+    combinedEntries.OPENCLAW_CHROME_RELAY_STATUS = "unpaired";
+  }
+  if (!combinedEntries.OPENCLAW_NODE_HOST_STATUS) {
+    combinedEntries.OPENCLAW_NODE_HOST_STATUS = "missing";
+  }
   combinedEntries.REVENUE_OS_SECRET_BOOTSTRAP = "complete";
   await writeSecretFile(
     fromRoot(rootDir, ".secrets", "revenue-os.local.env"),

@@ -24,7 +24,7 @@
     ],
     "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
     "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-13T23:07:51.888Z",
+    "reviewDate": "2026-03-14T01:28:37.482Z",
     "nextActions": [
       {
         "id": "discovered-internal-skill-packs-offer",
@@ -33,7 +33,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-07T01:07:51.888Z",
+        "dueAt": "2026-03-07T03:28:37.482Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -43,7 +43,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-priority-product-backlog",
         "priority": 92,
-        "dueAt": "2026-03-07T05:07:51.888Z",
+        "dueAt": "2026-03-07T07:28:37.482Z",
         "notes": "Ship a landing page, support docs, and measurement hooks."
       },
       {
@@ -53,7 +53,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-07T11:07:51.888Z",
+        "dueAt": "2026-03-07T13:28:37.482Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       }
     ]
@@ -83,7 +83,7 @@
     ],
     "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
     "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-15T23:07:51.888Z",
+    "reviewDate": "2026-03-16T01:28:37.482Z",
     "nextActions": [
       {
         "id": "ops-audit-packs-offer",
@@ -92,7 +92,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 99,
-        "dueAt": "2026-03-07T01:07:51.888Z",
+        "dueAt": "2026-03-07T03:28:37.482Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -102,7 +102,7 @@
         "initiativeId": "ops-audit-packs",
         "reason": "highest-priority-product-backlog",
         "priority": 91,
-        "dueAt": "2026-03-07T05:07:51.888Z",
+        "dueAt": "2026-03-07T07:28:37.482Z",
         "notes": "Ship a landing page, support docs, and measurement hooks."
       },
       {
@@ -112,7 +112,66 @@
         "initiativeId": "ops-audit-packs",
         "reason": "distribution-bottleneck",
         "priority": 87,
-        "dueAt": "2026-03-07T11:07:51.888Z",
+        "dueAt": "2026-03-07T13:28:37.482Z",
+        "notes": "Set the initial channel mix and evidence capture for first traffic."
+      }
+    ]
+  },
+  {
+    "id": "exp-discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+    "opportunityId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+    "title": "Experiment: asiifdev/business-leads-ai-automation operator-mapped opportunity",
+    "thesis": "Launch a narrow comparison or lead-capture surface around the strongest repeated pain cluster and route the first qualified demand.",
+    "status": "planned",
+    "successMetrics": [
+      "Positive contribution margin within budget envelope",
+      "Evidence of repeatable acquisition channel",
+      "Operator-independent runbook drafted"
+    ],
+    "budgetCapUsd": 267,
+    "launchChecklist": [
+      "Define asset package and offer page",
+      "Attach analytics and evidence capture",
+      "Confirm treasury category and spend tags",
+      "Create kill and compound review dates"
+    ],
+    "measurementPlan": [
+      "Capture spend, attributable revenue, and response rate daily",
+      "Review conversion and payback time every 24 hours during launch week",
+      "Update portfolio score after each milestone or anomaly"
+    ],
+    "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
+    "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
+    "reviewDate": "2026-03-18T01:28:37.482Z",
+    "nextActions": [
+      {
+        "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation-offer",
+        "title": "Define the first bounded offer for asiifdev/business-leads-ai-automation operator-mapped opportunity",
+        "owner": "ceo",
+        "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+        "reason": "highest-ev-open-experiment",
+        "priority": 98,
+        "dueAt": "2026-03-07T03:28:37.482Z",
+        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
+      },
+      {
+        "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation-asset",
+        "title": "Build launch assets for asiifdev/business-leads-ai-automation operator-mapped opportunity",
+        "owner": "builder",
+        "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+        "reason": "highest-priority-product-backlog",
+        "priority": 90,
+        "dueAt": "2026-03-07T07:28:37.482Z",
+        "notes": "Ship a landing page, support docs, and measurement hooks."
+      },
+      {
+        "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation-distribution",
+        "title": "Remove the first distribution bottleneck for asiifdev/business-leads-ai-automation operator-mapped opportunity",
+        "owner": "distribution",
+        "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
+        "reason": "distribution-bottleneck",
+        "priority": 86,
+        "dueAt": "2026-03-07T13:28:37.482Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       }
     ]
@@ -142,7 +201,7 @@
     ],
     "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
     "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-17T23:07:51.888Z",
+    "reviewDate": "2026-03-20T01:28:37.482Z",
     "nextActions": [
       {
         "id": "marketplace-automation-packs-offer",
@@ -150,8 +209,8 @@
         "owner": "ceo",
         "initiativeId": "marketplace-automation-packs",
         "reason": "highest-ev-open-experiment",
-        "priority": 98,
-        "dueAt": "2026-03-07T01:07:51.888Z",
+        "priority": 97,
+        "dueAt": "2026-03-07T03:28:37.482Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -160,8 +219,8 @@
         "owner": "builder",
         "initiativeId": "marketplace-automation-packs",
         "reason": "highest-priority-product-backlog",
-        "priority": 90,
-        "dueAt": "2026-03-07T05:07:51.888Z",
+        "priority": 89,
+        "dueAt": "2026-03-07T07:28:37.482Z",
         "notes": "Ship a landing page, support docs, and measurement hooks."
       },
       {
@@ -170,67 +229,8 @@
         "owner": "distribution",
         "initiativeId": "marketplace-automation-packs",
         "reason": "distribution-bottleneck",
-        "priority": 86,
-        "dueAt": "2026-03-07T11:07:51.888Z",
-        "notes": "Set the initial channel mix and evidence capture for first traffic."
-      }
-    ]
-  },
-  {
-    "id": "exp-ai-content-repurposer",
-    "opportunityId": "ai-content-repurposer",
-    "title": "Experiment: Repurposing engine for expert-led content portfolios",
-    "thesis": "Target one expert persona, produce a tightly defined monthly repurposing package, and operationalize delivery around deterministic checklists.",
-    "status": "planned",
-    "successMetrics": [
-      "Positive contribution margin within budget envelope",
-      "Evidence of repeatable acquisition channel",
-      "Operator-independent runbook drafted"
-    ],
-    "budgetCapUsd": 225,
-    "launchChecklist": [
-      "Define asset package and offer page",
-      "Attach analytics and evidence capture",
-      "Confirm treasury category and spend tags",
-      "Create kill and compound review dates"
-    ],
-    "measurementPlan": [
-      "Capture spend, attributable revenue, and response rate daily",
-      "Review conversion and payback time every 24 hours during launch week",
-      "Update portfolio score after each milestone or anomaly"
-    ],
-    "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
-    "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-    "reviewDate": "2026-03-19T23:07:51.888Z",
-    "nextActions": [
-      {
-        "id": "ai-content-repurposer-offer",
-        "title": "Define the first bounded offer for Repurposing engine for expert-led content portfolios",
-        "owner": "ceo",
-        "initiativeId": "ai-content-repurposer",
-        "reason": "highest-ev-open-experiment",
-        "priority": 97,
-        "dueAt": "2026-03-07T01:07:51.888Z",
-        "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
-      },
-      {
-        "id": "ai-content-repurposer-asset",
-        "title": "Build launch assets for Repurposing engine for expert-led content portfolios",
-        "owner": "builder",
-        "initiativeId": "ai-content-repurposer",
-        "reason": "highest-priority-product-backlog",
-        "priority": 89,
-        "dueAt": "2026-03-07T05:07:51.888Z",
-        "notes": "Ship a landing page, support docs, and measurement hooks."
-      },
-      {
-        "id": "ai-content-repurposer-distribution",
-        "title": "Remove the first distribution bottleneck for Repurposing engine for expert-led content portfolios",
-        "owner": "distribution",
-        "initiativeId": "ai-content-repurposer",
-        "reason": "distribution-bottleneck",
         "priority": 85,
-        "dueAt": "2026-03-07T11:07:51.888Z",
+        "dueAt": "2026-03-07T13:28:37.482Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       }
     ]

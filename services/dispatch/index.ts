@@ -112,7 +112,11 @@ function promoteContinuation(queue: QueueItem[], completedTaskId: string): Queue
 function readyQueue(queue: QueueItem[]): QueueItem[] {
   const now = Date.now();
   return sortQueue(
-    queue.filter((task) => new Date(task.dueAt).getTime() <= now + 5 * 60 * 1000),
+    queue.filter(
+      (task) =>
+        new Date(task.dueAt).getTime() <= now + 24 * 60 * 60 * 1000 ||
+        task.priority >= 70,
+    ),
   );
 }
 
@@ -165,6 +169,62 @@ function buildRecoveryActions(queue: QueueItem[], blockedInitiativeIds: string[]
   return actions;
 }
 
+function lockCountByOwner(previousLocks: DispatchState["locks"]): Map<QueueItem["owner"], number> {
+  const counts = new Map<QueueItem["owner"], number>();
+  for (const lock of previousLocks) {
+    counts.set(lock.owner, (counts.get(lock.owner) ?? 0) + 1);
+  }
+  return counts;
+}
+
+function selectAssignments(
+  ready: QueueItem[],
+  activeLocks: DispatchState["locks"],
+  limits: DispatchState["agentConcurrencyLimits"],
+): QueueItem[] {
+  const used = lockCountByOwner(activeLocks);
+  const selected: QueueItem[] = [];
+  const selectedByOwner = new Map<QueueItem["owner"], number>();
+
+  for (const task of ready) {
+    const owner = task.owner;
+    const usedSlots = used.get(owner) ?? 0;
+    const newlySelected = selectedByOwner.get(owner) ?? 0;
+    if (usedSlots + newlySelected >= limits[owner]) {
+      continue;
+    }
+
+    selected.push(task);
+    selectedByOwner.set(owner, newlySelected + 1);
+  }
+
+  return selected;
+}
+
+function buildActiveAssignments(
+  queue: QueueItem[],
+  locks: DispatchState["locks"],
+): DispatchState["activeAssignments"] {
+  return locks
+    .map((lock) => {
+      const task = queue.find((candidate) => candidate.id === lock.taskId);
+      if (!task) {
+        return null;
+      }
+
+      return {
+        taskId: task.id,
+        owner: task.owner,
+        initiativeId: task.initiativeId,
+        title: task.title,
+        acquiredAt: lock.acquiredAt,
+        expiresAt: lock.expiresAt,
+      };
+    })
+    .filter((assignment): assignment is DispatchState["activeAssignments"][number] => Boolean(assignment))
+    .sort((left, right) => left.owner.localeCompare(right.owner) || left.taskId.localeCompare(right.taskId));
+}
+
 export function buildDispatchState(options: {
   opportunities: Opportunity[];
   experiments: Experiment[];
@@ -188,17 +248,14 @@ export function buildDispatchState(options: {
 
   queue = queue.filter((task) => !completedTaskIds.has(task.id));
 
-  const lockCountByOwner = new Map<QueueItem["owner"], number>();
-  for (const lock of activeLocks) {
-    lockCountByOwner.set(lock.owner, (lockCountByOwner.get(lock.owner) ?? 0) + 1);
-  }
+  const currentLockCountByOwner = lockCountByOwner(activeLocks);
 
   let ready = readyQueue(
     queue.filter(
       (task) =>
         !blockedInitiativeIds.includes(task.initiativeId) &&
         !activeLocks.some((lock) => lock.taskId === task.id) &&
-        (lockCountByOwner.get(task.owner) ?? 0) < DEFAULT_CONCURRENCY_LIMITS[task.owner],
+        (currentLockCountByOwner.get(task.owner) ?? 0) < DEFAULT_CONCURRENCY_LIMITS[task.owner],
     ),
   );
   if (ready.length === 0) {
@@ -210,36 +267,50 @@ export function buildDispatchState(options: {
         queue.filter(
           (task) =>
             !blockedInitiativeIds.includes(task.initiativeId) &&
-            !activeLocks.some((lock) => lock.taskId === task.id),
+            !activeLocks.some((lock) => lock.taskId === task.id) &&
+            (currentLockCountByOwner.get(task.owner) ?? 0) < DEFAULT_CONCURRENCY_LIMITS[task.owner],
         ),
       );
     }
   }
 
   const modelProbe = options.modelProbe ?? buildDefaultModelProbe();
-  const nextTask =
-    ready[0] ??
-    queue.find((task) => activeLocks.some((lock) => lock.taskId === task.id)) ??
-    null;
+  const selectedAssignments = selectAssignments(ready, activeLocks, DEFAULT_CONCURRENCY_LIMITS);
 
-  if (nextTask && !activeLocks.some((lock) => lock.taskId === nextTask.id)) {
+  if (selectedAssignments.length > 0) {
+    const acquiredAt = isoNow();
+    const expiresAt = new Date(Date.now() + LOCK_TTL_MINUTES * 60 * 1000).toISOString();
     activeLocks = [
       ...activeLocks,
-      {
-        taskId: nextTask.id,
-        owner: nextTask.owner,
-        acquiredAt: isoNow(),
-        expiresAt: new Date(Date.now() + LOCK_TTL_MINUTES * 60 * 1000).toISOString(),
-      },
+      ...selectedAssignments
+        .filter((task) => !activeLocks.some((lock) => lock.taskId === task.id))
+        .map((task) => ({
+          taskId: task.id,
+          owner: task.owner,
+          acquiredAt,
+          expiresAt,
+        })),
     ];
   }
+
+  const activeAssignments = buildActiveAssignments(queue, activeLocks);
+  const assignmentTaskIds = new Set(activeAssignments.map((assignment) => assignment.taskId));
+  const nextTask =
+    queue.find((task) => assignmentTaskIds.has(task.id)) ??
+    ready[0] ??
+    null;
+  const immediateContinuations = [
+    ...queue.filter((task) => assignmentTaskIds.has(task.id) && task.id !== nextTask?.id),
+    ...ready.filter((task) => !assignmentTaskIds.has(task.id) && task.id !== nextTask?.id),
+  ].slice(0, 3);
 
   return {
     generatedAt: isoNow(),
     queue,
     readyQueue: ready,
     nextTask,
-    immediateContinuations: ready.slice(1, 3),
+    immediateContinuations,
+    activeAssignments,
     completedTaskIds: Array.from(completedTaskIds),
     blockedInitiativeIds,
     locks: activeLocks,

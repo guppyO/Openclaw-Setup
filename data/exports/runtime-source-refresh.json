@@ -1,15 +1,13 @@
 {
-  "refreshedAt": "2026-03-06T23:07:37.882Z",
+  "refreshedAt": "2026-03-07T01:28:37.490Z",
   "methods": {
     "openai-gpt-5.4-model": "direct-fetch",
-    "openai-chatgpt-gpt-5.4": "browser-capture",
-    "openai-pro-plan": "browser-capture",
-    "openai-business-limits": "browser-capture",
-    "openai-codex-plan": "browser-capture",
-    "openai-codex-upgrades": "browser-capture",
-    "openai-codex-app": "browser-capture",
-    "openai-gpt-5.3-codex": "browser-capture",
-    "openai-model-release-notes": "browser-capture",
+    "openai-pro-plan": "ua-fetch-fallback",
+    "openai-business-limits": "ua-fetch-fallback",
+    "openai-codex-plan": "ua-fetch-fallback",
+    "openai-codex-upgrades": "ua-fetch-fallback",
+    "openai-codex-app": "ua-fetch-fallback",
+    "openai-model-release-notes": "ua-fetch-fallback",
     "openclaw-model-providers": "direct-fetch",
     "openclaw-multi-agent": "direct-fetch",
     "openclaw-multiple-gateways": "direct-fetch",
@@ -18,6 +16,8 @@
     "openclaw-browser": "direct-fetch",
     "openclaw-browser-login": "direct-fetch",
     "openclaw-configuration": "direct-fetch",
+    "openclaw-remote-access": "search-backed",
+    "openclaw-nodes": "search-backed",
     "openclaw-secrets": "direct-fetch",
     "openclaw-pdf": "direct-fetch",
     "openclaw-security": "direct-fetch",
@@ -26,43 +26,29 @@
     "wise-security-access": "direct-fetch",
     "wise-personal-tokens": "direct-fetch",
     "wise-getting-started": "direct-fetch",
-    "steel-sessions-overview": "search-backed",
+    "steel-sessions-overview": "direct-fetch",
     "steel-quickstart": "direct-fetch",
-    "steel-local-browser": "search-backed",
-    "steel-credentials": "search-backed",
-    "steel-changelog": "search-backed"
+    "steel-profiles": "direct-fetch",
+    "steel-credentials": "direct-fetch",
+    "steel-local-vs-cloud": "direct-fetch"
   },
   "changedSources": [
-    {
-      "id": "openai-codex-upgrades",
-      "status": 403,
-      "ok": true,
-      "title": "Introducing upgrades to Codex | OpenAI",
-      "method": "browser-capture"
-    },
     {
       "id": "openai-codex-app",
       "status": 403,
       "ok": true,
       "title": "Introducing the Codex app | OpenAI",
-      "method": "browser-capture"
+      "method": "ua-fetch-fallback"
     },
     {
-      "id": "steel-sessions-overview",
+      "id": "openclaw-remote-access",
       "status": 404,
       "ok": true,
       "title": "Untitled",
       "method": "search-backed"
     },
     {
-      "id": "steel-local-browser",
-      "status": 404,
-      "ok": true,
-      "title": "Untitled",
-      "method": "search-backed"
-    },
-    {
-      "id": "steel-changelog",
+      "id": "openclaw-nodes",
       "status": 404,
       "ok": true,
       "title": "Untitled",

@@ -6,6 +6,7 @@ describe("system smoke", () => {
     expect(state.topOpportunities.length).toBeGreaterThan(0);
     expect(state.queue.length).toBeGreaterThan(0);
     expect(state.dispatch.nextTask).not.toBeNull();
+    expect(state.dispatch.activeAssignments.length).toBeGreaterThan(0);
     expect(state.browser.sampleRoutes.length).toBeGreaterThan(0);
     expect(state.notes.length).toBeGreaterThan(0);
   });

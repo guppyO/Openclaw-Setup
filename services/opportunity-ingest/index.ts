@@ -23,6 +23,18 @@ interface FeedItem {
   summary: string;
 }
 
+interface GithubSearchSource {
+  id: string;
+  label: string;
+  query: string;
+  laneFamily: Opportunity["laneFamily"];
+  monetizationRoute: string;
+  requiredAssets: string[];
+  requiredAccounts: string[];
+  experimentPlan: string;
+  liveKpis: string[];
+}
+
 const LIVE_FEED_SOURCES: OpportunityFeedSource[] = [
   {
     id: "hn-productized-service",
@@ -67,6 +79,42 @@ const LIVE_FEED_SOURCES: OpportunityFeedSource[] = [
     requiredAccounts: ["Hosting", "Wise", "Support inbox"],
     experimentPlan: "Turn one narrow internal automation into a paid beta with manual onboarding and strong instrumentation.",
     liveKpis: ["beta signups", "activation", "MRR", "support burden"],
+  },
+];
+
+const GITHUB_SEARCH_SOURCES: GithubSearchSource[] = [
+  {
+    id: "github-automation-templates",
+    label: "GitHub repositories: automation templates",
+    query: "automation template SaaS stars:>20 pushed:>2025-10-01",
+    laneFamily: "digital-products",
+    monetizationRoute: "Template bundle sales plus setup or support upsell",
+    requiredAssets: ["product-package", "screenshots", "comparison-page", "support-docs"],
+    requiredAccounts: ["Company Gmail", "Wise", "Marketplace account"],
+    experimentPlan: "Package a narrow automation or template offer around the strongest repeated repo pattern and validate it on one owned page plus one marketplace.",
+    liveKpis: ["product views", "purchases", "refund rate", "support time"],
+  },
+  {
+    id: "github-micro-saas",
+    label: "GitHub repositories: micro-SaaS demand",
+    query: "\"micro saas\" automation stars:>15 pushed:>2025-10-01",
+    laneFamily: "software",
+    monetizationRoute: "Subscription or beta access plus onboarding assistance",
+    requiredAssets: ["landing-page", "docs-site", "beta-onboarding", "usage-tracking"],
+    requiredAccounts: ["Hosting", "Wise", "Support inbox"],
+    experimentPlan: "Turn the strongest repeatable internal or open-source pattern into a paid narrow beta with manual onboarding and strong instrumentation.",
+    liveKpis: ["beta signups", "activation", "MRR", "support burden"],
+  },
+  {
+    id: "github-lead-systems",
+    label: "GitHub repositories: lead systems and SEO tooling",
+    query: "\"lead generation\" automation stars:>10 pushed:>2025-10-01",
+    laneFamily: "owned-media",
+    monetizationRoute: "Lead fees, affiliate payouts, and productized implementation upsell",
+    requiredAssets: ["comparison-page", "analytics", "lead-routing", "content-cluster"],
+    requiredAccounts: ["Domain registrar", "Hosting", "Analytics"],
+    experimentPlan: "Launch a narrow comparison or lead-capture surface around the strongest repeated pain cluster and route the first qualified demand.",
+    liveKpis: ["organic visits", "lead conversion", "qualified leads", "revenue per lead"],
   },
 ];
 
@@ -209,6 +257,118 @@ async function discoverFeedOpportunities(): Promise<Opportunity[]> {
   return discovered;
 }
 
+async function searchGithubRepositories(
+  source: GithubSearchSource,
+): Promise<Array<{ title: string; url: string; summary: string; stars: number; updatedAt: string }>> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/search/repositories?q=${encodeURIComponent(source.query)}&sort=updated&order=desc&per_page=2`,
+      {
+        headers: {
+          "user-agent": "revenue-os/0.1",
+          accept: "application/vnd.github+json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const payload = (await response.json()) as {
+      items?: Array<{
+        full_name: string;
+        html_url: string;
+        description: string | null;
+        stargazers_count: number;
+        updated_at: string;
+      }>;
+    };
+
+    return (payload.items ?? []).map((item) => ({
+      title: item.full_name,
+      url: item.html_url,
+      summary: item.description ?? "Repository signal discovered via GitHub search.",
+      stars: item.stargazers_count,
+      updatedAt: item.updated_at,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+function baseOpportunityFromGithub(
+  source: GithubSearchSource,
+  item: { title: string; url: string; summary: string; stars: number; updatedAt: string },
+  index: number,
+): Opportunity {
+  const now = new Date().toISOString();
+  const emphasis = `${item.title}. ${item.summary}`.toLowerCase();
+  const automationBonus = emphasis.includes("automation") || emphasis.includes("agent") ? 1.1 : 0;
+  const productBonus = emphasis.includes("template") || emphasis.includes("boilerplate") ? 0.7 : 0;
+
+  return {
+    id: `discovered-${slugify(source.id)}-${slugify(item.title)}`,
+    title: `${item.title} operator-mapped opportunity`,
+    thesis: `GitHub demand signal from ${source.label}: ${item.title}. ${item.summary} Convert the repeated workflow into a bounded offer, hosted tool, or paid implementation pack.`,
+    laneFamily: source.laneFamily,
+    monetizationRoute: source.monetizationRoute,
+    demandSignals: [
+      {
+        source: source.label,
+        description: `${item.summary} (${item.stars} GitHub stars).`,
+        capturedAt: now,
+        strength: clampScore(6.4 + Math.min(2, item.stars / 100) + automationBonus - index * 0.2),
+        url: item.url,
+      },
+    ],
+    requiredAssets: source.requiredAssets,
+    requiredAccounts: source.requiredAccounts,
+    timeToLaunchDays: Math.max(4, 10 - index * 2),
+    timeToRevenueDays: Math.max(10, 21 - index * 2),
+    expectedMarginPct: clampScore(76 + automationBonus * 5 + productBonus * 4, 48, 92),
+    capitalRequiredUsd: Math.max(80, 220 - item.stars / 10),
+    automationFit: clampScore(7.4 + automationBonus + productBonus),
+    defensibility: clampScore(6.1 + Math.min(1.5, item.stars / 250)),
+    distributionFit: clampScore(7.2 + productBonus),
+    complianceFriction: clampScore(2.5 + (emphasis.includes("finance") ? 2 : 0)),
+    payoutFriction: clampScore(1.9 + (source.laneFamily === "owned-media" ? 0.8 : 0)),
+    buildComplexity: clampScore(4.8 + (source.laneFamily === "software" ? 2.4 : 0)),
+    maintenanceBurden: clampScore(4.3 + (source.laneFamily === "software" ? 1.8 : 0)),
+    platformRisk: clampScore(3.1 + (source.laneFamily === "owned-media" ? 0.6 : 1.1)),
+    compoundingPotential: clampScore(7.7 + productBonus + (source.laneFamily === "owned-media" ? 1 : 0)),
+    confidence: clampScore(6.4 + Math.min(1.2, item.stars / 200)),
+    synergy: clampScore(7.6 + automationBonus),
+    payoutReadiness: clampScore(7.0 + productBonus),
+    currentStatus: "discovered",
+    experimentPlan: source.experimentPlan,
+    liveKpis: source.liveKpis,
+    origin: "discovered",
+    sourceEvidence: [
+      {
+        sourceId: source.id,
+        capturedAt: item.updatedAt || now,
+        url: item.url,
+        note: `GitHub repository signal from ${source.label}: ${item.title}`,
+        method: "search",
+      },
+    ],
+  };
+}
+
+async function discoverGithubOpportunities(): Promise<Opportunity[]> {
+  const discovered: Opportunity[] = [];
+
+  for (const source of GITHUB_SEARCH_SOURCES) {
+    const items = await searchGithubRepositories(source);
+    for (const [index, item] of items.entries()) {
+      discovered.push(baseOpportunityFromGithub(source, item, index));
+    }
+  }
+
+  return discovered;
+}
+
 async function discoverInternalAssetReuseOpportunities(): Promise<Opportunity[]> {
   let internalSkillFiles: string[] = [];
   try {
@@ -297,6 +457,28 @@ async function loadPinnedOpportunities(): Promise<Opportunity[]> {
   }));
 }
 
+async function loadMarketplaceWatchlist(): Promise<Opportunity[]> {
+  const watchlist = await readJsonFile<Opportunity[]>(
+    resolveRepoPath("data", "imports", "market-demand-watchlist.json"),
+    [],
+  );
+  return watchlist.map((opportunity) => ({
+    ...opportunity,
+    origin: "pinned",
+    sourceEvidence:
+      opportunity.sourceEvidence && opportunity.sourceEvidence.length > 0
+        ? opportunity.sourceEvidence
+        : [
+            {
+              sourceId: "market-watchlist",
+              capturedAt: new Date().toISOString(),
+              note: "Opportunity imported from marketplace or operator watchlist.",
+              method: "operator",
+            },
+          ],
+  }));
+}
+
 function dedupeOpportunities(opportunities: Opportunity[]): Opportunity[] {
   const seen = new Map<string, Opportunity>();
   for (const opportunity of opportunities) {
@@ -310,13 +492,15 @@ function dedupeOpportunities(opportunities: Opportunity[]): Opportunity[] {
 }
 
 export async function discoverOpportunities(): Promise<Opportunity[]> {
-  const [feed, internal, pinned] = await Promise.all([
+  const [feed, github, internal, pinned, watchlist] = await Promise.all([
     discoverFeedOpportunities(),
+    discoverGithubOpportunities(),
     discoverInternalAssetReuseOpportunities(),
     loadPinnedOpportunities(),
+    loadMarketplaceWatchlist(),
   ]);
 
-  return rankOpportunities(dedupeOpportunities([...pinned, ...feed, ...internal, ...defaultOpportunities()]));
+  return rankOpportunities(dedupeOpportunities([...pinned, ...watchlist, ...feed, ...github, ...internal, ...defaultOpportunities()]));
 }
 
 export async function buildOpportunityIngestReport(opportunities?: Opportunity[]): Promise<string> {
@@ -341,7 +525,9 @@ ${discovered.slice(0, 5).map((opportunity) => `- ${opportunity.title} (${opportu
 ## Notes
 
 - Feed-based discovery uses live RSS signals where available.
+- GitHub discovery adds deterministic public repository and tooling signals beyond the RSS lane.
 - Internal asset discovery derives opportunities from the current repo's reusable skills and assets.
+- Marketplace or operator watchlist imports can add explicit demand signals without hard-coding them into the engine.
 - Seeded lanes remain only as a fallback safety net when live discovery is sparse or temporarily unavailable.
 `;
 }

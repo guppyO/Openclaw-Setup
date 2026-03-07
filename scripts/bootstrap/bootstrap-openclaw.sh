@@ -47,7 +47,7 @@ sudo -u "$RUNTIME_USER" -H bash -lc "
     set +a
   fi
   npm ci
-  npm run runtime:probe-models
+  npm run runtime:probe-models -- --active
   npm run bootstrap:control-plane
   npm run bootstrap:state
   npm run bootstrap:wise
@@ -69,3 +69,7 @@ echo "sudo systemctl start revenue-os-$ENVIRONMENT.service"
 echo "sudo systemctl start revenue-os-$ENVIRONMENT-scheduler.timer"
 echo "sudo systemctl start revenue-os-$ENVIRONMENT-source-refresh.timer"
 echo "sudo systemctl start revenue-os-$ENVIRONMENT-backup.timer"
+echo "Windows browser host next steps:"
+echo "1. Run scripts/bootstrap/start-gateway-ssh-tunnel.ps1 on Windows."
+echo "2. Run scripts/bootstrap/bootstrap-openclaw-node-host.ps1 on Windows."
+echo "3. Pair attached Chrome against the tunneled gateway URL and generated gateway token."

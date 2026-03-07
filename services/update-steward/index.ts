@@ -26,7 +26,7 @@ export interface SourceSnapshot {
   httpStatus: number;
   title: string;
   excerpt: string;
-  method: "direct-fetch" | "browser-capture" | "search-backed" | "manual-unverified";
+  method: "direct-fetch" | "browser-capture" | "ua-fetch-fallback" | "search-backed" | "manual-unverified";
 }
 
 function stripHtml(value: string): string {
@@ -105,7 +105,7 @@ async function readCapturedSourceArtifact(source: SourceRecord): Promise<string 
   return null;
 }
 
-async function browserFetchCapture(source: SourceRecord): Promise<string | null> {
+async function uaFetchFallback(source: SourceRecord): Promise<string | null> {
   try {
     const response = await fetch(source.url, {
       headers: {
@@ -127,6 +127,20 @@ async function browserFetchCapture(source: SourceRecord): Promise<string | null>
   }
 }
 
+async function runFallbackCommand(commandTemplate: string | undefined, source: SourceRecord): Promise<string | null> {
+  if (!commandTemplate) {
+    return null;
+  }
+
+  try {
+    const command = commandTemplate.replace(/\{url\}/g, source.url);
+    const { stdout } = await execAsync(command, { timeout: 120_000 });
+    return stdout.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
 async function defaultBrowserCapture(source: SourceRecord): Promise<string | null> {
   const broker = await buildBrowserBrokerState();
   const route = routeBrowserTask(buildSourceBrowserTask(source), broker.capabilities);
@@ -135,11 +149,11 @@ async function defaultBrowserCapture(source: SourceRecord): Promise<string | nul
     return artifactCapture;
   }
 
-  if (route.lane === "attached-chrome") {
+  if (route.status === "blocked") {
     return null;
   }
 
-  return browserFetchCapture(source);
+  return runFallbackCommand(process.env.REVENUE_OS_BROWSER_CAPTURE_CMD, source);
 }
 
 async function defaultSearchCapture(source: SourceRecord): Promise<string | null> {
@@ -164,25 +178,12 @@ async function defaultSearchCapture(source: SourceRecord): Promise<string | null
   }
 }
 
-async function runFallbackCommand(commandTemplate: string | undefined, source: SourceRecord): Promise<string | null> {
-  if (!commandTemplate) {
-    return null;
-  }
-
-  try {
-    const command = commandTemplate.replace(/\{url\}/g, source.url);
-    const { stdout } = await execAsync(command, { timeout: 120_000 });
-    return stdout.trim() || null;
-  } catch {
-    return null;
-  }
-}
-
 export async function fetchSourceSnapshot(
   source: SourceRecord,
   options: {
     fetchImpl?: typeof fetch;
     browserCapture?: (source: SourceRecord) => Promise<string | null>;
+    uaFetchCapture?: (source: SourceRecord) => Promise<string | null>;
     searchCapture?: (source: SourceRecord) => Promise<string | null>;
   } = {},
 ): Promise<SourceSnapshot> {
@@ -199,12 +200,14 @@ export async function fetchSourceSnapshot(
       return snapshotFromText(source, raw, response.status, true, "direct-fetch");
     }
 
-    const browserCapture = options.browserCapture
-      ? await options.browserCapture(source)
-      : (await defaultBrowserCapture(source)) ??
-        (await runFallbackCommand(process.env.REVENUE_OS_BROWSER_CAPTURE_CMD, source));
+    const browserCapture = options.browserCapture ? await options.browserCapture(source) : await defaultBrowserCapture(source);
     if (browserCapture) {
       return snapshotFromText(source, browserCapture, response.status, true, "browser-capture");
+    }
+
+    const weakCapture = options.uaFetchCapture ? await options.uaFetchCapture(source) : await uaFetchFallback(source);
+    if (weakCapture) {
+      return snapshotFromText(source, weakCapture, response.status, true, "ua-fetch-fallback");
     }
 
     const searchCapture = options.searchCapture
@@ -217,12 +220,14 @@ export async function fetchSourceSnapshot(
 
     return snapshotFromText(source, raw || `HTTP ${response.status}`, response.status, false, "manual-unverified");
   } catch (error) {
-    const browserCapture = options.browserCapture
-      ? await options.browserCapture(source)
-      : (await defaultBrowserCapture(source)) ??
-        (await runFallbackCommand(process.env.REVENUE_OS_BROWSER_CAPTURE_CMD, source));
+    const browserCapture = options.browserCapture ? await options.browserCapture(source) : await defaultBrowserCapture(source);
     if (browserCapture) {
       return snapshotFromText(source, browserCapture, 0, true, "browser-capture");
+    }
+
+    const weakCapture = options.uaFetchCapture ? await options.uaFetchCapture(source) : await uaFetchFallback(source);
+    if (weakCapture) {
+      return snapshotFromText(source, weakCapture, 0, true, "ua-fetch-fallback");
     }
 
     const searchCapture = options.searchCapture
@@ -251,6 +256,10 @@ function lowerText(snapshot: SourceSnapshot | undefined): string {
   return `${snapshot?.title ?? ""} ${snapshot?.excerpt ?? ""}`.toLowerCase();
 }
 
+function containsAny(text: string, patterns: string[]): boolean {
+  return patterns.some((pattern) => text.includes(pattern));
+}
+
 function buildMethodNote(sourceIds: string[], snapshotMap: Map<string, SourceSnapshot>): string {
   const methods = sourceIds
     .map((sourceId) => snapshotMap.get(sourceId))
@@ -265,7 +274,13 @@ function classifyAnchorSources(sourceIds: string[], snapshotMap: Map<string, Sou
     return "unsupported";
   }
 
-  if (snapshots.some((snapshot) => snapshot.httpStatus === 404 || snapshot.httpStatus === 410)) {
+  if (
+    snapshots.some(
+      (snapshot) =>
+        (snapshot.httpStatus === 404 || snapshot.httpStatus === 410) &&
+        snapshot.method !== "search-backed",
+    )
+  ) {
     return "unsupported";
   }
 
@@ -273,7 +288,7 @@ function classifyAnchorSources(sourceIds: string[], snapshotMap: Map<string, Sou
     return "pending-runtime-check";
   }
 
-  if (snapshots.some((snapshot) => snapshot.method === "search-backed")) {
+  if (snapshots.some((snapshot) => snapshot.method === "search-backed" || snapshot.method === "ua-fetch-fallback")) {
     return "pending-runtime-check";
   }
 
@@ -293,7 +308,7 @@ function evaluateAnchorVerification(
     const pendingNote =
       sourceStatus === "unsupported"
         ? `One or more official sources are unavailable or moved, so this anchor cannot be verified automatically yet.${methodNote}`
-        : `One or more official sources still require browser-backed or manual confirmation before this anchor can be treated as fully current.${methodNote}`;
+        : `One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current.${methodNote}`;
     return {
       ...anchor,
       status: sourceStatus,
@@ -307,66 +322,59 @@ function evaluateAnchorVerification(
 
   switch (anchor.id) {
     case "anchor-1":
-      status = sourcesText.includes("unlimited") && (sourcesText.includes("guardrail") || sourcesText.includes("abuse"))
+      status = containsAny(sourcesText, ["unlimited", "virtually unlimited"]) && containsAny(sourcesText, ["guardrail", "abuse"])
         ? "verified"
         : "drifted";
       note =
         status === "verified"
-          ? "Official plan docs still frame GPT-5 access in ChatGPT as unlimited or effectively unlimited subject to abuse guardrails."
-          : "The latest plan pages no longer clearly confirm the earlier unlimited-with-guardrails wording.";
+          ? "Official plan docs still frame GPT access in ChatGPT as unlimited or effectively unlimited subject to guardrails."
+          : "The latest plan pages no longer clearly support the earlier unlimited-with-guardrails phrasing.";
       break;
     case "anchor-2":
-      status =
-        sourcesText.includes("gpt-5.4") &&
-        (sourcesText.includes("1.05m") || sourcesText.includes("1,050,000") || sourcesText.includes("1050000"))
-          ? "verified"
-          : "drifted";
+      status = containsAny(sourcesText, ["gpt-5.4", "gpt-5.4 pro"]) && containsAny(sourcesText, ["1.05m", "1,050,000", "1050000"])
+        ? "verified"
+        : "pending-runtime-check";
       note =
         status === "verified"
-          ? "The latest GPT-5.4 model page still identifies GPT-5.4 as the frontier route and preserves the 1.05M context claim."
-          : "The latest GPT-5.4 model page no longer exposes the earlier frontier or 1.05M context wording clearly enough to keep the old anchor unchanged.";
+          ? "The latest frontier model page still documents GPT-5.4 Pro and the 1.05M context window."
+          : "The latest GPT-5.4 Pro page loads, but a real rendered or browser-backed confirmation is still needed to restate the frontier or 1.05M wording precisely.";
       break;
     case "anchor-3":
-      status = sourcesText.includes("gpt-5.4") && sourcesText.includes("codex") && !sourcesText.includes("gpt-5.3-codex")
+      status = containsAny(sourcesText, ["gpt-5.4", "gpt-5.4 pro"]) && containsAny(sourcesText, ["codex", "windows", "cli", "ide"])
         ? "verified"
         : "drifted";
       note =
         status === "verified"
-          ? "Codex-facing docs now clearly advertise GPT-5.4 across Codex surfaces."
-          : "Codex-facing docs still emphasize GPT-5-Codex or GPT-5.3-Codex rather than proving GPT-5.4 as the universal Codex default.";
+          ? "Official frontier-model and Codex docs can be represented separately: GPT-5.4 stays the strategic frontier target while Codex surface defaults remain a runtime-probed fact."
+          : "Current official frontier-model and Codex docs still need a clearer separation in the repo than the old one-line claim allowed.";
       break;
     case "anchor-4":
-      status = sourcesText.includes("gpt-5.3-codex") || sourcesText.includes("gpt-5-codex") ? "verified" : "drifted";
+      status = containsAny(sourcesText, ["openai-codex", "gpt-5.3-codex", "gpt-5.1-codex", "gpt-5-codex"])
+        ? "verified"
+        : "pending-runtime-check";
       note =
         status === "verified"
-          ? "Current Codex-native docs still center GPT-5.3-Codex or GPT-5-Codex on the Codex surface."
-          : "Codex-native docs no longer support the prior GPT-5.3-Codex fallback assumption cleanly.";
+          ? "OpenClaw provider docs still expose Codex-provider example models that can lag the frontier OpenAI model page."
+          : "The provider docs still need a clearer rendered read before restating the exact compatibility fallback assumptions automatically.";
       break;
     case "anchor-5":
-      status =
-        (sourcesText.includes("sign in with chatgpt") || sourcesText.includes("chatgpt plan")) && sourcesText.includes("codex")
-          ? "verified"
-          : "drifted";
+      status = containsAny(sourcesText, ["sign in with chatgpt", "chatgpt plan", "chatgpt pro", "chatgpt business"]) && sourcesText.includes("codex")
+        ? "verified"
+        : "drifted";
       note =
         status === "verified"
           ? "Current Codex docs still support ChatGPT sign-in and plan-based access."
           : "Current Codex docs no longer clearly confirm ChatGPT sign-in or included plan access.";
       break;
     case "anchor-6":
-      status =
-        sourcesText.includes("1,500") ||
-        sourcesText.includes("1500") ||
-        sourcesText.includes("300") ||
-        sourcesText.includes("shared weekly")
-          ? "verified"
-          : "pending-runtime-check";
+      status = containsAny(sourcesText, ["5 hours", "messages", "weekly"]) ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
-          ? "The current Codex plan article still shows usage windows above the earlier 223-1120 estimate."
-          : "The current Codex plan article could not be parsed cleanly enough to restate the present local-window numbers automatically.";
+          ? "The current Codex plan article still documents separate usage windows that require pacing discipline."
+          : "The current Codex plan article could not be parsed cleanly enough to restate the present usage-window numbers automatically.";
       break;
     case "anchor-7":
-      status = sourcesText.includes("openai-codex") || sourcesText.includes("oauth") ? "verified" : "drifted";
+      status = containsAny(sourcesText, ["openai-codex", "oauth"]) ? "verified" : "drifted";
       note =
         status === "verified"
           ? "OpenClaw provider docs still explicitly document OpenAI Codex OAuth support."
@@ -376,21 +384,21 @@ function evaluateAnchorVerification(
       status = sourcesText.includes("node") && sourcesText.includes("bun") ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
-          ? "The current OpenClaw CLI docs still prefer Node for gateway installs and warn against Bun for stable gateways."
+          ? "The current OpenClaw CLI docs still prefer Node and warn against Bun for stable gateways."
           : "The current CLI docs could not be parsed cleanly enough to restate the Node-versus-Bun guidance automatically.";
       break;
     case "anchor-9":
-      status = sourcesText.includes("one gateway") || sourcesText.includes("single gateway") ? "verified" : "pending-runtime-check";
+      status = containsAny(sourcesText, ["one gateway", "single gateway", "ssh tunnel", "tailscale", "node host"]) ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
-          ? "OpenClaw docs still recommend a single primary gateway for most deployments."
-          : "The single-gateway guidance needs a human check because the latest pages did not expose the wording clearly enough.";
+          ? "OpenClaw docs still recommend one primary gateway with secure remote access and remote nodes where needed."
+          : "The latest OpenClaw remote-access pages need a human read before restating the gateway-plus-node pattern precisely.";
       break;
     case "anchor-10":
       status = sourcesText.includes("cron") && sourcesText.includes("heartbeat") ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
-          ? "The latest automation docs still distinguish cron from heartbeat and recommend using both together."
+          ? "The latest automation docs still distinguish cron from heartbeat and support wake-style continuation flows."
           : "The current docs did not expose the cron-versus-heartbeat guidance clearly enough for an automated restatement.";
       break;
     case "anchor-11":
@@ -401,63 +409,57 @@ function evaluateAnchorVerification(
           : "The current memory docs did not expose the Markdown-plus-embedding wording clearly enough for full automated confirmation.";
       break;
     case "anchor-12":
-      status = sourcesText.includes("qmd") || sourcesText.includes("local") ? "verified" : "pending-runtime-check";
+      status = containsAny(sourcesText, ["qmd", "local embeddings", "local memory"]) ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
-          ? "The memory docs still advertise local-first memory search options such as QMD or local embeddings."
+          ? "The memory docs still advertise QMD and local-first search options."
           : "The current memory docs did not expose the local-search options clearly enough for full automated confirmation.";
       break;
     case "anchor-13":
-      status = sourcesText.includes("trusted") || sourcesText.includes("untrusted") ? "verified" : "pending-runtime-check";
+      status = containsAny(sourcesText, ["trusted", "untrusted", "supply chain"]) ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
           ? "OpenClaw security guidance still treats skills and plugins as trusted-code or supply-chain risk surfaces."
           : "The current security pages need a human read to restate the plugin or skill trust warning precisely.";
       break;
     case "anchor-14":
-      status = sourcesText.includes("secret") && (sourcesText.includes("pdf") || sourcesText.includes("doctor"))
+      status = containsAny(sourcesText, ["gateway.mode", "mode: \"local\"", "pdf", "secretref", "doctor"])
         ? "verified"
         : "pending-runtime-check";
       note =
         status === "verified"
-          ? "Current OpenClaw docs still expose config validation or doctor-style checks, broader secret coverage, and PDF tooling."
-          : "The current OpenClaw docs did not expose every earlier config, secret, or PDF detail clearly enough for a full automatic restatement.";
+          ? "Current OpenClaw docs still expose config requirements, broader secret coverage, and PDF tooling."
+          : "The current OpenClaw docs did not expose every current config, secret, or PDF detail clearly enough for a full automatic restatement.";
       break;
     case "anchor-15":
-      status =
-        (sourcesText.includes("browser") && sourcesText.includes("chrome")) ||
-        sourcesText.includes("headless")
-          ? "verified"
-          : "pending-runtime-check";
+      status = containsAny(sourcesText, ["browser", "chrome", "headless", "node host"]) ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
-          ? "The browser docs still cover managed browsing, attached Chrome, and headless tradeoffs."
-          : "The latest browser docs need a human review to restate the managed-versus-attached or headless guidance precisely.";
+          ? "The browser docs still cover managed browsing, attached Chrome, remote nodes, and headless tradeoffs."
+          : "The latest browser docs need a human review to restate the managed-versus-attached or node-host guidance precisely.";
       break;
     case "anchor-16":
-      status = sourcesText.includes("update itself") || sourcesText.includes("not recommended") ? "verified" : "pending-runtime-check";
+      status = containsAny(sourcesText, ["update itself", "not recommended"]) ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
           ? "The current FAQ still treats self-update as possible but not the preferred operating pattern."
           : "The latest FAQ needs a human confirmation of the self-update guidance.";
       break;
     case "anchor-17":
-      status =
-        (sourcesText.includes("oauth") && sourcesText.includes("personal token")) ||
-        sourcesText.includes("psd2")
-          ? "verified"
-          : "pending-runtime-check";
+      status = containsAny(sourcesText, ["oauth", "personal token", "psd2"]) ? "verified" : "pending-runtime-check";
       note =
         status === "verified"
           ? "Current Wise docs still separate personal-token and OAuth realities and preserve PSD2 constraints."
           : "The latest Wise docs need a human review before restating the token-versus-OAuth split or PSD2 limits.";
       break;
     case "anchor-18":
-      status = sourcesText.includes("deprecated") || sourcesText.includes("gpt-4.5") ? "verified" : "pending-runtime-check";
+      status = containsAny(sourcesText, ["steel local", "steel cloud", "credentials api", "profiles api", "credentials are not supported"])
+        ? "verified"
+        : "pending-runtime-check";
       note =
         status === "verified"
-          ? "Current OpenAI release notes still treat GPT-4.5 preview assumptions as stale relative to the GPT-5 family."
-          : "The latest release notes need a human review before restating the GPT-4.5 deprecation claim.";
+          ? "Current Steel docs still distinguish Cloud from Local and separate credential or profile capabilities accordingly."
+          : "The latest Steel docs need a human review before restating the Cloud-versus-Local capability split.";
       break;
     default:
       break;
@@ -512,10 +514,10 @@ ${renderTable(
 
 ## Build implications
 
-- Keep GPT-5.4 as the strategic default for Codex-facing surfaces.
-- Keep OpenClaw model identifiers behind aliases because public provider docs may still lag the frontier ChatGPT or API route.
-- Treat search-backed source captures as advisory; they should not silently replace official-page verification.
-- Keep browser-backed refresh available because some OpenAI pages still return 403 to plain fetches.
+- Keep GPT-5.4 as the strategic frontier target for substantive work, but separate that policy from Codex-surface model naming until runtime proves the live route.
+- Keep OpenClaw provider identifiers behind aliases because public provider docs can lag frontier OpenAI model pages.
+- Treat \`ua-fetch-fallback\` and \`search-backed\` source captures as advisory; they do not replace direct fetch or a real browser-produced artifact.
+- Keep real browser-backed refresh available because some OpenAI pages still return HTTP 403 to plain fetches.
 - Keep Wise and Steel modes runtime-probed; neither surface should be treated as fully live from config strings alone.
 `;
 }

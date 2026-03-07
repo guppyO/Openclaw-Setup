@@ -1,10 +1,10 @@
 [
   {
     "id": "anchor-1",
-    "anchor": "ChatGPT Pro and Business unlimited GPT-5 access in ChatGPT is guardrail-based rather than truly uncapped.",
-    "status": "verified",
-    "note": "Official plan docs still frame GPT-5 access in ChatGPT as unlimited or effectively unlimited subject to abuse guardrails. Methods: openai-pro-plan:browser-capture, openai-business-limits:browser-capture.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "ChatGPT Pro and Business frame GPT access in ChatGPT as unlimited or effectively unlimited, subject to guardrails.",
+    "status": "pending-runtime-check",
+    "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-pro-plan:ua-fetch-fallback, openai-business-limits:ua-fetch-fallback.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openai-pro-plan",
       "openai-business-limits"
@@ -12,43 +12,44 @@
   },
   {
     "id": "anchor-2",
-    "anchor": "GPT-5.4 is the current frontier model for professional work with a 1,050,000 token context window.",
-    "status": "drifted",
-    "note": "The latest GPT-5.4 model page no longer exposes the earlier frontier or 1.05M context wording clearly enough to keep the old anchor unchanged. Methods: openai-gpt-5.4-model:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "GPT-5.4 Pro remains the frontier OpenAI model page with a 1,050,000 token context window claim.",
+    "status": "pending-runtime-check",
+    "note": "The latest GPT-5.4 Pro page loads, but a real rendered or browser-backed confirmation is still needed to restate the frontier or 1.05M wording precisely. Methods: openai-gpt-5.4-model:direct-fetch.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openai-gpt-5.4-model"
     ]
   },
   {
     "id": "anchor-3",
-    "anchor": "GPT-5.4 is available everywhere you use Codex.",
-    "status": "drifted",
-    "note": "Codex-facing docs still emphasize GPT-5-Codex or GPT-5.3-Codex rather than proving GPT-5.4 as the universal Codex default. Methods: openai-codex-upgrades:browser-capture, openai-gpt-5.3-codex:browser-capture, openai-gpt-5.4-model:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "This repo should keep GPT-5.4 as the strategic frontier target while treating Codex-surface defaults as a separately verified runtime fact.",
+    "status": "pending-runtime-check",
+    "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-gpt-5.4-model:direct-fetch, openai-codex-plan:ua-fetch-fallback, openai-codex-upgrades:ua-fetch-fallback, openai-codex-app:ua-fetch-fallback.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
+      "openai-gpt-5.4-model",
+      "openai-codex-plan",
       "openai-codex-upgrades",
-      "openai-gpt-5.3-codex",
-      "openai-gpt-5.4-model"
+      "openai-codex-app"
     ]
   },
   {
     "id": "anchor-4",
-    "anchor": "Codex-native frontier work currently rides on GPT-5.3-Codex or GPT-5-Codex rather than a public GPT-5.4 Codex release.",
-    "status": "verified",
-    "note": "Current Codex-native docs still center GPT-5.3-Codex or GPT-5-Codex on the Codex surface. Methods: openai-gpt-5.3-codex:browser-capture, openai-gpt-5.4-model:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "OpenClaw provider examples can lag the frontier model naming, so provider-model promotion must be runtime-probed.",
+    "status": "pending-runtime-check",
+    "note": "The provider docs still need a clearer rendered read before restating the exact compatibility fallback assumptions automatically. Methods: openclaw-model-providers:direct-fetch, openai-gpt-5.4-model:direct-fetch.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
-      "openai-gpt-5.3-codex",
+      "openclaw-model-providers",
       "openai-gpt-5.4-model"
     ]
   },
   {
     "id": "anchor-5",
-    "anchor": "Codex supports ChatGPT sign-in and is included with ChatGPT plans.",
-    "status": "verified",
-    "note": "Current Codex docs still support ChatGPT sign-in and plan-based access. Methods: openai-codex-plan:browser-capture, openai-codex-upgrades:browser-capture.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "Codex supports ChatGPT sign-in and plan-based access.",
+    "status": "pending-runtime-check",
+    "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback, openai-codex-upgrades:ua-fetch-fallback.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openai-codex-plan",
       "openai-codex-upgrades"
@@ -56,53 +57,55 @@
   },
   {
     "id": "anchor-6",
-    "anchor": "Current Codex Pro local usage windows are higher than the prompt's 223-1120 estimate.",
+    "anchor": "Codex plan usage windows are separate from ChatGPT chat usage and require pacing discipline.",
     "status": "pending-runtime-check",
-    "note": "The current Codex plan article could not be parsed cleanly enough to restate the present local-window numbers automatically. Methods: openai-codex-plan:browser-capture.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openai-codex-plan"
     ]
   },
   {
     "id": "anchor-7",
-    "anchor": "OpenClaw officially supports Codex OAuth / ChatGPT sign-in.",
+    "anchor": "OpenClaw officially supports Codex OAuth or ChatGPT sign-in for external workflows.",
     "status": "verified",
     "note": "OpenClaw provider docs still explicitly document OpenAI Codex OAuth support. Methods: openclaw-model-providers:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-model-providers"
     ]
   },
   {
     "id": "anchor-8",
-    "anchor": "OpenClaw recommends Node runtime for stable gateways and does not recommend Bun for gateway installs.",
+    "anchor": "OpenClaw recommends Node for stable gateways and does not recommend Bun for gateway installs.",
     "status": "pending-runtime-check",
     "note": "The current CLI docs could not be parsed cleanly enough to restate the Node-versus-Bun guidance automatically. Methods: openclaw-cli:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-cli"
     ]
   },
   {
     "id": "anchor-9",
-    "anchor": "The strongest always-on OpenClaw pattern is one primary gateway with remote nodes and clients.",
+    "anchor": "The strongest always-on OpenClaw pattern is one primary loopback-bound gateway with secure remote access and remote nodes where needed.",
     "status": "pending-runtime-check",
-    "note": "The single-gateway guidance needs a human check because the latest pages did not expose the wording clearly enough. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-faq:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-remote-access:search-backed, openclaw-nodes:search-backed.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-multiple-gateways",
-      "openclaw-faq"
+      "openclaw-remote-access",
+      "openclaw-nodes"
     ]
   },
   {
     "id": "anchor-10",
-    "anchor": "Cron and heartbeat serve different purposes and should be combined.",
-    "status": "verified",
-    "note": "The latest automation docs still distinguish cron from heartbeat and recommend using both together. Methods: openclaw-cron-vs-heartbeat:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "Cron and heartbeat serve different purposes and should be combined with explicit wake or continuation flows.",
+    "status": "pending-runtime-check",
+    "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openclaw-cron-vs-heartbeat:direct-fetch, openclaw-nodes:search-backed.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
-      "openclaw-cron-vs-heartbeat"
+      "openclaw-cron-vs-heartbeat",
+      "openclaw-nodes"
     ]
   },
   {
@@ -110,17 +113,17 @@
     "anchor": "OpenClaw memory is Markdown-first, and Codex OAuth does not satisfy embeddings for memory search.",
     "status": "verified",
     "note": "The latest memory docs still show Markdown-first memory and separate embedding requirements. Methods: openclaw-memory:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-memory"
     ]
   },
   {
     "id": "anchor-12",
-    "anchor": "OpenClaw supports QMD and local memory-search backends.",
+    "anchor": "OpenClaw supports QMD and local-first memory search backends.",
     "status": "verified",
-    "note": "The memory docs still advertise local-first memory search options such as QMD or local embeddings. Methods: openclaw-memory:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "note": "The memory docs still advertise QMD and local-first search options. Methods: openclaw-memory:direct-fetch.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-memory"
     ]
@@ -130,7 +133,7 @@
     "anchor": "OpenClaw skills, plugins, and skill folders are supply-chain risk and must be treated as trusted or untrusted code accordingly.",
     "status": "verified",
     "note": "OpenClaw security guidance still treats skills and plugins as trusted-code or supply-chain risk surfaces. Methods: openclaw-security:direct-fetch, openclaw-secrets:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-security",
       "openclaw-secrets"
@@ -138,10 +141,10 @@
   },
   {
     "id": "anchor-14",
-    "anchor": "OpenClaw current docs expose strict config validation, additive SecretRefs, and a first-class PDF tool.",
+    "anchor": "OpenClaw current docs expose strict config requirements, additive SecretRefs, and a first-class PDF tool.",
     "status": "verified",
-    "note": "Current OpenClaw docs still expose config validation or doctor-style checks, broader secret coverage, and PDF tooling. Methods: openclaw-configuration:direct-fetch, openclaw-secrets:direct-fetch, openclaw-pdf:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "note": "Current OpenClaw docs still expose config requirements, broader secret coverage, and PDF tooling. Methods: openclaw-configuration:direct-fetch, openclaw-secrets:direct-fetch, openclaw-pdf:direct-fetch.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-configuration",
       "openclaw-secrets",
@@ -150,14 +153,15 @@
   },
   {
     "id": "anchor-15",
-    "anchor": "OpenClaw can use a managed browser or an attached Chrome relay, and headless mode is more likely to trigger anti-bot checks.",
-    "status": "verified",
-    "note": "The browser docs still cover managed browsing, attached Chrome, and headless tradeoffs. Methods: openclaw-browser:direct-fetch, openclaw-faq:direct-fetch, openclaw-browser-login:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "OpenClaw can use a managed browser, attached Chrome relay, and remote nodes; headless mode can trigger more anti-bot friction.",
+    "status": "pending-runtime-check",
+    "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openclaw-browser:direct-fetch, openclaw-browser-login:direct-fetch, openclaw-nodes:search-backed, openclaw-faq:direct-fetch.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-browser",
-      "openclaw-faq",
-      "openclaw-browser-login"
+      "openclaw-browser-login",
+      "openclaw-nodes",
+      "openclaw-faq"
     ]
   },
   {
@@ -165,17 +169,17 @@
     "anchor": "Automated self-update is possible but not the primary recommended operating pattern.",
     "status": "pending-runtime-check",
     "note": "The latest FAQ needs a human confirmation of the self-update guidance. Methods: openclaw-faq:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "openclaw-faq"
     ]
   },
   {
     "id": "anchor-17",
-    "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU/UK PSD2 constrains personal-token actions.",
+    "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU or UK PSD2 rules constrain some personal-token actions.",
     "status": "verified",
     "note": "Current Wise docs still separate personal-token and OAuth realities and preserve PSD2 constraints. Methods: wise-security-access:direct-fetch, wise-personal-tokens:direct-fetch, wise-getting-started:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
       "wise-security-access",
       "wise-personal-tokens",
@@ -184,13 +188,15 @@
   },
   {
     "id": "anchor-18",
-    "anchor": "GPT-4.5-preview assumptions are stale and deprecated.",
-    "status": "pending-runtime-check",
-    "note": "The latest release notes need a human review before restating the GPT-4.5 deprecation claim. Methods: openai-model-release-notes:browser-capture, openai-gpt-5.4-model:direct-fetch.",
-    "checkedAt": "2026-03-06T23:07:53.153Z",
+    "anchor": "Steel Cloud and Steel Local differ materially; auth-sensitive credential injection is not a safe assumption in Steel Local.",
+    "status": "verified",
+    "note": "Current Steel docs still distinguish Cloud from Local and separate credential or profile capabilities accordingly. Methods: steel-sessions-overview:direct-fetch, steel-profiles:direct-fetch, steel-credentials:direct-fetch, steel-local-vs-cloud:direct-fetch.",
+    "checkedAt": "2026-03-07T01:28:39.437Z",
     "sourceIds": [
-      "openai-model-release-notes",
-      "openai-gpt-5.4-model"
+      "steel-sessions-overview",
+      "steel-profiles",
+      "steel-credentials",
+      "steel-local-vs-cloud"
     ]
   }
 ]

@@ -1,39 +1,32 @@
-import { readdir, readFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-async function listMarkdownFiles(rootPath: string): Promise<string[]> {
-  const entries = await readdir(rootPath, { withFileTypes: true });
-  const results: string[] = [];
+const execFileAsync = promisify(execFile);
 
-  for (const entry of entries) {
-    if (["node_modules", "dist", ".git", "data"].includes(entry.name)) {
-      continue;
-    }
+async function trackedMarkdownFiles(rootPath: string): Promise<string[]> {
+  const { stdout } = await execFileAsync("git", ["ls-files", "*.md"], {
+    cwd: rootPath,
+  });
 
-    const absolutePath = path.join(rootPath, entry.name);
-    if (entry.isDirectory()) {
-      results.push(...(await listMarkdownFiles(absolutePath)));
-      continue;
-    }
-
-    if (entry.isFile() && entry.name.endsWith(".md")) {
-      results.push(absolutePath);
-    }
-  }
-
-  return results;
+  return stdout
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
 }
 
 describe("markdown portability", () => {
-  test("repo markdown avoids local absolute Windows path links", async () => {
+  test("tracked markdown avoids local absolute Windows path links", async () => {
     const repoRoot = process.cwd();
-    const files = await listMarkdownFiles(repoRoot);
+    const files = await trackedMarkdownFiles(repoRoot);
     const offenders: string[] = [];
 
-    for (const filePath of files) {
+    for (const relativePath of files) {
+      const filePath = path.join(repoRoot, relativePath);
       const contents = await readFile(filePath, "utf8");
       if (/C:\\Users\\|\/C:\/Users\//.test(contents)) {
-        offenders.push(path.relative(repoRoot, filePath).replace(/\\/g, "/"));
+        offenders.push(relativePath.replace(/\\/g, "/"));
       }
     }
 
