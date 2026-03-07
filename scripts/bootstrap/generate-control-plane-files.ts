@@ -331,6 +331,7 @@ Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
 EnvironmentFile=-${VPS_ROOT_DIR}/.secrets/revenue-os.local.env
 ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:probe-models -- --active && npm run bootstrap:control-plane'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && bash scripts/verify/validate-openclaw-config.sh ${environment.name}'
 ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && openclaw doctor'
 ExecStart=/usr/bin/env openclaw gateway --config ${VPS_ROOT_DIR}/openclaw/${environment.name}/openclaw.json
 Restart=always
@@ -404,6 +405,7 @@ fi
 npm ci
 npm run runtime:probe-models
 npm run bootstrap:control-plane
+bash scripts/verify/validate-openclaw-config.sh ${environment.name}
 openclaw doctor
 openclaw models auth login --provider openai-codex
 bash scripts/bootstrap/finalize-openclaw-auth.sh ${environment.name}

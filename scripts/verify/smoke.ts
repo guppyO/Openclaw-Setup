@@ -51,6 +51,9 @@ async function main(): Promise<void> {
   if (!stageUnit.includes("User=revenueos") || !stageUnit.includes("WantedBy=multi-user.target")) {
     throw new Error("Stage systemd unit is not configured for the dedicated revenueos runtime user.");
   }
+  if (!stageUnit.includes("validate-openclaw-config.sh stage")) {
+    throw new Error("Stage systemd unit does not enforce OpenClaw config validation before start.");
+  }
   const stageConfig = await readTextFile(resolveRepoPath("openclaw", "stage", "openclaw.json"), "");
   if (!stageConfig.includes("\"hooks\"") || !stageConfig.includes("\"heartbeat\"") || !stageConfig.includes("\"mode\": \"local\"")) {
     throw new Error("Stage OpenClaw config is missing the explicit hook, heartbeat, or gateway mode configuration.");

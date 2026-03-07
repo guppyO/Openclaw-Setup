@@ -1,5 +1,5 @@
 {
-  "refreshedAt": "2026-03-07T02:45:17.044Z",
+  "refreshedAt": "2026-03-07T03:37:13.958Z",
   "methods": {
     "openai-gpt-5.4-model": "direct-fetch",
     "openai-pro-plan": "ua-fetch-fallback",
@@ -32,5 +32,13 @@
     "steel-credentials": "direct-fetch",
     "steel-local-vs-cloud": "direct-fetch"
   },
-  "changedSources": []
+  "changedSources": [
+    {
+      "id": "openai-codex-plan",
+      "status": 403,
+      "ok": true,
+      "title": "Using Codex with your ChatGPT plan | OpenAI Help Center",
+      "method": "ua-fetch-fallback"
+    }
+  ]
 }

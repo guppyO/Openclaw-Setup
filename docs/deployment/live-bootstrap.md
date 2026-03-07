@@ -25,7 +25,7 @@ Export the target host details on the Windows machine:
 - `LIVE_VPS_HOST`
 - optional `LIVE_VPS_USER`
 - optional `LIVE_VPS_RUNTIME_USER` if you do not want the default `revenueos`
-- optional `BOOTSTRAP_ENVIRONMENT=stage` for the first promotion
+- optional `BOOTSTRAP_ENVIRONMENT=prod` only when you are intentionally promoting past the default stage path
 
 Run:
 
@@ -33,7 +33,7 @@ Run:
 bash scripts/bootstrap/bootstrap-hetzner-live.sh
 ```
 
-This syncs the repo to `/opt/revenue-os`, installs or upgrades runtime dependencies, creates the dedicated `revenueos` service user by default, writes system-level units, and enables the gateway plus the recovery timers.
+This syncs the repo to `/opt/revenue-os`, installs or upgrades runtime dependencies, creates the dedicated `revenueos` service user by default, validates the generated OpenClaw config, writes system-level units, and enables the gateway plus the recovery timers.
 
 ## 3. VPS interactive step
 
@@ -48,6 +48,8 @@ Then finalize the authenticated runtime so the active model probe and generated 
 ```bash
 sudo -u revenueos -H bash -lc 'cd /opt/revenue-os && bash scripts/bootstrap/finalize-openclaw-auth.sh stage'
 ```
+
+That finalize step also reruns `openclaw config validate --json` against the generated environment config before you start the service.
 
 Then start stage:
 
@@ -102,6 +104,7 @@ Pairing flow:
 3. Confirm the relay points at the tunneled gateway URL.
 4. Set `OPENCLAW_CHROME_RELAY_STATUS=paired` in `.secrets/revenue-os.local.env`.
 5. Re-run `npm run runtime:browser-broker` and `npm run verify:smoke`.
+6. Re-run `npm run bootstrap:runtime` or `npm run refresh:updates` if you want the source verifier to upgrade any remaining OpenAI `ua-fetch-fallback` pages into repo-native `browser-capture` artifacts.
 
 If the relay is marked paired but the gateway token, tunnel path, or node host is missing, smoke verification fails on purpose.
 

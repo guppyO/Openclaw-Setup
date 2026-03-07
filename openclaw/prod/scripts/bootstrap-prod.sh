@@ -15,6 +15,7 @@ fi
 npm ci
 npm run runtime:probe-models
 npm run bootstrap:control-plane
+bash scripts/verify/validate-openclaw-config.sh prod
 openclaw doctor
 openclaw models auth login --provider openai-codex
 bash scripts/bootstrap/finalize-openclaw-auth.sh prod

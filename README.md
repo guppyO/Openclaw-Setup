@@ -19,3 +19,5 @@ A live-upgraded autonomous revenue operating system built around OpenClaw, Codex
 - Browser lanes: [docs/browser-topology.md](./docs/browser-topology.md)
 - Secrets and token handling: [docs/secrets-handling.md](./docs/secrets-handling.md)
 - Dispatch model: [docs/continuous-dispatch.md](./docs/continuous-dispatch.md)
+
+Archived planning and older audit-fix notes now live under [docs/archive](./docs/archive). They are retained for history, not as the live operating contract.

@@ -18,15 +18,19 @@
 
 - Install completed with no dependency drift or vulnerabilities.
 - Build passed.
-- Tests passed with 35 passing tests.
+- Tests passed with 41 passing tests.
 - Secret import passed and stayed idempotent on unchanged input.
-- Runtime verification refreshed with truthful method labels and corrected OpenClaw plus Steel source anchors.
-- OpenClaw config generation passed and now emits `gateway.mode: "local"` plus explicit hook and heartbeat configuration.
+- Runtime verification refreshed with truthful method labels, corrected OpenClaw plus Steel source anchors, and the current summary now sits at 15 verified, 3 pending, 0 drifted, 0 unsupported.
+- OpenClaw config generation passed and now emits `gateway.mode: "local"` plus explicit hook, heartbeat, and per-agent dispatch configuration.
+- Hetzner bootstrap now defaults to `stage`; `prod` requires an explicit override.
+- OpenClaw config validation is now enforced before service enable or start through `scripts/verify/validate-openclaw-config.sh` and the generated systemd `ExecStartPre` gates.
+- Browser-backed source capture is now repo-native when the Windows browser lane or an auth-ready browser lane is ready; the updater no longer depends only on manual artifacts or an external capture command.
 - Browser broker snapshot passed and now reflects remote gateway mode, node-host readiness, Steel Cloud versus self-hosted truth, and blocked high-trust routes.
 - Treasury probe passed and currently reports `browser-only` with `ledger: unavailable`.
 - State generation passed and currently surfaces 9 opportunities, 4 experiments, and parallel active assignments.
 - Smoke verification passed.
-- Backup completed at `data/backups/revenue-os-2026-03-07T01-20-11-731Z.tar.gz`.
+- Backup completed at `data/backups/revenue-os-2026-03-07T03-38-29-959Z.tar.gz`.
+- Stale root planning and older audit-fix notes were archived under `docs/archive/`.
 
 ## Still external
 

@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { exec } from "node:child_process";
+import { exec, execFile } from "node:child_process";
 import { promisify } from "node:util";
 
 import { DEFAULT_ANCHOR_VERIFICATIONS, OFFICIAL_SOURCES } from "../common/source-catalog.js";
@@ -12,10 +12,18 @@ import {
   writeJsonFile,
   writeTextFile,
 } from "../common/fs.js";
-import type { AnchorStatus, AnchorVerification, BrowserTaskRequest, SourceRecord } from "../common/types.js";
+import type {
+  AnchorStatus,
+  AnchorVerification,
+  BrowserBrokerState,
+  BrowserRouteDecision,
+  BrowserTaskRequest,
+  SourceRecord,
+} from "../common/types.js";
 import { buildBrowserBrokerState, routeBrowserTask } from "../browser-broker/index.js";
 
 const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
 export interface SourceSnapshot {
   id: string;
@@ -105,6 +113,15 @@ async function readCapturedSourceArtifact(source: SourceRecord): Promise<string 
   return null;
 }
 
+async function persistCapturedSourceArtifact(source: SourceRecord, html: string): Promise<void> {
+  const targets = [
+    resolveRepoPath("data", "exports", "source-captures", `${source.id}.html`),
+    resolveRepoPath("data", "captures", "sources", `${source.id}.html`),
+  ];
+
+  await Promise.all(targets.map((target) => writeTextFile(target, html)));
+}
+
 async function uaFetchFallback(source: SourceRecord): Promise<string | null> {
   try {
     const response = await fetch(source.url, {
@@ -127,6 +144,101 @@ async function uaFetchFallback(source: SourceRecord): Promise<string | null> {
   }
 }
 
+async function detectNativeBrowserBinary(): Promise<string | null> {
+  const configured = process.env.REVENUE_OS_BROWSER_CAPTURE_BINARY;
+  if (configured && (await fileExists(configured))) {
+    return configured;
+  }
+
+  const platformCandidates =
+    process.platform === "win32"
+      ? [
+          "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+          "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+          "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
+          "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        ]
+      : process.platform === "darwin"
+        ? [
+            "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+          ]
+        : [
+            "/usr/bin/google-chrome",
+            "/usr/bin/chromium",
+            "/usr/bin/chromium-browser",
+            "/usr/bin/microsoft-edge",
+          ];
+
+  for (const candidate of platformCandidates) {
+    if (await fileExists(candidate)) {
+      return candidate;
+    }
+  }
+
+  const commandCandidates =
+    process.platform === "win32"
+      ? ["chrome", "msedge"]
+      : ["google-chrome", "chromium", "chromium-browser", "microsoft-edge"];
+
+  for (const command of commandCandidates) {
+    try {
+      const lookup =
+        process.platform === "win32"
+          ? await execAsync(`powershell -NoProfile -Command "(Get-Command ${command} -ErrorAction Stop).Source"`, {
+              timeout: 20_000,
+            })
+          : await execAsync(`command -v ${command}`, { timeout: 20_000 });
+      const resolved = lookup.stdout.trim();
+      if (resolved) {
+        return resolved;
+      }
+    } catch {
+      // Keep scanning candidates.
+    }
+  }
+
+  return null;
+}
+
+function canUseRepoNativeBrowserCapture(
+  broker: BrowserBrokerState,
+): boolean {
+  return broker.capabilities.attachedChrome || broker.capabilities.steelReady;
+}
+
+async function captureWithNativeBrowser(
+  source: SourceRecord,
+  browserBinary: string,
+): Promise<string | null> {
+  try {
+    const { stdout } = await execFileAsync(
+      browserBinary,
+      [
+        "--headless=new",
+        "--disable-gpu",
+        "--dump-dom",
+        "--virtual-time-budget=5000",
+        source.url,
+      ],
+      {
+        timeout: 120_000,
+        maxBuffer: 8 * 1024 * 1024,
+      },
+    );
+
+    const html = stdout.trim();
+    if (!html) {
+      return null;
+    }
+
+    await persistCapturedSourceArtifact(source, html);
+    return html;
+  } catch {
+    return null;
+  }
+}
+
 async function runFallbackCommand(commandTemplate: string | undefined, source: SourceRecord): Promise<string | null> {
   if (!commandTemplate) {
     return null;
@@ -141,12 +253,37 @@ async function runFallbackCommand(commandTemplate: string | undefined, source: S
   }
 }
 
-async function defaultBrowserCapture(source: SourceRecord): Promise<string | null> {
-  const broker = await buildBrowserBrokerState();
+async function defaultBrowserCapture(
+  source: SourceRecord,
+  options: {
+    brokerState?: BrowserBrokerState;
+    nativeBrowserCapture?: (
+      source: SourceRecord,
+      context: { broker: BrowserBrokerState; route: BrowserRouteDecision },
+    ) => Promise<string | null>;
+  } = {},
+): Promise<string | null> {
+  const broker = options.brokerState ?? (await buildBrowserBrokerState());
   const route = routeBrowserTask(buildSourceBrowserTask(source), broker.capabilities);
   const artifactCapture = await readCapturedSourceArtifact(source);
   if (artifactCapture) {
     return artifactCapture;
+  }
+
+  if (canUseRepoNativeBrowserCapture(broker)) {
+    const nativeCapture = options.nativeBrowserCapture
+      ? await options.nativeBrowserCapture(source, { broker, route })
+      : await (async () => {
+          const browserBinary = await detectNativeBrowserBinary();
+          if (!browserBinary) {
+            return null;
+          }
+
+          return captureWithNativeBrowser(source, browserBinary);
+        })();
+    if (nativeCapture) {
+      return nativeCapture;
+    }
   }
 
   if (route.status === "blocked") {
@@ -183,6 +320,11 @@ export async function fetchSourceSnapshot(
   options: {
     fetchImpl?: typeof fetch;
     browserCapture?: (source: SourceRecord) => Promise<string | null>;
+    brokerState?: BrowserBrokerState;
+    nativeBrowserCapture?: (
+      source: SourceRecord,
+      context: { broker: BrowserBrokerState; route: BrowserRouteDecision },
+    ) => Promise<string | null>;
     uaFetchCapture?: (source: SourceRecord) => Promise<string | null>;
     searchCapture?: (source: SourceRecord) => Promise<string | null>;
   } = {},
@@ -200,7 +342,12 @@ export async function fetchSourceSnapshot(
       return snapshotFromText(source, raw, response.status, true, "direct-fetch");
     }
 
-    const browserCapture = options.browserCapture ? await options.browserCapture(source) : await defaultBrowserCapture(source);
+    const browserCapture = options.browserCapture
+      ? await options.browserCapture(source)
+      : await defaultBrowserCapture(source, {
+          brokerState: options.brokerState,
+          nativeBrowserCapture: options.nativeBrowserCapture,
+        });
     if (browserCapture) {
       return snapshotFromText(source, browserCapture, response.status, true, "browser-capture");
     }
@@ -220,7 +367,12 @@ export async function fetchSourceSnapshot(
 
     return snapshotFromText(source, raw || `HTTP ${response.status}`, response.status, false, "manual-unverified");
   } catch (error) {
-    const browserCapture = options.browserCapture ? await options.browserCapture(source) : await defaultBrowserCapture(source);
+    const browserCapture = options.browserCapture
+      ? await options.browserCapture(source)
+      : await defaultBrowserCapture(source, {
+          brokerState: options.brokerState,
+          nativeBrowserCapture: options.nativeBrowserCapture,
+        });
     if (browserCapture) {
       return snapshotFromText(source, browserCapture, 0, true, "browser-capture");
     }

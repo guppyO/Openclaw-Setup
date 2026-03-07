@@ -5,7 +5,8 @@ The authoritative live bring-up flow now lives in [docs/deployment/live-bootstra
 Use that document for:
 
 - the local bootstrap order,
-- stage-first Hetzner deployment,
+- stage-first Hetzner deployment with `stage` as the script default,
+- config validation before service enable or start,
 - the Windows SSH tunnel path to the loopback-bound VPS gateway,
 - the Windows node-host setup for attached Chrome,
 - the OpenClaw OAuth step on the VPS,

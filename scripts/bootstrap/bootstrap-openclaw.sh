@@ -52,6 +52,7 @@ sudo -u "$RUNTIME_USER" -H bash -lc "
   npm run bootstrap:state
   npm run bootstrap:wise
   npm run runtime:browser-broker
+  bash scripts/verify/validate-openclaw-config.sh '$ENVIRONMENT'
   openclaw doctor
 "
 

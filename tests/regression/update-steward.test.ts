@@ -67,6 +67,57 @@ describe("update steward", () => {
     expect(snapshot.ok).toBe(true);
   });
 
+  test("prefers repo-native browser capture over UA fallback when a browser lane is ready", async () => {
+    const snapshot = await fetchSourceSnapshot(
+      {
+        id: "test",
+        label: "Test",
+        domain: "openai",
+        url: "https://example.com",
+        purpose: "test",
+      },
+      {
+        fetchImpl: async () =>
+          new Response("blocked", {
+            status: 403,
+          }),
+        brokerState: {
+          generatedAt: new Date().toISOString(),
+          capabilities: {
+            managedBrowser: true,
+            attachedChrome: true,
+            attachedChromePaired: true,
+            nodeHostConfigured: true,
+            nodeHostReady: true,
+            gatewayTokenConfigured: true,
+            remoteGatewayConfigured: true,
+            remoteGatewayBaseUrl: "http://127.0.0.1:4201",
+            remoteGatewayMode: "ssh-tunnel",
+            steel: false,
+            steelMode: "none",
+            steelReady: false,
+            steelBaseUrl: "",
+            steelAuthConfigured: false,
+            steelApiConfigured: false,
+            steelCredentialsSupported: false,
+            steelProfilesSupported: false,
+            steelSessionPersistenceSupported: false,
+            steelLiveDebugSupported: false,
+            steelAuthStateReady: false,
+          },
+          profiles: [],
+          sampleRoutes: [],
+          activeSessions: 0,
+        },
+        nativeBrowserCapture: async () => "<html><title>Native</title><body>Captured in repo</body></html>",
+        uaFetchCapture: async () => "<html><title>UA</title><body>Fallback</body></html>",
+      },
+    );
+
+    expect(snapshot.method).toBe("browser-capture");
+    expect(snapshot.title).toBe("Native");
+  });
+
   test("marks the source manual-unverified when all methods fail", async () => {
     const snapshot = await fetchSourceSnapshot(
       {
