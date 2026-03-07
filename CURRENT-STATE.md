@@ -14,7 +14,8 @@
   - attached Chrome: ready
   - node host: ready
   - remote gateway: ready through the SSH tunnel
-  - Steel: present on the VPS but not yet promoted as the routed browser lane in the local broker snapshot
+  - Steel: ready as the routed low-trust parallel browser lane through the loopback-scoped self-hosted Steel API
+  - auth-sensitive Steel profiles: still not promoted; root-identity, treasury, and infrastructure stay on attached Chrome unless Steel Cloud is provisioned
 - Local semantic memory is now configured on the VPS with `memorySearch.provider = "local"` and the default `embeddinggemma` GGUF path. The embedding backend and vector extension are both ready.
 
 ## Local vs live
@@ -36,18 +37,18 @@
 - Source refresh and runtime verification are grounded in current official OpenAI, OpenClaw, Wise, and Steel sources.
 - The source-built OpenClaw install path is pinned and reproducible, including UI build support and GPT-5.4 provider support.
 - The latest local validation pass completed after the live browser fix: build passed, all 51 tests passed, smoke passed, and backup completed.
+- Treasury is now in `hybrid-live` mode: the Wise personal token can read the live GBP balance, the browser lane exists for fallback evidence capture, and the current cash balance is visible in runtime exports.
 
 ## Still not fully live
 
-- Self-hosted Steel is now present and loopback-restricted on the VPS, but it is still not promoted as an auth-ready or operator-tunneled browser lane in the repo’s current broker state.
-- Treasury is still `browser-only`; Wise API or OAuth is not yet live and the ledger remains incomplete.
-- Root-account password rotation still needs to happen externally on Gmail, Wise, and Hetzner using the unique generated replacements in `.secrets/generated-service-credentials.env`.
+- Self-hosted Steel is live only for low-trust public session pooling. If you want auth-ready multi-profile Steel lanes, you still need Steel Cloud or a stronger self-hosted credentials layer than the repo currently treats as supportable.
+- Treasury has live balance truth, but the ledger is still incomplete because Wise statement coverage and append-only ledger import are not fully wired yet.
 - Production is not promoted yet. Stage is the live environment.
 - Revenue generation is not something configuration alone can guarantee; what is live now is the company runtime, not proof of profitable experiments yet.
 
 ## Next autonomous steps
 
 - Keep stage running and use it as the real operating surface.
-- If you want the third browser lane promoted beyond its current loopback-restricted VPS state, decide whether to keep it as low-trust self-hosted session infrastructure or move to Steel Cloud for auth-ready profiles.
-- Add Wise API or OAuth, or import append-only ledger data, if you want treasury beyond browser reconciliation.
+- Use self-hosted Steel for parallel low-trust market research, site sweeps, and public acquisition discovery while attached Chrome handles company-auth, Gmail, Wise, and Hetzner flows.
+- Import append-only ledger data or extend the Wise statement path if you want treasury beyond live balance truth.
 - Promote to `prod` only after you are satisfied with stage behavior, browser reliability, and treasury truth.

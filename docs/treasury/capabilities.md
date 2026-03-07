@@ -2,27 +2,28 @@
 
 ## Mode
 
-- Snapshot mode: browser-only
+- Snapshot mode: hybrid-live
 - FX source: missing (stale or missing)
-- Cash truth: unknown
+- Cash truth: live-known
 - Ledger status: unavailable
 - Coverage note: No append-only ledger entries are available yet. Treasury can report live balances only when the active lane exposes them.
 
 ## Auth mode
 
-- Active treasury auth mode: browser-only
+- Active treasury auth mode: hybrid
 - Pending reconciliations: 0
 
 ## Balances
 
 | Currency | Amount |
 | --- | --- |
+| GBP | 241.94 |
 
 ## Capability probe
 
 | Capability | Enabled |
 | --- | --- |
-| balanceRead | no |
+| balanceRead | yes |
 | statementRead | no |
 | cardTransactionRead | no |
 | recipientManagement | no |
@@ -32,7 +33,7 @@
 | webhooks | no |
 | psd2LimitedActions | yes |
 | browserLaneAvailable | yes |
-| personalTokenConfigured | no |
+| personalTokenConfigured | yes |
 | oauthAppConfigured | no |
 | emailReceiptIngest | yes |
 

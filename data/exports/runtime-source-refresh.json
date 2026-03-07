@@ -1,5 +1,5 @@
 {
-  "refreshedAt": "2026-03-07T21:19:17.483Z",
+  "refreshedAt": "2026-03-07T23:01:19.231Z",
   "methods": {
     "openai-gpt-5.4-model": "direct-fetch",
     "openai-pro-plan": "browser-capture",

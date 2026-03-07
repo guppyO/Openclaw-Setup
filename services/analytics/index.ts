@@ -102,11 +102,11 @@ export async function buildDashboardState(): Promise<DashboardState> {
       "The dispatcher should continue work immediately after task completion and keep multiple specialists occupied when ready work exists.",
       `Treasury truth is ${treasury.cashTruth} cash with ${treasury.ledgerStatus} ledger coverage.`,
       `Managed credential entries: ${credentialRegistry.entries.length}.`,
+      ...(credentialRegistry.entries.some((entry) => entry.rotationPending)
+        ? ["Account hardening note: some externally managed root credentials still have rotationPending metadata."]
+        : []),
     ],
     blockers: [
-      ...(credentialRegistry.entries.some((entry) => entry.rotationPending)
-        ? ["Root-account password rotation is still pending. Apply the generated unique replacements externally, then rerun secret bootstrap."]
-        : []),
       ...(browser.capabilities.attachedChrome
         ? []
         : browser.capabilities.attachedChromePaired

@@ -48,6 +48,10 @@ function profileNeedsAuthState(profileId: string): boolean {
   return Boolean(profile && profile.riskBoundary !== "public-web");
 }
 
+function isLoopbackUrl(url: string): boolean {
+  return /^https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?(?:\/|$)/i.test(url);
+}
+
 function steelAuthReadyProfiles(): Set<string> {
   return new Set(parseCsv(process.env.STEEL_AUTH_READY_PROFILES));
 }
@@ -186,6 +190,22 @@ function inferRemoteGatewayMode(
   return "custom";
 }
 
+async function probeSteelReachability(baseUrl: string): Promise<boolean> {
+  if (!baseUrl) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(baseUrl, {
+      method: "GET",
+      signal: AbortSignal.timeout(5_000),
+    });
+    return response.ok || response.status === 401 || response.status === 403;
+  } catch {
+    return false;
+  }
+}
+
 export async function browserCapabilities(): Promise<BrowserBrokerState["capabilities"]> {
   await loadLocalRuntimeEnv();
 
@@ -215,8 +235,19 @@ export async function browserCapabilities(): Promise<BrowserBrokerState["capabil
   const steelCredentialsSupported = inferredSteelMode === "cloud";
   const steelProfilesSupported = inferredSteelMode === "cloud";
   const steelSessionPersistenceSupported = inferredSteelMode !== "none";
-  const steelLiveDebugSupported = inferredSteelMode !== "none";
   const steelAuthReady = steelAuthReadyProfiles().size > 0;
+  const steelSelfHostedPublicReady =
+    inferredSteelMode === "self-hosted" &&
+    process.env.STEEL_SELF_HOSTED_PUBLIC_READY === "true" &&
+    Boolean(steelBaseUrl) &&
+    isLoopbackUrl(steelBaseUrl);
+  const steelReachable = await probeSteelReachability(steelBaseUrl);
+  const steelReady =
+    inferredSteelMode !== "none" &&
+    Boolean(steelBaseUrl) &&
+    steelSessionPersistenceSupported &&
+    (steelAuthConfigured || steelSelfHostedPublicReady);
+  const steelLiveDebugSupported = inferredSteelMode !== "none" && steelReachable;
 
   const gatewayTokenConfigured = Boolean(process.env.OPENCLAW_GATEWAY_TOKEN);
   const attachedChromeProbe = await probeAttachedChromeRelay();
@@ -256,11 +287,7 @@ export async function browserCapabilities(): Promise<BrowserBrokerState["capabil
     remoteGatewayMode,
     steel: inferredSteelMode !== "none",
     steelMode: inferredSteelMode,
-    steelReady:
-      inferredSteelMode !== "none" &&
-      steelAuthConfigured &&
-      Boolean(steelBaseUrl) &&
-      steelSessionPersistenceSupported,
+    steelReady,
     steelBaseUrl,
     steelAuthConfigured,
     steelApiConfigured,
@@ -341,9 +368,9 @@ export function routeBrowserTask(
   const preferredProfile = profileById(preferredProfileId);
 
   if (request.authLevel === "treasury" || request.authLevel === "infrastructure") {
-    if (capabilities.attachedChrome && (request.operatorVisible || request.antiBotSensitivity >= 8)) {
+    if (capabilities.attachedChrome) {
       return readyDecision(request, "attached-chrome", "chrome_company", false, [
-        "High-trust work prefers attached Chrome when the paired relay and node host are both ready.",
+        "High-trust work defaults to attached Chrome when the paired relay and node host are both ready.",
       ]);
     }
 
@@ -367,9 +394,9 @@ export function routeBrowserTask(
   }
 
   if (request.authLevel === "company" && request.requiresPersistentSession) {
-    if (capabilities.attachedChrome && (request.operatorVisible || request.antiBotSensitivity >= 8)) {
+    if (capabilities.attachedChrome) {
       return readyDecision(request, "attached-chrome", "chrome_company", false, [
-        "Attached Chrome is the safest ready lane for operator-visible or stubborn company-auth work.",
+        "Attached Chrome is the default safe lane for persistent company-auth work.",
       ]);
     }
 

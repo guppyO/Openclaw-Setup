@@ -143,4 +143,32 @@ describe("browser policy", () => {
     expect(decision.status).toBe("blocked");
     expect(decision.blockerReason).toBe("high-trust-browser-lane-unavailable");
   });
+
+  test("routes public parallel work to self-hosted Steel when it is loopback-ready", () => {
+    const decision = routeBrowserTask(
+      {
+        id: "public-research-self-hosted",
+        title: "Parallel public research",
+        initiativeId: "research",
+        authLevel: "public",
+        antiBotSensitivity: 2,
+        parallelism: 4,
+        operatorVisible: false,
+        requiresPersistentSession: false,
+      },
+      {
+        ...cloudCapabilities,
+        steelMode: "self-hosted",
+        steelBaseUrl: "http://127.0.0.1:4300",
+        steelAuthConfigured: false,
+        steelApiConfigured: false,
+        steelCredentialsSupported: false,
+        steelProfilesSupported: false,
+      },
+    );
+
+    expect(decision.status).toBe("ready");
+    expect(decision.lane).toBe("steel");
+    expect(decision.profileId).toBe("clean_research");
+  });
 });

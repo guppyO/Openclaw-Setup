@@ -1,9 +1,9 @@
 {
-  "asOf": "2026-03-07T21:20:06.157Z",
-  "mode": "browser-only",
-  "authMode": "browser-only",
+  "asOf": "2026-03-07T23:03:03.992Z",
+  "mode": "hybrid-live",
+  "authMode": "hybrid",
   "capabilities": {
-    "balanceRead": false,
+    "balanceRead": true,
     "statementRead": false,
     "cardTransactionRead": false,
     "recipientManagement": false,
@@ -13,13 +13,18 @@
     "webhooks": false,
     "psd2LimitedActions": true,
     "browserLaneAvailable": true,
-    "personalTokenConfigured": false,
+    "personalTokenConfigured": true,
     "oauthAppConfigured": false,
     "emailReceiptIngest": true
   },
-  "balances": [],
+  "balances": [
+    {
+      "currency": "GBP",
+      "amount": 241.94
+    }
+  ],
   "ledger": [],
-  "cashTruth": "unknown",
+  "cashTruth": "live-known",
   "ledgerStatus": "unavailable",
   "ledgerCoverageNote": "No append-only ledger entries are available yet. Treasury can report live balances only when the active lane exposes them.",
   "recurringMonthlyUsd": 0,

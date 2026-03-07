@@ -4,7 +4,10 @@ param(
   [string]$Host = $env:LIVE_VPS_HOST,
   [string]$User = $(if ($env:LIVE_VPS_USER) { $env:LIVE_VPS_USER } else { "root" }),
   [int]$LocalPort = 0,
-  [int]$RemotePort = 0
+  [int]$RemotePort = 0,
+  [switch]$EnableSteelTunnel = $(if ($env:STEEL_MODE -eq "self-hosted" -and $env:STEEL_SELF_HOSTED_PUBLIC_READY -eq "true") { $true } else { $false }),
+  [int]$LocalSteelPort = $(if ($env:STEEL_LOCAL_PORT) { [int]$env:STEEL_LOCAL_PORT } else { 4300 }),
+  [int]$RemoteSteelPort = $(if ($env:STEEL_REMOTE_PORT) { [int]$env:STEEL_REMOTE_PORT } else { 3000 })
 )
 
 function Get-DefaultPort([string]$Name) {
@@ -50,7 +53,21 @@ Update-LocalEnv -Key "OPENCLAW_REMOTE_ACCESS_MODE" -Value "ssh-tunnel"
 Update-LocalEnv -Key "OPENCLAW_GATEWAY_PORT" -Value "$localPortValue"
 Update-LocalEnv -Key "OPENCLAW_GATEWAY_BASE_URL" -Value "http://127.0.0.1:$localPortValue"
 
+if ($EnableSteelTunnel) {
+  Update-LocalEnv -Key "STEEL_MODE" -Value "self-hosted"
+  Update-LocalEnv -Key "STEEL_SELF_HOSTED_PUBLIC_READY" -Value "true"
+  Update-LocalEnv -Key "STEEL_BASE_URL" -Value "http://127.0.0.1:$LocalSteelPort"
+  Update-LocalEnv -Key "STEEL_LOCAL_PORT" -Value "$LocalSteelPort"
+  Update-LocalEnv -Key "STEEL_REMOTE_PORT" -Value "$RemoteSteelPort"
+}
+
 Write-Host "Starting SSH tunnel on local port $localPortValue to $User@$Host:127.0.0.1:$remotePortValue"
 Write-Host "This process stays attached. Keep it running while the Windows node host or attached Chrome uses the remote gateway."
+$sshArgs = @("-N", "-L", "${localPortValue}:127.0.0.1:${remotePortValue}")
+if ($EnableSteelTunnel) {
+  Write-Host "Forwarding self-hosted Steel from local port $LocalSteelPort to $User@$Host:127.0.0.1:$RemoteSteelPort"
+  $sshArgs += @("-L", "${LocalSteelPort}:127.0.0.1:${RemoteSteelPort}")
+}
+$sshArgs += "$User@$Host"
 
-ssh -N -L "${localPortValue}:127.0.0.1:${remotePortValue}" "$User@$Host"
+ssh @sshArgs

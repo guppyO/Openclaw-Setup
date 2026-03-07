@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-07T21:20:14.587Z",
+  "generatedAt": "2026-03-07T23:03:10.760Z",
   "capabilities": {
     "managedBrowser": true,
     "attachedChrome": true,
@@ -10,16 +10,16 @@
     "remoteGatewayConfigured": true,
     "remoteGatewayBaseUrl": "http://127.0.0.1:4201",
     "remoteGatewayMode": "ssh-tunnel",
-    "steel": false,
-    "steelMode": "none",
-    "steelReady": false,
-    "steelBaseUrl": "",
+    "steel": true,
+    "steelMode": "self-hosted",
+    "steelReady": true,
+    "steelBaseUrl": "http://127.0.0.1:4300",
     "steelAuthConfigured": false,
     "steelApiConfigured": false,
     "steelCredentialsSupported": false,
     "steelProfilesSupported": false,
-    "steelSessionPersistenceSupported": false,
-    "steelLiveDebugSupported": false,
+    "steelSessionPersistenceSupported": true,
+    "steelLiveDebugSupported": true,
     "steelAuthStateReady": false
   },
   "profiles": [
@@ -92,11 +92,11 @@
     {
       "taskId": "market-research",
       "status": "ready",
-      "lane": "openclaw-managed",
-      "profileId": "openclaw_research",
-      "headless": true,
+      "lane": "steel",
+      "profileId": "clean_research",
+      "headless": false,
       "reasons": [
-        "OpenClaw managed browser is the default typed lane for public or low-trust work."
+        "Steel is the best available lane for persistent or parallel browser work tied to a reusable namespace."
       ]
     },
     {
@@ -106,18 +106,17 @@
       "profileId": "chrome_company",
       "headless": false,
       "reasons": [
-        "High-trust work prefers attached Chrome when the paired relay and node host are both ready."
+        "High-trust work defaults to attached Chrome when the paired relay and node host are both ready."
       ]
     },
     {
       "taskId": "signup-run",
-      "status": "blocked",
-      "lane": "blocked",
-      "profileId": null,
+      "status": "ready",
+      "lane": "attached-chrome",
+      "profileId": "chrome_company",
       "headless": false,
-      "blockerReason": "company-auth-lane-unavailable",
       "reasons": [
-        "Company-auth work that needs persistent state will not silently fall back to the generic managed browser."
+        "Attached Chrome is the default safe lane for persistent company-auth work."
       ]
     }
   ],

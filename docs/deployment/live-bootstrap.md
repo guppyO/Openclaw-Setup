@@ -91,6 +91,7 @@ That script updates the local env with:
 - `OPENCLAW_REMOTE_ACCESS_MODE=ssh-tunnel`
 - `OPENCLAW_GATEWAY_PORT=<local forwarded port>`
 - `OPENCLAW_GATEWAY_BASE_URL=http://127.0.0.1:<local forwarded port>`
+- If `STEEL_MODE=self-hosted` and `STEEL_SELF_HOSTED_PUBLIC_READY=true`, the same script can also forward Steel to `STEEL_BASE_URL=http://127.0.0.1:<local steel port>`.
 
 When `controlUi.enabled` is on, that same tunneled URL is also the loopback-safe Control UI URL.
 
@@ -144,8 +145,10 @@ Choose one Steel mode and keep it explicit:
   - `STEEL_AUTH_READY_PROFILES=company_signup_identity,gmail_primary,wise_primary,...` for any auth-sensitive profiles you actually provisioned
 - Self-hosted:
   - `STEEL_MODE=self-hosted`
-  - `STEEL_BASE_URL=https://your-steel-host`
-  - `STEEL_SELF_HOSTED_TOKEN=...` or `STEEL_API_KEY=...`
+  - On the VPS runtime, prefer `STEEL_BASE_URL=http://127.0.0.1:3000`
+  - On Windows over SSH tunnel, prefer `STEEL_BASE_URL=http://127.0.0.1:4300`
+  - Set `STEEL_SELF_HOSTED_PUBLIC_READY=true` when you intend to use it only for loopback-scoped public-web session pooling
+  - Use `STEEL_SELF_HOSTED_TOKEN=...` or `STEEL_API_KEY=...` only if your self-hosted deployment actually enforces them
 
 Then run:
 
@@ -165,6 +168,8 @@ The repo distinguishes four treasury realities:
 - `browser-only`: credentials exist but balances or statements still need manual or append-only reconciliation
 - `live-api`: token-based balance lane is verified
 - `hybrid-live`: browser and API lanes are both usable
+
+With a verified personal token and paired browser lane, Wise can operate in `hybrid-live` mode even when statements or transfers remain capability-limited.
 
 If you stay in browser-only mode, feed append-only ledger data into `data/imports/wise-ledger-import.json` so treasury can report partial but real reconciliation instead of an empty ledger.
 

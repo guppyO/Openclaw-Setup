@@ -18,7 +18,8 @@
 3. Steel browser tier
    - Use for persistent, parallel, namespace-isolated browser work.
    - `STEEL_MODE=cloud` can support credentials and profiles when those are actually provisioned.
-   - `STEEL_MODE=self-hosted` is treated as session infrastructure only, not as an auth-ready replacement for Cloud.
+   - `STEEL_MODE=self-hosted` is a real routed lane for `public-web` namespaces when it is loopback-scoped and `STEEL_SELF_HOSTED_PUBLIC_READY=true`.
+   - `STEEL_MODE=self-hosted` is still not an auth-ready replacement for Cloud.
    - Self-hosted Steel must stay loopback-only or otherwise access-restricted. It is not acceptable to expose the Steel UI or CDP ports publicly on the internet.
 
 ## Remote path
@@ -35,6 +36,7 @@ The tunnel script writes:
 - `OPENCLAW_REMOTE_ACCESS_MODE=ssh-tunnel`
 - `OPENCLAW_GATEWAY_PORT=<local forwarded port>`
 - `OPENCLAW_GATEWAY_BASE_URL=http://127.0.0.1:<local forwarded port>`
+- When `STEEL_MODE=self-hosted` and `STEEL_SELF_HOSTED_PUBLIC_READY=true`, it can also forward the VPS Steel API to `STEEL_BASE_URL=http://127.0.0.1:<local steel port>`.
 
 The node-host script writes:
 
@@ -57,6 +59,7 @@ It also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` into
 
 - Cloud mode can be auth-ready only when `STEEL_AUTH_READY_PROFILES` includes the needed profile ids.
 - Self-hosted mode is tracked separately and is not treated as credentials-ready for `gmail_primary`, `wise_primary`, `hetzner_primary`, or other root lanes.
+- Self-hosted mode is acceptable as the scalable parallel lane for `clean_research` and other low-trust public browsing, provided the API stays loopback-restricted and explicitly marked ready.
 - Current profile classes are:
   - `clean_research`
   - `company_signup_identity`
