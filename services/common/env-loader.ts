@@ -16,10 +16,16 @@ function parseEnvFile(contents: string): Record<string, string> {
 
     const key = line.slice(0, separatorIndex).trim();
     const rawValue = line.slice(separatorIndex + 1).trim();
-    const value =
-      rawValue.startsWith("\"") && rawValue.endsWith("\"")
-        ? rawValue.slice(1, -1)
-        : rawValue;
+    let value = rawValue;
+    if (rawValue.startsWith("\"") && rawValue.endsWith("\"")) {
+      try {
+        value = JSON.parse(rawValue);
+      } catch {
+        value = rawValue.slice(1, -1);
+      }
+    } else if (rawValue.startsWith("'") && rawValue.endsWith("'")) {
+      value = rawValue.slice(1, -1);
+    }
 
     values[key] = value;
   }

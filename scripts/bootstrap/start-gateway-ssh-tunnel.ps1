@@ -24,7 +24,8 @@ function Update-LocalEnv([string]$Key, [string]$Value) {
 
   $content = Get-Content $resolvedEnvPath -Raw
   $escapedKey = [Regex]::Escape($Key)
-  $line = "$Key=$Value"
+  $escapedValue = ConvertTo-Json -Compress -InputObject $Value
+  $line = "${Key}=${escapedValue}"
   if ($content -match "(?m)^$escapedKey=") {
     $content = [Regex]::Replace($content, "(?m)^$escapedKey=.*$", $line)
   } else {
@@ -33,7 +34,9 @@ function Update-LocalEnv([string]$Key, [string]$Value) {
     }
     $content += "$line`n"
   }
-  Set-Content -Path $resolvedEnvPath -Value $content -NoNewline
+  $content = $content -replace "`r`n", "`n" -replace "`r", "`n"
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($resolvedEnvPath, $content, $utf8NoBom)
 }
 
 if (-not $Host) {

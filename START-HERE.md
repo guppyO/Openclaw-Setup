@@ -17,6 +17,11 @@ Run the local bootstrap in this order:
 
 Use [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md) for the authoritative live bring-up flow after the local bootstrap passes.
 
+If the VPS stage gateway is already live and the Windows SSH tunnel is running, refresh the local model-policy artifact from the real deployed runtime with:
+
+13. `npm run bootstrap:sync-live-provider`
+14. `npm run runtime:probe-models -- --active`
+
 Every non-promotion bootstrap entrypoint now defaults to `stage`; use `prod` only when you are intentionally promoting.
 
 Key follow-through docs:

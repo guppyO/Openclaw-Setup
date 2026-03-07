@@ -1,3 +1,4 @@
+import { chmod } from "node:fs/promises";
 import path from "node:path";
 
 import { loadLocalRuntimeEnv } from "../../services/common/env-loader.js";
@@ -57,7 +58,16 @@ function applyAttachedChromeProfile(config: Record<string, unknown>): void {
     process.env.OPENCLAW_BROWSER_CHROME_CDP_URL ??
     "";
   const cdpPortRaw = process.env.OPENCLAW_CHROME_PROFILE_CDP_PORT ?? process.env.OPENCLAW_ATTACHED_CHROME_CDP_PORT;
-  const cdpPort = cdpPortRaw ? Number.parseInt(cdpPortRaw, 10) : undefined;
+  const explicitCdpPort = cdpPortRaw ? Number.parseInt(cdpPortRaw, 10) : undefined;
+  const gatewayPortRaw = process.env.OPENCLAW_GATEWAY_PORT;
+  const gatewayPort = gatewayPortRaw ? Number.parseInt(gatewayPortRaw, 10) : undefined;
+  const relayReady =
+    process.env.OPENCLAW_NODE_HOST_STATUS === "ready" ||
+    process.env.OPENCLAW_CHROME_RELAY_STATUS === "paired";
+  const inferredCdpPort =
+    explicitCdpPort ??
+    (relayReady && gatewayPort && Number.isFinite(gatewayPort) ? gatewayPort + 3 : undefined);
+  const cdpPort = inferredCdpPort && Number.isFinite(inferredCdpPort) ? inferredCdpPort : undefined;
   const browserRecord = browser as Record<string, unknown>;
 
   if (!cdpUrl && !cdpPort) {
@@ -98,6 +108,9 @@ export async function renderOpenClawConfig(environment: "lab" | "stage" | "prod"
   applyAttachedChromeProfile(rendered);
   await ensureDir(path.dirname(outputFile));
   await writeJsonFile(outputFile, rendered);
+  if (process.platform !== "win32") {
+    await chmod(outputFile, 0o600);
+  }
   return outputFile;
 }
 

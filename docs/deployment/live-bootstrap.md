@@ -38,6 +38,8 @@ bash scripts/bootstrap/bootstrap-hetzner-live.sh
 
 This syncs the repo to `/opt/revenue-os`, installs or upgrades runtime dependencies, creates the dedicated `revenueos` service user by default, renders the env-backed OpenClaw runtime config under `data/generated/openclaw/`, validates that rendered config with the current OpenClaw CLI, writes system-level units, and enables the gateway plus the recovery timers.
 
+The preferred Hetzner path is now the pinned source-built OpenClaw install (`OPENCLAW_INSTALL_CHANNEL=source-pinned`) because that is the strongest currently supportable path for live GPT-5.4 routing on the VPS.
+
 The bootstrap, finalize, and tracked-task completion entrypoints all default to `stage` unless you explicitly promote to `prod`.
 
 ## 3. VPS interactive step
@@ -45,8 +47,10 @@ The bootstrap, finalize, and tracked-task completion entrypoints all default to 
 Complete the one-time OpenClaw OAuth step on the VPS as the runtime user:
 
 ```bash
-sudo -u revenueos -H bash -lc 'cd /opt/revenue-os && openclaw models auth login --provider openai-codex'
+sudo -u revenueos -H bash -lc 'cd /opt/revenue-os && openclaw onboard --auth-choice openai-codex'
 ```
+
+If OpenClaw detects the existing config, choose `Keep` rather than `Reset`.
 
 Then finalize the authenticated runtime so the active model probe, runtime verification, and generated OpenClaw configs are refreshed from the live gateway surface:
 
@@ -65,6 +69,13 @@ sudo systemctl start revenue-os-stage-source-refresh.timer
 sudo systemctl start revenue-os-stage-backup.timer
 ```
 
+If you want the Windows-side model policy and runtime exports to reflect the real live VPS provider route instead of just the intended local override, run this on Windows after the stage gateway is authenticated:
+
+```powershell
+npm run bootstrap:sync-live-provider
+npm run runtime:probe-models -- --active
+```
+
 ## 4. Windows remote-access path
 
 The repo assumes a loopback-bound gateway on the VPS, so the Windows browser host reaches it through an SSH tunnel by default.
@@ -80,6 +91,8 @@ That script updates the local env with:
 - `OPENCLAW_REMOTE_ACCESS_MODE=ssh-tunnel`
 - `OPENCLAW_GATEWAY_PORT=<local forwarded port>`
 - `OPENCLAW_GATEWAY_BASE_URL=http://127.0.0.1:<local forwarded port>`
+
+When `controlUi.enabled` is on, that same tunneled URL is also the loopback-safe Control UI URL.
 
 ## 5. Windows node host
 
@@ -112,6 +125,12 @@ Pairing flow:
 5. Re-run `npm run runtime:browser-broker` and `npm run verify:smoke`.
 6. Re-run `npm run bootstrap:runtime` or `npm run refresh:updates` if you want the source verifier to refresh through the now-paired browser lane as well as direct fetch.
 
+The unpacked extension path is:
+
+```text
+%USERPROFILE%\.openclaw\browser\chrome-extension
+```
+
 If the relay is marked paired but the gateway token, tunnel path, or node host is missing, smoke verification fails on purpose.
 
 ## 7. Steel activation
@@ -136,6 +155,7 @@ npm run runtime:browser-broker
 ```
 
 Steel self-hosted remains useful for public or low-trust session pooling, but the repo will not treat it as auth-ready for root or treasury profiles.
+If a local Steel container is detected on the VPS, the bootstrap now installs `revenue-os-steel-loopback.service` so ports like `3000` and `9222` stay loopback-restricted instead of publicly exposed.
 
 ## 8. Wise modes
 
@@ -162,3 +182,4 @@ npm run verify:smoke
 - Promote only after runtime sources, browser broker, dispatch state, treasury probe, and backup status are current.
 - Use `npm run runtime:run-task -- --task <id> -- <command...>` for tracked work so completion and wake-now behavior happen automatically.
 - `runtime:complete-task` wakes each owner-specific dispatch hook for the current active assignments, not just a single fixed agent path.
+- The live stage gateway is expected to run on the pinned source-built OpenClaw tree until the packaged release line fully matches the GPT-5.4 support already proven in the source build.

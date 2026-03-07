@@ -29,3 +29,6 @@ data/backups/*.enc
 openclaw/**/.env
 openclaw/**/secrets/
 data/generated/
+data/captures/
+data/exports/source-captures/
+vendor/openclaw-source/

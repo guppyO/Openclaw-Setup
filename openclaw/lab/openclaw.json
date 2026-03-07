@@ -4,7 +4,7 @@
     "bind": "loopback",
     "port": 4101,
     "controlUi": {
-      "enabled": false
+      "enabled": true
     },
     "auth": {
       "mode": "token",
@@ -40,7 +40,7 @@
         "wakeMode": "now",
         "sessionKey": "hook:lab:dispatch:ceo",
         "deliver": false,
-        "model": "openai-codex/gpt-5.4-pro",
+        "model": "openai-codex/gpt-5.4",
         "thinking": "xhigh",
         "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
       },
@@ -54,7 +54,7 @@
         "wakeMode": "now",
         "sessionKey": "hook:lab:dispatch:research",
         "deliver": false,
-        "model": "openai-codex/gpt-5.4-pro",
+        "model": "openai-codex/gpt-5.4",
         "thinking": "xhigh",
         "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
       },
@@ -96,7 +96,7 @@
         "wakeMode": "now",
         "sessionKey": "hook:lab:dispatch:treasury",
         "deliver": false,
-        "model": "openai-codex/gpt-5.4-pro",
+        "model": "openai-codex/gpt-5.4",
         "thinking": "xhigh",
         "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
       },
@@ -124,7 +124,7 @@
         "wakeMode": "now",
         "sessionKey": "hook:lab:dispatch:ops",
         "deliver": false,
-        "model": "openai-codex/gpt-5.4-pro",
+        "model": "openai-codex/gpt-5.4",
         "thinking": "xhigh",
         "messageTemplate": "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}."
       }
@@ -142,14 +142,6 @@
           "params": {
             "reasoning": {
               "effort": "high"
-            }
-          }
-        },
-        "openai-codex/gpt-5.4-pro": {
-          "alias": "frontier-deep",
-          "params": {
-            "reasoning": {
-              "effort": "xhigh"
             }
           }
         }
@@ -174,6 +166,30 @@
           "systemPrompt": "Session nearing compaction. Store durable memories now.",
           "prompt": "Write lasting notes to memory and initiative docs. Reply with NO_REPLY if nothing durable changed."
         }
+      },
+      "memorySearch": {
+        "enabled": true,
+        "sources": [
+          "memory"
+        ],
+        "extraPaths": [
+          "initiatives"
+        ],
+        "experimental": {
+          "sessionMemory": false
+        },
+        "provider": "local",
+        "local": {
+          "modelPath": "hf:ggml-org/embeddinggemma-300m-qat-q8_0-GGUF/embeddinggemma-300m-qat-Q8_0.gguf",
+          "modelCacheDir": "/opt/revenue-os/runtime/models/embeddings"
+        },
+        "fallback": "none",
+        "store": {
+          "path": "/opt/revenue-os/runtime/lab/memory/{agentId}.sqlite",
+          "vector": {
+            "enabled": true
+          }
+        }
       }
     },
     "list": [
@@ -183,7 +199,7 @@
         "workspace": "/opt/revenue-os/runtime/lab/workspace/ceo",
         "agentDir": "/opt/revenue-os/agents/ceo",
         "model": {
-          "primary": "openai-codex/gpt-5.4-pro",
+          "primary": "openai-codex/gpt-5.4",
           "fallbacks": []
         },
         "identity": {
@@ -191,7 +207,7 @@
         },
         "heartbeat": {
           "every": "12m",
-          "model": "openai-codex/gpt-5.4-pro",
+          "model": "openai-codex/gpt-5.4",
           "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
           "session": "main",
           "includeReasoning": false,
@@ -207,7 +223,7 @@
         "workspace": "/opt/revenue-os/runtime/lab/workspace/research",
         "agentDir": "/opt/revenue-os/agents/research",
         "model": {
-          "primary": "openai-codex/gpt-5.4-pro",
+          "primary": "openai-codex/gpt-5.4",
           "fallbacks": []
         },
         "identity": {
@@ -215,7 +231,7 @@
         },
         "heartbeat": {
           "every": "15m",
-          "model": "openai-codex/gpt-5.4-pro",
+          "model": "openai-codex/gpt-5.4",
           "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
           "session": "main",
           "includeReasoning": false,
@@ -279,7 +295,7 @@
         "workspace": "/opt/revenue-os/runtime/lab/workspace/treasury",
         "agentDir": "/opt/revenue-os/agents/treasury",
         "model": {
-          "primary": "openai-codex/gpt-5.4-pro",
+          "primary": "openai-codex/gpt-5.4",
           "fallbacks": []
         },
         "identity": {
@@ -287,7 +303,7 @@
         },
         "heartbeat": {
           "every": "30m",
-          "model": "openai-codex/gpt-5.4-pro",
+          "model": "openai-codex/gpt-5.4",
           "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
           "session": "main",
           "includeReasoning": false,
@@ -327,7 +343,7 @@
         "workspace": "/opt/revenue-os/runtime/lab/workspace/ops",
         "agentDir": "/opt/revenue-os/agents/ops",
         "model": {
-          "primary": "openai-codex/gpt-5.4-pro",
+          "primary": "openai-codex/gpt-5.4",
           "fallbacks": []
         },
         "identity": {
@@ -335,7 +351,7 @@
         },
         "heartbeat": {
           "every": "12m",
-          "model": "openai-codex/gpt-5.4-pro",
+          "model": "openai-codex/gpt-5.4",
           "prompt": "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
           "session": "main",
           "includeReasoning": false,

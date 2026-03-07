@@ -1,56 +1,53 @@
 # Current State
 
-## Live in this workspace
+## Live right now
 
-- Secret bootstrap is active. The ignored root credentials file is imported into `.secrets/revenue-os.local.env` and provider env files, with safe metadata in [docs/secret-inventory.md](./docs/secret-inventory.md).
-- Managed credential generation is active through `.secrets/generated-service-credentials.env` with metadata in [docs/credential-registry.md](./docs/credential-registry.md).
-- Runtime source refresh, runtime verification, model-policy probing, dispatch state, browser-broker state, treasury state, account registry, and dashboard state are generated in `data/exports/`.
-- OpenClaw `lab`, `stage`, and `prod` configs now include `gateway.mode: "local"`, explicit hook auth, explicit agent heartbeat settings, and env-rendered runtime configs that validate against the current OpenClaw CLI.
-- Hetzner bootstrap is now stage-first by default; prod requires an explicit override.
-- The follow-on OpenClaw bootstrap, finalize-auth, and tracked-task continuation entrypoints are also stage-first unless `prod` is explicitly requested.
-- Continuous dispatch is live locally through `data/exports/dispatch-state.json`, `data/exports/dispatch-wake.json`, `npm run runtime:scheduler`, `npm run runtime:complete-task`, and `npm run runtime:run-task`.
-- Dispatch now carries parallel specialist assignments instead of only one serialized head-of-line task.
-- Browser routing is live locally through `data/exports/browser-broker.json` and the `services/browser-broker` layer, with explicit remote-gateway mode, node-host state, Steel Cloud versus self-hosted truth, and blocked high-trust routes.
-- Runtime source refresh now has a repo-native browser-backed capture path that can persist source HTML under `data/exports/source-captures/` once the Windows browser lane or an auth-ready browser lane is available.
-- Browser capture labels are now strict: only persisted or repo-native browser-rendered artifacts count as `browser-capture`; plain user-agent fetches stay `ua-fetch-fallback`.
-- Opportunity ingest now mixes live feed discovery, GitHub demand signals, internal asset reuse, pinned imports, and seeded fallback lanes.
-- Skill intake now uses real workspace refs or GitHub commit pins when discovery succeeds, and leaves unresolved third-party candidates unresolved instead of inventing HTML-hash pins.
-- The repo builds, tests, smoke-checks, and the dashboard health endpoint responds locally.
+- The Hetzner VPS at `46.225.227.168` is the active durable control plane.
+- The stage gateway is running there under `revenue-os-stage.service` and is loopback-bound on `127.0.0.1:4201`.
+- The stage control UI is now enabled and reachable through the Windows SSH tunnel at `http://127.0.0.1:4201/`.
+- The live authenticated OpenClaw provider route on the VPS is `openai-codex/gpt-5.4`.
+- The live gateway is running from the pinned source-built OpenClaw tree at `/opt/revenue-os/vendor/openclaw-source` because the packaged release lagged GPT-5.4 support.
+- The Windows attached-Chrome lane is paired and currently reachable through the OpenClaw Browser Relay on `127.0.0.1:4204`.
+- The attached Chrome relay currently has one live registered target: the company Gmail tab.
+- A self-hosted Steel container is also running on the VPS and now has loopback-only access enforcement for its local API ports.
+- Browser broker truth is now:
+  - attached Chrome: ready
+  - node host: ready
+  - remote gateway: ready through the SSH tunnel
+  - Steel: present on the VPS but not yet promoted as the routed browser lane in the local broker snapshot
+- Local semantic memory is now configured on the VPS with `memorySearch.provider = "local"` and the default `embeddinggemma` GGUF path. The embedding backend and vector extension are both ready.
 
-## Current local truth
+## Local vs live
 
-- Codex CLI is installed on this Windows host and the runtime model policy keeps `gpt-5.4` as the routine target and `gpt-5.4-pro` as the deep-thinking target where available.
-- OpenClaw CLI is now installed on this Windows host, and the generated `lab`, `stage`, and `prod` configs validate locally through `npm run verify:openclaw-config`.
-- Browser broker status currently shows:
-  - attached Chrome: not ready
-  - remote gateway path: modeled but not yet aimed at a real VPS tunnel
-  - node host: not ready
-  - Steel: not configured
-- Treasury is currently `browser-only` and the ledger is still `unavailable`.
-- Root-account password rotation is still pending externally even though unique managed replacements are now generated and stored locally.
-- Runtime verification currently sits at `18 verified / 0 pending / 0 drifted / 0 unsupported`, with direct-fetch coverage across the official OpenAI, OpenClaw, Wise, and Steel anchors currently in the catalog.
+- Windows remains the Codex workstation, review surface, SSH tunnel host, and attached-Chrome node host.
+- The Windows repo validates the generated `lab`, `stage`, and `prod` configs locally, but the authoritative live runtime is the Hetzner stage gateway.
+- The local runtime-model policy still tracks host-local probe truth for Codex CLI and OpenClaw on Windows.
+- The live model truth for the deployed control plane is stronger than the earlier local fallback story: the active remote gateway is now on GPT-5.4, not `gpt-5.3-codex`.
+- The repo intentionally keeps `gpt-5.4` as the routine OpenClaw runtime model and uses `xhigh` reasoning for the deeper dispatch paths on the live gateway. `gpt-5.4-pro` remains a strategic target for the deepest available surfaces, but it is not currently exposed on the live authenticated OpenClaw provider route.
+- The local runtime-model artifact can now be resynced from the live VPS with `npm run bootstrap:sync-live-provider` before re-running `npm run runtime:probe-models -- --active`.
 
-## Blocked by real-world runtime boundaries
+## What is now operationally correct
 
-- The Hetzner VPS still needs its concrete SSH host path and the one-time `openclaw models auth login --provider openai-codex` step before stage or prod can run.
-- The VPS still needs the post-auth finalize step `bash scripts/bootstrap/finalize-openclaw-auth.sh stage` so the live OpenClaw provider probe can regenerate configs from the authenticated runtime.
-- The Windows SSH tunnel is not running yet, so remote wake and remote browser control are not live.
-- The Windows node host is not running yet, so the attached Chrome lane is still incomplete for a VPS-first gateway.
-- The attached Chrome relay is not yet paired.
-- Steel is not yet configured in the local secret env, so the Steel lane remains modeled but not ready.
-- Wise is currently browser-capable from imported credentials, but API capability remains unverified because no Wise token or OAuth app details were provided.
-- Gmail, Wise, and Hetzner still need their externally configured password rotated away from the reused bootstrap password and then re-imported through `npm run bootstrap:secrets`.
-- The live OpenClaw provider route still needs an authenticated gateway probe on the VPS before the deployed host can be called fully proven for `openai-codex/gpt-5.4` and `openai-codex/gpt-5.4-pro`.
+- Secrets are imported from the ignored `credentials` bootstrap file into local secret env storage and are not committed.
+- Future third-party accounts can now get unique generated passwords through `npm run runtime:provision-credential -- --service <service> --purpose "<purpose>"`.
+- The control plane is stage-first by default.
+- The gateway, hooks, dispatch wake paths, SSH tunnel, node host, attached Chrome lane, and loopback control UI are all aligned to the VPS-first architecture.
+- The dispatcher no longer waits on heartbeat alone; immediate continuation, recovery sweeps, and per-agent hook wake paths are all in place.
+- Source refresh and runtime verification are grounded in current official OpenAI, OpenClaw, Wise, and Steel sources.
+- The source-built OpenClaw install path is pinned and reproducible, including UI build support and GPT-5.4 provider support.
+- The latest local validation pass completed after the live browser fix: build passed, all 51 tests passed, smoke passed, and backup completed.
+
+## Still not fully live
+
+- Self-hosted Steel is now present and loopback-restricted on the VPS, but it is still not promoted as an auth-ready or operator-tunneled browser lane in the repo’s current broker state.
+- Treasury is still `browser-only`; Wise API or OAuth is not yet live and the ledger remains incomplete.
+- Root-account password rotation still needs to happen externally on Gmail, Wise, and Hetzner using the unique generated replacements in `.secrets/generated-service-credentials.env`.
+- Production is not promoted yet. Stage is the live environment.
+- Revenue generation is not something configuration alone can guarantee; what is live now is the company runtime, not proof of profitable experiments yet.
 
 ## Next autonomous steps
 
-- Run [scripts/bootstrap/bootstrap-hetzner-live.sh](./scripts/bootstrap/bootstrap-hetzner-live.sh) after exporting `LIVE_VPS_HOST`.
-- The default Hetzner bootstrap target is now `stage`; only set `BOOTSTRAP_ENVIRONMENT=prod` when you are intentionally promoting.
-- Follow the authoritative deployment guide in [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md).
-- Complete `openclaw models auth login --provider openai-codex` on the VPS as `revenueos`, then run `bash scripts/bootstrap/finalize-openclaw-auth.sh stage`, then start the stage service and timers.
-- On Windows, run `powershell -ExecutionPolicy Bypass -File scripts/bootstrap/start-gateway-ssh-tunnel.ps1 -Environment stage`.
-- On Windows, run `powershell -ExecutionPolicy Bypass -File scripts/bootstrap/bootstrap-openclaw-node-host.ps1 -Environment stage`.
-- Pair the Windows attached Chrome relay using `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env`, then rerun `npm run runtime:browser-broker`.
-- Use `npm run runtime:provision-credential -- --service <service> --purpose "<purpose>"` before creating any new third-party company account.
-- Add Steel details and rerun `npm run runtime:browser-broker`.
-- Feed append-only Wise ledger data into `data/imports/wise-ledger-import.json` or add Wise API credentials, then rerun `npm run bootstrap:wise`, `npm run bootstrap:state`, and `npm run verify:smoke`.
+- Keep stage running and use it as the real operating surface.
+- If you want the third browser lane promoted beyond its current loopback-restricted VPS state, decide whether to keep it as low-trust self-hosted session infrastructure or move to Steel Cloud for auth-ready profiles.
+- Add Wise API or OAuth, or import append-only ledger data, if you want treasury beyond browser reconciliation.
+- Promote to `prod` only after you are satisfied with stage behavior, browser reliability, and treasury truth.

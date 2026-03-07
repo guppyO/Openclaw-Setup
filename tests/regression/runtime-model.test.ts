@@ -1,7 +1,7 @@
 import { buildDefaultModelProbe } from "../../services/runtime-model/index.js";
 
 describe("runtime model policy", () => {
-  test("keeps GPT-5.4 and GPT-5.4 Pro as the strategic targets while preferring GPT-5.4 on OpenClaw", () => {
+  test("keeps GPT-5.4 as the supportable live route while reserving GPT-5.4 Pro for surfaces that actually expose it", () => {
     const probe = buildDefaultModelProbe();
 
     expect(probe.strategicTarget).toBe("gpt-5.4");
@@ -12,12 +12,14 @@ describe("runtime model policy", () => {
     expect(probe.provisional).toBe(true);
     expect(probe.codexCliInstalled).toBe(false);
     expect(probe.openClawPrimary).toBe("openai-codex/gpt-5.4");
-    expect(probe.openClawDeep).toBe("openai-codex/gpt-5.4-pro");
+    expect(probe.openClawDeep).toBe("openai-codex/gpt-5.4");
     expect(probe.openClawProbeSource).toBe("docs-only");
     expect(probe.openClawFallback).toBe("openai-codex/gpt-5.4");
     expect(probe.aliases.find((alias) => alias.alias === "openclaw.model.primary_frontier")?.resolvedModel).toBe("openai-codex/gpt-5.4");
-    expect(probe.aliases.find((alias) => alias.alias === "model.frontier_deep")?.resolvedModel).toBe("gpt-5.4-pro");
-    expect(probe.aliases.find((alias) => alias.alias === "openclaw.model.frontier_deep")?.resolvedModel).toBe("openai-codex/gpt-5.4-pro");
+    expect(probe.aliases.find((alias) => alias.alias === "model.frontier_deep")?.resolvedModel).toBe("gpt-5.4");
+    expect(probe.aliases.find((alias) => alias.alias === "model.frontier_deep")?.status).toBe("fallback");
+    expect(probe.aliases.find((alias) => alias.alias === "openclaw.model.frontier_deep")?.resolvedModel).toBe("openai-codex/gpt-5.4");
+    expect(probe.aliases.find((alias) => alias.alias === "openclaw.model.frontier_deep")?.status).toBe("fallback");
     expect(probe.aliases.find((alias) => alias.alias === "model.primary_frontier")?.status).toBe("candidate");
   });
 });

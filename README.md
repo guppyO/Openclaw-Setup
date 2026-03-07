@@ -5,8 +5,11 @@ A live-upgraded autonomous revenue operating system built around OpenClaw, Codex
 ## What is in the repo
 
 - GPT-5.4 and GPT-5.4 Pro runtime policy with a clear split between routine `high` reasoning, deep `xhigh` reasoning, and the live OpenClaw provider route.
+- A pinned source-built OpenClaw deployment path for Hetzner when the packaged release line lags merged GPT-5.4 support.
 - Continuous dispatch with parallel specialist assignments, a recovery sweep, `runtime:complete-task`, and `runtime:run-task` so tracked work can wake the live gateway immediately instead of waiting for the next sweep.
 - Browser routing across OpenClaw managed browsing, attached Chrome plus a Windows node host, and Steel with explicit cloud versus self-hosted semantics and blocked high-trust fallbacks.
+- Loopback hardening for any detected self-hosted Steel container so it does not stay publicly exposed by accident.
+- Loopback-safe Control UI access through the same SSH-tunneled gateway URL used by the Windows browser host.
 - Managed credential generation for future third-party accounts so the company can keep one email identity while avoiding password reuse.
 - Treasury state that distinguishes sample, browser-only, API, and hybrid modes, plus cash-truth and ledger-completeness status.
 - Opportunity ingest that mixes live feed discovery, GitHub demand signals, internal asset reuse, pinned opportunities, and seeded fallback lanes.

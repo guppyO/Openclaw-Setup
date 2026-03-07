@@ -4,22 +4,22 @@ Generated against official OpenAI, OpenClaw, Wise, and Steel sources on 2026-03-
 
 ## Summary
 
-- Verified anchors: 18
-- Drifted anchors: 0
-- Pending runtime checks: 0
+- Verified anchors: 16
+- Drifted anchors: 1
+- Pending runtime checks: 1
 - Unsupported anchors: 0
-- Source capture methods: direct-fetch: 35
+- Source capture methods: direct-fetch: 31, browser-capture: 4
 
 ## Anchor status
 
 | Anchor | Status | Checked | Notes |
 | --- | --- | --- | --- |
-| anchor-1 | verified | 2026-03-07 | Official plan docs still frame GPT access in ChatGPT as unlimited or effectively unlimited subject to guardrails. Methods: openai-pro-plan:direct-fetch, openai-business-limits:direct-fetch. |
+| anchor-1 | drifted | 2026-03-07 | The latest plan pages no longer clearly support the earlier unlimited-with-guardrails phrasing. Methods: openai-pro-plan:browser-capture, openai-business-limits:browser-capture. |
 | anchor-2 | verified | 2026-03-07 | The latest frontier model page still documents GPT-5.4 Pro and the 1.05M context window. Methods: openai-gpt-5.4-model:direct-fetch. |
 | anchor-3 | verified | 2026-03-07 | Official frontier-model docs, Codex docs, and recent OpenClaw merged changes all support GPT-5.4 as the strategic target while OpenClaw provider-model promotion remains a separate runtime-probed fact. Methods: openai-gpt-5.4-model:direct-fetch, openai-codex-upgrades:direct-fetch, openclaw-changelog:direct-fetch, openclaw-pr-36905:direct-fetch. |
 | anchor-4 | verified | 2026-03-07 | OpenClaw docs and merged upstream work support GPT-5.4 on the Codex provider, but a live authenticated runtime probe still matters before treating the deployed route as proven. Methods: openclaw-model-providers:direct-fetch, openclaw-changelog:direct-fetch, openclaw-pr-36590:direct-fetch, openclaw-pr-36929:direct-fetch. |
-| anchor-5 | verified | 2026-03-07 | Current Codex docs still support ChatGPT sign-in and plan-based access. Methods: openai-codex-plan:direct-fetch, openai-codex-upgrades:direct-fetch. |
-| anchor-6 | verified | 2026-03-07 | The current Codex plan article still documents separate usage windows that require pacing discipline. Methods: openai-codex-plan:direct-fetch. |
+| anchor-5 | verified | 2026-03-07 | Current Codex docs still support ChatGPT sign-in and plan-based access. Methods: openai-codex-plan:browser-capture, openai-codex-upgrades:direct-fetch. |
+| anchor-6 | pending-runtime-check | 2026-03-07 | The current Codex plan article could not be parsed cleanly enough to restate the present usage-window numbers automatically. Methods: openai-codex-plan:browser-capture. |
 | anchor-7 | verified | 2026-03-07 | OpenClaw provider docs still explicitly document OpenAI Codex OAuth support. Methods: openclaw-model-providers:direct-fetch. |
 | anchor-8 | verified | 2026-03-07 | The current OpenClaw CLI docs still prefer Node and warn against Bun for stable gateways. Methods: openclaw-cli:direct-fetch. |
 | anchor-9 | verified | 2026-03-07 | OpenClaw docs still recommend one primary gateway with secure remote access and remote nodes where needed. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-remote-access:direct-fetch, openclaw-nodes:direct-fetch. |

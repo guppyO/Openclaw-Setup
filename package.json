@@ -23,6 +23,7 @@
     "runtime:render-openclaw-config": "tsx scripts/runtime/render-openclaw-config.ts",
     "bootstrap:state": "tsx scripts/bootstrap/init-state.ts",
     "bootstrap:control-plane": "tsx scripts/bootstrap/generate-control-plane-files.ts",
+    "bootstrap:sync-live-provider": "powershell -ExecutionPolicy Bypass -File scripts/bootstrap/sync-live-provider-from-vps.ps1 -Environment stage",
     "bootstrap:skills": "tsx scripts/bootstrap/seed-skills.ts",
     "bootstrap:internal-skills": "tsx scripts/bootstrap/populate-internal-skills.ts",
     "bootstrap:wise": "tsx scripts/bootstrap/probe-wise.ts",

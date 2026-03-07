@@ -1,3 +1,5 @@
+import { execFile, type ExecFileOptions } from "node:child_process";
+import { promisify } from "node:util";
 import { loadLocalRuntimeEnv } from "../common/env-loader.js";
 import type {
   BrowserBrokerState,
@@ -5,6 +7,13 @@ import type {
   BrowserRouteDecision,
   BrowserTaskRequest,
 } from "../common/types.js";
+
+const execFileAsync = promisify(execFile);
+
+export interface AttachedChromeProbe {
+  paired: boolean;
+  tabCount: number;
+}
 
 export interface SteelSessionRequest {
   sessionId?: string;
@@ -41,6 +50,52 @@ function profileNeedsAuthState(profileId: string): boolean {
 
 function steelAuthReadyProfiles(): Set<string> {
   return new Set(parseCsv(process.env.STEEL_AUTH_READY_PROFILES));
+}
+
+type ExecFileRunner = (
+  file: string,
+  args: readonly string[],
+  options: ExecFileOptions,
+) => Promise<{
+  stdout: string;
+  stderr: string;
+}>;
+
+export async function probeAttachedChromeRelay(
+  runner: ExecFileRunner = execFileAsync as ExecFileRunner,
+): Promise<AttachedChromeProbe> {
+  try {
+    const command =
+      process.platform === "win32"
+        ? {
+            file: "cmd.exe",
+            args: ["/d", "/s", "/c", "openclaw browser --browser-profile chrome tabs --json"],
+          }
+        : {
+            file: "openclaw",
+            args: ["browser", "--browser-profile", "chrome", "tabs", "--json"],
+          };
+    const { stdout } = await runner(
+      command.file,
+      command.args,
+      {
+        env: process.env,
+        timeout: 10_000,
+        windowsHide: true,
+      },
+    );
+    const parsed = JSON.parse(stdout) as { tabs?: unknown[] };
+    const tabCount = Array.isArray(parsed.tabs) ? parsed.tabs.length : 0;
+    return {
+      paired: tabCount > 0,
+      tabCount,
+    };
+  } catch {
+    return {
+      paired: false,
+      tabCount: 0,
+    };
+  }
 }
 
 export function defaultBrowserProfiles(): BrowserProfileClass[] {
@@ -164,7 +219,9 @@ export async function browserCapabilities(): Promise<BrowserBrokerState["capabil
   const steelAuthReady = steelAuthReadyProfiles().size > 0;
 
   const gatewayTokenConfigured = Boolean(process.env.OPENCLAW_GATEWAY_TOKEN);
-  const attachedChromePaired = process.env.OPENCLAW_CHROME_RELAY_STATUS === "paired";
+  const attachedChromeProbe = await probeAttachedChromeRelay();
+  const attachedChromePaired =
+    process.env.OPENCLAW_CHROME_RELAY_STATUS === "paired" || attachedChromeProbe.paired;
   const remoteGatewayBaseUrl =
     process.env.OPENCLAW_GATEWAY_BASE_URL ??
     process.env.OPENCLAW_HOOK_BASE_URL ??
@@ -475,6 +532,7 @@ export async function releaseSteelSession(sessionId: string): Promise<SteelSessi
 
 export async function buildBrowserBrokerState(): Promise<BrowserBrokerState> {
   const capabilities = await browserCapabilities();
+  const attachedChromeProbe = await probeAttachedChromeRelay();
   const profiles = defaultBrowserProfiles();
   const sampleRequests: BrowserTaskRequest[] = [
     {
@@ -514,6 +572,6 @@ export async function buildBrowserBrokerState(): Promise<BrowserBrokerState> {
     capabilities,
     profiles,
     sampleRoutes: sampleRequests.map((request) => routeBrowserTask(request, capabilities)),
-    activeSessions: 0,
+    activeSessions: attachedChromeProbe.tabCount,
   };
 }

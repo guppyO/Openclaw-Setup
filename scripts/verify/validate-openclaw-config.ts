@@ -17,6 +17,11 @@ function parseEnvironmentArg(): "lab" | "stage" | "prod" {
 }
 
 async function resolveOpenClawExecutable(): Promise<string> {
+  const explicit = process.env.OPENCLAW_BIN?.trim();
+  if (explicit) {
+    return explicit;
+  }
+
   if (process.platform === "win32") {
     const appData = process.env.APPDATA;
     if (appData) {
@@ -29,6 +34,11 @@ async function resolveOpenClawExecutable(): Promise<string> {
         return ps1Path;
       }
     }
+  }
+
+  const repoSourceWrapper = resolveRepoPath("vendor", "openclaw-source", "bin", "openclaw-source");
+  if (await fileExists(repoSourceWrapper)) {
+    return repoSourceWrapper;
   }
 
   return "openclaw";

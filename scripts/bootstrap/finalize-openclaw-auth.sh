@@ -17,12 +17,16 @@ if [[ -f "$ROOT_DIR/.secrets/revenue-os.local.env" ]]; then
   set +a
 fi
 
+OPENCLAW_BIN="$("$ROOT_DIR/scripts/bootstrap/resolve-openclaw-bin.sh" "$ROOT_DIR")"
+export OPENCLAW_BIN
+
 npm run runtime:probe-models -- --active
 npm run bootstrap:runtime -- --active-model-probe
 npm run bootstrap:control-plane
+bash scripts/bootstrap/sync-runtime-workspace.sh "$ENVIRONMENT"
 npm run runtime:browser-broker
 bash scripts/verify/validate-openclaw-config.sh "$ENVIRONMENT"
-openclaw doctor
+OPENCLAW_CONFIG_PATH="$ROOT_DIR/data/generated/openclaw/${ENVIRONMENT}.json" "$OPENCLAW_BIN" doctor
 
 echo "Finalized OpenClaw auth for $ENVIRONMENT."
 echo "Active model probe and control-plane regeneration have been refreshed from the live authenticated runtime."

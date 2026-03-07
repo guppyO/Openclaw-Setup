@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-03-07T06:56:27.473Z",
+  "generatedAt": "2026-03-07T21:20:14.587Z",
   "capabilities": {
     "managedBrowser": true,
-    "attachedChrome": false,
-    "attachedChromePaired": false,
-    "nodeHostConfigured": false,
-    "nodeHostReady": false,
+    "attachedChrome": true,
+    "attachedChromePaired": true,
+    "nodeHostConfigured": true,
+    "nodeHostReady": true,
     "gatewayTokenConfigured": true,
     "remoteGatewayConfigured": true,
-    "remoteGatewayBaseUrl": "",
-    "remoteGatewayMode": "local",
+    "remoteGatewayBaseUrl": "http://127.0.0.1:4201",
+    "remoteGatewayMode": "ssh-tunnel",
     "steel": false,
     "steelMode": "none",
     "steelReady": false,
@@ -101,15 +101,12 @@
     },
     {
       "taskId": "wise-reconcile",
-      "status": "blocked",
-      "lane": "blocked",
-      "profileId": null,
+      "status": "ready",
+      "lane": "attached-chrome",
+      "profileId": "chrome_company",
       "headless": false,
-      "blockerReason": "high-trust-browser-lane-unavailable",
       "reasons": [
-        "Treasury and infrastructure work will not silently degrade into the generic managed browser.",
-        "Attached Chrome is not fully ready through pairing, token auth, remote gateway reachability, and node host.",
-        "Steel is not configured for auth-sensitive browser work."
+        "High-trust work prefers attached Chrome when the paired relay and node host are both ready."
       ]
     },
     {
@@ -124,5 +121,5 @@
       ]
     }
   ],
-  "activeSessions": 0
+  "activeSessions": 1
 }

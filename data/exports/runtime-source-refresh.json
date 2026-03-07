@@ -1,13 +1,13 @@
 {
-  "refreshedAt": "2026-03-07T06:56:11.641Z",
+  "refreshedAt": "2026-03-07T21:19:17.483Z",
   "methods": {
     "openai-gpt-5.4-model": "direct-fetch",
-    "openai-pro-plan": "direct-fetch",
-    "openai-business-limits": "direct-fetch",
-    "openai-codex-plan": "direct-fetch",
+    "openai-pro-plan": "browser-capture",
+    "openai-business-limits": "browser-capture",
+    "openai-codex-plan": "browser-capture",
     "openai-codex-upgrades": "direct-fetch",
     "openai-codex-app": "direct-fetch",
-    "openai-model-release-notes": "direct-fetch",
+    "openai-model-release-notes": "browser-capture",
     "openclaw-model-providers": "direct-fetch",
     "openclaw-changelog": "direct-fetch",
     "openclaw-pr-36590": "direct-fetch",
@@ -46,27 +46,6 @@
       "method": "direct-fetch"
     },
     {
-      "id": "openai-pro-plan",
-      "status": 200,
-      "ok": true,
-      "title": "What is ChatGPT Pro? | OpenAI Help Center",
-      "method": "direct-fetch"
-    },
-    {
-      "id": "openai-business-limits",
-      "status": 200,
-      "ok": true,
-      "title": "ChatGPT Business - Models & Limits | OpenAI Help Center",
-      "method": "direct-fetch"
-    },
-    {
-      "id": "openai-codex-plan",
-      "status": 200,
-      "ok": true,
-      "title": "Using Codex with your ChatGPT plan | OpenAI Help Center",
-      "method": "direct-fetch"
-    },
-    {
       "id": "openai-codex-upgrades",
       "status": 200,
       "ok": true,
@@ -78,13 +57,6 @@
       "status": 200,
       "ok": true,
       "title": "Codex",
-      "method": "direct-fetch"
-    },
-    {
-      "id": "openai-model-release-notes",
-      "status": 200,
-      "ok": true,
-      "title": "Model Release Notes | OpenAI Help Center",
       "method": "direct-fetch"
     },
     {

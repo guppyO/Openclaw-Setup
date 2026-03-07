@@ -59,9 +59,10 @@ export async function buildDashboardState(): Promise<DashboardState> {
       entries: [],
     },
   );
+  const dispatchFallback = buildDispatchState({ opportunities, experiments, queue, modelProbe: modelPolicy });
   const dispatchFromDisk = await readJsonFile<DispatchState>(
     resolveRepoPath("data", "exports", "dispatch-state.json"),
-    buildDispatchState({ opportunities, experiments, queue, modelProbe: modelPolicy }),
+    dispatchFallback,
   );
   const dispatch =
     ((dispatchFromDisk.nextTask === null && queue.length > 0) ||
@@ -71,15 +72,17 @@ export async function buildDashboardState(): Promise<DashboardState> {
       dispatchFromDisk.usagePolicy.strategicModel !== modelPolicy.strategicTarget)
       ? buildDispatchState({ opportunities, experiments, queue, previousState: dispatchFromDisk, modelProbe: modelPolicy })
       : dispatchFromDisk;
-  const browser = await readJsonFile<BrowserBrokerState>(
+  const browserFromDisk = await readJsonFile<BrowserBrokerState | null>(
     resolveRepoPath("data", "exports", "browser-broker.json"),
-    await buildBrowserBrokerState(),
+    null,
   );
+  const browser = browserFromDisk ?? (await buildBrowserBrokerState());
   const anchors = await readRuntimeVerification();
-  const treasury = await readJsonFile<TreasurySnapshot>(
+  const treasuryFromDisk = await readJsonFile<TreasurySnapshot | null>(
     resolveRepoPath("data", "exports", "treasury.json"),
-    await buildRuntimeTreasurySnapshot(),
+    null,
   );
+  const treasury = treasuryFromDisk ?? (await buildRuntimeTreasurySnapshot());
 
   return {
     generatedAt: new Date().toISOString(),

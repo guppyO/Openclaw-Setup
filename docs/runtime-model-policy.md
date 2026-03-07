@@ -1,6 +1,6 @@
 # Runtime Model Policy
 
-Generated on 2026-03-07T06:56:11.640Z.
+Generated on 2026-03-07T21:19:17.481Z.
 
 ## Strategic defaults
 
@@ -12,36 +12,36 @@ Generated on 2026-03-07T06:56:11.640Z.
 - Provisional artifact: no
 - Codex CLI installed: yes
 - OpenClaw installed on this host: yes
-- Probe mode: passive
+- Probe mode: active
 
 ## Alias map
 
 | Alias | Resolved model | Reasoning | Status | Surface |
 | --- | --- | --- | --- | --- |
 | model.primary_frontier | gpt-5.4 | high | preferred | codex-cli |
-| model.frontier_deep | gpt-5.4-pro | xhigh | candidate | codex-cli |
+| model.frontier_deep | gpt-5.4 | xhigh | fallback | codex-cli |
 | model.frontier_browser | gpt-5.4 | high | preferred | codex-cli |
-| model.frontier_research | gpt-5.4-pro | xhigh | candidate | codex-cli |
+| model.frontier_research | gpt-5.4 | xhigh | fallback | codex-cli |
 | model.frontier_build | gpt-5.4 | high | preferred | codex-cli |
-| openclaw.model.primary_frontier | openai-codex/gpt-5.4 | high | candidate | source-fallback |
-| openclaw.model.frontier_deep | openai-codex/gpt-5.4-pro | xhigh | candidate | source-fallback |
+| openclaw.model.primary_frontier | openai-codex/gpt-5.4 | high | preferred | openclaw |
+| openclaw.model.frontier_deep | openai-codex/gpt-5.4 | xhigh | fallback | openclaw |
 
 ## OpenClaw routing
 
 - Primary provider model: `openai-codex/gpt-5.4`
-- Deep provider model: `openai-codex/gpt-5.4-pro`
+- Deep provider model: `openai-codex/gpt-5.4`
 - Fallback provider model: `openai-codex/gpt-5.4`
-- Probe source: docs-only
-- Live verified provider candidates: none yet
+- Probe source: live-gateway
+- Live verified provider candidates: openai-codex/gpt-5.4
 
 ## Drift
 
-- OpenClaw is installed, but only passive evidence is available on this host; run an active gateway probe after auth to confirm GPT-5.4 provider routing.
+- GPT-5.4 Pro is not supported when using Codex with a ChatGPT account on this host; the supportable deep Codex route remains GPT-5.4 with xhigh reasoning.
 
 ## Policy rules
 
 - Use GPT-5.4 with high reasoning for substantive work by default.
-- Prefer GPT-5.4 Pro with xhigh reasoning for the deepest available surfaces, but stay within the GPT-5.4 family instead of downshifting to older model families.
+- Prefer GPT-5.4 Pro with xhigh reasoning for the deepest available surfaces.
 - Treat official OpenAI model docs, official Codex docs, merged OpenClaw upstream support, and live OpenClaw provider proof as separate truths.
-- Keep OpenClaw configured within the GPT-5.4 family and fail fast on incompatibility instead of silently routing to weaker model families.
+- Keep GPT-5.4 as the intended OpenClaw route, but if the live authenticated provider still exposes an older Codex model, use the strongest verified provider candidate on that host until the provider catches up.
 - Use high reasoning by default and xhigh for architecture, policy-sensitive research, major debugging, and capital allocation decisions.

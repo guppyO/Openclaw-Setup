@@ -1,5 +1,37 @@
 import { deriveRuntimeVerification, fetchSourceSnapshot, refreshOfficialSources } from "../../services/update-steward/index.js";
 import { writeJsonFile } from "../../services/common/fs.js";
+import type { BrowserBrokerState } from "../../services/common/types.js";
+
+function blockedBrokerState(): BrowserBrokerState {
+  return {
+    generatedAt: new Date().toISOString(),
+    capabilities: {
+      managedBrowser: true,
+      attachedChrome: false,
+      attachedChromePaired: false,
+      nodeHostConfigured: false,
+      nodeHostReady: false,
+      gatewayTokenConfigured: false,
+      remoteGatewayConfigured: false,
+      remoteGatewayBaseUrl: "",
+      remoteGatewayMode: "local",
+      steel: false,
+      steelMode: "none",
+      steelReady: false,
+      steelBaseUrl: "",
+      steelAuthConfigured: false,
+      steelApiConfigured: false,
+      steelCredentialsSupported: false,
+      steelProfilesSupported: false,
+      steelSessionPersistenceSupported: false,
+      steelLiveDebugSupported: false,
+      steelAuthStateReady: false,
+    },
+    profiles: [],
+    sampleRoutes: [],
+    activeSessions: 0,
+  };
+}
 
 describe("update steward", () => {
   const originalEnv = { ...process.env };
@@ -91,6 +123,7 @@ describe("update steward", () => {
           new Response("blocked", {
             status: 403,
           }),
+        brokerState: blockedBrokerState(),
         uaFetchCapture: async () => null,
         searchCapture: async () => null,
       },
@@ -266,7 +299,12 @@ describe("update steward", () => {
 
     globalThis.fetch = async () => new Response("blocked", { status: 403 });
     try {
-      const result = await refreshOfficialSources();
+      const result = await refreshOfficialSources({
+        fetchImpl: async () => new Response("blocked", { status: 403 }),
+        brokerState: blockedBrokerState(),
+        uaFetchCapture: async () => null,
+        searchCapture: async () => null,
+      });
       const kept = result.snapshots.find((snapshot) => snapshot.id === "openai-gpt-5.4-model");
       expect(kept?.method).toBe("direct-fetch");
     } finally {

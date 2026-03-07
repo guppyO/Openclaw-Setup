@@ -778,12 +778,51 @@ async function loadStoredSnapshots(): Promise<SourceSnapshot[]> {
 export async function refreshOfficialSources(): Promise<{
   snapshots: SourceSnapshot[];
   changedSources: SourceSnapshot[];
+}>;
+export async function refreshOfficialSources(options: {
+  fetchImpl?: typeof fetch;
+  browserCapture?: (source: SourceRecord) => Promise<string | null>;
+  brokerState?: BrowserBrokerState;
+  nativeBrowserCapture?: (
+    source: SourceRecord,
+    context: { broker: BrowserBrokerState; route: BrowserRouteDecision },
+  ) => Promise<string | null>;
+  uaFetchCapture?: (source: SourceRecord) => Promise<string | null>;
+  searchCapture?: (source: SourceRecord) => Promise<string | null>;
+}): Promise<{
+  snapshots: SourceSnapshot[];
+  changedSources: SourceSnapshot[];
+}>;
+export async function refreshOfficialSources(options: {
+  fetchImpl?: typeof fetch;
+  browserCapture?: (source: SourceRecord) => Promise<string | null>;
+  brokerState?: BrowserBrokerState;
+  nativeBrowserCapture?: (
+    source: SourceRecord,
+    context: { broker: BrowserBrokerState; route: BrowserRouteDecision },
+  ) => Promise<string | null>;
+  uaFetchCapture?: (source: SourceRecord) => Promise<string | null>;
+  searchCapture?: (source: SourceRecord) => Promise<string | null>;
+} = {}): Promise<{
+  snapshots: SourceSnapshot[];
+  changedSources: SourceSnapshot[];
 }> {
   const previous = await readJsonFile<Record<string, SourceSnapshot>>(
     resolveRepoPath("data", "exports", "source-snapshots.json"),
     {},
   );
-  const freshSnapshots = await Promise.all(OFFICIAL_SOURCES.map((source) => fetchSourceSnapshot(source)));
+  const freshSnapshots = await Promise.all(
+    OFFICIAL_SOURCES.map((source) =>
+      fetchSourceSnapshot(source, {
+        fetchImpl: options.fetchImpl,
+        browserCapture: options.browserCapture,
+        brokerState: options.brokerState,
+        nativeBrowserCapture: options.nativeBrowserCapture,
+        uaFetchCapture: options.uaFetchCapture,
+        searchCapture: options.searchCapture,
+      }),
+    ),
+  );
   const effectiveSnapshots: SourceSnapshot[] = [];
   const current: Record<string, SourceSnapshot> = {};
   const changedSources: SourceSnapshot[] = [];

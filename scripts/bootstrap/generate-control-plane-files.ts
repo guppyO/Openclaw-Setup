@@ -242,6 +242,40 @@ function agentModel(config: EnvironmentConfig, agentId: AgentTemplate["id"]): st
   return isDeepAgent(agentId) ? config.modelDeep : config.modelPrimary;
 }
 
+function renderModelMap(config: EnvironmentConfig): Record<string, unknown> {
+  if (config.modelPrimary === config.modelDeep) {
+    return {
+      [config.modelPrimary]: {
+        alias: "frontier",
+        params: {
+          reasoning: {
+            effort: "high",
+          },
+        },
+      },
+    };
+  }
+
+  return {
+    [config.modelPrimary]: {
+      alias: "frontier",
+      params: {
+        reasoning: {
+          effort: "high",
+        },
+      },
+    },
+    [config.modelDeep]: {
+      alias: "frontier-deep",
+      params: {
+        reasoning: {
+          effort: "xhigh",
+        },
+      },
+    },
+  };
+}
+
 function renderOpenClawConfig(config: EnvironmentConfig): string {
   const hookMappings = AGENTS.map((agent) => ({
     name: `dispatch-immediate-${agent.id}`,
@@ -266,7 +300,7 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
         bind: config.bind,
         port: config.port,
         controlUi: {
-          enabled: false,
+          enabled: true,
         },
         auth: {
           mode: "token",
@@ -289,24 +323,7 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
             primary: config.modelPrimary,
             fallbacks: [],
           },
-          models: {
-            [config.modelPrimary]: {
-              alias: "frontier",
-              params: {
-                reasoning: {
-                  effort: "high",
-                },
-              },
-            },
-            [config.modelDeep]: {
-              alias: "frontier-deep",
-              params: {
-                reasoning: {
-                  effort: "xhigh",
-                },
-              },
-            },
-          },
+          models: renderModelMap(config),
           workspace: `${VPS_ROOT_DIR}/runtime/${config.name}/workspace`,
           userTimezone: "Europe/London",
           timeFormat: "24",
@@ -326,6 +343,27 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
               softThresholdTokens: 8000,
               systemPrompt: "Session nearing compaction. Store durable memories now.",
               prompt: "Write lasting notes to memory and initiative docs. Reply with NO_REPLY if nothing durable changed.",
+            },
+          },
+          memorySearch: {
+            enabled: true,
+            sources: ["memory"],
+            extraPaths: ["initiatives"],
+            experimental: {
+              sessionMemory: false,
+            },
+            provider: "local",
+            local: {
+              modelPath:
+                "hf:ggml-org/embeddinggemma-300m-qat-q8_0-GGUF/embeddinggemma-300m-qat-Q8_0.gguf",
+              modelCacheDir: `${VPS_ROOT_DIR}/runtime/models/embeddings`,
+            },
+            fallback: "none",
+            store: {
+              path: `${VPS_ROOT_DIR}/runtime/${config.name}/memory/{agentId}.sqlite`,
+              vector: {
+                enabled: true,
+              },
             },
           },
         },
@@ -388,13 +426,16 @@ Group=${VPS_RUNTIME_USER}
 WorkingDirectory=${VPS_ROOT_DIR}
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
+Environment=NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
+Environment=OPENCLAW_NO_RESPAWN=1
 EnvironmentFile=-${VPS_ROOT_DIR}/.secrets/revenue-os.local.env
 Environment=OPENCLAW_CONFIG_PATH=${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json
-ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:probe-models -- --active && npm run bootstrap:control-plane'
-ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:render-openclaw-config -- --environment ${environment.name} --output ${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json'
-ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run verify:openclaw-config -- ${environment.name}'
-ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && OPENCLAW_CONFIG_PATH=${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json openclaw doctor'
-ExecStart=/usr/bin/env openclaw gateway --config ${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && export OPENCLAW_BIN="${"$"}{OPENCLAW_BIN:-$(${VPS_ROOT_DIR}/scripts/bootstrap/resolve-openclaw-bin.sh ${VPS_ROOT_DIR})}" && npm run runtime:probe-models -- --active && npm run bootstrap:control-plane'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && bash scripts/bootstrap/sync-runtime-workspace.sh ${environment.name}'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && export OPENCLAW_BIN="${"$"}{OPENCLAW_BIN:-$(${VPS_ROOT_DIR}/scripts/bootstrap/resolve-openclaw-bin.sh ${VPS_ROOT_DIR})}" && npm run runtime:render-openclaw-config -- --environment ${environment.name} --output ${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && export OPENCLAW_BIN="${"$"}{OPENCLAW_BIN:-$(${VPS_ROOT_DIR}/scripts/bootstrap/resolve-openclaw-bin.sh ${VPS_ROOT_DIR})}" && npm run verify:openclaw-config -- ${environment.name}'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && export OPENCLAW_BIN="${"$"}{OPENCLAW_BIN:-$(${VPS_ROOT_DIR}/scripts/bootstrap/resolve-openclaw-bin.sh ${VPS_ROOT_DIR})}" && OPENCLAW_CONFIG_PATH=${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json "$OPENCLAW_BIN" doctor'
+ExecStart=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && export OPENCLAW_BIN="${"$"}{OPENCLAW_BIN:-$(${VPS_ROOT_DIR}/scripts/bootstrap/resolve-openclaw-bin.sh ${VPS_ROOT_DIR})}" && OPENCLAW_CONFIG_PATH=${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json "$OPENCLAW_BIN" gateway'
 Restart=always
 RestartSec=5
 
@@ -421,6 +462,8 @@ Group=${VPS_RUNTIME_USER}
 WorkingDirectory=${VPS_ROOT_DIR}
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
+Environment=NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
+Environment=OPENCLAW_NO_RESPAWN=1
 EnvironmentFile=-${VPS_ROOT_DIR}/.secrets/revenue-os.local.env
 ExecStart=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && ${commandMap[id]}'
 `;
@@ -463,13 +506,20 @@ if [ -f "${"$"}{ROOT_DIR}/.secrets/revenue-os.local.env" ]; then
   set +a
 fi
 
+if [[ "${"$"}{OPENCLAW_INSTALL_CHANNEL:-source-pinned}" != "release" ]]; then
+  OPENCLAW_SOURCE_REF="${"$"}{OPENCLAW_SOURCE_REF:-84f5d7dc1d1b041382c126384c6eb28cad2f53fa}" REVENUE_OS_ROOT_DIR="${"$"}{ROOT_DIR}" bash scripts/bootstrap/install-openclaw-source.sh
+fi
+
+OPENCLAW_BIN="$("${"$"}{ROOT_DIR}/scripts/bootstrap/resolve-openclaw-bin.sh" "${"$"}{ROOT_DIR}")"
+export OPENCLAW_BIN
+
 npm ci
 npm run runtime:probe-models
 npm run bootstrap:control-plane
 npm run runtime:render-openclaw-config -- --environment ${environment.name} --output "${"$"}{ROOT_DIR}/data/generated/openclaw/${environment.name}.json"
 npm run verify:openclaw-config -- ${environment.name}
-OPENCLAW_CONFIG_PATH="${"$"}{ROOT_DIR}/data/generated/openclaw/${environment.name}.json" openclaw doctor
-openclaw models auth login --provider openai-codex
+OPENCLAW_CONFIG_PATH="${"$"}{ROOT_DIR}/data/generated/openclaw/${environment.name}.json" "${"$"}{OPENCLAW_BIN}" doctor
+"${"$"}{OPENCLAW_BIN}" onboard --auth-choice openai-codex
 bash scripts/bootstrap/finalize-openclaw-auth.sh ${environment.name}
 
 echo "Prepared ${environment.name} gateway config at ${"$"}{ROOT_DIR}/data/generated/openclaw/${environment.name}.json"
@@ -516,7 +566,7 @@ async function main(): Promise<void> {
       bind: "loopback",
       browserHeadless: false,
       modelPrimary: modelProbe.openClawPrimary,
-      modelDeep: modelProbe.openClawDeep ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4-pro",
+      modelDeep: modelProbe.openClawDeep ?? modelProbe.openClawPrimary ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4",
       modelFallback: modelProbe.openClawFallback,
     },
     {
@@ -525,7 +575,7 @@ async function main(): Promise<void> {
       bind: "loopback",
       browserHeadless: false,
       modelPrimary: modelProbe.openClawPrimary,
-      modelDeep: modelProbe.openClawDeep ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4-pro",
+      modelDeep: modelProbe.openClawDeep ?? modelProbe.openClawPrimary ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4",
       modelFallback: modelProbe.openClawFallback,
     },
     {
@@ -534,7 +584,7 @@ async function main(): Promise<void> {
       bind: "loopback",
       browserHeadless: true,
       modelPrimary: modelProbe.openClawPrimary,
-      modelDeep: modelProbe.openClawDeep ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4-pro",
+      modelDeep: modelProbe.openClawDeep ?? modelProbe.openClawPrimary ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4",
       modelFallback: modelProbe.openClawFallback,
     },
   ];

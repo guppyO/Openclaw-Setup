@@ -9,5 +9,7 @@ Group=revenueos
 WorkingDirectory=/opt/revenue-os
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=prod
+Environment=NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
+Environment=OPENCLAW_NO_RESPAWN=1
 EnvironmentFile=-/opt/revenue-os/.secrets/revenue-os.local.env
 ExecStart=/usr/bin/env bash -lc 'cd /opt/revenue-os && npm run backup'

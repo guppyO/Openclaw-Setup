@@ -18,26 +18,29 @@
 
 - Install completed with no dependency drift or vulnerabilities.
 - Build passed.
-- Tests passed with 44 passing tests.
+- Tests passed with 51 passing tests.
 - Secret import passed and stayed idempotent on unchanged input.
-- Runtime verification refreshed with truthful method labels, corrected OpenClaw plus Steel source anchors, and the current summary now sits at 15 verified, 3 pending, 0 drifted, 0 unsupported.
-- OpenClaw config generation passed and now emits `gateway.mode: "local"` plus explicit hook, heartbeat, and per-agent dispatch configuration.
-- Hetzner bootstrap now defaults to `stage`; `prod` requires an explicit override.
-- `bootstrap-openclaw.sh`, `finalize-openclaw-auth.sh`, and tracked-task wake defaults are now also stage-first unless `prod` is explicit.
+- Runtime verification refreshed with truthful method labels and now sits at 16 verified, 1 pending, 1 drifted, 0 unsupported.
+- OpenClaw config generation passed and now emits `gateway.mode: "local"`, loopback-safe `controlUi.enabled`, local semantic memory search, explicit hook wake paths, and per-agent dispatch configuration.
+- Hetzner bootstrap defaults to `stage`; `prod` requires an explicit override.
+- `bootstrap-openclaw.sh`, `finalize-openclaw-auth.sh`, and tracked-task wake defaults are also stage-first unless `prod` is explicit.
 - OpenClaw config validation is now enforced before service enable or start through `scripts/verify/validate-openclaw-config.sh` and the generated systemd `ExecStartPre` gates.
 - Browser-backed source capture is now repo-native when the Windows browser lane or an auth-ready browser lane is ready; arbitrary shell commands no longer count as `browser-capture`.
-- Browser broker snapshot passed and now reflects remote gateway mode, node-host readiness, Steel Cloud versus self-hosted truth, and blocked high-trust routes.
+- Browser broker snapshot passed and now reflects the live SSH tunnel, paired attached Chrome lane, node-host readiness, Steel Cloud versus self-hosted truth, and blocked high-trust routes.
+- The live Hetzner stage gateway now runs the pinned OpenClaw source build and actively exposes `openai-codex/gpt-5.4`.
+- The loopback control UI is reachable through the SSH tunnel.
+- The attached Chrome lane is now live end-to-end and currently exposes one registered Gmail tab through the local relay on `127.0.0.1:4204`.
+- The existing self-hosted Steel service on the VPS is now hardened to loopback-only access; external requests to `46.225.227.168:3000` no longer succeed.
+- The VPS local-memory backend is ready with `memorySearch.provider = "local"` and the default `embeddinggemma` GGUF path.
 - Treasury probe passed and currently reports `browser-only` with `ledger: unavailable`.
 - State generation passed and currently surfaces 9 opportunities, 4 experiments, and parallel active assignments.
 - Smoke verification passed.
-- Backup completed at `data/backups/revenue-os-2026-03-07T04-18-40-322Z.tar.gz`.
+- Backup completed successfully during the latest live-bootstrap cycle at `data/backups/revenue-os-2026-03-07T20-57-55-509Z.tar.gz`.
 - Stale root planning and older audit-fix notes were archived under `docs/archive/`.
 
 ## Still external
 
-- OpenClaw OAuth on the VPS still requires the one-time live sign-in step.
-- The Hetzner SSH host path still has to be supplied.
-- The Windows SSH tunnel and node host still need to be started against the live VPS gateway.
-- Attached Chrome pairing still requires the operator once.
-- Steel remains inactive until cloud or self-hosted auth details are provided.
+- Steel is now present on the VPS and loopback-restricted, but it is still not promoted as an auth-ready routed lane in the repo state.
 - Wise API or OAuth mode remains unavailable until a token or OAuth app is provided.
+- Gmail, Wise, and Hetzner still need their externally configured password rotated away from the reused bootstrap password.
+- Production is not promoted yet; stage is the live environment.

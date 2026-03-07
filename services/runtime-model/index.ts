@@ -14,8 +14,28 @@ const CODEX_DEEP_CANDIDATES = ["gpt-5.4-pro", "gpt-5.4"] as const;
 const OPENCLAW_CANDIDATES = ["openai-codex/gpt-5.4", "openai-codex/gpt-5.4-pro"] as const;
 const OPENCLAW_DEEP_CANDIDATES = ["openai-codex/gpt-5.4-pro", "openai-codex/gpt-5.4"] as const;
 
+interface CodexProbeResult {
+  supported: boolean;
+  unsupportedByChatGptAccount: boolean;
+  output: string;
+}
+
+interface OpenClawListedModel {
+  key: string;
+  available?: boolean;
+  contextWindow?: number;
+  tags?: string[];
+}
+
 async function commandExists(command: string): Promise<boolean> {
   try {
+    if (command === "openclaw") {
+      const explicit = process.env.OPENCLAW_BIN?.trim();
+      if (explicit && (await fileExists(explicit))) {
+        return true;
+      }
+    }
+
     if (process.platform === "win32") {
       const appData = process.env.APPDATA;
       if (appData) {
@@ -54,8 +74,9 @@ function quoteArg(value: string): string {
 
 async function tryCommand(command: string, args: string[]): Promise<string | null> {
   try {
+    const resolvedCommand = command === "openclaw" ? process.env.OPENCLAW_BIN?.trim() || command : command;
     const { stdout } = await execAsync(
-      [command, ...args.map((argument) => quoteArg(argument))].join(" "),
+      [resolvedCommand, ...args.map((argument) => quoteArg(argument))].join(" "),
       { timeout: 45_000 },
     );
     return stdout.trim() || null;
@@ -66,7 +87,8 @@ async function tryCommand(command: string, args: string[]): Promise<string | nul
 
 async function tryJsonCommand(command: string, args: string[]): Promise<unknown | null> {
   try {
-    const { stdout } = await execFileAsync(command, args, { timeout: 45_000 });
+    const resolvedCommand = command === "openclaw" ? process.env.OPENCLAW_BIN?.trim() || command : command;
+    const { stdout } = await execFileAsync(resolvedCommand, args, { timeout: 45_000 });
     return JSON.parse(stdout);
   } catch {
     return null;
@@ -95,6 +117,63 @@ function collectStrings(value: unknown, results: Set<string> = new Set<string>()
   return results;
 }
 
+function isOpenClawCodexModel(value: string): boolean {
+  return value.startsWith("openai-codex/");
+}
+
+function parseListedModels(value: unknown): OpenClawListedModel[] {
+  if (!value || typeof value !== "object" || !("models" in value)) {
+    return [];
+  }
+
+  const models = (value as { models?: unknown }).models;
+  if (!Array.isArray(models)) {
+    return [];
+  }
+
+  return models
+    .filter((entry): entry is Record<string, unknown> => Boolean(entry) && typeof entry === "object")
+    .map((entry) => ({
+      key: typeof entry.key === "string" ? entry.key : "",
+      available: typeof entry.available === "boolean" ? entry.available : undefined,
+      contextWindow: typeof entry.contextWindow === "number" ? entry.contextWindow : undefined,
+      tags: Array.isArray(entry.tags) ? entry.tags.filter((tag): tag is string => typeof tag === "string") : undefined,
+    }))
+    .filter((entry) => entry.key.length > 0);
+}
+
+function rankOpenClawModel(model: OpenClawListedModel): number {
+  let score = 0;
+
+  if (model.key === "openai-codex/gpt-5.4-pro") {
+    score += 10_000;
+  } else if (model.key === "openai-codex/gpt-5.4") {
+    score += 9_000;
+  } else if (model.tags?.includes("default")) {
+    score += 8_000;
+  } else if (model.key.includes("codex")) {
+    score += 7_000;
+  }
+
+  if (model.available !== false) {
+    score += 500;
+  }
+
+  if (typeof model.contextWindow === "number") {
+    score += Math.min(model.contextWindow, 2_000_000) / 1_000;
+  }
+
+  return score;
+}
+
+function chooseStrongestOpenClawModel(candidates: string[]): string | null {
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  return candidates[0] ?? null;
+}
+
 function choosePreferredModel(candidates: string[]): string | null {
   for (const candidate of OPENCLAW_CANDIDATES) {
     if (candidates.includes(candidate)) {
@@ -102,7 +181,7 @@ function choosePreferredModel(candidates: string[]): string | null {
     }
   }
 
-  return null;
+  return chooseStrongestOpenClawModel(candidates);
 }
 
 function choosePreferredDeepModel(candidates: string[]): string | null {
@@ -112,7 +191,7 @@ function choosePreferredDeepModel(candidates: string[]): string | null {
     }
   }
 
-  return null;
+  return chooseStrongestOpenClawModel(candidates);
 }
 
 async function probeCodexCandidate(candidate: string): Promise<boolean> {
@@ -122,31 +201,78 @@ async function probeCodexCandidate(candidate: string): Promise<boolean> {
     candidate,
     "--sandbox",
     "workspace-write",
-    "--ask-for-approval",
-    "never",
     "Reply with exactly OK.",
   ]);
   return output?.includes("OK") ?? false;
 }
 
-async function activeProbeCodexCli(): Promise<{ general: string | null; deep: string | null }> {
+async function runCodexProbe(candidate: string): Promise<CodexProbeResult> {
+  try {
+    const { stdout, stderr } = await execFileAsync("codex", [
+      "exec",
+      "--model",
+      candidate,
+      "--sandbox",
+      "workspace-write",
+      "Reply with exactly OK.",
+    ], { timeout: 90_000 });
+    const output = `${stdout}\n${stderr}`.trim();
+    return {
+      supported: /\bOK\b/.test(output),
+      unsupportedByChatGptAccount: output.includes("not supported when using Codex with a ChatGPT account"),
+      output,
+    };
+  } catch (error) {
+    const stdout = error && typeof error === "object" && "stdout" in error ? String(error.stdout ?? "") : "";
+    const stderr = error && typeof error === "object" && "stderr" in error ? String(error.stderr ?? "") : "";
+    const message = error instanceof Error ? error.message : String(error ?? "");
+    const output = [stdout, stderr, message].filter((value) => value.length > 0).join("\n").trim();
+    return {
+      supported: false,
+      unsupportedByChatGptAccount: output.includes("not supported when using Codex with a ChatGPT account"),
+      output,
+    };
+  }
+}
+
+async function activeProbeCodexCli(): Promise<{
+  general: string | null;
+  deep: string | null;
+  generalProbe?: CodexProbeResult;
+  deepProbe?: CodexProbeResult;
+  deepUnsupportedByChatGptAccount: boolean;
+}> {
+  let generalProbe: CodexProbeResult | undefined;
   let general: string | null = null;
   for (const candidate of CODEX_GENERAL_CANDIDATES) {
-    if (await probeCodexCandidate(candidate)) {
+    const probe = await runCodexProbe(candidate);
+    if (!generalProbe) {
+      generalProbe = probe;
+    }
+    if (probe.supported) {
       general = candidate;
       break;
     }
   }
 
+  let deepProbe: CodexProbeResult | undefined;
+  let deepUnsupportedByChatGptAccount = false;
   let deep: string | null = null;
   for (const candidate of CODEX_DEEP_CANDIDATES) {
-    if (await probeCodexCandidate(candidate)) {
+    const probe = await runCodexProbe(candidate);
+    if (probe.unsupportedByChatGptAccount) {
+      deepUnsupportedByChatGptAccount = true;
+    }
+    if (!deepProbe || probe.supported || probe.unsupportedByChatGptAccount) {
+      deepProbe = probe;
+    }
+    if (probe.supported) {
       deep = candidate;
       break;
     }
   }
 
-  return { general, deep };
+  return { general, deep, generalProbe, deepProbe, deepUnsupportedByChatGptAccount };
 }
 
 async function detectOpenClawPrimary(): Promise<string | null> {
@@ -162,6 +288,12 @@ async function probeOpenClawLiveCandidates(): Promise<string[]> {
   const outputs: string[] = [];
   const listPayload = await tryJsonCommand("openclaw", ["models", "list", "--provider", "openai-codex", "--json"]);
   if (listPayload) {
+    const listedModels = parseListedModels(listPayload)
+      .filter((model) => isOpenClawCodexModel(model.key))
+      .filter((model) => model.available !== false)
+      .sort((left, right) => rankOpenClawModel(right) - rankOpenClawModel(left))
+      .map((model) => model.key);
+    outputs.push(...listedModels);
     outputs.push(...collectStrings(listPayload));
   }
 
@@ -170,7 +302,35 @@ async function probeOpenClawLiveCandidates(): Promise<string[]> {
     outputs.push(...collectStrings(statusPayload));
   }
 
-  return Array.from(new Set(outputs)).filter((value) => OPENCLAW_CANDIDATES.includes(value as (typeof OPENCLAW_CANDIDATES)[number]));
+  const unique: string[] = [];
+  for (const candidate of outputs) {
+    if (!isOpenClawCodexModel(candidate) || unique.includes(candidate)) {
+      continue;
+    }
+    unique.push(candidate);
+  }
+
+  return unique;
+}
+
+function parseEnvCandidateList(raw: string | undefined): string[] {
+  if (!raw) {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return parsed.filter((value): value is string => typeof value === "string" && isOpenClawCodexModel(value));
+    }
+  } catch {
+    // fall through to comma-separated parsing
+  }
+
+  return raw
+    .split(",")
+    .map((value) => value.trim())
+    .filter((value) => value.length > 0 && isOpenClawCodexModel(value));
 }
 
 function buildAliases(probe: {
@@ -184,8 +344,10 @@ function buildAliases(probe: {
   openClawPrimary: string;
   openClawDeep: string;
   openClawSurface: ModelAliasState["surface"];
-  openClawStatus: ModelAliasState["status"];
-  openClawNote: string;
+  openClawPrimaryStatus: ModelAliasState["status"];
+  openClawDeepStatus: ModelAliasState["status"];
+  openClawPrimaryNote: string;
+  openClawDeepNote: string;
 }): ModelAliasState[] {
   return [
     {
@@ -239,8 +401,8 @@ function buildAliases(probe: {
       resolvedModel: probe.openClawPrimary,
       reasoning: "high",
       surface: probe.openClawSurface,
-      status: probe.openClawStatus,
-      note: probe.openClawNote,
+      status: probe.openClawPrimaryStatus,
+      note: probe.openClawPrimaryNote,
     },
     {
       alias: "openclaw.model.frontier_deep",
@@ -248,8 +410,8 @@ function buildAliases(probe: {
       resolvedModel: probe.openClawDeep,
       reasoning: "xhigh",
       surface: probe.openClawSurface,
-      status: probe.openClawStatus,
-      note: `${probe.openClawNote} Prefer the GPT-5.4 Pro provider route for the deepest control-plane work and fail fast instead of downshifting outside the GPT-5.4 family.`,
+      status: probe.openClawDeepStatus,
+      note: probe.openClawDeepNote,
     },
   ];
 }
@@ -267,30 +429,33 @@ export function buildDefaultModelProbe(): ModelCapabilityProbe {
     officialGeneralModel: "gpt-5.4",
     officialCodexDocsStatus: "verified",
     openClawPrimary: "openai-codex/gpt-5.4",
-    openClawDeep: "openai-codex/gpt-5.4-pro",
+    openClawDeep: "openai-codex/gpt-5.4",
     openClawFallback: "openai-codex/gpt-5.4",
     openClawProbeSource: "docs-only",
     openClawVerifiedCandidates: [],
     aliases: buildAliases({
       codexGeneralModel: "gpt-5.4",
-      codexDeepModel: "gpt-5.4-pro",
+      codexDeepModel: "gpt-5.4",
       codexSurface: "provisional",
       codexGeneralStatus: "candidate",
-      codexDeepStatus: "candidate",
+      codexDeepStatus: "fallback",
       codexGeneralNote:
         "No live model-capabilities artifact was available, so GPT-5.4 remains the strategic Codex target under a provisional alias until a passive or active probe confirms the route on this host.",
       codexDeepNote:
-        "GPT-5.4 Pro is the preferred deep-thinking alias when a surface exposes it; otherwise stay within the GPT-5.4 family and use xhigh reasoning.",
+        "GPT-5.4 Pro is only the deep-thinking alias when a surface actually exposes it. For ChatGPT-account-backed Codex work, the supportable deep route usually remains GPT-5.4 with xhigh reasoning until a live probe confirms GPT-5.4 Pro.",
       openClawPrimary: "openai-codex/gpt-5.4",
-      openClawDeep: "openai-codex/gpt-5.4-pro",
+      openClawDeep: "openai-codex/gpt-5.4",
       openClawSurface: "source-fallback",
-      openClawStatus: "candidate",
-      openClawNote:
-        "Current OpenClaw docs and merged upstream support point at openai-codex/gpt-5.4 for routine work and openai-codex/gpt-5.4-pro for the deepest GPT-5.4-family tasks, but a live authenticated gateway probe should still confirm the exact provider strings on the target host.",
+      openClawPrimaryStatus: "candidate",
+      openClawDeepStatus: "fallback",
+      openClawPrimaryNote:
+        "Current OpenClaw docs and merged upstream support point at openai-codex/gpt-5.4 for routine work.",
+      openClawDeepNote:
+        "Keep xhigh reasoning on GPT-5.4 until a live authenticated gateway probe proves a deeper GPT-5.4 Pro provider route on the target host.",
     }),
     drift: [
       "OpenClaw is not installed on this host, so provider-model support is inferred from current official docs and merged upstream changes instead of a live gateway probe.",
-      "GPT-5.4 Pro should be reserved for the deepest available surfaces; the OpenClaw runtime should stay within the GPT-5.4 family and fail fast on unsupported provider strings instead of downshifting to older model families.",
+      "GPT-5.4 Pro should be reserved for the deepest available surfaces; if the live OpenClaw provider still lags behind GPT-5.4, use the strongest verified provider candidate instead of a fake unsupported route.",
     ],
   };
 }
@@ -323,13 +488,24 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
       drift.push("Active Codex CLI model probe did not confirm GPT-5.4 on this host; keep the repo policy pinned to GPT-5.4 and treat the local surface as needing re-auth or upgrade.");
     }
 
-    if (probed.deep) {
+    if (probed.deep === "gpt-5.4-pro") {
       codexDeepModel = probed.deep;
       codexDeepStatus = "preferred";
       codexDeepNote = "A live Codex CLI probe confirmed GPT-5.4 Pro for deep reasoning on this host.";
+    } else if (probed.deepUnsupportedByChatGptAccount) {
+      codexDeepModel = codexGeneralModel;
+      codexDeepStatus = "fallback";
+      codexDeepNote =
+        "The local ChatGPT-account-backed Codex surface rejects GPT-5.4 Pro, so deep work stays on GPT-5.4 with xhigh reasoning on this host.";
+      drift.push("GPT-5.4 Pro is not supported when using Codex with a ChatGPT account on this host; the supportable deep Codex route remains GPT-5.4 with xhigh reasoning.");
+    } else if (probed.deep) {
+      codexDeepModel = probed.deep;
+      codexDeepStatus = "fallback";
+      codexDeepNote =
+        "A live Codex CLI probe did not expose GPT-5.4 Pro on this host, so deep work stays on GPT-5.4 with xhigh reasoning.";
     } else {
       codexDeepModel = codexGeneralModel;
-      codexDeepStatus = codexGeneralStatus;
+      codexDeepStatus = "fallback";
       codexDeepNote =
         "A live Codex CLI probe did not confirm GPT-5.4 Pro on this host, so deep work should stay on GPT-5.4 and increase reasoning effort to xhigh.";
     }
@@ -337,57 +513,140 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
     drift.push("Codex CLI is not installed on this host; GPT-5.4 aliases are policy defaults rather than live CLI probe results.");
   }
 
-  let openClawPrimary = process.env.OPENCLAW_MODEL_PRIMARY ?? "";
-  let openClawDeep = process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4-pro";
+  const configuredOpenClawPrimary = process.env.OPENCLAW_MODEL_PRIMARY ?? "";
+  const configuredOpenClawDeep =
+    process.env.OPENCLAW_MODEL_DEEP ??
+    configuredOpenClawPrimary ??
+    process.env.OPENCLAW_LIVE_PROVIDER_DEEP ??
+    process.env.OPENCLAW_LIVE_PROVIDER_PRIMARY ??
+    "openai-codex/gpt-5.4";
+  let openClawPrimary = "";
+  let openClawDeep = configuredOpenClawDeep;
   let openClawSurface: ModelAliasState["surface"] = "env-override";
-  let openClawStatus: ModelAliasState["status"] = "preferred";
-  let openClawNote = "Resolved from OPENCLAW_MODEL_PRIMARY override.";
+  let openClawPrimaryStatus: ModelAliasState["status"] = "preferred";
+  let openClawDeepStatus: ModelAliasState["status"] = "fallback";
+  let openClawPrimaryNote = "Resolved from OPENCLAW_MODEL_PRIMARY override.";
+  let openClawDeepNote = "Resolved from OPENCLAW_MODEL_DEEP override.";
   let openClawProbeSource: ModelCapabilityProbe["openClawProbeSource"] = "env-override";
   let openClawVerifiedCandidates: string[] = [];
 
+  if (openclawInstalled && probeMode === "active") {
+    openClawVerifiedCandidates = await probeOpenClawLiveCandidates();
+    const livePreferred = choosePreferredModel(openClawVerifiedCandidates);
+    const liveDeep = choosePreferredDeepModel(openClawVerifiedCandidates);
+    if (livePreferred) {
+      openClawPrimary = livePreferred;
+      openClawDeep = liveDeep ?? livePreferred;
+      openClawSurface = "openclaw";
+      openClawPrimaryStatus = OPENCLAW_CANDIDATES.includes(livePreferred as (typeof OPENCLAW_CANDIDATES)[number]) ? "preferred" : "fallback";
+      openClawDeepStatus = openClawDeep === "openai-codex/gpt-5.4-pro" ? openClawPrimaryStatus : "fallback";
+      openClawPrimaryNote = OPENCLAW_CANDIDATES.includes(livePreferred as (typeof OPENCLAW_CANDIDATES)[number])
+        ? openClawDeep === "openai-codex/gpt-5.4-pro"
+          ? "A live OpenClaw gateway probe confirmed GPT-5.4 routine routing and GPT-5.4 Pro as the deepest available provider route on this host."
+          : "A live OpenClaw gateway probe confirmed GPT-5.4 as the strongest currently available provider route on this host; xhigh reasoning should stay on GPT-5.4 until GPT-5.4 Pro is actually exposed."
+        : `A live OpenClaw gateway probe exposed ${livePreferred} as the strongest currently available provider candidate on this host.`;
+      openClawDeepNote =
+        openClawDeep === "openai-codex/gpt-5.4-pro"
+          ? openClawPrimaryNote
+          : "The authenticated OpenClaw provider on this host does not currently expose GPT-5.4 Pro, so deep control-plane work stays on GPT-5.4 with xhigh reasoning.";
+      openClawProbeSource = "live-gateway";
+      if (!OPENCLAW_CANDIDATES.includes(livePreferred as (typeof OPENCLAW_CANDIDATES)[number])) {
+        drift.push(`The live authenticated OpenClaw provider on this host currently exposes ${livePreferred} instead of a GPT-5.4-family route.`);
+      }
+      if (configuredOpenClawPrimary && configuredOpenClawPrimary !== openClawPrimary) {
+        drift.push(
+          `OPENCLAW_MODEL_PRIMARY was ${configuredOpenClawPrimary}, but the live authenticated provider resolved to ${openClawPrimary}; live provider truth now takes precedence.`,
+        );
+      }
+      if (configuredOpenClawDeep && configuredOpenClawDeep !== openClawDeep) {
+        drift.push(
+          `OPENCLAW_MODEL_DEEP was ${configuredOpenClawDeep}, but the live authenticated provider only supports ${openClawDeep} as the deepest current route on this host.`,
+        );
+      }
+    }
+  }
+
+  if (!openClawPrimary && openclawInstalled) {
+    const configured = await detectOpenClawPrimary();
+    if (configured && isOpenClawCodexModel(configured)) {
+      openClawPrimary = configured;
+      openClawDeep = configured === "openai-codex/gpt-5.4" ? "openai-codex/gpt-5.4" : configured;
+      openClawSurface = "openclaw";
+      openClawPrimaryStatus = OPENCLAW_CANDIDATES.includes(configured as (typeof OPENCLAW_CANDIDATES)[number]) ? "preferred" : "fallback";
+      openClawDeepStatus = openClawDeep === "openai-codex/gpt-5.4-pro" ? openClawPrimaryStatus : "fallback";
+      openClawPrimaryNote = OPENCLAW_CANDIDATES.includes(configured as (typeof OPENCLAW_CANDIDATES)[number])
+        ? configured === "openai-codex/gpt-5.4"
+          ? "Live OpenClaw config on this host resolves to GPT-5.4; deeper reasoning should stay on GPT-5.4 with xhigh effort until a separate GPT-5.4 Pro route is exposed."
+          : "Live OpenClaw config on this host already resolves to the GPT-5.4 family."
+        : `Live OpenClaw config on this host already resolves to ${configured}.`;
+      openClawDeepNote =
+        openClawDeep === "openai-codex/gpt-5.4-pro"
+          ? openClawPrimaryNote
+          : "The saved OpenClaw config on this host does not expose GPT-5.4 Pro, so deep work stays on GPT-5.4 with xhigh reasoning.";
+      openClawProbeSource = "config-read";
+      openClawVerifiedCandidates = openClawVerifiedCandidates.length > 0 ? openClawVerifiedCandidates : [configured];
+      if (!OPENCLAW_CANDIDATES.includes(configured as (typeof OPENCLAW_CANDIDATES)[number])) {
+        drift.push(`The saved OpenClaw config on this host currently resolves to ${configured}, which is outside the GPT-5.4 family.`);
+      }
+    }
+  }
+
+  const remoteLivePrimary =
+    process.env.OPENCLAW_LIVE_PROVIDER_PRIMARY?.trim() || process.env.OPENCLAW_REMOTE_PROVIDER_PRIMARY?.trim() || "";
+  const remoteLiveDeep =
+    process.env.OPENCLAW_LIVE_PROVIDER_DEEP?.trim() || process.env.OPENCLAW_REMOTE_PROVIDER_DEEP?.trim() || "";
+  const remoteLiveCandidates = parseEnvCandidateList(
+    process.env.OPENCLAW_LIVE_PROVIDER_CANDIDATES ?? process.env.OPENCLAW_REMOTE_PROVIDER_CANDIDATES,
+  );
+  if (!openClawPrimary && remoteLivePrimary && isOpenClawCodexModel(remoteLivePrimary)) {
+    openClawPrimary = remoteLivePrimary;
+    openClawDeep = remoteLiveDeep && isOpenClawCodexModel(remoteLiveDeep) ? remoteLiveDeep : remoteLivePrimary;
+    openClawSurface = "openclaw";
+    openClawPrimaryStatus = OPENCLAW_CANDIDATES.includes(remoteLivePrimary as (typeof OPENCLAW_CANDIDATES)[number])
+      ? "preferred"
+      : "fallback";
+    openClawDeepStatus = openClawDeep === "openai-codex/gpt-5.4-pro" ? openClawPrimaryStatus : "fallback";
+    openClawPrimaryNote =
+      "Resolved from live remote OpenClaw gateway metadata stored in the local runtime env. This reflects the authenticated VPS gateway rather than the local Windows CLI surface.";
+    openClawDeepNote =
+      openClawDeep === "openai-codex/gpt-5.4-pro"
+        ? openClawPrimaryNote
+        : "Resolved from live remote OpenClaw gateway metadata. The deployed gateway does not currently expose GPT-5.4 Pro, so deep control-plane work stays on GPT-5.4 with xhigh reasoning.";
+    openClawProbeSource = "live-gateway";
+    openClawVerifiedCandidates = remoteLiveCandidates.length > 0 ? remoteLiveCandidates : [remoteLivePrimary];
+  }
+
+  if (!openClawPrimary && configuredOpenClawPrimary) {
+    openClawPrimary = configuredOpenClawPrimary;
+    openClawDeep = configuredOpenClawDeep;
+    openClawSurface = "env-override";
+    openClawPrimaryStatus = "preferred";
+    openClawDeepStatus = openClawDeep === "openai-codex/gpt-5.4-pro" ? "preferred" : "fallback";
+    openClawPrimaryNote = "Resolved from OPENCLAW_MODEL_PRIMARY override because no live provider evidence was available.";
+    openClawDeepNote =
+      openClawDeep === "openai-codex/gpt-5.4-pro"
+        ? "Resolved from OPENCLAW_MODEL_DEEP override because no live provider evidence was available."
+        : "Resolved from OPENCLAW_MODEL_DEEP override. Deep work stays on GPT-5.4 until a live provider proves GPT-5.4 Pro.";
+  }
+
   if (!openClawPrimary) {
-    if (openclawInstalled && probeMode === "active") {
-      openClawVerifiedCandidates = await probeOpenClawLiveCandidates();
-      const livePreferred = choosePreferredModel(openClawVerifiedCandidates);
-      const liveDeep = choosePreferredDeepModel(openClawVerifiedCandidates);
-      if (livePreferred) {
-        openClawPrimary = livePreferred;
-        openClawDeep = liveDeep ?? openClawDeep;
-        openClawSurface = "openclaw";
-        openClawStatus = "preferred";
-        openClawNote =
-          "A live OpenClaw gateway probe confirmed GPT-5.4 provider routing on this host.";
-        openClawProbeSource = "live-gateway";
-      }
-    }
+    openClawPrimary = "openai-codex/gpt-5.4";
+    openClawDeep = "openai-codex/gpt-5.4";
+    openClawSurface = "source-fallback";
+    openClawPrimaryStatus = openclawInstalled ? "candidate" : "docs-only";
+    openClawDeepStatus = "fallback";
+    openClawPrimaryNote =
+      "Current OpenClaw docs and merged upstream work point to GPT-5.4 for routine OpenClaw work, so the repo treats GPT-5.4 as the intended route until a live runtime proves the exact provider candidate on the target host.";
+    openClawDeepNote =
+      "The best supportable deep OpenClaw route remains GPT-5.4 with xhigh reasoning until a live runtime proves a GPT-5.4 Pro provider route on the target host.";
+    openClawProbeSource = "docs-only";
 
-    if (!openClawPrimary && openclawInstalled) {
-      const configured = await detectOpenClawPrimary();
-      if (configured && OPENCLAW_CANDIDATES.includes(configured as (typeof OPENCLAW_CANDIDATES)[number])) {
-        openClawPrimary = configured;
-        openClawSurface = "openclaw";
-        openClawStatus = "preferred";
-        openClawNote = "Live OpenClaw config on this host already resolves to GPT-5.4.";
-        openClawProbeSource = "config-read";
-        openClawVerifiedCandidates = openClawVerifiedCandidates.length > 0 ? openClawVerifiedCandidates : [configured];
-      }
-    }
-
-    if (!openClawPrimary) {
-      openClawPrimary = "openai-codex/gpt-5.4";
-      openClawSurface = "source-fallback";
-      openClawStatus = openclawInstalled ? "candidate" : "docs-only";
-      openClawNote =
-        "Current OpenClaw docs and merged upstream work point to GPT-5.4 for routine OpenClaw work and GPT-5.4 Pro for the deepest control-plane tasks, so the repo stays within the GPT-5.4 family and requires live runtime confirmation instead of silent downshifts.";
-      openClawProbeSource = "docs-only";
-
-      if (!openclawInstalled) {
-        drift.push("OpenClaw is not installed on this host, so provider-model support is inferred from official docs instead of a live gateway probe.");
-      } else if (probeMode === "active") {
-        drift.push("OpenClaw is installed, but a live gateway probe did not yet confirm GPT-5.4 on this host. Do not downshift; update or re-auth the runtime instead.");
-      } else {
-        drift.push("OpenClaw is installed, but only passive evidence is available on this host; run an active gateway probe after auth to confirm GPT-5.4 provider routing.");
-      }
+    if (!openclawInstalled) {
+      drift.push("OpenClaw is not installed on this host, so provider-model support is inferred from official docs instead of a live gateway probe.");
+    } else if (probeMode === "active") {
+      drift.push("OpenClaw is installed, but a live gateway probe did not yet confirm a provider candidate on this host. Keep GPT-5.4 as the intended route and re-probe after auth.");
+    } else {
+      drift.push("OpenClaw is installed, but only passive evidence is available on this host; run an active gateway probe after auth to confirm GPT-5.4 provider routing.");
     }
   }
 
@@ -420,8 +679,10 @@ export async function probeModelCapabilities(probeMode: RuntimeProbeMode = "pass
       openClawPrimary,
       openClawDeep,
       openClawSurface,
-      openClawStatus,
-      openClawNote,
+      openClawPrimaryStatus,
+      openClawDeepStatus,
+      openClawPrimaryNote,
+      openClawDeepNote,
     }),
     drift,
   };
@@ -460,7 +721,7 @@ ${renderTable(
 ## OpenClaw routing
 
 - Primary provider model: \`${probe.openClawPrimary}\`
-- Deep provider model: \`${probe.openClawDeep ?? "openai-codex/gpt-5.4-pro"}\`
+- Deep provider model: \`${probe.openClawDeep ?? probe.openClawPrimary ?? "openai-codex/gpt-5.4"}\`
 - Fallback provider model: \`${probe.openClawFallback}\`
 - Probe source: ${probe.openClawProbeSource}
 - Live verified provider candidates: ${probe.openClawVerifiedCandidates.length > 0 ? probe.openClawVerifiedCandidates.join(", ") : "none yet"}
@@ -472,9 +733,9 @@ ${probe.drift.length === 0 ? "- None." : probe.drift.map((item) => `- ${item}`).
 ## Policy rules
 
 - Use GPT-5.4 with high reasoning for substantive work by default.
-- Prefer GPT-5.4 Pro with xhigh reasoning for the deepest available surfaces, but stay within the GPT-5.4 family instead of downshifting to older model families.
+- Prefer GPT-5.4 Pro with xhigh reasoning for the deepest available surfaces.
 - Treat official OpenAI model docs, official Codex docs, merged OpenClaw upstream support, and live OpenClaw provider proof as separate truths.
-- Keep OpenClaw configured within the GPT-5.4 family and fail fast on incompatibility instead of silently routing to weaker model families.
+- Keep GPT-5.4 as the intended OpenClaw route, but if the live authenticated provider still exposes an older Codex model, use the strongest verified provider candidate on that host until the provider catches up.
 - Use high reasoning by default and xhigh for architecture, policy-sensitive research, major debugging, and capital allocation decisions.
 `;
 }

@@ -19,6 +19,7 @@
    - Use for persistent, parallel, namespace-isolated browser work.
    - `STEEL_MODE=cloud` can support credentials and profiles when those are actually provisioned.
    - `STEEL_MODE=self-hosted` is treated as session infrastructure only, not as an auth-ready replacement for Cloud.
+   - Self-hosted Steel must stay loopback-only or otherwise access-restricted. It is not acceptable to expose the Steel UI or CDP ports publicly on the internet.
 
 ## Remote path
 
