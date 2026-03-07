@@ -72,7 +72,7 @@ if (-not (Get-Command openclaw -ErrorAction SilentlyContinue)) {
   if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
     throw "npm is required to install OpenClaw on the Windows node host."
   }
-  npm install -g @openclaw/cli
+  npm install -g openclaw@latest
 }
 
 Import-LocalRuntimeEnv

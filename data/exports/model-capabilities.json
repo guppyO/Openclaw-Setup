@@ -1,14 +1,17 @@
 {
-  "detectedAt": "2026-03-07T04:18:30.709Z",
+  "detectedAt": "2026-03-07T06:56:11.640Z",
   "probeMode": "passive",
   "provisional": false,
   "codexCliInstalled": true,
-  "openclawInstalled": false,
+  "openclawInstalled": true,
   "strategicTarget": "gpt-5.4",
-  "officialFrontierModel": "gpt-5.4",
+  "deepThinkingTarget": "gpt-5.4-pro",
+  "officialFrontierModel": "gpt-5.4-pro",
+  "officialGeneralModel": "gpt-5.4",
   "officialCodexDocsStatus": "verified",
-  "openClawPrimary": "openai-codex/gpt-5.3-codex",
-  "openClawFallback": "openai-codex/gpt-5-codex",
+  "openClawPrimary": "openai-codex/gpt-5.4",
+  "openClawDeep": "openai-codex/gpt-5.4-pro",
+  "openClawFallback": "openai-codex/gpt-5.4",
   "openClawProbeSource": "docs-only",
   "openClawVerifiedCandidates": [],
   "aliases": [
@@ -19,7 +22,16 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+    },
+    {
+      "alias": "model.frontier_deep",
+      "strategicTarget": "gpt-5.4-pro",
+      "resolvedModel": "gpt-5.4-pro",
+      "reasoning": "xhigh",
+      "surface": "codex-cli",
+      "status": "candidate",
+      "note": "GPT-5.4 Pro is preferred for the hardest reasoning work where a local surface exposes it; otherwise stay within GPT-5.4 and elevate reasoning effort to xhigh."
     },
     {
       "alias": "model.frontier_browser",
@@ -28,16 +40,16 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
     },
     {
       "alias": "model.frontier_research",
-      "strategicTarget": "gpt-5.4",
-      "resolvedModel": "gpt-5.4",
+      "strategicTarget": "gpt-5.4-pro",
+      "resolvedModel": "gpt-5.4-pro",
       "reasoning": "xhigh",
       "surface": "codex-cli",
-      "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+      "status": "candidate",
+      "note": "GPT-5.4 Pro is preferred for the hardest reasoning work where a local surface exposes it; otherwise stay within GPT-5.4 and elevate reasoning effort to xhigh."
     },
     {
       "alias": "model.frontier_build",
@@ -46,19 +58,28 @@
       "reasoning": "high",
       "surface": "codex-cli",
       "status": "preferred",
-      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+      "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
     },
     {
       "alias": "openclaw.model.primary_frontier",
       "strategicTarget": "gpt-5.4",
-      "resolvedModel": "openai-codex/gpt-5.3-codex",
+      "resolvedModel": "openai-codex/gpt-5.4",
       "reasoning": "high",
       "surface": "source-fallback",
-      "status": "docs-only",
-      "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex examples, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
+      "status": "candidate",
+      "note": "Current OpenClaw docs and merged upstream work point to GPT-5.4 for routine OpenClaw work and GPT-5.4 Pro for the deepest control-plane tasks, so the repo stays within the GPT-5.4 family and requires live runtime confirmation instead of silent downshifts."
+    },
+    {
+      "alias": "openclaw.model.frontier_deep",
+      "strategicTarget": "gpt-5.4-pro",
+      "resolvedModel": "openai-codex/gpt-5.4-pro",
+      "reasoning": "xhigh",
+      "surface": "source-fallback",
+      "status": "candidate",
+      "note": "Current OpenClaw docs and merged upstream work point to GPT-5.4 for routine OpenClaw work and GPT-5.4 Pro for the deepest control-plane tasks, so the repo stays within the GPT-5.4 family and requires live runtime confirmation instead of silent downshifts. Prefer the GPT-5.4 Pro provider route for the deepest control-plane work and fail fast instead of downshifting outside the GPT-5.4 family."
     }
   ],
   "drift": [
-    "OpenClaw is not installed on this host, so provider-model support is inferred from official docs instead of a live gateway probe."
+    "OpenClaw is installed, but only passive evidence is available on this host; run an active gateway probe after auth to confirm GPT-5.4 provider routing."
   ]
 }

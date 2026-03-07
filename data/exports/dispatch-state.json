@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-07T04:18:32.978Z",
+  "generatedAt": "2026-03-07T06:56:25.909Z",
   "queue": [
     {
       "id": "discovered-internal-skill-packs-offer",
@@ -8,7 +8,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-07T06:18:32.970Z",
+      "dueAt": "2026-03-07T08:56:25.901Z",
       "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
@@ -18,7 +18,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-07T16:18:32.970Z",
+      "dueAt": "2026-03-07T18:56:25.901Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -28,7 +28,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T22:18:32.970Z",
+      "dueAt": "2026-03-08T00:56:25.901Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -38,7 +38,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-08T00:18:32.970Z",
+      "dueAt": "2026-03-08T02:56:25.901Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -48,7 +48,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-08T04:18:32.970Z",
+      "dueAt": "2026-03-08T06:56:25.901Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     },
     {
@@ -58,7 +58,7 @@
       "initiativeId": "memory-maintenance",
       "reason": "documentation-and-memory",
       "priority": 52,
-      "dueAt": "2026-03-08T10:18:32.970Z",
+      "dueAt": "2026-03-08T12:56:25.901Z",
       "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
     },
     {
@@ -68,7 +68,7 @@
       "initiativeId": "resilience",
       "reason": "resilience-work",
       "priority": 48,
-      "dueAt": "2026-03-08T16:18:32.970Z",
+      "dueAt": "2026-03-08T18:56:25.901Z",
       "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
     }
   ],
@@ -80,7 +80,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-07T06:18:32.970Z",
+      "dueAt": "2026-03-07T08:56:25.901Z",
       "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
@@ -90,7 +90,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-07T16:18:32.970Z",
+      "dueAt": "2026-03-07T18:56:25.901Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -100,7 +100,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T22:18:32.970Z",
+      "dueAt": "2026-03-08T00:56:25.901Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -110,7 +110,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-08T00:18:32.970Z",
+      "dueAt": "2026-03-08T02:56:25.901Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -120,7 +120,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-08T04:18:32.970Z",
+      "dueAt": "2026-03-08T06:56:25.901Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     }
   ],
@@ -131,7 +131,7 @@
     "initiativeId": "discovered-internal-skill-packs",
     "reason": "highest-ev-open-experiment",
     "priority": 100,
-    "dueAt": "2026-03-07T06:18:32.970Z",
+    "dueAt": "2026-03-07T08:56:25.901Z",
     "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
   },
   "immediateContinuations": [
@@ -142,7 +142,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-07T16:18:32.970Z",
+      "dueAt": "2026-03-07T18:56:25.901Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -152,7 +152,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T22:18:32.970Z",
+      "dueAt": "2026-03-08T00:56:25.901Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -162,7 +162,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-08T00:18:32.970Z",
+      "dueAt": "2026-03-08T02:56:25.901Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     }
   ],
@@ -172,40 +172,40 @@
       "owner": "ceo",
       "initiativeId": "discovered-internal-skill-packs",
       "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "discovered-internal-skill-packs-distribution",
       "owner": "distribution",
       "initiativeId": "discovered-internal-skill-packs",
       "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "changelog-adaptation",
       "owner": "ops",
       "initiativeId": "update-steward",
       "title": "Refresh official-source deltas and compare stage vs prod assumptions",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "discovered-internal-skill-packs-research",
       "owner": "research",
       "initiativeId": "discovered-internal-skill-packs",
       "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "skill-gap-reduction",
       "owner": "skillsmith",
       "initiativeId": "skill-pipeline",
       "title": "Promote the highest-leverage internal skill candidate",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     }
   ],
   "completedTaskIds": [],
@@ -214,42 +214,42 @@
     {
       "taskId": "discovered-internal-skill-packs-offer",
       "owner": "ceo",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "discovered-internal-skill-packs-distribution",
       "owner": "distribution",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "discovered-internal-skill-packs-research",
       "owner": "research",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "skill-gap-reduction",
       "owner": "skillsmith",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     },
     {
       "taskId": "changelog-adaptation",
       "owner": "ops",
-      "acquiredAt": "2026-03-07T04:18:32.971Z",
-      "expiresAt": "2026-03-07T04:33:32.971Z"
+      "acquiredAt": "2026-03-07T06:56:25.903Z",
+      "expiresAt": "2026-03-07T07:11:25.903Z"
     }
   ],
   "agentConcurrencyLimits": {
     "ceo": 1,
-    "research": 1,
-    "builder": 1,
-    "distribution": 1,
+    "research": 2,
+    "builder": 2,
+    "distribution": 2,
     "treasury": 1,
-    "skillsmith": 1,
-    "ops": 2
+    "skillsmith": 2,
+    "ops": 3
   },
   "recoveryActions": [],
   "cadence": {
@@ -259,7 +259,7 @@
   },
   "usagePolicy": {
     "strategicModel": "gpt-5.4",
-    "openClawModel": "openai-codex/gpt-5.3-codex",
+    "openClawModel": "openai-codex/gpt-5.4",
     "compactionRequired": true
   }
 }

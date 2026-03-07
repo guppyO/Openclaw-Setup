@@ -37,6 +37,21 @@ export interface SourceSnapshot {
   method: "direct-fetch" | "browser-capture" | "ua-fetch-fallback" | "search-backed" | "manual-unverified";
 }
 
+function snapshotStrength(method: SourceSnapshot["method"]): number {
+  switch (method) {
+    case "direct-fetch":
+    case "browser-capture":
+      return 4;
+    case "ua-fetch-fallback":
+      return 3;
+    case "search-backed":
+      return 2;
+    case "manual-unverified":
+    default:
+      return 1;
+  }
+}
+
 function stripHtml(value: string): string {
   return value
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -56,6 +71,47 @@ function extractTitle(rawHtml: string): string {
   return "Untitled";
 }
 
+function extractJsonSnapshotParts(raw: string): { title: string; text: string } | null {
+  const trimmed = raw.trim();
+  if (!trimmed.startsWith("{") && !trimmed.startsWith("[")) {
+    return null;
+  }
+
+  try {
+    const parsed = JSON.parse(trimmed) as Record<string, unknown> | Array<unknown>;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return null;
+    }
+
+    const title =
+      typeof parsed.title === "string"
+        ? parsed.title
+        : typeof parsed.name === "string"
+          ? parsed.name
+          : typeof parsed.url === "string"
+            ? parsed.url
+            : "JSON document";
+    const summary = [
+      typeof parsed.title === "string" ? parsed.title : "",
+      typeof parsed.state === "string" ? parsed.state : "",
+      parsed.merged_at ? "merged" : "",
+      typeof parsed.html_url === "string" ? parsed.html_url : "",
+      typeof parsed.body === "string" ? parsed.body : "",
+      typeof parsed.message === "string" ? parsed.message : "",
+      typeof parsed.merge_commit_sha === "string" ? parsed.merge_commit_sha : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return {
+      title: stripHtml(title),
+      text: stripHtml(summary || JSON.stringify(parsed)),
+    };
+  } catch {
+    return null;
+  }
+}
+
 function snapshotFromText(
   source: SourceRecord,
   raw: string,
@@ -63,7 +119,8 @@ function snapshotFromText(
   ok: boolean,
   method: SourceSnapshot["method"],
 ): SourceSnapshot {
-  const text = stripHtml(raw);
+  const jsonParts = extractJsonSnapshotParts(raw);
+  const text = jsonParts?.text ?? stripHtml(raw);
   return {
     id: source.id,
     url: source.url,
@@ -71,7 +128,7 @@ function snapshotFromText(
     ok,
     hash: createHash("sha256").update(text).digest("hex"),
     httpStatus: status,
-    title: extractTitle(raw),
+    title: jsonParts?.title ?? extractTitle(raw),
     excerpt: text.slice(0, 20_000),
     method,
   };
@@ -128,6 +185,11 @@ async function uaFetchFallback(source: SourceRecord): Promise<string | null> {
       headers: {
         "user-agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+        ...(source.url.includes("api.github.com/")
+          ? {
+              accept: "application/vnd.github+json",
+            }
+          : {}),
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
         accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "upgrade-insecure-requests": "1",
@@ -335,6 +397,11 @@ export async function fetchSourceSnapshot(
     const response = await fetchImpl(source.url, {
       headers: {
         "user-agent": "revenue-os/0.1",
+        ...(source.url.includes("api.github.com/")
+          ? {
+              accept: "application/vnd.github+json",
+            }
+          : {}),
       },
     });
     const raw = await response.text();
@@ -494,22 +561,22 @@ function evaluateAnchorVerification(
     case "anchor-3":
       status =
         containsAny(sourcesText, ["gpt-5.4", "gpt-5.4 pro", "latest: gpt-5.4"]) &&
-        containsAny(sourcesText, ["codex", "cli", "ide", "computer use"])
+        containsAny(sourcesText, ["codex", "cli", "ide", "computer use", "recommended model", "default model"])
         ? "verified"
         : "drifted";
       note =
         status === "verified"
-          ? "Official frontier-model and Codex docs can be represented separately: GPT-5.4 stays the strategic frontier target while OpenClaw provider-model promotion remains a separate runtime-probed fact."
+          ? "Official frontier-model docs, Codex docs, and recent OpenClaw merged changes all support GPT-5.4 as the strategic target while OpenClaw provider-model promotion remains a separate runtime-probed fact."
           : "Current official frontier-model and Codex docs still need a clearer separation from OpenClaw provider-model lag in the repo.";
       break;
     case "anchor-4":
-      status = containsAny(sourcesText, ["openai-codex", "gpt-5.3-codex", "gpt-5.1-codex", "gpt-5-codex"])
+      status = containsAny(sourcesText, ["openai-codex/gpt-5.4", "openai-codex", "gpt-5.4", "gpt-5.4 support", "xhigh"])
         ? "verified"
         : "pending-runtime-check";
       note =
         status === "verified"
-          ? "OpenClaw provider docs still expose Codex-provider example models that can lag the frontier OpenAI model page."
-          : "The provider docs still need a clearer rendered read before restating the exact compatibility fallback assumptions automatically.";
+          ? "OpenClaw docs and merged upstream work support GPT-5.4 on the Codex provider, but a live authenticated runtime probe still matters before treating the deployed route as proven."
+          : "The provider docs and changelog still need a clearer rendered read before restating the exact GPT-5.4 provider route automatically.";
       break;
     case "anchor-5":
       status = containsAny(sourcesText, ["sign in with chatgpt", "chatgpt plan", "chatgpt pro", "chatgpt business"]) && sourcesText.includes("codex")
@@ -668,8 +735,8 @@ ${renderTable(
 
 ## Build implications
 
-- Keep GPT-5.4 as the strategic frontier target for substantive work; official OpenAI Codex docs already support that policy even when OpenClaw provider-model promotion still waits on live gateway proof.
-- Keep OpenClaw provider identifiers behind aliases because public provider docs can lag frontier OpenAI model pages.
+- Keep GPT-5.4 as the routine frontier target and reserve GPT-5.4 Pro for the deepest surfaces that actually expose it.
+- Keep OpenClaw configured for GPT-5.4 and use live gateway proof to confirm the deployed provider route instead of silently downshifting to older families.
 - Treat \`ua-fetch-fallback\` and \`search-backed\` source captures as advisory; they do not replace direct fetch or a real browser-produced artifact.
 - Keep real browser-backed refresh available because some OpenAI pages still return HTTP 403 to plain fetches.
 - Keep Wise and Steel modes runtime-probed; neither surface should be treated as fully live from config strings alone.
@@ -716,19 +783,31 @@ export async function refreshOfficialSources(): Promise<{
     resolveRepoPath("data", "exports", "source-snapshots.json"),
     {},
   );
-  const snapshots = await Promise.all(OFFICIAL_SOURCES.map((source) => fetchSourceSnapshot(source)));
+  const freshSnapshots = await Promise.all(OFFICIAL_SOURCES.map((source) => fetchSourceSnapshot(source)));
+  const effectiveSnapshots: SourceSnapshot[] = [];
   const current: Record<string, SourceSnapshot> = {};
   const changedSources: SourceSnapshot[] = [];
 
-  for (const snapshot of snapshots) {
-    current[snapshot.id] = snapshot;
-    if (previous[snapshot.id]?.hash !== snapshot.hash || previous[snapshot.id]?.method !== snapshot.method) {
-      changedSources.push(snapshot);
+  for (const snapshot of freshSnapshots) {
+    const prior = previous[snapshot.id];
+    const shouldKeepPrior =
+      Boolean(prior) &&
+      snapshotStrength(snapshot.method) < snapshotStrength(prior?.method ?? "manual-unverified") &&
+      (!snapshot.ok || snapshot.method === "manual-unverified");
+
+    const effectiveSnapshot = shouldKeepPrior ? prior! : snapshot;
+    effectiveSnapshots.push(effectiveSnapshot);
+    current[snapshot.id] = effectiveSnapshot;
+    if (
+      previous[snapshot.id]?.hash !== effectiveSnapshot.hash ||
+      previous[snapshot.id]?.method !== effectiveSnapshot.method
+    ) {
+      changedSources.push(effectiveSnapshot);
     }
   }
 
   await writeJsonFile(resolveRepoPath("data", "exports", "source-snapshots.json"), current);
-  return { snapshots, changedSources };
+  return { snapshots: effectiveSnapshots, changedSources };
 }
 
 export async function readRuntimeVerification(): Promise<AnchorVerification[]> {

@@ -28,3 +28,4 @@ browser-profile-exports/
 data/backups/*.enc
 openclaw/**/.env
 openclaw/**/secrets/
+data/generated/

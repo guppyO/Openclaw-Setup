@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-03-07T04:18:34.487Z",
+  "generatedAt": "2026-03-07T06:56:27.501Z",
   "treasury": {
-    "asOf": "2026-03-07T04:18:32.979Z",
+    "asOf": "2026-03-07T06:56:25.911Z",
     "mode": "browser-only",
     "authMode": "browser-only",
     "capabilities": {
@@ -84,7 +84,7 @@
         {
           "source": "internal-asset-reuse",
           "description": "Detected 8 internal skill assets suitable for external packaging.",
-          "capturedAt": "2026-03-07T04:18:28.571Z",
+          "capturedAt": "2026-03-07T06:56:18.276Z",
           "strength": 8.5
         }
       ],
@@ -127,28 +127,28 @@
       "sourceEvidence": [
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-07T04:18:28.571Z",
+          "capturedAt": "2026-03-07T06:56:18.276Z",
           "url": "skills/internal/browser-login-runbook/SKILL.md",
           "note": "Internal skill detected at browser-login-runbook.",
           "method": "internal"
         },
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-07T04:18:28.571Z",
+          "capturedAt": "2026-03-07T06:56:18.276Z",
           "url": "skills/internal/changelog-delta-summarizer/SKILL.md",
           "note": "Internal skill detected at changelog-delta-summarizer.",
           "method": "internal"
         },
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-07T04:18:28.571Z",
+          "capturedAt": "2026-03-07T06:56:18.276Z",
           "url": "skills/internal/initiative-bootstrapper/SKILL.md",
           "note": "Internal skill detected at initiative-bootstrapper.",
           "method": "internal"
         },
         {
           "sourceId": "internal-skill-reuse",
-          "capturedAt": "2026-03-07T04:18:28.571Z",
+          "capturedAt": "2026-03-07T06:56:18.276Z",
           "url": "skills/internal/landing-page-launcher/SKILL.md",
           "note": "Internal skill detected at landing-page-launcher.",
           "method": "internal"
@@ -186,13 +186,13 @@
         {
           "source": "service-business pain",
           "description": "Manual ops and quoting friction remain common in local businesses.",
-          "capturedAt": "2026-03-07T04:18:32.969Z",
+          "capturedAt": "2026-03-07T06:56:25.901Z",
           "strength": 7.8
         },
         {
           "source": "AI adoption",
           "description": "Businesses want AI help but need bounded and accountable delivery.",
-          "capturedAt": "2026-03-07T04:18:32.969Z",
+          "capturedAt": "2026-03-07T06:56:25.901Z",
           "strength": 8.2
         }
       ],
@@ -236,7 +236,7 @@
       "sourceEvidence": [
         {
           "sourceId": "seed-catalog",
-          "capturedAt": "2026-03-07T04:18:32.969Z",
+          "capturedAt": "2026-03-07T06:56:25.901Z",
           "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
           "method": "seeded"
         }
@@ -273,7 +273,7 @@
         {
           "source": "GitHub repositories: lead systems and SEO tooling",
           "description": "⚡ Open source lead generation & marketing automation. Google Maps scraper + AI-powered email/WhatsApp templates. Perfect for SMEs & agencies. (61 GitHub stars).",
-          "capturedAt": "2026-03-07T04:18:29.332Z",
+          "capturedAt": "2026-03-07T06:56:18.910Z",
           "strength": 8.1,
           "url": "https://github.com/asiifdev/business-leads-ai-automation"
         }
@@ -355,13 +355,13 @@
         {
           "source": "creator economy",
           "description": "Templates and automation kits remain attractive for buyers wanting fast implementation.",
-          "capturedAt": "2026-03-07T04:18:32.969Z",
+          "capturedAt": "2026-03-07T06:56:25.901Z",
           "strength": 7.4
         },
         {
           "source": "distribution leverage",
           "description": "Marketplace demand can shorten time to first sale if listing quality is high.",
-          "capturedAt": "2026-03-07T04:18:32.969Z",
+          "capturedAt": "2026-03-07T06:56:25.901Z",
           "strength": 7.1
         }
       ],
@@ -403,7 +403,7 @@
       "sourceEvidence": [
         {
           "sourceId": "seed-catalog",
-          "capturedAt": "2026-03-07T04:18:32.969Z",
+          "capturedAt": "2026-03-07T06:56:25.901Z",
           "note": "Bootstrap fallback opportunity seeded from the repo lane catalog.",
           "method": "seeded"
         }
@@ -440,7 +440,7 @@
         {
           "source": "GitHub repositories: automation templates",
           "description": "A free social media automation platform that organically grows your online presence and gets you more followers. (46 GitHub stars).",
-          "capturedAt": "2026-03-07T04:18:28.937Z",
+          "capturedAt": "2026-03-07T06:56:18.547Z",
           "strength": 8,
           "url": "https://github.com/somiibo/somiibo-microservice-template"
         }
@@ -539,7 +539,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-14T04:18:32.970Z",
+      "reviewDate": "2026-03-14T06:56:25.901Z",
       "nextActions": [
         {
           "id": "discovered-internal-skill-packs-offer",
@@ -548,7 +548,7 @@
           "initiativeId": "discovered-internal-skill-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 100,
-          "dueAt": "2026-03-07T06:18:32.970Z",
+          "dueAt": "2026-03-07T08:56:25.901Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -558,7 +558,7 @@
           "initiativeId": "discovered-internal-skill-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 92,
-          "dueAt": "2026-03-07T10:18:32.970Z",
+          "dueAt": "2026-03-07T12:56:25.901Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -568,7 +568,7 @@
           "initiativeId": "discovered-internal-skill-packs",
           "reason": "distribution-bottleneck",
           "priority": 88,
-          "dueAt": "2026-03-07T16:18:32.970Z",
+          "dueAt": "2026-03-07T18:56:25.901Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -598,7 +598,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-16T04:18:32.970Z",
+      "reviewDate": "2026-03-16T06:56:25.901Z",
       "nextActions": [
         {
           "id": "ops-audit-packs-offer",
@@ -607,7 +607,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 99,
-          "dueAt": "2026-03-07T06:18:32.970Z",
+          "dueAt": "2026-03-07T08:56:25.901Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -617,7 +617,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 91,
-          "dueAt": "2026-03-07T10:18:32.970Z",
+          "dueAt": "2026-03-07T12:56:25.901Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -627,7 +627,7 @@
           "initiativeId": "ops-audit-packs",
           "reason": "distribution-bottleneck",
           "priority": 87,
-          "dueAt": "2026-03-07T16:18:32.970Z",
+          "dueAt": "2026-03-07T18:56:25.901Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -657,7 +657,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-18T04:18:32.970Z",
+      "reviewDate": "2026-03-18T06:56:25.901Z",
       "nextActions": [
         {
           "id": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation-offer",
@@ -666,7 +666,7 @@
           "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
           "reason": "highest-ev-open-experiment",
           "priority": 98,
-          "dueAt": "2026-03-07T06:18:32.970Z",
+          "dueAt": "2026-03-07T08:56:25.901Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -676,7 +676,7 @@
           "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
           "reason": "highest-priority-product-backlog",
           "priority": 90,
-          "dueAt": "2026-03-07T10:18:32.970Z",
+          "dueAt": "2026-03-07T12:56:25.901Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -686,7 +686,7 @@
           "initiativeId": "discovered-github-lead-systems-asiifdev-business-leads-ai-automation",
           "reason": "distribution-bottleneck",
           "priority": 86,
-          "dueAt": "2026-03-07T16:18:32.970Z",
+          "dueAt": "2026-03-07T18:56:25.901Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -716,7 +716,7 @@
       ],
       "killThreshold": "Kill if no meaningful traction signal appears before 60% of budget cap is consumed.",
       "compoundThreshold": "Compound if initial payback is visible and distribution can be expanded without sharply raising CAC.",
-      "reviewDate": "2026-03-20T04:18:32.970Z",
+      "reviewDate": "2026-03-20T06:56:25.901Z",
       "nextActions": [
         {
           "id": "marketplace-automation-packs-offer",
@@ -725,7 +725,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-ev-open-experiment",
           "priority": 97,
-          "dueAt": "2026-03-07T06:18:32.970Z",
+          "dueAt": "2026-03-07T08:56:25.901Z",
           "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
         },
         {
@@ -735,7 +735,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "highest-priority-product-backlog",
           "priority": 89,
-          "dueAt": "2026-03-07T10:18:32.970Z",
+          "dueAt": "2026-03-07T12:56:25.901Z",
           "notes": "Ship a landing page, support docs, and measurement hooks."
         },
         {
@@ -745,7 +745,7 @@
           "initiativeId": "marketplace-automation-packs",
           "reason": "distribution-bottleneck",
           "priority": 85,
-          "dueAt": "2026-03-07T16:18:32.970Z",
+          "dueAt": "2026-03-07T18:56:25.901Z",
           "notes": "Set the initial channel mix and evidence capture for first traffic."
         }
       ]
@@ -759,7 +759,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-07T06:18:32.970Z",
+      "dueAt": "2026-03-07T08:56:25.901Z",
       "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     {
@@ -769,7 +769,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "distribution-bottleneck",
       "priority": 88,
-      "dueAt": "2026-03-07T16:18:32.970Z",
+      "dueAt": "2026-03-07T18:56:25.901Z",
       "notes": "Set the initial channel mix and evidence capture for first traffic."
     },
     {
@@ -779,7 +779,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "new-opportunity-research",
       "priority": 84,
-      "dueAt": "2026-03-07T22:18:32.970Z",
+      "dueAt": "2026-03-08T00:56:25.901Z",
       "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
     },
     {
@@ -789,7 +789,7 @@
       "initiativeId": "skill-pipeline",
       "reason": "skill-gap-reduction",
       "priority": 74,
-      "dueAt": "2026-03-08T00:18:32.970Z",
+      "dueAt": "2026-03-08T02:56:25.901Z",
       "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
     },
     {
@@ -799,7 +799,7 @@
       "initiativeId": "update-steward",
       "reason": "changelog-adaptation",
       "priority": 68,
-      "dueAt": "2026-03-08T04:18:32.970Z",
+      "dueAt": "2026-03-08T06:56:25.901Z",
       "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
     },
     {
@@ -809,7 +809,7 @@
       "initiativeId": "memory-maintenance",
       "reason": "documentation-and-memory",
       "priority": 52,
-      "dueAt": "2026-03-08T10:18:32.970Z",
+      "dueAt": "2026-03-08T12:56:25.901Z",
       "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
     },
     {
@@ -819,12 +819,12 @@
       "initiativeId": "resilience",
       "reason": "resilience-work",
       "priority": 48,
-      "dueAt": "2026-03-08T16:18:32.970Z",
+      "dueAt": "2026-03-08T18:56:25.901Z",
       "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
     }
   ],
   "dispatch": {
-    "generatedAt": "2026-03-07T04:18:32.978Z",
+    "generatedAt": "2026-03-07T06:56:25.909Z",
     "queue": [
       {
         "id": "discovered-internal-skill-packs-offer",
@@ -833,7 +833,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-07T06:18:32.970Z",
+        "dueAt": "2026-03-07T08:56:25.901Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -843,7 +843,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-07T16:18:32.970Z",
+        "dueAt": "2026-03-07T18:56:25.901Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       },
       {
@@ -853,7 +853,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "new-opportunity-research",
         "priority": 84,
-        "dueAt": "2026-03-07T22:18:32.970Z",
+        "dueAt": "2026-03-08T00:56:25.901Z",
         "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
       },
       {
@@ -863,7 +863,7 @@
         "initiativeId": "skill-pipeline",
         "reason": "skill-gap-reduction",
         "priority": 74,
-        "dueAt": "2026-03-08T00:18:32.970Z",
+        "dueAt": "2026-03-08T02:56:25.901Z",
         "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
       },
       {
@@ -873,7 +873,7 @@
         "initiativeId": "update-steward",
         "reason": "changelog-adaptation",
         "priority": 68,
-        "dueAt": "2026-03-08T04:18:32.970Z",
+        "dueAt": "2026-03-08T06:56:25.901Z",
         "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
       },
       {
@@ -883,7 +883,7 @@
         "initiativeId": "memory-maintenance",
         "reason": "documentation-and-memory",
         "priority": 52,
-        "dueAt": "2026-03-08T10:18:32.970Z",
+        "dueAt": "2026-03-08T12:56:25.901Z",
         "notes": "Summarize live working context into initiative docs so the next run starts from compact files, not bloated sessions."
       },
       {
@@ -893,7 +893,7 @@
         "initiativeId": "resilience",
         "reason": "resilience-work",
         "priority": 48,
-        "dueAt": "2026-03-08T16:18:32.970Z",
+        "dueAt": "2026-03-08T18:56:25.901Z",
         "notes": "Verify backup rotation and the local dashboard/smoke path before the next promotion window."
       }
     ],
@@ -905,7 +905,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "highest-ev-open-experiment",
         "priority": 100,
-        "dueAt": "2026-03-07T06:18:32.970Z",
+        "dueAt": "2026-03-07T08:56:25.901Z",
         "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
       },
       {
@@ -915,7 +915,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-07T16:18:32.970Z",
+        "dueAt": "2026-03-07T18:56:25.901Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       },
       {
@@ -925,7 +925,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "new-opportunity-research",
         "priority": 84,
-        "dueAt": "2026-03-07T22:18:32.970Z",
+        "dueAt": "2026-03-08T00:56:25.901Z",
         "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
       },
       {
@@ -935,7 +935,7 @@
         "initiativeId": "skill-pipeline",
         "reason": "skill-gap-reduction",
         "priority": 74,
-        "dueAt": "2026-03-08T00:18:32.970Z",
+        "dueAt": "2026-03-08T02:56:25.901Z",
         "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
       },
       {
@@ -945,7 +945,7 @@
         "initiativeId": "update-steward",
         "reason": "changelog-adaptation",
         "priority": 68,
-        "dueAt": "2026-03-08T04:18:32.970Z",
+        "dueAt": "2026-03-08T06:56:25.901Z",
         "notes": "Generate a new source snapshot and classify any model, auth, or gateway compatibility drift."
       }
     ],
@@ -956,7 +956,7 @@
       "initiativeId": "discovered-internal-skill-packs",
       "reason": "highest-ev-open-experiment",
       "priority": 100,
-      "dueAt": "2026-03-07T06:18:32.970Z",
+      "dueAt": "2026-03-07T08:56:25.901Z",
       "notes": "Lock the smallest revenue-bearing offer, budget cap, and kill criteria."
     },
     "immediateContinuations": [
@@ -967,7 +967,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "distribution-bottleneck",
         "priority": 88,
-        "dueAt": "2026-03-07T16:18:32.970Z",
+        "dueAt": "2026-03-07T18:56:25.901Z",
         "notes": "Set the initial channel mix and evidence capture for first traffic."
       },
       {
@@ -977,7 +977,7 @@
         "initiativeId": "discovered-internal-skill-packs",
         "reason": "new-opportunity-research",
         "priority": 84,
-        "dueAt": "2026-03-07T22:18:32.970Z",
+        "dueAt": "2026-03-08T00:56:25.901Z",
         "notes": "Find adjacent personas, offer variants, and distribution channels without widening scope beyond the current experiment envelope."
       },
       {
@@ -987,7 +987,7 @@
         "initiativeId": "skill-pipeline",
         "reason": "skill-gap-reduction",
         "priority": 74,
-        "dueAt": "2026-03-08T00:18:32.970Z",
+        "dueAt": "2026-03-08T02:56:25.901Z",
         "notes": "Convert a repeated workflow into a tested internal skill or reject the candidate with a reason."
       }
     ],
@@ -997,40 +997,40 @@
         "owner": "ceo",
         "initiativeId": "discovered-internal-skill-packs",
         "title": "Define the first bounded offer for Externalize internal workflow assets as paid automation packs",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "discovered-internal-skill-packs-distribution",
         "owner": "distribution",
         "initiativeId": "discovered-internal-skill-packs",
         "title": "Remove the first distribution bottleneck for Externalize internal workflow assets as paid automation packs",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "changelog-adaptation",
         "owner": "ops",
         "initiativeId": "update-steward",
         "title": "Refresh official-source deltas and compare stage vs prod assumptions",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "discovered-internal-skill-packs-research",
         "owner": "research",
         "initiativeId": "discovered-internal-skill-packs",
         "title": "Expand demand proof and adjacent niches for Externalize internal workflow assets as paid automation packs",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "skill-gap-reduction",
         "owner": "skillsmith",
         "initiativeId": "skill-pipeline",
         "title": "Promote the highest-leverage internal skill candidate",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       }
     ],
     "completedTaskIds": [],
@@ -1039,42 +1039,42 @@
       {
         "taskId": "discovered-internal-skill-packs-offer",
         "owner": "ceo",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "discovered-internal-skill-packs-distribution",
         "owner": "distribution",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "discovered-internal-skill-packs-research",
         "owner": "research",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "skill-gap-reduction",
         "owner": "skillsmith",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       },
       {
         "taskId": "changelog-adaptation",
         "owner": "ops",
-        "acquiredAt": "2026-03-07T04:18:32.971Z",
-        "expiresAt": "2026-03-07T04:33:32.971Z"
+        "acquiredAt": "2026-03-07T06:56:25.903Z",
+        "expiresAt": "2026-03-07T07:11:25.903Z"
       }
     ],
     "agentConcurrencyLimits": {
       "ceo": 1,
-      "research": 1,
-      "builder": 1,
-      "distribution": 1,
+      "research": 2,
+      "builder": 2,
+      "distribution": 2,
       "treasury": 1,
-      "skillsmith": 1,
-      "ops": 2
+      "skillsmith": 2,
+      "ops": 3
     },
     "recoveryActions": [],
     "cadence": {
@@ -1084,12 +1084,12 @@
     },
     "usagePolicy": {
       "strategicModel": "gpt-5.4",
-      "openClawModel": "openai-codex/gpt-5.3-codex",
+      "openClawModel": "openai-codex/gpt-5.4",
       "compactionRequired": true
     }
   },
   "browser": {
-    "generatedAt": "2026-03-07T04:18:34.466Z",
+    "generatedAt": "2026-03-07T06:56:27.473Z",
     "capabilities": {
       "managedBrowser": true,
       "attachedChrome": false,
@@ -1217,16 +1217,19 @@
     "activeSessions": 0
   },
   "modelPolicy": {
-    "detectedAt": "2026-03-07T04:18:30.709Z",
+    "detectedAt": "2026-03-07T06:56:11.640Z",
     "probeMode": "passive",
     "provisional": false,
     "codexCliInstalled": true,
-    "openclawInstalled": false,
+    "openclawInstalled": true,
     "strategicTarget": "gpt-5.4",
-    "officialFrontierModel": "gpt-5.4",
+    "deepThinkingTarget": "gpt-5.4-pro",
+    "officialFrontierModel": "gpt-5.4-pro",
+    "officialGeneralModel": "gpt-5.4",
     "officialCodexDocsStatus": "verified",
-    "openClawPrimary": "openai-codex/gpt-5.3-codex",
-    "openClawFallback": "openai-codex/gpt-5-codex",
+    "openClawPrimary": "openai-codex/gpt-5.4",
+    "openClawDeep": "openai-codex/gpt-5.4-pro",
+    "openClawFallback": "openai-codex/gpt-5.4",
     "openClawProbeSource": "docs-only",
     "openClawVerifiedCandidates": [],
     "aliases": [
@@ -1237,7 +1240,16 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
+      },
+      {
+        "alias": "model.frontier_deep",
+        "strategicTarget": "gpt-5.4-pro",
+        "resolvedModel": "gpt-5.4-pro",
+        "reasoning": "xhigh",
+        "surface": "codex-cli",
+        "status": "candidate",
+        "note": "GPT-5.4 Pro is preferred for the hardest reasoning work where a local surface exposes it; otherwise stay within GPT-5.4 and elevate reasoning effort to xhigh."
       },
       {
         "alias": "model.frontier_browser",
@@ -1246,16 +1258,16 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
       },
       {
         "alias": "model.frontier_research",
-        "strategicTarget": "gpt-5.4",
-        "resolvedModel": "gpt-5.4",
+        "strategicTarget": "gpt-5.4-pro",
+        "resolvedModel": "gpt-5.4-pro",
         "reasoning": "xhigh",
         "surface": "codex-cli",
-        "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+        "status": "candidate",
+        "note": "GPT-5.4 Pro is preferred for the hardest reasoning work where a local surface exposes it; otherwise stay within GPT-5.4 and elevate reasoning effort to xhigh."
       },
       {
         "alias": "model.frontier_build",
@@ -1264,20 +1276,29 @@
         "reasoning": "high",
         "surface": "codex-cli",
         "status": "preferred",
-        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work in line with current official Codex guidance."
+        "note": "Codex CLI is available on this host, so GPT-5.4 remains the preferred route for substantive work."
       },
       {
         "alias": "openclaw.model.primary_frontier",
         "strategicTarget": "gpt-5.4",
-        "resolvedModel": "openai-codex/gpt-5.3-codex",
+        "resolvedModel": "openai-codex/gpt-5.4",
         "reasoning": "high",
         "surface": "source-fallback",
-        "status": "docs-only",
-        "note": "OpenClaw provider docs still publicly center GPT-5.3-Codex examples, so the gateway stays on the strongest documented fallback until runtime proves GPT-5.4 support."
+        "status": "candidate",
+        "note": "Current OpenClaw docs and merged upstream work point to GPT-5.4 for routine OpenClaw work and GPT-5.4 Pro for the deepest control-plane tasks, so the repo stays within the GPT-5.4 family and requires live runtime confirmation instead of silent downshifts."
+      },
+      {
+        "alias": "openclaw.model.frontier_deep",
+        "strategicTarget": "gpt-5.4-pro",
+        "resolvedModel": "openai-codex/gpt-5.4-pro",
+        "reasoning": "xhigh",
+        "surface": "source-fallback",
+        "status": "candidate",
+        "note": "Current OpenClaw docs and merged upstream work point to GPT-5.4 for routine OpenClaw work and GPT-5.4 Pro for the deepest control-plane tasks, so the repo stays within the GPT-5.4 family and requires live runtime confirmation instead of silent downshifts. Prefer the GPT-5.4 Pro provider route for the deepest control-plane work and fail fast instead of downshifting outside the GPT-5.4 family."
       }
     ],
     "drift": [
-      "OpenClaw is not installed on this host, so provider-model support is inferred from official docs instead of a live gateway probe."
+      "OpenClaw is installed, but only passive evidence is available on this host; run an active gateway probe after auth to confirm GPT-5.4 provider routing."
     ]
   },
   "skillCandidates": [
@@ -1287,7 +1308,7 @@
       "source": "nkchivas/openclaw-skill-find-skills",
       "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-07T04:18:32.979Z",
+      "discoveredAt": "2026-03-07T06:56:25.911Z",
       "discoveryMode": "github",
       "rationale": "Explicit operator request and likely leverage for discovery loops.",
       "provenance": "Seeded from the operator brief. Resolved to GitHub repository nkchivas/openclaw-skill-find-skills.",
@@ -1306,7 +1327,7 @@
       "source": "vyakimov/clawddocs-claude-code-skill",
       "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-07T04:18:33.362Z",
+      "discoveredAt": "2026-03-07T06:56:26.317Z",
       "discoveryMode": "github",
       "rationale": "Could improve documentation retrieval and OpenClaw adaptation speed.",
       "provenance": "Seeded from the operator brief. Resolved to GitHub repository vyakimov/clawddocs-claude-code-skill.",
@@ -1325,7 +1346,7 @@
       "source": "Local Codex system skill",
       "sourceType": "built-in",
       "stage": "prod",
-      "discoveredAt": "2026-03-07T04:18:33.719Z",
+      "discoveredAt": "2026-03-07T06:56:26.668Z",
       "discoveryMode": "workspace",
       "rationale": "Required for internal skill creation workflow.",
       "provenance": "Local Codex system skill present in this session.",
@@ -1342,7 +1363,7 @@
       "source": "nkchivas/openclaw-skill-proactive-agent",
       "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-07T04:18:33.719Z",
+      "discoveredAt": "2026-03-07T06:56:26.668Z",
       "discoveryMode": "github",
       "rationale": "Maps directly to always-on autonomy patterns but must be supply-chain vetted.",
       "provenance": "Seeded from the operator brief. Resolved to GitHub repository nkchivas/openclaw-skill-proactive-agent.",
@@ -1361,7 +1382,7 @@
       "source": "yanhongxi-openclaw/proactive-self-improving-agent",
       "sourceType": "github",
       "stage": "quarantine",
-      "discoveredAt": "2026-03-07T04:18:34.056Z",
+      "discoveredAt": "2026-03-07T06:56:27.015Z",
       "discoveryMode": "github",
       "rationale": "Maps directly to the self-improvement objective.",
       "provenance": "Seeded from the operator brief. Resolved to GitHub repository yanhongxi-openclaw/proactive-self-improving-agent.",
@@ -1380,7 +1401,7 @@
       "source": "Workspace internal skill",
       "sourceType": "workspace",
       "stage": "prod",
-      "discoveredAt": "2026-03-07T04:18:34.466Z",
+      "discoveredAt": "2026-03-07T06:56:27.473Z",
       "discoveryMode": "workspace",
       "sourceUrl": "skills/internal/browser-login-runbook/SKILL.md",
       "rationale": "Internal skill already present in the workspace and available for reuse.",
@@ -1399,7 +1420,7 @@
       "source": "Workspace internal skill",
       "sourceType": "workspace",
       "stage": "prod",
-      "discoveredAt": "2026-03-07T04:18:34.466Z",
+      "discoveredAt": "2026-03-07T06:56:27.473Z",
       "discoveryMode": "workspace",
       "sourceUrl": "skills/internal/changelog-delta-summarizer/SKILL.md",
       "rationale": "Internal skill already present in the workspace and available for reuse.",
@@ -1418,7 +1439,7 @@
       "source": "Workspace internal skill",
       "sourceType": "workspace",
       "stage": "prod",
-      "discoveredAt": "2026-03-07T04:18:34.466Z",
+      "discoveredAt": "2026-03-07T06:56:27.473Z",
       "discoveryMode": "workspace",
       "sourceUrl": "skills/internal/initiative-bootstrapper/SKILL.md",
       "rationale": "Internal skill already present in the workspace and available for reuse.",
@@ -1436,9 +1457,9 @@
     {
       "id": "anchor-1",
       "anchor": "ChatGPT Pro and Business frame GPT access in ChatGPT as unlimited or effectively unlimited, subject to guardrails.",
-      "status": "pending-runtime-check",
-      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-pro-plan:ua-fetch-fallback, openai-business-limits:ua-fetch-fallback.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "status": "verified",
+      "note": "Official plan docs still frame GPT access in ChatGPT as unlimited or effectively unlimited subject to guardrails. Methods: openai-pro-plan:direct-fetch, openai-business-limits:direct-fetch.",
+      "checkedAt": "2026-03-07T06:56:27.499Z",
       "sourceIds": [
         "openai-pro-plan",
         "openai-business-limits"
@@ -1449,7 +1470,7 @@
       "anchor": "GPT-5.4 Pro remains the frontier OpenAI model page with a 1,050,000 token context window claim.",
       "status": "verified",
       "note": "The latest frontier model page still documents GPT-5.4 Pro and the 1.05M context window. Methods: openai-gpt-5.4-model:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.499Z",
       "sourceIds": [
         "openai-gpt-5.4-model"
       ]
@@ -1458,30 +1479,34 @@
       "id": "anchor-3",
       "anchor": "This repo should keep GPT-5.4 as the strategic frontier target while treating Codex-surface defaults as a separately verified runtime fact.",
       "status": "verified",
-      "note": "Official frontier-model and Codex docs can be represented separately: GPT-5.4 stays the strategic frontier target while OpenClaw provider-model promotion remains a separate runtime-probed fact. Methods: openai-gpt-5.4-model:direct-fetch, openai-codex-upgrades:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "note": "Official frontier-model docs, Codex docs, and recent OpenClaw merged changes all support GPT-5.4 as the strategic target while OpenClaw provider-model promotion remains a separate runtime-probed fact. Methods: openai-gpt-5.4-model:direct-fetch, openai-codex-upgrades:direct-fetch, openclaw-changelog:direct-fetch, openclaw-pr-36905:direct-fetch.",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openai-gpt-5.4-model",
-        "openai-codex-upgrades"
+        "openai-codex-upgrades",
+        "openclaw-changelog",
+        "openclaw-pr-36905"
       ]
     },
     {
       "id": "anchor-4",
-      "anchor": "OpenClaw provider examples can lag the frontier model naming, so provider-model promotion must be runtime-probed.",
+      "anchor": "OpenClaw GPT-5.4 provider support should be preferred today, while provider-model promotion still benefits from a live authenticated runtime probe.",
       "status": "verified",
-      "note": "OpenClaw provider docs still expose Codex-provider example models that can lag the frontier OpenAI model page. Methods: openclaw-model-providers:direct-fetch, openai-gpt-5.4-model:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "note": "OpenClaw docs and merged upstream work support GPT-5.4 on the Codex provider, but a live authenticated runtime probe still matters before treating the deployed route as proven. Methods: openclaw-model-providers:direct-fetch, openclaw-changelog:direct-fetch, openclaw-pr-36590:direct-fetch, openclaw-pr-36929:direct-fetch.",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openclaw-model-providers",
-        "openai-gpt-5.4-model"
+        "openclaw-changelog",
+        "openclaw-pr-36590",
+        "openclaw-pr-36929"
       ]
     },
     {
       "id": "anchor-5",
       "anchor": "Codex supports ChatGPT sign-in and plan-based access.",
-      "status": "pending-runtime-check",
-      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback, openai-codex-upgrades:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "status": "verified",
+      "note": "Current Codex docs still support ChatGPT sign-in and plan-based access. Methods: openai-codex-plan:direct-fetch, openai-codex-upgrades:direct-fetch.",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openai-codex-plan",
         "openai-codex-upgrades"
@@ -1490,9 +1515,9 @@
     {
       "id": "anchor-6",
       "anchor": "Codex plan usage windows are separate from ChatGPT chat usage and require pacing discipline.",
-      "status": "pending-runtime-check",
-      "note": "One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "status": "verified",
+      "note": "The current Codex plan article still documents separate usage windows that require pacing discipline. Methods: openai-codex-plan:direct-fetch.",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openai-codex-plan"
       ]
@@ -1502,7 +1527,7 @@
       "anchor": "OpenClaw officially supports Codex OAuth or ChatGPT sign-in for external workflows.",
       "status": "verified",
       "note": "OpenClaw provider docs still explicitly document OpenAI Codex OAuth support. Methods: openclaw-model-providers:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openclaw-model-providers"
       ]
@@ -1512,7 +1537,7 @@
       "anchor": "OpenClaw recommends Node for stable gateways and does not recommend Bun for gateway installs.",
       "status": "verified",
       "note": "The current OpenClaw CLI docs still prefer Node and warn against Bun for stable gateways. Methods: openclaw-cli:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openclaw-cli"
       ]
@@ -1522,7 +1547,7 @@
       "anchor": "The strongest always-on OpenClaw pattern is one primary loopback-bound gateway with secure remote access and remote nodes where needed.",
       "status": "verified",
       "note": "OpenClaw docs still recommend one primary gateway with secure remote access and remote nodes where needed. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-remote-access:direct-fetch, openclaw-nodes:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openclaw-multiple-gateways",
         "openclaw-remote-access",
@@ -1534,7 +1559,7 @@
       "anchor": "Cron and heartbeat serve different purposes and should be combined with explicit wake or continuation flows.",
       "status": "verified",
       "note": "The latest automation docs still distinguish cron from heartbeat and support wake-style continuation flows. Methods: openclaw-cron-vs-heartbeat:direct-fetch, openclaw-nodes:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openclaw-cron-vs-heartbeat",
         "openclaw-nodes"
@@ -1545,7 +1570,7 @@
       "anchor": "OpenClaw memory is Markdown-first, and Codex OAuth does not satisfy embeddings for memory search.",
       "status": "verified",
       "note": "The latest memory docs still show Markdown-first memory and separate embedding requirements. Methods: openclaw-memory:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openclaw-memory"
       ]
@@ -1555,7 +1580,7 @@
       "anchor": "OpenClaw supports QMD and local-first memory search backends.",
       "status": "verified",
       "note": "The memory docs still advertise QMD and local-first search options. Methods: openclaw-memory:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.500Z",
       "sourceIds": [
         "openclaw-memory"
       ]
@@ -1565,7 +1590,7 @@
       "anchor": "OpenClaw skills, plugins, and skill folders are supply-chain risk and must be treated as trusted or untrusted code accordingly.",
       "status": "verified",
       "note": "OpenClaw security guidance still treats skills and plugins as trusted-code or supply-chain risk surfaces. Methods: openclaw-security:direct-fetch, openclaw-secrets:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.486Z",
+      "checkedAt": "2026-03-07T06:56:27.501Z",
       "sourceIds": [
         "openclaw-security",
         "openclaw-secrets"
@@ -1576,7 +1601,7 @@
       "anchor": "OpenClaw current docs expose strict config requirements, additive SecretRefs, and a first-class PDF tool.",
       "status": "verified",
       "note": "Current OpenClaw docs still expose config requirements, broader secret coverage, and PDF tooling. Methods: openclaw-configuration:direct-fetch, openclaw-secrets:direct-fetch, openclaw-pdf:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.487Z",
+      "checkedAt": "2026-03-07T06:56:27.501Z",
       "sourceIds": [
         "openclaw-configuration",
         "openclaw-secrets",
@@ -1588,7 +1613,7 @@
       "anchor": "OpenClaw can use a managed browser, attached Chrome relay, and remote nodes; headless mode can trigger more anti-bot friction.",
       "status": "verified",
       "note": "The browser docs still cover managed browsing, attached Chrome, remote nodes, and headless tradeoffs. Methods: openclaw-browser:direct-fetch, openclaw-browser-login:direct-fetch, openclaw-nodes:direct-fetch, openclaw-faq:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.487Z",
+      "checkedAt": "2026-03-07T06:56:27.501Z",
       "sourceIds": [
         "openclaw-browser",
         "openclaw-browser-login",
@@ -1601,7 +1626,7 @@
       "anchor": "Automated self-update is possible but not the primary recommended operating pattern.",
       "status": "verified",
       "note": "The current FAQ still treats self-update as possible but not the preferred operating pattern. Methods: openclaw-faq:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.487Z",
+      "checkedAt": "2026-03-07T06:56:27.501Z",
       "sourceIds": [
         "openclaw-faq"
       ]
@@ -1611,7 +1636,7 @@
       "anchor": "Wise personal tokens and OAuth 2.0 support different automation realities, and EU or UK PSD2 rules constrain some personal-token actions.",
       "status": "verified",
       "note": "Current Wise docs still separate personal-token and OAuth realities and preserve PSD2 constraints. Methods: wise-security-access:direct-fetch, wise-personal-tokens:direct-fetch, wise-getting-started:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.487Z",
+      "checkedAt": "2026-03-07T06:56:27.501Z",
       "sourceIds": [
         "wise-security-access",
         "wise-personal-tokens",
@@ -1623,7 +1648,7 @@
       "anchor": "Steel Cloud and Steel Local differ materially; auth-sensitive credential injection is not a safe assumption in Steel Local.",
       "status": "verified",
       "note": "Current Steel docs still distinguish Cloud from Local and separate credential or profile capabilities accordingly. Methods: steel-sessions-overview:direct-fetch, steel-profiles:direct-fetch, steel-credentials:direct-fetch, steel-local-vs-cloud:direct-fetch.",
-      "checkedAt": "2026-03-07T04:18:34.487Z",
+      "checkedAt": "2026-03-07T06:56:27.501Z",
       "sourceIds": [
         "steel-sessions-overview",
         "steel-profiles",
@@ -1685,11 +1710,13 @@
   ],
   "notes": [
     "Use prod only after stage smoke, source refresh, treasury probe, and browser broker checks all pass.",
-    "Keep GPT-5.4 as the strategic model target, while separating official frontier-model truth, Codex-surface docs, and live OpenClaw provider proof.",
+    "Keep GPT-5.4 as the routine strategic model target and use GPT-5.4 Pro on the deepest available surfaces instead of downshifting to older model families.",
     "The dispatcher should continue work immediately after task completion and keep multiple specialists occupied when ready work exists.",
-    "Treasury truth is unknown cash with unavailable ledger coverage."
+    "Treasury truth is unknown cash with unavailable ledger coverage.",
+    "Managed credential entries: 3."
   ],
   "blockers": [
+    "Root-account password rotation is still pending. Apply the generated unique replacements externally, then rerun secret bootstrap.",
     "Attached Chrome relay is not yet paired on the Windows browser host.",
     "Steel is not fully configured for session automation yet.",
     "One or more browser routes are intentionally blocked because no safe high-trust lane is ready."

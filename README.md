@@ -4,9 +4,10 @@ A live-upgraded autonomous revenue operating system built around OpenClaw, Codex
 
 ## What is in the repo
 
-- GPT-5.4-first runtime policy with a truthful distinction between strategic target, verified local route, verified OpenClaw route, and docs-only fallback.
+- GPT-5.4 and GPT-5.4 Pro runtime policy with a clear split between routine `high` reasoning, deep `xhigh` reasoning, and the live OpenClaw provider route.
 - Continuous dispatch with parallel specialist assignments, a recovery sweep, `runtime:complete-task`, and `runtime:run-task` so tracked work can wake the live gateway immediately instead of waiting for the next sweep.
 - Browser routing across OpenClaw managed browsing, attached Chrome plus a Windows node host, and Steel with explicit cloud versus self-hosted semantics and blocked high-trust fallbacks.
+- Managed credential generation for future third-party accounts so the company can keep one email identity while avoiding password reuse.
 - Treasury state that distinguishes sample, browser-only, API, and hybrid modes, plus cash-truth and ledger-completeness status.
 - Opportunity ingest that mixes live feed discovery, GitHub demand signals, internal asset reuse, pinned opportunities, and seeded fallback lanes.
 - Skill discovery that resolves real GitHub commit pins when possible and keeps unresolved third-party candidates in quarantine instead of faking artifact pins.
@@ -18,6 +19,7 @@ A live-upgraded autonomous revenue operating system built around OpenClaw, Codex
 - Authoritative bring-up flow: [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md)
 - Browser lanes: [docs/browser-topology.md](./docs/browser-topology.md)
 - Secrets and token handling: [docs/secrets-handling.md](./docs/secrets-handling.md)
+- Managed credential registry: [docs/credential-registry.md](./docs/credential-registry.md)
 - Dispatch model: [docs/continuous-dispatch.md](./docs/continuous-dispatch.md)
 
 Archived planning and older audit-fix notes now live under [docs/archive](./docs/archive). They are retained for history, not as the live operating contract.

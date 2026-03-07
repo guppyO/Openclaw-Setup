@@ -4,6 +4,7 @@ import type {
   AgentStatus,
   AnchorVerification,
   BrowserBrokerState,
+  CredentialRegistryState,
   DashboardState,
   DispatchState,
   Experiment,
@@ -49,6 +50,15 @@ export async function buildDashboardState(): Promise<DashboardState> {
     resolveRepoPath("data", "exports", "skill-candidates.json"),
     [],
   );
+  const credentialRegistry = await readJsonFile<CredentialRegistryState>(
+    resolveRepoPath("data", "exports", "credential-registry.json"),
+    {
+      generatedAt: new Date(0).toISOString(),
+      storageRef: ".secrets/generated-service-credentials.env",
+      warnings: [],
+      entries: [],
+    },
+  );
   const dispatchFromDisk = await readJsonFile<DispatchState>(
     resolveRepoPath("data", "exports", "dispatch-state.json"),
     buildDispatchState({ opportunities, experiments, queue, modelProbe: modelPolicy }),
@@ -85,11 +95,15 @@ export async function buildDashboardState(): Promise<DashboardState> {
     agents: defaultAgents(queue),
     notes: [
       "Use prod only after stage smoke, source refresh, treasury probe, and browser broker checks all pass.",
-      "Keep GPT-5.4 as the strategic model target, while separating official frontier-model truth, Codex-surface docs, and live OpenClaw provider proof.",
+      "Keep GPT-5.4 as the routine strategic model target and use GPT-5.4 Pro on the deepest available surfaces instead of downshifting to older model families.",
       "The dispatcher should continue work immediately after task completion and keep multiple specialists occupied when ready work exists.",
       `Treasury truth is ${treasury.cashTruth} cash with ${treasury.ledgerStatus} ledger coverage.`,
+      `Managed credential entries: ${credentialRegistry.entries.length}.`,
     ],
     blockers: [
+      ...(credentialRegistry.entries.some((entry) => entry.rotationPending)
+        ? ["Root-account password rotation is still pending. Apply the generated unique replacements externally, then rerun secret bootstrap."]
+        : []),
       ...(browser.capabilities.attachedChrome
         ? []
         : browser.capabilities.attachedChromePaired

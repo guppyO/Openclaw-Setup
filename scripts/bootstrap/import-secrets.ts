@@ -1,8 +1,11 @@
 import { emitLog } from "../../services/common/logger.js";
+import { syncBootstrapCredentialRegistry, writeCredentialRegistryDocs } from "../../services/credentials/index.js";
 import { importBootstrapSecrets } from "../../services/secrets/index.js";
 
 async function main(): Promise<void> {
   const state = await importBootstrapSecrets();
+  await syncBootstrapCredentialRegistry(state);
+  await writeCredentialRegistryDocs();
 
   await emitLog({
     agent: "ops",
@@ -13,6 +16,8 @@ async function main(): Promise<void> {
     success: true,
     evidencePaths: [
       "docs/secret-inventory.md",
+      "docs/credential-registry.md",
+      "data/exports/credential-registry.json",
       "data/exports/secret-inventory.json",
       ".secrets/revenue-os.local.env",
     ],

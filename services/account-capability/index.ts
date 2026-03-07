@@ -89,6 +89,17 @@ export function defaultAccountRegistry(secretState: SecretBootstrapState | null 
       rotationNeeded: hetzner?.rotationNeeded,
     },
     {
+      id: "account-generated-service-credentials",
+      owner: "ops",
+      purpose: "Generated unique passwords for future third-party service accounts",
+      authMechanism: "Locally stored managed credentials under ignored secret env files",
+      renewalRequirement: "Use generated passwords for new services and mark root rotations complete after external password changes land",
+      status: "active",
+      allowedAutomations: ["Future signup password generation", "Credential reuse prevention", "Rotation planning"],
+      linkedInitiatives: ["identity", "ops", "growth"],
+      credentialRef: ".secrets/generated-service-credentials.env",
+    },
+    {
       id: "account-browser-relay",
       owner: "operator",
       purpose: "Attached Chrome relay for high-trust sites",

@@ -50,6 +50,7 @@ It also loads `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env` into
 - Company-auth work that needs persistent state routes only to attached Chrome or auth-ready Steel Cloud.
 - Treasury and infrastructure work route only to attached Chrome or auth-ready Steel Cloud.
 - If no safe high-trust lane is ready, the broker returns a blocked route instead of silently degrading to managed browsing.
+- Generated passwords for future third-party accounts should be provisioned before the browser flow starts; do not type ad hoc reused passwords into signup flows.
 
 ## Steel truth
 

@@ -19,7 +19,7 @@ if ! command -v node >/dev/null 2>&1 || [[ "$(node -p 'process.versions.node.spl
 fi
 
 if ! command -v openclaw >/dev/null 2>&1; then
-  sudo npm install -g @openclaw/cli
+  sudo npm install -g openclaw@latest
 fi
 
 if [[ "${INSTALL_TAILSCALE:-false}" == "true" ]] && ! command -v tailscale >/dev/null 2>&1; then
@@ -47,12 +47,14 @@ sudo -u "$RUNTIME_USER" -H bash -lc "
     set +a
   fi
   npm ci
+  npm run bootstrap:runtime
   npm run runtime:probe-models
   npm run bootstrap:control-plane
+  npm run runtime:render-openclaw-config -- --environment '$ENVIRONMENT'
   npm run bootstrap:state
   npm run bootstrap:wise
   npm run runtime:browser-broker
-  bash scripts/verify/validate-openclaw-config.sh '$ENVIRONMENT'
+  npm run verify:openclaw-config -- '$ENVIRONMENT'
   openclaw doctor
 "
 

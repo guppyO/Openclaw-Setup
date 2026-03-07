@@ -1,14 +1,19 @@
 {
-  "refreshedAt": "2026-03-07T04:18:30.711Z",
+  "refreshedAt": "2026-03-07T06:56:11.641Z",
   "methods": {
     "openai-gpt-5.4-model": "direct-fetch",
-    "openai-pro-plan": "ua-fetch-fallback",
-    "openai-business-limits": "ua-fetch-fallback",
-    "openai-codex-plan": "ua-fetch-fallback",
+    "openai-pro-plan": "direct-fetch",
+    "openai-business-limits": "direct-fetch",
+    "openai-codex-plan": "direct-fetch",
     "openai-codex-upgrades": "direct-fetch",
     "openai-codex-app": "direct-fetch",
-    "openai-model-release-notes": "ua-fetch-fallback",
+    "openai-model-release-notes": "direct-fetch",
     "openclaw-model-providers": "direct-fetch",
+    "openclaw-changelog": "direct-fetch",
+    "openclaw-pr-36590": "direct-fetch",
+    "openclaw-pr-36905": "direct-fetch",
+    "openclaw-pr-36929": "direct-fetch",
+    "openclaw-pr-36966": "direct-fetch",
     "openclaw-multi-agent": "direct-fetch",
     "openclaw-multiple-gateways": "direct-fetch",
     "openclaw-cron-vs-heartbeat": "direct-fetch",
@@ -34,11 +39,249 @@
   },
   "changedSources": [
     {
+      "id": "openai-gpt-5.4-model",
+      "status": 200,
+      "ok": true,
+      "title": "GPT-5.4 pro Model | OpenAI API",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openai-pro-plan",
+      "status": 200,
+      "ok": true,
+      "title": "What is ChatGPT Pro? | OpenAI Help Center",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openai-business-limits",
+      "status": 200,
+      "ok": true,
+      "title": "ChatGPT Business - Models & Limits | OpenAI Help Center",
+      "method": "direct-fetch"
+    },
+    {
       "id": "openai-codex-plan",
-      "status": 403,
+      "status": 200,
       "ok": true,
       "title": "Using Codex with your ChatGPT plan | OpenAI Help Center",
-      "method": "ua-fetch-fallback"
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openai-codex-upgrades",
+      "status": 200,
+      "ok": true,
+      "title": "Codex",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openai-codex-app",
+      "status": 200,
+      "ok": true,
+      "title": "Codex",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openai-model-release-notes",
+      "status": 200,
+      "ok": true,
+      "title": "Model Release Notes | OpenAI Help Center",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-model-providers",
+      "status": 200,
+      "ok": true,
+      "title": "Model Providers - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-changelog",
+      "status": 200,
+      "ok": true,
+      "title": "Untitled",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-pr-36590",
+      "status": 200,
+      "ok": true,
+      "title": "feat(openai): add gpt-5.4 support for API and Codex OAuth",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-pr-36905",
+      "status": 200,
+      "ok": true,
+      "title": "Add GPT-5.4 support for OpenAI Codex",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-pr-36929",
+      "status": 200,
+      "ok": true,
+      "title": "feat: add gpt-5.4 forward-compat model resolver",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-pr-36966",
+      "status": 200,
+      "ok": true,
+      "title": "feat(models): add openai-codex gpt-5.4 forward-compat fallback",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-multi-agent",
+      "status": 200,
+      "ok": true,
+      "title": "Multi-Agent Routing - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-multiple-gateways",
+      "status": 200,
+      "ok": true,
+      "title": "Multiple Gateways - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-cron-vs-heartbeat",
+      "status": 200,
+      "ok": true,
+      "title": "Cron vs Heartbeat - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-memory",
+      "status": 200,
+      "ok": true,
+      "title": "Memory - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-browser",
+      "status": 200,
+      "ok": true,
+      "title": "Browser (OpenClaw-managed) - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-browser-login",
+      "status": 200,
+      "ok": true,
+      "title": "Browser Login - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-configuration",
+      "status": 200,
+      "ok": true,
+      "title": "Configuration Reference - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-remote-access",
+      "status": 200,
+      "ok": true,
+      "title": "VPS Hosting - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-nodes",
+      "status": 200,
+      "ok": true,
+      "title": "Nodes - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-secrets",
+      "status": 200,
+      "ok": true,
+      "title": "Secrets Management - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-pdf",
+      "status": 200,
+      "ok": true,
+      "title": "PDF Tool - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-security",
+      "status": 200,
+      "ok": true,
+      "title": "Security - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-faq",
+      "status": 200,
+      "ok": true,
+      "title": "FAQ - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "openclaw-cli",
+      "status": 200,
+      "ok": true,
+      "title": "CLI Reference - OpenClaw",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "wise-security-access",
+      "status": 200,
+      "ok": true,
+      "title": "Untitled",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "wise-personal-tokens",
+      "status": 200,
+      "ok": true,
+      "title": "Untitled",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "wise-getting-started",
+      "status": 200,
+      "ok": true,
+      "title": "Untitled",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "steel-sessions-overview",
+      "status": 200,
+      "ok": true,
+      "title": "Overview",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "steel-quickstart",
+      "status": 200,
+      "ok": true,
+      "title": "Quickstart",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "steel-profiles",
+      "status": 200,
+      "ok": true,
+      "title": "Overview",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "steel-credentials",
+      "status": 200,
+      "ok": true,
+      "title": "Credentials API",
+      "method": "direct-fetch"
+    },
+    {
+      "id": "steel-local-vs-cloud",
+      "status": 200,
+      "ok": true,
+      "title": "Steel Local vs Steel Cloud",
+      "method": "direct-fetch"
     }
   ]
 }

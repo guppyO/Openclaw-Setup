@@ -36,6 +36,7 @@ export async function loadLocalRuntimeEnv(): Promise<void> {
 
   const candidatePaths = [
     resolveRepoPath(".secrets", "revenue-os.local.env"),
+    resolveRepoPath(".secrets", "generated-service-credentials.env"),
     resolveRepoPath(".env.local"),
   ];
 

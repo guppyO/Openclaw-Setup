@@ -60,7 +60,7 @@ describe("autonomy queue", () => {
         },
         usagePolicy: {
           strategicModel: "gpt-5.4",
-          openClawModel: "openai-codex/gpt-5.3-codex",
+          openClawModel: "openai-codex/gpt-5.4",
           compactionRequired: true,
         },
       },
@@ -104,12 +104,14 @@ describe("autonomy queue", () => {
         codexCliInstalled: true,
         openclawInstalled: true,
         strategicTarget: "gpt-5.4",
-        officialFrontierModel: "gpt-5.4",
+        deepThinkingTarget: "gpt-5.4-pro",
+        officialFrontierModel: "gpt-5.4-pro",
+        officialGeneralModel: "gpt-5.4",
         officialCodexDocsStatus: "verified",
-        openClawPrimary: "openai-codex/gpt-5.3-codex",
-        openClawFallback: "openai-codex/gpt-5-codex",
+        openClawPrimary: "openai-codex/gpt-5.4",
+        openClawFallback: "openai-codex/gpt-5.4",
         openClawProbeSource: "config-read",
-        openClawVerifiedCandidates: ["openai-codex/gpt-5.3-codex"],
+        openClawVerifiedCandidates: ["openai-codex/gpt-5.4"],
         aliases: [],
         drift: [],
       },
@@ -129,5 +131,19 @@ describe("autonomy queue", () => {
     const owners = new Set(dispatch.activeAssignments.map((assignment) => assignment.owner));
     expect(dispatch.activeAssignments.length).toBeGreaterThan(1);
     expect(owners.size).toBeGreaterThan(1);
+  });
+
+  test("raises per-role concurrency when queue depth is high", () => {
+    const opportunities = rankOpportunities(defaultOpportunities());
+    const experiments = createExperiments(opportunities);
+    const queue = [...buildAutonomyQueue(opportunities, experiments), ...buildAutonomyQueue(opportunities, experiments).map((task, index) => ({
+      ...task,
+      id: `${task.id}-burst-${index}`,
+    }))];
+    const dispatch = buildDispatchState({ opportunities, experiments, queue });
+
+    expect(dispatch.agentConcurrencyLimits.builder).toBeGreaterThan(1);
+    expect(dispatch.agentConcurrencyLimits.distribution).toBeGreaterThan(1);
+    expect(dispatch.agentConcurrencyLimits.ops).toBeGreaterThan(2);
   });
 });

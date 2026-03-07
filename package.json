@@ -18,7 +18,9 @@
     "runtime:scheduler": "tsx scripts/runtime/usage-aware-scheduler.ts",
     "runtime:complete-task": "tsx scripts/runtime/complete-task.ts",
     "runtime:run-task": "tsx scripts/runtime/run-task.ts",
+    "runtime:provision-credential": "tsx scripts/runtime/provision-service-credential.ts",
     "runtime:browser-broker": "tsx scripts/runtime/snapshot-browser-broker.ts",
+    "runtime:render-openclaw-config": "tsx scripts/runtime/render-openclaw-config.ts",
     "bootstrap:state": "tsx scripts/bootstrap/init-state.ts",
     "bootstrap:control-plane": "tsx scripts/bootstrap/generate-control-plane-files.ts",
     "bootstrap:skills": "tsx scripts/bootstrap/seed-skills.ts",
@@ -26,7 +28,7 @@
     "bootstrap:wise": "tsx scripts/bootstrap/probe-wise.ts",
     "refresh:opportunities": "tsx scripts/bootstrap/init-state.ts --opportunities-only",
     "refresh:updates": "tsx scripts/update/watch-sources.ts",
-    "verify:openclaw-config": "bash scripts/verify/validate-openclaw-config.sh",
+    "verify:openclaw-config": "tsx scripts/verify/validate-openclaw-config.ts",
     "verify:smoke": "tsx scripts/verify/smoke.ts",
     "backup": "tsx scripts/backup/backup.ts",
     "restore": "tsx scripts/restore/restore.ts"

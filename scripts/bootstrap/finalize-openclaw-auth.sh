@@ -18,6 +18,7 @@ if [[ -f "$ROOT_DIR/.secrets/revenue-os.local.env" ]]; then
 fi
 
 npm run runtime:probe-models -- --active
+npm run bootstrap:runtime -- --active-model-probe
 npm run bootstrap:control-plane
 npm run runtime:browser-broker
 bash scripts/verify/validate-openclaw-config.sh "$ENVIRONMENT"

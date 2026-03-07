@@ -13,10 +13,13 @@ Run the local bootstrap in this order:
 5. `npm run runtime:browser-broker`
 6. `npm run bootstrap:wise`
 7. `npm run bootstrap:state`
-8. `npm run test`
-9. `npm run verify:smoke`
+8. `npm run verify:openclaw-config -- stage`
+9. `npm run test`
+10. `npm run verify:smoke`
 
 The generated gateway and hook tokens are stored in `.secrets/revenue-os.local.env`. They are not committed and must remain local or copied only to the VPS secret env.
+
+If the bootstrap inventory reports reused root passwords, unique replacement values are also generated into `.secrets/generated-service-credentials.env`. Apply those rotations externally on Gmail, Wise, and Hetzner, then rerun `npm run bootstrap:secrets`.
 
 ## 2. Stage-first Hetzner bring-up
 
@@ -33,7 +36,7 @@ Run:
 bash scripts/bootstrap/bootstrap-hetzner-live.sh
 ```
 
-This syncs the repo to `/opt/revenue-os`, installs or upgrades runtime dependencies, creates the dedicated `revenueos` service user by default, validates the generated OpenClaw config, writes system-level units, and enables the gateway plus the recovery timers.
+This syncs the repo to `/opt/revenue-os`, installs or upgrades runtime dependencies, creates the dedicated `revenueos` service user by default, renders the env-backed OpenClaw runtime config under `data/generated/openclaw/`, validates that rendered config with the current OpenClaw CLI, writes system-level units, and enables the gateway plus the recovery timers.
 
 The bootstrap, finalize, and tracked-task completion entrypoints all default to `stage` unless you explicitly promote to `prod`.
 
@@ -45,13 +48,13 @@ Complete the one-time OpenClaw OAuth step on the VPS as the runtime user:
 sudo -u revenueos -H bash -lc 'cd /opt/revenue-os && openclaw models auth login --provider openai-codex'
 ```
 
-Then finalize the authenticated runtime so the active model probe and generated OpenClaw configs are refreshed from the live gateway surface instead of the docs-only fallback:
+Then finalize the authenticated runtime so the active model probe, runtime verification, and generated OpenClaw configs are refreshed from the live gateway surface:
 
 ```bash
 sudo -u revenueos -H bash -lc 'cd /opt/revenue-os && bash scripts/bootstrap/finalize-openclaw-auth.sh stage'
 ```
 
-That finalize step also reruns `openclaw config validate --json` against the generated environment config before you start the service.
+That finalize step also reruns `npm run verify:openclaw-config -- stage`, which renders the env-backed runtime config and then runs `openclaw config validate --json` against that rendered file before you start the service.
 
 Then start stage:
 
@@ -107,7 +110,7 @@ Pairing flow:
 3. Confirm the relay points at the tunneled gateway URL.
 4. Set `OPENCLAW_CHROME_RELAY_STATUS=paired` in `.secrets/revenue-os.local.env`.
 5. Re-run `npm run runtime:browser-broker` and `npm run verify:smoke`.
-6. Re-run `npm run bootstrap:runtime` or `npm run refresh:updates` if you want the source verifier to upgrade any remaining OpenAI `ua-fetch-fallback` pages into repo-native `browser-capture` artifacts produced by the actual browser lane.
+6. Re-run `npm run bootstrap:runtime` or `npm run refresh:updates` if you want the source verifier to refresh through the now-paired browser lane as well as direct fetch.
 
 If the relay is marked paired but the gateway token, tunnel path, or node host is missing, smoke verification fails on purpose.
 

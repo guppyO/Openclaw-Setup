@@ -3,8 +3,9 @@
 ## Live in this workspace
 
 - Secret bootstrap is active. The ignored root credentials file is imported into `.secrets/revenue-os.local.env` and provider env files, with safe metadata in [docs/secret-inventory.md](./docs/secret-inventory.md).
+- Managed credential generation is active through `.secrets/generated-service-credentials.env` with metadata in [docs/credential-registry.md](./docs/credential-registry.md).
 - Runtime source refresh, runtime verification, model-policy probing, dispatch state, browser-broker state, treasury state, account registry, and dashboard state are generated in `data/exports/`.
-- OpenClaw `lab`, `stage`, and `prod` configs now include `gateway.mode: "local"`, explicit hook auth, and explicit heartbeat settings.
+- OpenClaw `lab`, `stage`, and `prod` configs now include `gateway.mode: "local"`, explicit hook auth, explicit agent heartbeat settings, and env-rendered runtime configs that validate against the current OpenClaw CLI.
 - Hetzner bootstrap is now stage-first by default; prod requires an explicit override.
 - The follow-on OpenClaw bootstrap, finalize-auth, and tracked-task continuation entrypoints are also stage-first unless `prod` is explicitly requested.
 - Continuous dispatch is live locally through `data/exports/dispatch-state.json`, `data/exports/dispatch-wake.json`, `npm run runtime:scheduler`, `npm run runtime:complete-task`, and `npm run runtime:run-task`.
@@ -18,20 +19,16 @@
 
 ## Current local truth
 
-- Codex CLI is installed on this Windows host and the runtime model policy keeps `gpt-5.4` as the strategic target.
-- OpenClaw is not installed on this Windows host, so the OpenClaw side still stays on the strongest docs-backed provider fallback until a live VPS gateway probe runs.
+- Codex CLI is installed on this Windows host and the runtime model policy keeps `gpt-5.4` as the routine target and `gpt-5.4-pro` as the deep-thinking target where available.
+- OpenClaw CLI is now installed on this Windows host, and the generated `lab`, `stage`, and `prod` configs validate locally through `npm run verify:openclaw-config`.
 - Browser broker status currently shows:
   - attached Chrome: not ready
   - remote gateway path: modeled but not yet aimed at a real VPS tunnel
   - node host: not ready
   - Steel: not configured
 - Treasury is currently `browser-only` and the ledger is still `unavailable`.
-- Runtime verification now uses truthful source methods:
-  - `direct-fetch`
-  - `browser-capture`
-  - `ua-fetch-fallback`
-  - `search-backed`
-  - `manual-unverified`
+- Root-account password rotation is still pending externally even though unique managed replacements are now generated and stored locally.
+- Runtime verification currently sits at `18 verified / 0 pending / 0 drifted / 0 unsupported`, with direct-fetch coverage across the official OpenAI, OpenClaw, Wise, and Steel anchors currently in the catalog.
 
 ## Blocked by real-world runtime boundaries
 
@@ -42,7 +39,8 @@
 - The attached Chrome relay is not yet paired.
 - Steel is not yet configured in the local secret env, so the Steel lane remains modeled but not ready.
 - Wise is currently browser-capable from imported credentials, but API capability remains unverified because no Wise token or OAuth app details were provided.
-- Some OpenAI Help pages still return HTTP `403` to plain fetches, so the last 3 pending anchors need the now-built browser-backed capture path after the Windows browser lane is paired.
+- Gmail, Wise, and Hetzner still need their externally configured password rotated away from the reused bootstrap password and then re-imported through `npm run bootstrap:secrets`.
+- The live OpenClaw provider route still needs an authenticated gateway probe on the VPS before the deployed host can be called fully proven for `openai-codex/gpt-5.4` and `openai-codex/gpt-5.4-pro`.
 
 ## Next autonomous steps
 
@@ -53,5 +51,6 @@
 - On Windows, run `powershell -ExecutionPolicy Bypass -File scripts/bootstrap/start-gateway-ssh-tunnel.ps1 -Environment stage`.
 - On Windows, run `powershell -ExecutionPolicy Bypass -File scripts/bootstrap/bootstrap-openclaw-node-host.ps1 -Environment stage`.
 - Pair the Windows attached Chrome relay using `OPENCLAW_GATEWAY_TOKEN` from `.secrets/revenue-os.local.env`, then rerun `npm run runtime:browser-broker`.
+- Use `npm run runtime:provision-credential -- --service <service> --purpose "<purpose>"` before creating any new third-party company account.
 - Add Steel details and rerun `npm run runtime:browser-broker`.
 - Feed append-only Wise ledger data into `data/imports/wise-ledger-import.json` or add Wise API credentials, then rerun `npm run bootstrap:wise`, `npm run bootstrap:state`, and `npm run verify:smoke`.

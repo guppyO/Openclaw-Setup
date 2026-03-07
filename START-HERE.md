@@ -9,9 +9,11 @@ Run the local bootstrap in this order:
 5. `npm run runtime:browser-broker`
 6. `npm run bootstrap:wise`
 7. `npm run bootstrap:state`
-8. `npm run test`
-9. `npm run verify:smoke`
-10. `npm run dashboard`
+8. optional: `npm run runtime:provision-credential -- --service <service> --purpose "<purpose>"` before creating a new third-party account
+9. `npm run verify:openclaw-config -- stage`
+10. `npm run test`
+11. `npm run verify:smoke`
+12. `npm run dashboard`
 
 Use [docs/deployment/live-bootstrap.md](./docs/deployment/live-bootstrap.md) for the authoritative live bring-up flow after the local bootstrap passes.
 
@@ -20,6 +22,7 @@ Every non-promotion bootstrap entrypoint now defaults to `stage`; use `prod` onl
 Key follow-through docs:
 
 - Secrets and generated gateway tokens: [docs/secrets-handling.md](./docs/secrets-handling.md)
+- Managed per-service passwords: [docs/credential-registry.md](./docs/credential-registry.md)
 - Browser routing, SSH tunnel, and node host: [docs/browser-topology.md](./docs/browser-topology.md)
 - Dispatch, recovery, and default tracked-task runner: [docs/continuous-dispatch.md](./docs/continuous-dispatch.md)
 - Current runtime truth: [CURRENT-STATE.md](./CURRENT-STATE.md)

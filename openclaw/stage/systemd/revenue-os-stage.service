@@ -11,10 +11,12 @@ WorkingDirectory=/opt/revenue-os
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=stage
 EnvironmentFile=-/opt/revenue-os/.secrets/revenue-os.local.env
+Environment=OPENCLAW_CONFIG_PATH=/opt/revenue-os/data/generated/openclaw/stage.json
 ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && npm run runtime:probe-models -- --active && npm run bootstrap:control-plane'
-ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && bash scripts/verify/validate-openclaw-config.sh stage'
-ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && openclaw doctor'
-ExecStart=/usr/bin/env openclaw gateway --config /opt/revenue-os/openclaw/stage/openclaw.json
+ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && npm run runtime:render-openclaw-config -- --environment stage --output /opt/revenue-os/data/generated/openclaw/stage.json'
+ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && npm run verify:openclaw-config -- stage'
+ExecStartPre=/usr/bin/env bash -lc 'cd /opt/revenue-os && OPENCLAW_CONFIG_PATH=/opt/revenue-os/data/generated/openclaw/stage.json openclaw doctor'
+ExecStart=/usr/bin/env openclaw gateway --config /opt/revenue-os/data/generated/openclaw/stage.json
 Restart=always
 RestartSec=5
 

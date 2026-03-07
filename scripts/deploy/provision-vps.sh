@@ -8,7 +8,7 @@ curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 apt-get install -y nodejs
 
 if ! command -v openclaw >/dev/null 2>&1; then
-  npm install -g @openclaw/cli
+  npm install -g openclaw@latest
 fi
 
 ROOT_DIR="${REVENUE_OS_ROOT_DIR:-/opt/revenue-os}"

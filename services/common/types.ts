@@ -339,6 +339,32 @@ export interface SecretBootstrapState {
   inventory: SecretInventoryEntry[];
 }
 
+export interface ManagedCredentialEntry {
+  id: string;
+  service: string;
+  slug: string;
+  purpose: string;
+  owner: string;
+  loginIdentifier: string;
+  initiativeId?: string;
+  browserProfile?: string;
+  createdAt: string;
+  updatedAt: string;
+  storageRef: string;
+  passwordEnvKey: string;
+  rootAccount: boolean;
+  rotationPending: boolean;
+  status: "generated" | "active" | "pending-rotation";
+  notes: string[];
+}
+
+export interface CredentialRegistryState {
+  generatedAt: string;
+  storageRef: string;
+  warnings: string[];
+  entries: ManagedCredentialEntry[];
+}
+
 export type RuntimeProbeMode = "passive" | "active";
 
 export interface ModelAliasState {
@@ -358,9 +384,12 @@ export interface ModelCapabilityProbe {
   codexCliInstalled: boolean;
   openclawInstalled: boolean;
   strategicTarget: string;
+  deepThinkingTarget: string;
   officialFrontierModel: string;
+  officialGeneralModel: string;
   officialCodexDocsStatus: "verified" | "mixed" | "pending-runtime-check";
   openClawPrimary: string;
+  openClawDeep?: string;
   openClawFallback: string;
   openClawProbeSource: "live-gateway" | "config-read" | "docs-only" | "env-override";
   openClawVerifiedCandidates: string[];

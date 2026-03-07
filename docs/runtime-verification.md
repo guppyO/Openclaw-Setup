@@ -4,22 +4,22 @@ Generated against official OpenAI, OpenClaw, Wise, and Steel sources on 2026-03-
 
 ## Summary
 
-- Verified anchors: 15
+- Verified anchors: 18
 - Drifted anchors: 0
-- Pending runtime checks: 3
+- Pending runtime checks: 0
 - Unsupported anchors: 0
-- Source capture methods: direct-fetch: 26, ua-fetch-fallback: 4
+- Source capture methods: direct-fetch: 35
 
 ## Anchor status
 
 | Anchor | Status | Checked | Notes |
 | --- | --- | --- | --- |
-| anchor-1 | pending-runtime-check | 2026-03-07 | One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-pro-plan:ua-fetch-fallback, openai-business-limits:ua-fetch-fallback. |
+| anchor-1 | verified | 2026-03-07 | Official plan docs still frame GPT access in ChatGPT as unlimited or effectively unlimited subject to guardrails. Methods: openai-pro-plan:direct-fetch, openai-business-limits:direct-fetch. |
 | anchor-2 | verified | 2026-03-07 | The latest frontier model page still documents GPT-5.4 Pro and the 1.05M context window. Methods: openai-gpt-5.4-model:direct-fetch. |
-| anchor-3 | verified | 2026-03-07 | Official frontier-model and Codex docs can be represented separately: GPT-5.4 stays the strategic frontier target while OpenClaw provider-model promotion remains a separate runtime-probed fact. Methods: openai-gpt-5.4-model:direct-fetch, openai-codex-upgrades:direct-fetch. |
-| anchor-4 | verified | 2026-03-07 | OpenClaw provider docs still expose Codex-provider example models that can lag the frontier OpenAI model page. Methods: openclaw-model-providers:direct-fetch, openai-gpt-5.4-model:direct-fetch. |
-| anchor-5 | pending-runtime-check | 2026-03-07 | One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback, openai-codex-upgrades:direct-fetch. |
-| anchor-6 | pending-runtime-check | 2026-03-07 | One or more official sources still require a real browser-backed or manual confirmation path before this anchor can be treated as fully current. Methods: openai-codex-plan:ua-fetch-fallback. |
+| anchor-3 | verified | 2026-03-07 | Official frontier-model docs, Codex docs, and recent OpenClaw merged changes all support GPT-5.4 as the strategic target while OpenClaw provider-model promotion remains a separate runtime-probed fact. Methods: openai-gpt-5.4-model:direct-fetch, openai-codex-upgrades:direct-fetch, openclaw-changelog:direct-fetch, openclaw-pr-36905:direct-fetch. |
+| anchor-4 | verified | 2026-03-07 | OpenClaw docs and merged upstream work support GPT-5.4 on the Codex provider, but a live authenticated runtime probe still matters before treating the deployed route as proven. Methods: openclaw-model-providers:direct-fetch, openclaw-changelog:direct-fetch, openclaw-pr-36590:direct-fetch, openclaw-pr-36929:direct-fetch. |
+| anchor-5 | verified | 2026-03-07 | Current Codex docs still support ChatGPT sign-in and plan-based access. Methods: openai-codex-plan:direct-fetch, openai-codex-upgrades:direct-fetch. |
+| anchor-6 | verified | 2026-03-07 | The current Codex plan article still documents separate usage windows that require pacing discipline. Methods: openai-codex-plan:direct-fetch. |
 | anchor-7 | verified | 2026-03-07 | OpenClaw provider docs still explicitly document OpenAI Codex OAuth support. Methods: openclaw-model-providers:direct-fetch. |
 | anchor-8 | verified | 2026-03-07 | The current OpenClaw CLI docs still prefer Node and warn against Bun for stable gateways. Methods: openclaw-cli:direct-fetch. |
 | anchor-9 | verified | 2026-03-07 | OpenClaw docs still recommend one primary gateway with secure remote access and remote nodes where needed. Methods: openclaw-multiple-gateways:direct-fetch, openclaw-remote-access:direct-fetch, openclaw-nodes:direct-fetch. |
@@ -35,8 +35,8 @@ Generated against official OpenAI, OpenClaw, Wise, and Steel sources on 2026-03-
 
 ## Build implications
 
-- Keep GPT-5.4 as the strategic frontier target for substantive work; official OpenAI Codex docs already support that policy even when OpenClaw provider-model promotion still waits on live gateway proof.
-- Keep OpenClaw provider identifiers behind aliases because public provider docs can lag frontier OpenAI model pages.
+- Keep GPT-5.4 as the routine frontier target and reserve GPT-5.4 Pro for the deepest surfaces that actually expose it.
+- Keep OpenClaw configured for GPT-5.4 and use live gateway proof to confirm the deployed provider route instead of silently downshifting to older families.
 - Treat `ua-fetch-fallback` and `search-backed` source captures as advisory; they do not replace direct fetch or a real browser-produced artifact.
 - Keep real browser-backed refresh available because some OpenAI pages still return HTTP 403 to plain fetches.
 - Keep Wise and Steel modes runtime-probed; neither surface should be treated as fully live from config strings alone.

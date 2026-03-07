@@ -15,10 +15,11 @@ fi
 npm ci
 npm run runtime:probe-models
 npm run bootstrap:control-plane
-bash scripts/verify/validate-openclaw-config.sh prod
-openclaw doctor
+npm run runtime:render-openclaw-config -- --environment prod --output "${ROOT_DIR}/data/generated/openclaw/prod.json"
+npm run verify:openclaw-config -- prod
+OPENCLAW_CONFIG_PATH="${ROOT_DIR}/data/generated/openclaw/prod.json" openclaw doctor
 openclaw models auth login --provider openai-codex
 bash scripts/bootstrap/finalize-openclaw-auth.sh prod
 
-echo "Prepared prod gateway config at ${CONFIG}"
+echo "Prepared prod gateway config at ${ROOT_DIR}/data/generated/openclaw/prod.json"
 echo "Next: install systemd units from openclaw/prod/systemd into /etc/systemd/system and start revenue-os-prod.service"

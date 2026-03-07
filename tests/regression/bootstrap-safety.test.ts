@@ -33,7 +33,7 @@ describe("bootstrap safety", () => {
       "utf8",
     );
 
-    expect(bootstrapOpenClaw).toContain("bash scripts/verify/validate-openclaw-config.sh");
-    expect(stageUnit).toContain("validate-openclaw-config.sh stage");
+    expect(bootstrapOpenClaw).toContain("npm run verify:openclaw-config -- '$ENVIRONMENT'");
+    expect(stageUnit).toContain("npm run verify:openclaw-config -- stage");
   });
 });

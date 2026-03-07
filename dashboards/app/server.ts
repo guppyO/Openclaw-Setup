@@ -186,8 +186,10 @@ function renderPage() {
           <h2>Runtime model policy</h2>
           <ul class="tight">
             <li><strong>Strategic target:</strong> ${state.modelPolicy.strategicTarget}</li>
+            <li><strong>Deep target:</strong> ${state.modelPolicy.deepThinkingTarget}</li>
             <li><strong>OpenClaw primary:</strong> ${state.modelPolicy.openClawPrimary}</li>
-            <li><strong>OpenClaw fallback:</strong> ${state.modelPolicy.openClawFallback}</li>
+            <li><strong>OpenClaw deep:</strong> ${state.modelPolicy.openClawDeep ?? "openai-codex/gpt-5.4-pro"}</li>
+            <li><strong>OpenClaw secondary:</strong> ${state.modelPolicy.openClawFallback}</li>
             <li><strong>Probe mode:</strong> ${state.modelPolicy.probeMode}</li>
             <li><strong>Provisional:</strong> ${state.modelPolicy.provisional ? "yes" : "no"}</li>
           </ul>

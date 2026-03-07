@@ -1,6 +1,7 @@
 import { buildAccountRegistryMarkdown, defaultAccountRegistry } from "../../services/account-capability/index.js";
 import { buildDashboardState } from "../../services/analytics/index.js";
 import { buildBrowserBrokerState } from "../../services/browser-broker/index.js";
+import { syncBootstrapCredentialRegistry, writeCredentialRegistryDocs } from "../../services/credentials/index.js";
 import { buildDispatchState } from "../../services/dispatch/index.js";
 import { buildAutonomyQueue, buildExperimentMarkdown, createExperiments } from "../../services/experiment-runner/index.js";
 import { writeRuntimeDocs } from "../../services/update-steward/index.js";
@@ -32,6 +33,8 @@ async function main(): Promise<void> {
     resolveRepoPath("data", "exports", "secret-inventory.json"),
     null,
   );
+  await syncBootstrapCredentialRegistry(secretState);
+  await writeCredentialRegistryDocs();
   const registry = defaultAccountRegistry(secretState);
 
   await writeJsonFile(resolveRepoPath("data", "exports", "opportunities.json"), opportunities);

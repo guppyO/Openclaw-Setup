@@ -16,4 +16,4 @@ Automate the change-management process, not blind in-place mutation.
 
 ## Current note
 
-The repo records a real model drift: GPT-5.4 is current in OpenAI reasoning docs, but OpenClaw provider docs still center `openai-codex/gpt-5.3-codex`. Promotion decisions should treat that mismatch as a live compatibility question, not a settled assumption.
+The repo now treats `openai-codex/gpt-5.4` as the intended OpenClaw provider route based on current official docs and recent merged OpenClaw upstream changes. Promotion decisions should still require a live authenticated gateway probe before claiming the deployed runtime is proven on that host.

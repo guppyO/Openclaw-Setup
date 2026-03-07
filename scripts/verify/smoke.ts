@@ -8,11 +8,13 @@ async function main(): Promise<void> {
     "docs/runtime-verification.md",
     "docs/runtime-model-policy.md",
     "docs/source-anchors.md",
+    "docs/credential-registry.md",
     "data/exports/opportunities.json",
     "data/exports/experiments.json",
     "data/exports/autonomy-queue.json",
     "data/exports/dispatch-state.json",
     "data/exports/browser-broker.json",
+    "data/exports/credential-registry.json",
     "data/exports/model-capabilities.json",
     "data/exports/treasury.json",
   ];
@@ -51,11 +53,14 @@ async function main(): Promise<void> {
   if (!stageUnit.includes("User=revenueos") || !stageUnit.includes("WantedBy=multi-user.target")) {
     throw new Error("Stage systemd unit is not configured for the dedicated revenueos runtime user.");
   }
-  if (!stageUnit.includes("validate-openclaw-config.sh stage")) {
+  if (!stageUnit.includes("npm run verify:openclaw-config -- stage")) {
     throw new Error("Stage systemd unit does not enforce OpenClaw config validation before start.");
   }
+  if (!stageUnit.includes("runtime:render-openclaw-config")) {
+    throw new Error("Stage systemd unit does not render the runtime OpenClaw config before start.");
+  }
   const stageConfig = await readTextFile(resolveRepoPath("openclaw", "stage", "openclaw.json"), "");
-  if (!stageConfig.includes("\"hooks\"") || !stageConfig.includes("\"heartbeat\"") || !stageConfig.includes("\"mode\": \"local\"")) {
+  if (!stageConfig.includes("\"hooks\"") || !stageConfig.includes("\"mode\": \"local\"") || !stageConfig.includes("__OPENCLAW_GATEWAY_TOKEN__")) {
     throw new Error("Stage OpenClaw config is missing the explicit hook, heartbeat, or gateway mode configuration.");
   }
 

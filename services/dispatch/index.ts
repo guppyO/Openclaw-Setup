@@ -177,6 +177,39 @@ function lockCountByOwner(previousLocks: DispatchState["locks"]): Map<QueueItem[
   return counts;
 }
 
+function deriveConcurrencyLimits(
+  queue: QueueItem[],
+  previousState: DispatchState | null | undefined,
+  modelProbe: ModelCapabilityProbe,
+): DispatchState["agentConcurrencyLimits"] {
+  const limits = { ...DEFAULT_CONCURRENCY_LIMITS };
+  const queueDepth = queue.length;
+  const recentRecoveries = previousState?.recoveryActions.length ?? 0;
+  const driftPenalty = modelProbe.drift.length > 3 ? 1 : 0;
+
+  if (queueDepth >= 6) {
+    limits.research += 1;
+    limits.builder += 1;
+    limits.distribution += 1;
+    limits.skillsmith += 1;
+    limits.ops += 1;
+  }
+
+  if (queueDepth >= 12) {
+    limits.builder += 1;
+    limits.distribution += 1;
+    limits.ops += 1;
+  }
+
+  if (recentRecoveries >= 6 || driftPenalty > 0) {
+    limits.builder = Math.max(1, limits.builder - driftPenalty);
+    limits.distribution = Math.max(1, limits.distribution - driftPenalty);
+    limits.research = Math.max(1, limits.research - driftPenalty);
+  }
+
+  return limits;
+}
+
 function selectAssignments(
   ready: QueueItem[],
   activeLocks: DispatchState["locks"],
@@ -239,6 +272,8 @@ export function buildDispatchState(options: {
   const blockedInitiativeIds = options.blockedInitiativeIds ?? options.previousState?.blockedInitiativeIds ?? [];
   const recoveredLocks = recoverLocks(options.previousState?.locks ?? []);
   let activeLocks = recoveredLocks.activeLocks;
+  const modelProbe = options.modelProbe ?? buildDefaultModelProbe();
+  const concurrencyLimits = deriveConcurrencyLimits(queue, options.previousState, modelProbe);
 
   if (options.completedTaskId) {
     completedTaskIds.add(options.completedTaskId);
@@ -255,7 +290,7 @@ export function buildDispatchState(options: {
       (task) =>
         !blockedInitiativeIds.includes(task.initiativeId) &&
         !activeLocks.some((lock) => lock.taskId === task.id) &&
-        (currentLockCountByOwner.get(task.owner) ?? 0) < DEFAULT_CONCURRENCY_LIMITS[task.owner],
+        (currentLockCountByOwner.get(task.owner) ?? 0) < concurrencyLimits[task.owner],
     ),
   );
   if (ready.length === 0) {
@@ -268,14 +303,13 @@ export function buildDispatchState(options: {
           (task) =>
             !blockedInitiativeIds.includes(task.initiativeId) &&
             !activeLocks.some((lock) => lock.taskId === task.id) &&
-            (currentLockCountByOwner.get(task.owner) ?? 0) < DEFAULT_CONCURRENCY_LIMITS[task.owner],
+            (currentLockCountByOwner.get(task.owner) ?? 0) < concurrencyLimits[task.owner],
         ),
       );
     }
   }
 
-  const modelProbe = options.modelProbe ?? buildDefaultModelProbe();
-  const selectedAssignments = selectAssignments(ready, activeLocks, DEFAULT_CONCURRENCY_LIMITS);
+  const selectedAssignments = selectAssignments(ready, activeLocks, concurrencyLimits);
 
   if (selectedAssignments.length > 0) {
     const acquiredAt = isoNow();
@@ -314,7 +348,7 @@ export function buildDispatchState(options: {
     completedTaskIds: Array.from(completedTaskIds),
     blockedInitiativeIds,
     locks: activeLocks,
-    agentConcurrencyLimits: DEFAULT_CONCURRENCY_LIMITS,
+    agentConcurrencyLimits: concurrencyLimits,
     recoveryActions: [...recoveredLocks.recoveryActions, ...buildRecoveryActions(queue, blockedInitiativeIds)],
     cadence: {
       recoverySweepMinutes: RECOVERY_SWEEP_MINUTES,

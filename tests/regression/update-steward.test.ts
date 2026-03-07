@@ -1,4 +1,5 @@
-import { deriveRuntimeVerification, fetchSourceSnapshot } from "../../services/update-steward/index.js";
+import { deriveRuntimeVerification, fetchSourceSnapshot, refreshOfficialSources } from "../../services/update-steward/index.js";
+import { writeJsonFile } from "../../services/common/fs.js";
 
 describe("update steward", () => {
   const originalEnv = { ...process.env };
@@ -219,9 +220,57 @@ describe("update steward", () => {
         excerpt: "Windows app, IDE extension, and CLI support continuous work.",
         method: "browser-capture",
       },
+      {
+        id: "openclaw-changelog",
+        url: "https://example.com/openclaw-changelog",
+        fetchedAt: new Date().toISOString(),
+        ok: true,
+        hash: "e",
+        httpStatus: 200,
+        title: "OpenClaw changelog",
+        excerpt: "Merged GPT-5.4 support, xhigh thinking support, and updated provider routing.",
+        method: "direct-fetch",
+      },
+      {
+        id: "openclaw-pr-36905",
+        url: "https://example.com/openclaw-pr-36905",
+        fetchedAt: new Date().toISOString(),
+        ok: true,
+        hash: "f",
+        httpStatus: 200,
+        title: "OpenClaw PR 36905",
+        excerpt: "Change default reasoning models to latest GPT-5.4.",
+        method: "direct-fetch",
+      },
     ]);
 
     expect(anchors.find((anchor) => anchor.id === "anchor-2")?.status).toBe("verified");
     expect(anchors.find((anchor) => anchor.id === "anchor-3")?.status).toBe("verified");
+  });
+
+  test("keeps stronger prior snapshots when a refresh falls back to a weaker method", async () => {
+    const originalFetch = globalThis.fetch;
+    await writeJsonFile("data/exports/source-snapshots.json", {
+      "openai-gpt-5.4-model": {
+        id: "openai-gpt-5.4-model",
+        url: "https://example.com/prior",
+        fetchedAt: new Date().toISOString(),
+        ok: true,
+        hash: "strong-prior",
+        httpStatus: 200,
+        title: "Prior",
+        excerpt: "Strong prior snapshot",
+        method: "direct-fetch",
+      },
+    });
+
+    globalThis.fetch = async () => new Response("blocked", { status: 403 });
+    try {
+      const result = await refreshOfficialSources();
+      const kept = result.snapshots.find((snapshot) => snapshot.id === "openai-gpt-5.4-model");
+      expect(kept?.method).toBe("direct-fetch");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
   });
 });

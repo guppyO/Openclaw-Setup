@@ -26,7 +26,7 @@ const AGENTS: AgentTemplate[] = [
       "Keep the company moving even when one lane blocks.",
     ],
     memory: [
-      "GPT-5.4 remains the strategic default. OpenClaw provider routing may temporarily use the strongest verified Codex fallback.",
+      "GPT-5.4 remains the company default. GPT-5.4 Pro is reserved for the deepest available reasoning surfaces and OpenClaw stays on GPT-5.4 instead of downshifting to older families.",
       "The dispatcher should continue work immediately after a completed task when the next-best action is already known.",
       "Do not allow treasury or account blockers to freeze the rest of the company.",
     ],
@@ -198,11 +198,14 @@ interface EnvironmentConfig {
   bind: "loopback";
   browserHeadless: boolean;
   modelPrimary: string;
+  modelDeep: string;
   modelFallback: string;
 }
 
 const VPS_ROOT_DIR = "/opt/revenue-os";
 const VPS_RUNTIME_USER = "revenueos";
+const GATEWAY_TOKEN_PLACEHOLDER = "__OPENCLAW_GATEWAY_TOKEN__";
+const HOOK_TOKEN_PLACEHOLDER = "__OPENCLAW_HOOK_TOKEN__";
 
 function heartbeatEvery(agentId: AgentTemplate["id"]): string {
   switch (agentId) {
@@ -219,10 +222,24 @@ function heartbeatEvery(agentId: AgentTemplate["id"]): string {
   }
 }
 
-function secretRef(key: string): { $secretRef: string } {
-  return {
-    $secretRef: key,
-  };
+function thinkingDefault(agentId: AgentTemplate["id"]): "high" | "xhigh" {
+  switch (agentId) {
+    case "ceo":
+    case "research":
+    case "treasury":
+    case "ops":
+      return "xhigh";
+    default:
+      return "high";
+  }
+}
+
+function isDeepAgent(agentId: AgentTemplate["id"]): boolean {
+  return thinkingDefault(agentId) === "xhigh";
+}
+
+function agentModel(config: EnvironmentConfig, agentId: AgentTemplate["id"]): string {
+  return isDeepAgent(agentId) ? config.modelDeep : config.modelPrimary;
 }
 
 function renderOpenClawConfig(config: EnvironmentConfig): string {
@@ -236,7 +253,8 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
     wakeMode: "now",
     sessionKey: `hook:${config.name}:dispatch:${agent.id}`,
     deliver: false,
-    model: config.modelPrimary,
+    model: agentModel(config, agent.id),
+    thinking: thinkingDefault(agent.id),
     messageTemplate:
       "Dispatch continuation requested. Review dispatch-state.json and continue your active assignment(s) immediately. Completed task: {{completedTaskId}}. Primary task: {{targetTaskId}}. Active tasks: {{targetTaskIds}}.",
   }));
@@ -247,19 +265,18 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
         mode: "local",
         bind: config.bind,
         port: config.port,
-        controlUi: false,
-        auth: {
-          token: secretRef("OPENCLAW_GATEWAY_TOKEN"),
+        controlUi: {
+          enabled: false,
         },
-      },
-      model: {
-        primary: config.modelPrimary,
-        fallback: config.modelFallback,
+        auth: {
+          mode: "token",
+          token: GATEWAY_TOKEN_PLACEHOLDER,
+        },
       },
       hooks: {
         enabled: true,
         path: "/hooks",
-        token: secretRef("OPENCLAW_HOOK_TOKEN"),
+        token: HOOK_TOKEN_PLACEHOLDER,
         defaultSessionKey: `hook:${config.name}:dispatch`,
         allowRequestSessionKey: false,
         allowedSessionKeyPrefixes: [`hook:${config.name}:`],
@@ -268,18 +285,65 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
       },
       agents: {
         defaults: {
+          model: {
+            primary: config.modelPrimary,
+            fallbacks: [],
+          },
+          models: {
+            [config.modelPrimary]: {
+              alias: "frontier",
+              params: {
+                reasoning: {
+                  effort: "high",
+                },
+              },
+            },
+            [config.modelDeep]: {
+              alias: "frontier-deep",
+              params: {
+                reasoning: {
+                  effort: "xhigh",
+                },
+              },
+            },
+          },
           workspace: `${VPS_ROOT_DIR}/runtime/${config.name}/workspace`,
           userTimezone: "Europe/London",
-          timeFormat: "en-GB",
+          timeFormat: "24",
+          thinkingDefault: "high",
+          timeoutSeconds: 1800,
+          contextTokens: 900000,
+          maxConcurrent: config.name === "prod" ? 5 : 4,
+          contextPruning: {
+            mode: "cache-ttl",
+            ttl: "55m",
+          },
+          compaction: {
+            mode: "safeguard",
+            reserveTokensFloor: 32000,
+            memoryFlush: {
+              enabled: true,
+              softThresholdTokens: 8000,
+              systemPrompt: "Session nearing compaction. Store durable memories now.",
+              prompt: "Write lasting notes to memory and initiative docs. Reply with NO_REPLY if nothing durable changed.",
+            },
+          },
         },
         list: AGENTS.map((agent) => ({
+          id: agent.id,
           name: agent.id,
           workspace: `${VPS_ROOT_DIR}/runtime/${config.name}/workspace/${agent.id}`,
           agentDir: `${VPS_ROOT_DIR}/agents/${agent.id}`,
-          model: config.modelPrimary,
+          model: {
+            primary: agentModel(config, agent.id),
+            fallbacks: [],
+          },
+          identity: {
+            name: agent.id,
+          },
           heartbeat: {
             every: heartbeatEvery(agent.id),
-            model: config.modelPrimary,
+            model: agentModel(config, agent.id),
             prompt:
               "Read HEARTBEAT.md and data/exports/dispatch-state.json. Continue only if a ready task exists, a blocker cleared, or the queue needs reprioritization. Keep the acknowledgement terse.",
             session: "main",
@@ -292,23 +356,18 @@ function renderOpenClawConfig(config: EnvironmentConfig): string {
         })),
       },
       browser: {
+        enabled: true,
         defaultProfile: "openclaw",
-        profiles: {
-          openclaw: {
-            headless: config.browserHeadless,
-          },
-          chrome: {
-            mode: "attached",
-          },
+        color: "#FF4500",
+        headless: config.browserHeadless,
+        noSandbox: false,
+        attachOnly: false,
+        snapshotDefaults: {
+          mode: "efficient",
         },
       },
       cron: {
         enabled: true,
-      },
-      heartbeat: {
-        enabled: true,
-        policy: "strategic-sweep-only",
-        notes: "Heartbeat stays lightweight because immediate continuation flows through runtime:complete-task plus the wake hook.",
       },
     },
     null,
@@ -330,10 +389,12 @@ WorkingDirectory=${VPS_ROOT_DIR}
 Environment=NODE_ENV=production
 Environment=REVENUE_OS_ENVIRONMENT=${environment.name}
 EnvironmentFile=-${VPS_ROOT_DIR}/.secrets/revenue-os.local.env
+Environment=OPENCLAW_CONFIG_PATH=${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json
 ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:probe-models -- --active && npm run bootstrap:control-plane'
-ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && bash scripts/verify/validate-openclaw-config.sh ${environment.name}'
-ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && openclaw doctor'
-ExecStart=/usr/bin/env openclaw gateway --config ${VPS_ROOT_DIR}/openclaw/${environment.name}/openclaw.json
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run runtime:render-openclaw-config -- --environment ${environment.name} --output ${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && npm run verify:openclaw-config -- ${environment.name}'
+ExecStartPre=/usr/bin/env bash -lc 'cd ${VPS_ROOT_DIR} && OPENCLAW_CONFIG_PATH=${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json openclaw doctor'
+ExecStart=/usr/bin/env openclaw gateway --config ${VPS_ROOT_DIR}/data/generated/openclaw/${environment.name}.json
 Restart=always
 RestartSec=5
 
@@ -405,12 +466,13 @@ fi
 npm ci
 npm run runtime:probe-models
 npm run bootstrap:control-plane
-bash scripts/verify/validate-openclaw-config.sh ${environment.name}
-openclaw doctor
+npm run runtime:render-openclaw-config -- --environment ${environment.name} --output "${"$"}{ROOT_DIR}/data/generated/openclaw/${environment.name}.json"
+npm run verify:openclaw-config -- ${environment.name}
+OPENCLAW_CONFIG_PATH="${"$"}{ROOT_DIR}/data/generated/openclaw/${environment.name}.json" openclaw doctor
 openclaw models auth login --provider openai-codex
 bash scripts/bootstrap/finalize-openclaw-auth.sh ${environment.name}
 
-echo "Prepared ${environment.name} gateway config at ${"$"}{CONFIG}"
+echo "Prepared ${environment.name} gateway config at ${"$"}{ROOT_DIR}/data/generated/openclaw/${environment.name}.json"
 echo "Next: install systemd units from openclaw/${environment.name}/systemd into /etc/systemd/system and start revenue-os-${environment.name}.service"
 `;
 }
@@ -454,6 +516,7 @@ async function main(): Promise<void> {
       bind: "loopback",
       browserHeadless: false,
       modelPrimary: modelProbe.openClawPrimary,
+      modelDeep: modelProbe.openClawDeep ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4-pro",
       modelFallback: modelProbe.openClawFallback,
     },
     {
@@ -462,6 +525,7 @@ async function main(): Promise<void> {
       bind: "loopback",
       browserHeadless: false,
       modelPrimary: modelProbe.openClawPrimary,
+      modelDeep: modelProbe.openClawDeep ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4-pro",
       modelFallback: modelProbe.openClawFallback,
     },
     {
@@ -470,6 +534,7 @@ async function main(): Promise<void> {
       bind: "loopback",
       browserHeadless: true,
       modelPrimary: modelProbe.openClawPrimary,
+      modelDeep: modelProbe.openClawDeep ?? process.env.OPENCLAW_MODEL_DEEP ?? "openai-codex/gpt-5.4-pro",
       modelFallback: modelProbe.openClawFallback,
     },
   ];

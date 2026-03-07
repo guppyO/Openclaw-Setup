@@ -7,5 +7,6 @@
 | account-openclaw-prod | Always-on control plane gateway | Pending VPS bootstrap and openai-codex OAuth | bootstrap-required | n/a | no |
 | account-wise | Treasury source of truth | Wise personal token, partner OAuth, or browser lane fallback | active | wise_primary | required |
 | account-hetzner | Primary production VPS and infrastructure account | Hetzner account login plus VPS SSH or console access | active | hetzner_primary | required |
+| account-generated-service-credentials | Generated unique passwords for future third-party service accounts | Locally stored managed credentials under ignored secret env files | active | n/a | no |
 | account-browser-relay | Attached Chrome relay for high-trust sites | Chrome extension relay | bootstrap-required | chrome_company | no |
 | account-steel | Scalable browser session pool for parallel web work | Steel API key with namespace-isolated session routing | bootstrap-required | n/a | no |

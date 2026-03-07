@@ -9,7 +9,7 @@ Target one expert persona, produce a tightly defined monthly repurposing package
 - Opportunity: Repurposing engine for expert-led content portfolios
 - Lane family: service-plus-software
 - Budget cap: $225
-- Review date: 2026-03-19
+- Review date: 2026-03-20
 
 ## Launch checklist
 
